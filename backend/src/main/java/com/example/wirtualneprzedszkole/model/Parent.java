@@ -22,5 +22,5 @@ public class Parent {
     private String birthDate;
     private String phoneNumber;
     private String email;
-    private String Address;
+    private String address;
 }
