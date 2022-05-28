@@ -1,6 +1,6 @@
 package com.example.wirtualneprzedszkole.repository;
 
-import com.example.wirtualneprzedszkole.model.Parent;
+import com.example.wirtualneprzedszkole.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +8,6 @@ import java.util.List;
 
 
 @Repository
-public interface ParentRepo extends JpaRepository<Parent, Long> {
-    List<Parent> findAllByLastName(String lastName);
+public interface UserRepo extends JpaRepository<User, Long> {
+    List<User> findAllByLastName(String lastName);
 }
