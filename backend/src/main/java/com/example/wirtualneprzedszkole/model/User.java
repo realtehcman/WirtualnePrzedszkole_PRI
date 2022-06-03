@@ -1,5 +1,6 @@
 package com.example.wirtualneprzedszkole.model;
 
+import com.example.wirtualneprzedszkole.validation.ValidPhoneNumber;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,7 +40,9 @@ public class User {
     @NotEmpty(message = "To pole nie może być puste")
     private String address;
 
+    @ValidPhoneNumber
     private String phoneNumber;
+
     private Date dateOfBirth;
 
     @NotEmpty(message = "To pole nie może być puste")
