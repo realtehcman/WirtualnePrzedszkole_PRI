@@ -40,6 +40,11 @@ public class UserManagementController {
         return userService.addUser(user);
     }
 
+    @PutMapping
+    public User updateUser(@Valid @RequestBody User user) {
+        return userService.updateUser(user);
+    }
+
     @DeleteMapping("{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);

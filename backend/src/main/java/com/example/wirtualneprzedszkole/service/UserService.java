@@ -5,6 +5,7 @@ import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -26,6 +27,13 @@ public class UserService {
 
     public User addUser(User user) {
         return userRepo.save(user);
+    }
+
+    @Transactional
+    public User updateUser(User user) {
+        User userEdited = userRepo.findById(user.getId()).orElseThrow();
+        userEdited.setEmail(user.getEmail());
+        return userEdited;
     }
 
     public void deleteUser(Long id) {
