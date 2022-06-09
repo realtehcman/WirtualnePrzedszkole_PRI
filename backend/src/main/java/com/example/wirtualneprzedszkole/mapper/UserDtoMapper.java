@@ -23,6 +23,7 @@ public class UserDtoMapper {
                 .name(user.getName())
                 .lastName(user.getLastName())
                 .picture(user.getPicture())
+                .address(user.getAddress())
                 .phoneNumber(user.getPhoneNumber())
                 .role(user.getRole())
                 .build();
