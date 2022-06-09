@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000/")
+//@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/users")
@@ -26,13 +26,16 @@ public class UserManagementController {
     }
 
     @GetMapping("/search/{lastName}")
-    public List<UserDto> getUserByLastName(@PathVariable String lastName) {
-        return UserDtoMapper.mapToUserDto(userService.getUserByLastName(lastName));
+    public List<UserDto> getUserByLastName(@PathVariable String lastName,
+                                           @RequestParam(required = false) Integer page) {
+        int pageNumber = page != null && page >= 0 ? page : 0;
+        return UserDtoMapper.mapToUserDto(userService.getUserByLastName(lastName, pageNumber));
     }
 
     @GetMapping
-    public List<UserDto> getAllUser() {
-        return UserDtoMapper.mapToUserDto(userService.getAllUser());
+    public List<UserDto> getAllUser(@RequestParam(required = false) Integer page) {
+        int pageNumber = page != null && page >= 0 ? page : 0;
+        return UserDtoMapper.mapToUserDto(userService.getAllUser(pageNumber));
     }
 
     @PostMapping

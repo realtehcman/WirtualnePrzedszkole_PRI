@@ -11,5 +11,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
-    List<User> findAllByLastName(String lastName);
+    @Query("Select u From User u")
+    List<User> findAllUsers(Pageable page);
+    List<User> findAllByLastName(String lastName, Pageable page);
 }

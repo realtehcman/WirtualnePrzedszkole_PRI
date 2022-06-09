@@ -12,19 +12,19 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    public static final int PAGE_SIZE = 10;
+    public static final int PAGE_SIZE = 15;
     private final UserRepo userRepo;
 
     public User getUser(Long id) {
         return userRepo.findById(id).orElseThrow();
     }
 
-    public List<User> getUserByLastName(String lastName) {
-        return userRepo.findAllByLastName(lastName);
+    public List<User> getUserByLastName(String lastName, int page) {
+        return userRepo.findAllByLastName(lastName, PageRequest.of(page, PAGE_SIZE));
     }
 
-    public List<User> getAllUser() {
-        return userRepo.findAll();
+    public List<User> getAllUser(int page) {
+        return userRepo.findAllUsers(PageRequest.of(page, PAGE_SIZE));
     }
 
     public User addUser(User user) {
