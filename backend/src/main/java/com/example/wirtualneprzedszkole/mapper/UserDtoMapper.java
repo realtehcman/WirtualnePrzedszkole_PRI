@@ -12,7 +12,7 @@ public class UserDtoMapper {
 
     public static List<UserDto> mapToUserDto(List<User> users) {
         return users.stream()
-                .map(user -> mapToUserDto(user))
+                .map(UserDtoMapper::mapToUserDto)
                 .collect(Collectors.toList());
     }
 
