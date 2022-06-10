@@ -10,7 +10,14 @@ class UserComponent extends React.Component {
         this.state = {
             users:[]
         }
+    this.deleteUser = this.deleteUser.bind(this);
     }
+    deleteUser(id) {
+        UserService.deleteUser(id).then(response => {
+            this.setState({users: this.state.users.filter(user => user.id !== id)});
+        });
+    }
+
 
     componentDidMount(){
         UserService.getUsers().then((response) => {
@@ -18,6 +25,7 @@ class UserComponent extends React.Component {
         });
     }
 
+    
     render (){
         return(
             <div>
@@ -29,6 +37,7 @@ class UserComponent extends React.Component {
                             <td>Imię</td>
                             <td>Nazwisko</td>
                             <td>Email</td>
+                            <td>Akcje</td>
                         </tr>
                     </thead>
                     <tbody className='body'>
@@ -40,6 +49,9 @@ class UserComponent extends React.Component {
                                     <td>{user.name}</td>
                                     <td>{user.lastName}</td>
                                     <td>{user.email}</td>
+                                    <td>
+                                        <button onClick={() => this.deleteUser(user.id)} className='btn btn-danger'>Usuń</button>
+                                    </td>
                                 </tr>
                             )
                         }

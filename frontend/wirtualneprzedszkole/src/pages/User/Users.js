@@ -14,7 +14,7 @@ const Users = () => {
             <div className="usersContainer">
                 <Navbar/>
                 <UserComponent/>
-                <button className="button" onClick={() => navigate('/form', { replace: true })}>Dodaj Rodzica</button>
+                <button className="button" onClick={() => navigate('/add-user', { replace: true })}>Dodaj Rodzica</button>
             </div>
         </div>
     )

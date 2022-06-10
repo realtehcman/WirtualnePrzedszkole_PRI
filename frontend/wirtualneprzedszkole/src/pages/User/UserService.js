@@ -9,21 +9,13 @@ class UserService {
         return axios.get(USERS_REST_API_URL);
     }
 
-    createUser(userID){
-        return axios.post(USERS_REST_API_URL, userID);
+    addUser(user){
+        return axios.post(USERS_REST_API_URL, user);
     }
 
-    getUserById(userId){
-        return axios.get(USERS_REST_API_URL + '/' + userId);
+    deleteUser(id){
+        return axios.delete(USERS_REST_API_URL + '/' + id)
     }
-    pdateEmployee(user, userId){
-        return axios.put(USERS_REST_API_URL + '/' + userId, user);
-    }
-
-    deleteEmployee(userID){
-        return axios.delete(USERS_REST_API_URL + '/' + userID);
-    }
-
 }
 
 export default new UserService();

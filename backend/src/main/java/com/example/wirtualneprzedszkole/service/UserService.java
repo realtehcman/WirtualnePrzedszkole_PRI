@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    public static final int PAGE_SIZE = 15;
+    public static final int PAGE_SIZE = 30;
     private final UserRepo userRepo;
 
     public User getUser(Long id) {

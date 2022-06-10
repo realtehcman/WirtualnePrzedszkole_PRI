@@ -1,11 +1,12 @@
 import Users from './pages/User/Users';
-import UserEdit from "./pages/UserEdit/UserEdit";
-import Home from './pages/Home/Home'
+import Home from './pages/Home/Home';
+import AddUser from './pages/CreateUser/AddUser';
 import {
   BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
+
 
 
 function App() {
@@ -18,8 +19,8 @@ function App() {
         <Route path="users">
           <Route index element={<Users/>}></Route>
         </Route>
-        <Route path="form">
-          <Route index element={"form.html"}></Route>
+        <Route path='add-user'>
+          <Route index element={<AddUser/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
