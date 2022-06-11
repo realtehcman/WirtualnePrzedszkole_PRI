@@ -1,9 +1,11 @@
 package com.example.wirtualneprzedszkole.service;
 
+import com.example.wirtualneprzedszkole.config.RandomPasswordGenerator;
 import com.example.wirtualneprzedszkole.model.User;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,8 +14,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    public static final int PAGE_SIZE = 30;
+    public static final int PAGE_SIZE = 15;
     private final UserRepo userRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final RandomPasswordGenerator randomPasswordGenerator;
+    private final EmailSenderServiceImpl emailSenderService;
 
     public User getUser(Long id) {
         return userRepo.findById(id).orElseThrow();
@@ -28,6 +33,11 @@ public class UserService {
     }
 
     public User addUser(User user) {
+        user.setPassword(randomPasswordGenerator.generatePassayPassword());
+        emailSenderService.sendEmail(user.getEmail(), "Hasło w serwsisie Wirtualne przedszkole",
+                "Twoje Hasło: " + user.getPassword());
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepo.save(user);
     }
 

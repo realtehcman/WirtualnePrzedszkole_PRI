@@ -3,8 +3,7 @@ package com.example.wirtualneprzedszkole.model;
 import com.example.wirtualneprzedszkole.validation.ValidPhoneNumber;
 import com.example.wirtualneprzedszkole.validation.ValidPassword;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +15,9 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,24 +25,11 @@ public class User {
 
     @ValidPassword
     private String password;
-
-    @Email(regexp = ".+@.+\\..+", message = "Nie poprawny format")
     private String email;
-
-    @NotEmpty(message = "To pole nie może być puste")
     private String name;
-
-    @NotEmpty(message = "To pole nie może być puste")
     private String lastName;
-
     private String picture;
-
-    @NotEmpty(message = "To pole nie może być puste")
     private String address;
-
-    @ValidPhoneNumber
     private String phoneNumber;
-
-    @NotEmpty(message = "To pole nie może być puste")
     private String role;
 }

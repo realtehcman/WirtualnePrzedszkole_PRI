@@ -6,13 +6,13 @@ import com.example.wirtualneprzedszkole.model.UserDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDtoMapper {
+public class UserMapper {
 
-    private UserDtoMapper(){}
+    private UserMapper(){}
 
     public static List<UserDto> mapToUserDto(List<User> users) {
         return users.stream()
-                .map(UserDtoMapper::mapToUserDto)
+                .map(UserMapper::mapToUserDto)
                 .collect(Collectors.toList());
     }
 
@@ -26,6 +26,19 @@ public class UserDtoMapper {
                 .address(user.getAddress())
                 .phoneNumber(user.getPhoneNumber())
                 .role(user.getRole())
+                .build();
+    }
+
+    public static User mapToUserDao(UserDto userDto) {
+        return User.builder()
+                .id(userDto.getId())
+                .email(userDto.getEmail())
+                .name(userDto.getName())
+                .lastName(userDto.getLastName())
+                .picture(userDto.getPicture())
+                .address(userDto.getAddress())
+                .phoneNumber(userDto.getPhoneNumber())
+                .role(userDto.getRole())
                 .build();
     }
 }
