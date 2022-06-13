@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
     @Query("Select u From User u")
     List<User> findAllUsers(Pageable page);
     List<User> findAllByLastName(String lastName, Pageable page);
+    Boolean existsByEmail(String email);
 }

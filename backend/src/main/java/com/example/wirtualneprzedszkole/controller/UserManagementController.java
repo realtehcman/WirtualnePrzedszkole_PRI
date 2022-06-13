@@ -1,12 +1,13 @@
 package com.example.wirtualneprzedszkole.controller;
 
-import com.example.wirtualneprzedszkole.config.RandomPasswordGenerator;
+//import com.example.wirtualneprzedszkole.config.RandomPasswordGenerator;
+//import com.example.wirtualneprzedszkole.exception.UserAlreadyExistException;
 import com.example.wirtualneprzedszkole.mapper.UserMapper;
 import com.example.wirtualneprzedszkole.model.User;
 import com.example.wirtualneprzedszkole.model.UserDto;
 import com.example.wirtualneprzedszkole.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,11 +43,11 @@ public class UserManagementController {
 
     @PostMapping
     public User addUser(@Valid @RequestBody UserDto userDto) {
-        User user = UserMapper.mapToUserDao(userDto);
+        //User user = UserMapper.mapToUserDao(userDto);
         /*user.setPassword(randomPasswordGenerator.generatePassayPassword());
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);*/
-        return userService.addUser(user);
+        return userService.addUser(UserMapper.mapToUserDao(userDto));
     }
 
     @PutMapping

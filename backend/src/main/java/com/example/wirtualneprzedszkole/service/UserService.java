@@ -1,6 +1,7 @@
 package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.config.RandomPasswordGenerator;
+import com.example.wirtualneprzedszkole.exception.UserAlreadyExistException;
 import com.example.wirtualneprzedszkole.model.User;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.Null;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +36,9 @@ public class UserService {
     }
 
     public User addUser(User user) {
+        if (userRepo.existsByEmail(user.getEmail())) {
+            throw new UserAlreadyExistException(user.getEmail());
+        }
         user.setPassword(randomPasswordGenerator.generatePassayPassword());
         emailSenderService.sendEmail(user.getEmail(), "Hasło w serwsisie Wirtualne przedszkole",
                 "Twoje Hasło: " + user.getPassword());
