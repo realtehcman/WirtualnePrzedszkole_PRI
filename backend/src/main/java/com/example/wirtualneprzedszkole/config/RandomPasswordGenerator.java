@@ -13,11 +13,11 @@ public class RandomPasswordGenerator {
 
     public String generatePassayPassword() {
         PasswordGenerator passwordGenerator = new PasswordGenerator();
-        CharacterData lowerCaseChars = PolishCharacterData.LowerCase;
+        CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
         CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
         lowerCaseRule.setNumberOfCharacters(2);
 
-        CharacterData upperCaseChars = PolishCharacterData.UpperCase;
+        CharacterData upperCaseChars = EnglishCharacterData.UpperCase;
         CharacterRule upperCaseRule = new CharacterRule(upperCaseChars);
         upperCaseRule.setNumberOfCharacters(2);
 
