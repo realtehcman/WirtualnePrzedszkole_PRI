@@ -10,9 +10,8 @@ class CreateUser extends Component {
 
         this.state = {
             name: "",
-            password:"Hasło123!",
             lastName: "",
-            picture: "www.picture.pl",
+            picture: null,
             email: "",
             address: "",
             phoneNumber: "",
@@ -28,7 +27,7 @@ class CreateUser extends Component {
 
     saveUser = (e) => {
         e.preventDefault();
-        let user = {name: this.state.name,password: this.state.password, lastName: this.state.lastName, email: this.state.email,picture: this.state.picture, address: this.state.address, phoneNumber: this.state.phoneNumber, role: this.state.role};
+        let user = {name: this.state.name, lastName: this.state.lastName, email: this.state.email,picture: this.state.picture, address: this.state.address, phoneNumber: this.state.phoneNumber, role: this.state.role};
         console.log("user =>" + JSON.stringify(user))
         
 

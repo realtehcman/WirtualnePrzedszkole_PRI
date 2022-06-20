@@ -1,3 +1,4 @@
+/*
 package com.example.wirtualneprzedszkole.security;
 
 import com.example.wirtualneprzedszkole.model.dto.LoginDto;
@@ -8,12 +9,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-
+@CrossOrigin(origins = "http://localhost:3000/")
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final ObjectMapper objectMapper;
@@ -36,3 +38,4 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 }
 
+*/

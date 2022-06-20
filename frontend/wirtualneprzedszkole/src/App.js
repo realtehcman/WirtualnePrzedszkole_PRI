@@ -1,6 +1,7 @@
 import Users from './pages/User/Users';
 import Home from './pages/Home/Home';
 import AddUser from './pages/CreateUser/AddUser';
+import LoginPage from './pages/Login/LoginPage';
 import {
   BrowserRouter,
   Routes,
@@ -21,6 +22,9 @@ function App() {
         </Route>
         <Route path='add-user'>
           <Route index element={<AddUser/>}></Route>
+        </Route>
+        <Route path='login'>
+          <Route index element={<LoginPage/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
