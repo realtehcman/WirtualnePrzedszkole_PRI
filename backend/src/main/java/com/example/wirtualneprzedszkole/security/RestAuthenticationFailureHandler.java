@@ -1,4 +1,4 @@
-/*package com.example.wirtualneprzedszkole.security;
+package com.example.wirtualneprzedszkole.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -19,4 +19,4 @@ public class RestAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
                                         AuthenticationException exception) throws IOException, ServletException {
         super.onAuthenticationFailure(request, response, exception);
     }
-}*/
+}

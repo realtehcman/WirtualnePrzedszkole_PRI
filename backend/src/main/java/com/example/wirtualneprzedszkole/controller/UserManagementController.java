@@ -2,7 +2,7 @@ package com.example.wirtualneprzedszkole.controller;
 
 import com.example.wirtualneprzedszkole.mapper.UserMapper;
 import com.example.wirtualneprzedszkole.model.User;
-import com.example.wirtualneprzedszkole.model.UserDto;
+import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import com.example.wirtualneprzedszkole.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000/")
+//@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/users")

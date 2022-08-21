@@ -1,4 +1,3 @@
-/*
 package com.example.wirtualneprzedszkole.security.config;
 
 import com.example.wirtualneprzedszkole.security.JwtAuthenticationFilter;
@@ -68,4 +67,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
 }
-*/

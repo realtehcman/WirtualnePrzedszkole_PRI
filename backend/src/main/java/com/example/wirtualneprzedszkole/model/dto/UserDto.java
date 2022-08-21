@@ -1,4 +1,4 @@
-package com.example.wirtualneprzedszkole.model;
+package com.example.wirtualneprzedszkole.model.dto;
 
 import com.example.wirtualneprzedszkole.validation.ValidPhoneNumber;
 import lombok.Builder;

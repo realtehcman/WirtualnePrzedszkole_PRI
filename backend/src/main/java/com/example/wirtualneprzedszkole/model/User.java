@@ -1,16 +1,12 @@
 package com.example.wirtualneprzedszkole.model;
 
-import com.example.wirtualneprzedszkole.validation.ValidPhoneNumber;
 import com.example.wirtualneprzedszkole.validation.ValidPassword;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.*;
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -32,4 +28,11 @@ public class User {
     private String address;
     private String phoneNumber;
     private String role;
+
+    @ManyToMany
+    @JoinTable(
+            name = "parent_child",
+            joinColumns = @JoinColumn(name = "parentId"),
+            inverseJoinColumns = @JoinColumn(name = "childId"))
+    private List<Child> children;
 }

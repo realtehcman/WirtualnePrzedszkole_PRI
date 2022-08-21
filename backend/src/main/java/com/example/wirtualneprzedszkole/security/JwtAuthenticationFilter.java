@@ -1,4 +1,3 @@
-/*
 package com.example.wirtualneprzedszkole.security;
 
 import com.example.wirtualneprzedszkole.model.dto.LoginDto;
@@ -37,5 +36,3 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
 }
-
-*/

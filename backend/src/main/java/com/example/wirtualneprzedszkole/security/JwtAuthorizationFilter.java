@@ -1,4 +1,3 @@
-/*
 package com.example.wirtualneprzedszkole.security;
 
 import com.auth0.jwt.JWT;
@@ -62,4 +61,3 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         return null;
     }
 }
-*/

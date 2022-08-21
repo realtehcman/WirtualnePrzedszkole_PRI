@@ -1,4 +1,4 @@
-/*package com.example.wirtualneprzedszkole.security;
+package com.example.wirtualneprzedszkole.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-@CrossOrigin(origins = "http://localhost:3000/")
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @Component
 public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
@@ -39,4 +39,4 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
                 .sign(Algorithm.HMAC256(secret));
         response.addHeader("Authorization", "Bearer " + token);
     }
-}*/
+}

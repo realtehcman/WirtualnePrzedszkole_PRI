@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.HashMap;
 import java.util.Map;
-@CrossOrigin(origins = "http://localhost:3000/")
+//@CrossOrigin(origins = "http://localhost:3000/")
 @ControllerAdvice
 public class ValidationHandler extends ResponseEntityExceptionHandler {
 
