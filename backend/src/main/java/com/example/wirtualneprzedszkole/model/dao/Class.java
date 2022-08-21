@@ -1,5 +1,6 @@
-package com.example.wirtualneprzedszkole.model;
+package com.example.wirtualneprzedszkole.model.dao;
 
+import com.example.wirtualneprzedszkole.model.dao.Child;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,14 +12,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Child {
+public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long classId;
     private String name;
-    private String lastName;
+    private String description;
 
-    @ManyToMany(mappedBy = "children")
-    private List<User> parents;
+    @OneToMany
+    @JoinColumn(name = "classId")
+    private List<Child> children;
 }

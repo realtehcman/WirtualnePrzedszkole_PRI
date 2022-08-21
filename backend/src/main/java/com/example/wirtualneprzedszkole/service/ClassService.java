@@ -1,7 +1,7 @@
 package com.example.wirtualneprzedszkole.service;
 
-import com.example.wirtualneprzedszkole.model.Child;
-import com.example.wirtualneprzedszkole.model.Class;
+import com.example.wirtualneprzedszkole.model.dao.Child;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.repository.ChildRepo;
 import com.example.wirtualneprzedszkole.repository.ClassRepo;
 import lombok.RequiredArgsConstructor;

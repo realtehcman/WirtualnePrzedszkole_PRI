@@ -1,7 +1,7 @@
 package com.example.wirtualneprzedszkole.mapper;
 
 
-import com.example.wirtualneprzedszkole.model.Class;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dto.ClassDto;
 
 import java.util.List;

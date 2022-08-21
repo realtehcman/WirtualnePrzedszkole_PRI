@@ -1,5 +1,7 @@
-package com.example.wirtualneprzedszkole.model;
+package com.example.wirtualneprzedszkole.model.dao;
 
+import com.example.wirtualneprzedszkole.model.UserRole;
+import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.validation.ValidPassword;
 
 import lombok.*;
@@ -27,7 +29,9 @@ public class User {
     private String picture;
     private String address;
     private String phoneNumber;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+    //private String role;
 
     @ManyToMany
     @JoinTable(

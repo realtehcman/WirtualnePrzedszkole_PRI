@@ -1,6 +1,6 @@
 package com.example.wirtualneprzedszkole.repository;
 
-import com.example.wirtualneprzedszkole.model.User;
+import com.example.wirtualneprzedszkole.model.dao.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

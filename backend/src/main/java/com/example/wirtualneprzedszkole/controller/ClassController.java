@@ -1,7 +1,7 @@
 package com.example.wirtualneprzedszkole.controller;
 
 import com.example.wirtualneprzedszkole.mapper.ClassMapper;
-import com.example.wirtualneprzedszkole.model.Class;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dto.ClassDto;
 import com.example.wirtualneprzedszkole.service.ClassService;
 import lombok.RequiredArgsConstructor;

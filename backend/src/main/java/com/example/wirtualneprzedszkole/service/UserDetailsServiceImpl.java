@@ -1,7 +1,7 @@
 package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.model.AppUserDetails;
-import com.example.wirtualneprzedszkole.model.User;
+import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
