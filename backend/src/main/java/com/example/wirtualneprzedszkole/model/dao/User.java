@@ -39,4 +39,7 @@ public class User {
             joinColumns = @JoinColumn(name = "parentId"),
             inverseJoinColumns = @JoinColumn(name = "childId"))
     private List<Child> children;
+
+    /*@OneToOne(mappedBy = "user")
+    private PasswordResetToken passwordResetToken;*/
 }

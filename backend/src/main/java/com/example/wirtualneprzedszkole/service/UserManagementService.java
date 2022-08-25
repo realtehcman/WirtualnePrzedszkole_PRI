@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserManagementService {
     public static final int PAGE_SIZE = 15;
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
@@ -56,4 +56,7 @@ public class UserService {
         userRepo.deleteById(id);
     }
 
+    public User getCurrentUser(String email) {
+        return userRepo.findByEmail(email);
+    }
 }
