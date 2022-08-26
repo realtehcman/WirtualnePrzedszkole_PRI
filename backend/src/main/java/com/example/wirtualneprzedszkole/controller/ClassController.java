@@ -19,14 +19,14 @@ public class ClassController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping("{id}")
-    public Class getClass(@PathVariable Long id) {
-        return classService.getClass(id);
+    public ClassDto getClass(@PathVariable Long id) {
+        return ClassMapper.mapToGroupDto(classService.getClass(id));
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping
     public List<ClassDto> getAllClass() {
-        return ClassMapper.mapToGroupDto(classService.getAllClass());
+        return ClassMapper.mapToDto(classService.getAllClass());
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")

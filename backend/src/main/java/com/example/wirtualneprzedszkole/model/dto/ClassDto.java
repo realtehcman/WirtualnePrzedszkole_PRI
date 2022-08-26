@@ -1,6 +1,5 @@
 package com.example.wirtualneprzedszkole.model.dto;
 
-import com.example.wirtualneprzedszkole.model.dao.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,5 +17,7 @@ public class ClassDto {
     private String name;
 
     private String description;
-    //private List<User> teachers;
+
+    private List<ChildDto> children;
+    private List<UserDto> teachers;
 }

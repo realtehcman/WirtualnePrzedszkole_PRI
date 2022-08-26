@@ -18,13 +18,13 @@ public class ChildController {
     private final ChildService childService;
 
     @GetMapping("{id}")
-    public Child getChild(@PathVariable Long id) {
-        return childService.getChild(id);
+    public ChildDto getChild(@PathVariable Long id) {
+        return ChildMapper.mapToChildDto(childService.getChild(id));
     }
 
     @GetMapping
     public List<ChildDto> getChildren() {
-        return ChildMapper.mapToChildDto(childService.getChildren());
+        return ChildMapper.mapToDto(childService.getChildren());
     }
 
     @PostMapping

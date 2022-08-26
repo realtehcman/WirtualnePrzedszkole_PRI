@@ -16,7 +16,29 @@ public class ChildMapper {
                 .collect(Collectors.toList());
     }
 
+    public static List<Child> mapToChildDao(List<ChildDto> children) {
+        return children.stream()
+                .map(ChildMapper::mapToChildDao)
+                .collect(Collectors.toList());
+    }
+
+    public static List<ChildDto> mapToDto(List<Child> children) {
+        return children.stream()
+                .map(ChildMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
     public static ChildDto mapToChildDto(Child child) {
+        return ChildDto.builder()
+                .id(child.getId())
+                .classId(child.getClassId())
+                .name(child.getName())
+                .lastName(child.getLastName())
+                .parents(UserMapper.mapToDto(child.getParents()))
+                .build();
+    }
+
+    public static ChildDto mapToDto(Child child) {
         return ChildDto.builder()
                 .id(child.getId())
                 .classId(child.getClassId())
@@ -31,8 +53,6 @@ public class ChildMapper {
                 .classId(childDto.getClassId())
                 .name(childDto.getName())
                 .lastName(childDto.getLastName())
-                //.parents(childDto.getParents())
                 .build();
     }
-
 }

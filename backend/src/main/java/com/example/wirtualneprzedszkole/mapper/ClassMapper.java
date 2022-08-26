@@ -16,7 +16,23 @@ public class ClassMapper {
                 .collect(Collectors.toList());
     }
 
+    public static List<ClassDto> mapToDto(List<Class> aClasses) {
+        return aClasses.stream()
+                .map(ClassMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
     public static ClassDto mapToGroupDto(Class aClass) {
+        return ClassDto.builder()
+                .id(aClass.getId())
+                .name(aClass.getName())
+                .description(aClass.getDescription())
+                .children(ChildMapper.mapToDto(aClass.getChildren()))
+                .teachers(UserMapper.mapToDto(aClass.getTeachers()))
+                .build();
+    }
+
+    public static ClassDto mapToDto(Class aClass) {
         return ClassDto.builder()
                 .id(aClass.getId())
                 .name(aClass.getName())
@@ -29,7 +45,6 @@ public class ClassMapper {
                 .id(classDto.getId())
                 .name(classDto.getName())
                 .description(classDto.getDescription())
-                //.teachers(classDto.getTeachers())
                 .build();
     }
 }

@@ -1,6 +1,5 @@
 package com.example.wirtualneprzedszkole.model.dao;
 
-import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 

@@ -1,6 +1,5 @@
 package com.example.wirtualneprzedszkole.model.dto;
 
-import com.example.wirtualneprzedszkole.model.dao.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,5 +18,5 @@ public class ChildDto {
     @NotEmpty(message = "To pole nie może być puste")
     private String lastName;
 
-    //private List<User> parents;
+    private List<UserDto> parents;
 }
