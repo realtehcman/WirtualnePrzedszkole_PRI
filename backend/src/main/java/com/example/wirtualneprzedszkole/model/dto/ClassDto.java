@@ -18,5 +18,5 @@ public class ClassDto {
     private String name;
 
     private String description;
-    private List<User> teachers;
+    //private List<User> teachers;
 }

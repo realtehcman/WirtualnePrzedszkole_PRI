@@ -41,6 +41,6 @@ public class UserDto {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    private List<Child> children;
-    private List<Class> classes;
+    //private List<Child> children;
+    //private List<Class> classes;
 }

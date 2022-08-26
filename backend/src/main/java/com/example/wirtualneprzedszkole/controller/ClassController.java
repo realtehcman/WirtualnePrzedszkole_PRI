@@ -19,8 +19,8 @@ public class ClassController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping("{id}")
-    public ClassDto getClass(@PathVariable Long id) {
-        return ClassMapper.mapToGroupDto(classService.getClass(id));
+    public Class getClass(@PathVariable Long id) {
+        return classService.getClass(id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")

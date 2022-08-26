@@ -19,5 +19,5 @@ public class ChildDto {
     @NotEmpty(message = "To pole nie może być puste")
     private String lastName;
 
-    private List<User> parents;
+    //private List<User> parents;
 }

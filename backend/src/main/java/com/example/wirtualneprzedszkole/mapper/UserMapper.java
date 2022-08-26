@@ -26,6 +26,7 @@ public class UserMapper {
                 .address(user.getAddress())
                 .phoneNumber(user.getPhoneNumber())
                 .role(user.getRole())
+                //.children(user.getChildren())
                 .build();
     }
 
@@ -39,8 +40,8 @@ public class UserMapper {
                 .address(userDto.getAddress())
                 .phoneNumber(userDto.getPhoneNumber())
                 .role(userDto.getRole())
-                .children(userDto.getChildren())
-                .classes(userDto.getClasses())
+                //.children(userDto.getChildren())
+                //.classes(userDto.getClasses())
                 .build();
     }
 }

@@ -4,6 +4,7 @@ import com.example.wirtualneprzedszkole.config.RandomPasswordGenerator;
 import com.example.wirtualneprzedszkole.exception.UserAlreadyExistException;
 import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.User;
+import com.example.wirtualneprzedszkole.repository.ChildRepo;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

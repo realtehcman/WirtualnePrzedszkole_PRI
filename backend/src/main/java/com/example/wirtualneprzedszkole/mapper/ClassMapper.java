@@ -29,7 +29,7 @@ public class ClassMapper {
                 .id(classDto.getId())
                 .name(classDto.getName())
                 .description(classDto.getDescription())
-                .teachers(classDto.getTeachers())
+                //.teachers(classDto.getTeachers())
                 .build();
     }
 }

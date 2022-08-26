@@ -40,6 +40,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "childId"))
     private List<Child> children;
 
+    @JsonIgnoreProperties(value = {"teachers"})
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "teacher_class",

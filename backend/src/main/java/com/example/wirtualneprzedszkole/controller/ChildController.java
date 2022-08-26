@@ -18,8 +18,8 @@ public class ChildController {
     private final ChildService childService;
 
     @GetMapping("{id}")
-    public ChildDto getChild(@PathVariable Long id) {
-        return ChildMapper.mapToChildDto(childService.getChild(id));
+    public Child getChild(@PathVariable Long id) {
+        return childService.getChild(id);
     }
 
     @GetMapping

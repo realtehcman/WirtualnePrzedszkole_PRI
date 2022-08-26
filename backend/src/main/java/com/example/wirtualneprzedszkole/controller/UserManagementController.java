@@ -22,8 +22,8 @@ public class UserManagementController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping("{id}")
-    public UserDto getUser(@PathVariable Long id) {
-        return UserMapper.mapToUserDto(userManagementService.getUser(id));
+    public User getUser(@PathVariable Long id) {
+        return userManagementService.getUser(id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")

@@ -13,4 +13,5 @@ public interface ChildRepo extends JpaRepository<Child, Long> {
     List<Child> findAllChild();
 
     List<Child> findAllByClassIdIn(List<Long> ids);
+
 }
