@@ -2,6 +2,7 @@ package com.example.wirtualneprzedszkole.model.dto;
 
 import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.Child;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.validation.ValidPhoneNumber;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,4 +42,5 @@ public class UserDto {
     private UserRole role;
 
     private List<Child> children;
+    private List<Class> classes;
 }

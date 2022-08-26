@@ -1,7 +1,6 @@
 package com.example.wirtualneprzedszkole.model.dao;
 
 import com.example.wirtualneprzedszkole.model.UserRole;
-import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.validation.ValidPassword;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,7 +31,6 @@ public class User {
     private String phoneNumber;
     @Enumerated(EnumType.STRING)
     private UserRole role;
-    //private String role;
 
     @JsonIgnoreProperties(value = {"parents"})
     @ManyToMany(cascade = CascadeType.ALL)
@@ -42,6 +40,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "childId"))
     private List<Child> children;
 
-    /*@OneToOne(mappedBy = "user")
-    private PasswordResetToken passwordResetToken;*/
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "teacher_class",
+            joinColumns = @JoinColumn(name = "teacherId"),
+            inverseJoinColumns = @JoinColumn(name = "classId"))
+    private List<Class> classes;
 }

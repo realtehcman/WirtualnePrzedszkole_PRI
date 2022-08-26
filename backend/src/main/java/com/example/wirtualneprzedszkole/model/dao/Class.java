@@ -22,4 +22,7 @@ public class Class {
     @OneToMany
     @JoinColumn(name = "classId")
     private List<Child> children;
+
+    @ManyToMany(mappedBy = "classes")
+    private List<User> teachers;
 }

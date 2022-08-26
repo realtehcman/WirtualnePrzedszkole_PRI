@@ -40,6 +40,7 @@ public class UserMapper {
                 .phoneNumber(userDto.getPhoneNumber())
                 .role(userDto.getRole())
                 .children(userDto.getChildren())
+                .classes(userDto.getClasses())
                 .build();
     }
 }

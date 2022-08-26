@@ -1,10 +1,12 @@
 package com.example.wirtualneprzedszkole.model.dto;
 
+import com.example.wirtualneprzedszkole.model.dao.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,4 +18,5 @@ public class ClassDto {
     private String name;
 
     private String description;
+    private List<User> teachers;
 }
