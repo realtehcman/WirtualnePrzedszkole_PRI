@@ -3,6 +3,7 @@ package com.example.wirtualneprzedszkole.controller;
 import com.example.wirtualneprzedszkole.mapper.UserMapper;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
+import com.example.wirtualneprzedszkole.service.ChildService;
 import com.example.wirtualneprzedszkole.service.UserManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,15 +54,14 @@ public class UserManagementController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/{childId}")
+    public User addChildToUser(@PathVariable Long childId, @RequestBody UserDto userDto) {
+        return userManagementService.addChildToUser(childId , UserMapper.mapToUserDao(userDto));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("{id}")
     public void deleteUser(@PathVariable Long id) {
         userManagementService.deleteUser(id);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER', 'ROLE_PARENT')")
-    @GetMapping("/current_user")
-    public UserDto getCurrentUser(Authentication authentication) {
-        String email = authentication.getName();
-        return UserMapper.mapToUserDto(userManagementService.getCurrentUser(email));
     }
 }

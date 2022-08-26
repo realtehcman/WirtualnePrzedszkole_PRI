@@ -4,6 +4,7 @@ import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.validation.ValidPassword;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,7 +34,8 @@ public class User {
     private UserRole role;
     //private String role;
 
-    @ManyToMany
+    @JsonIgnoreProperties(value = {"parents"})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "parent_child",
             joinColumns = @JoinColumn(name = "parentId"),

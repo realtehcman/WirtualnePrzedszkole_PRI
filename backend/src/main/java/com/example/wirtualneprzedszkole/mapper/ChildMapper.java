@@ -31,6 +31,7 @@ public class ChildMapper {
                 .classId(childDto.getClassId())
                 .name(childDto.getName())
                 .lastName(childDto.getLastName())
+                .parents(childDto.getParents())
                 .build();
     }
 

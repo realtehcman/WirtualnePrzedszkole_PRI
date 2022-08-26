@@ -2,6 +2,7 @@ package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.config.RandomPasswordGenerator;
 import com.example.wirtualneprzedszkole.exception.UserAlreadyExistException;
+import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +22,7 @@ public class UserManagementService {
     private final PasswordEncoder passwordEncoder;
     private final RandomPasswordGenerator randomPasswordGenerator;
     private final EmailSenderServiceImpl emailSenderService;
+    private final ChildService childService;
 
     public User getUser(Long id) {
         return userRepo.findById(id).orElseThrow();
@@ -52,11 +55,15 @@ public class UserManagementService {
         return userEdited;
     }
 
-    public void deleteUser(Long id) {
-        userRepo.deleteById(id);
+    @Transactional
+    public User addChildToUser(Long childId, User user) {
+        User userEdited = userRepo.findById(user.getId()).orElseThrow();
+        Child child = childService.getChild(childId);
+        userEdited.getChildren().add(child);
+        return userEdited;
     }
 
-    public User getCurrentUser(String email) {
-        return userRepo.findByEmail(email);
+    public void deleteUser(Long id) {
+        userRepo.deleteById(id);
     }
 }

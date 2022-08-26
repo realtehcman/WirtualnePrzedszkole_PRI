@@ -1,5 +1,6 @@
 package com.example.wirtualneprzedszkole.model.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Child {
     private String name;
     private String lastName;
 
+    @JsonIgnoreProperties(value = {"children"})
     @ManyToMany(mappedBy = "children")
     private List<User> parents;
 }

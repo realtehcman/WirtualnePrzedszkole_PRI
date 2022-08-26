@@ -1,6 +1,7 @@
 package com.example.wirtualneprzedszkole.model.dto;
 
 import com.example.wirtualneprzedszkole.model.UserRole;
+import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.validation.ValidPhoneNumber;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 
 @Getter
@@ -38,5 +40,5 @@ public class UserDto {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    //private String role;
+    private List<Child> children;
 }

@@ -39,6 +39,7 @@ public class UserMapper {
                 .address(userDto.getAddress())
                 .phoneNumber(userDto.getPhoneNumber())
                 .role(userDto.getRole())
+                .children(userDto.getChildren())
                 .build();
     }
 }

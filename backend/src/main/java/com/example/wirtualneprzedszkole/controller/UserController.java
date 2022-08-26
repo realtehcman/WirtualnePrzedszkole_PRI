@@ -1,12 +1,13 @@
 package com.example.wirtualneprzedszkole.controller;
 
+import com.example.wirtualneprzedszkole.mapper.UserMapper;
 import com.example.wirtualneprzedszkole.model.dto.RestartPasswordDto;
+import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import com.example.wirtualneprzedszkole.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +23,13 @@ public class UserController {
     @PatchMapping("/change_password")
     public void changePassword(@RequestBody RestartPasswordDto restartPasswordDto) {
         userService.changePassword(restartPasswordDto.getPassword(), restartPasswordDto.getToken());
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER', 'ROLE_PARENT')")
+    @GetMapping("/current_user")
+    public UserDto getCurrentUser(Authentication authentication) {
+        String email = authentication.getName();
+        return UserMapper.mapToUserDto(userService.getCurrentUser(email));
     }
 
 }

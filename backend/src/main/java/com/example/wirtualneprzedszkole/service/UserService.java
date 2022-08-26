@@ -42,4 +42,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(password));
         passwordResetToken.setConfirmed(LocalDateTime.now());
     }
+
+    public User getCurrentUser(String email) {
+        return userRepo.findByEmail(email);
+    }
 }
