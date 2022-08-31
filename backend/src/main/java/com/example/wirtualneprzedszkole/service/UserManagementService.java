@@ -40,8 +40,8 @@ public class UserManagementService {
             throw new UserAlreadyExistException(user.getEmail());
         }
         user.setPassword(randomPasswordGenerator.generatePassayPassword());
-        emailSenderService.sendEmail(user.getEmail(), "Hasło w serwsisie Wirtualne przedszkole",
-                "Twoje Hasło: " + user.getPassword());
+        /*emailSenderService.sendEmail(user.getEmail(), "Hasło w serwsisie Wirtualne przedszkole",
+                "Twoje Hasło: " + user.getPassword());*/
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         return userRepo.save(user);
@@ -51,12 +51,17 @@ public class UserManagementService {
     public User updateUser(User user) {
         User userEdited = userRepo.findById(user.getId()).orElseThrow();
         userEdited.setEmail(user.getEmail());
+        userEdited.setAddress(user.getAddress());
+        userEdited.setPhoneNumber(user.getPhoneNumber());
+        userEdited.setPicture(user.getPicture());
+        userEdited.setLastName(user.getLastName());
+        userEdited.setName(user.getName());
         return userEdited;
     }
 
     @Transactional
-    public User addChildToUser(Long childId, User user) {
-        User userEdited = userRepo.findById(user.getId()).orElseThrow();
+    public User addChildToUser(Long childId, Long userId) {
+        User userEdited = userRepo.findById(userId).orElseThrow();
         Child child = childService.getChild(childId);
         userEdited.getChildren().add(child);
         return userEdited;

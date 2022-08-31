@@ -43,23 +43,27 @@ public class UserManagementController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public User addUser(@Valid @RequestBody UserDto userDto) {
-        if (userDto.getChildren() == null)
-            return userManagementService.addUser(UserMapper.mapToDao(userDto));
-        else
-            return userManagementService.addUser(UserMapper.mapToUserDao(userDto));
+    public UserDto addUser(@Valid @RequestBody UserDto userDto) {
+        User user;
+        if (userDto.getChildren() == null) {
+            user = userManagementService.addUser(UserMapper.mapToDao(userDto));
+        }
+        else {
+            user = userManagementService.addUser(UserMapper.mapToUserDao(userDto));
+        }
+        return UserMapper.mapToDto(user);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping
-    public User updateUser(@Valid @RequestBody User user) {
-        return userManagementService.updateUser(user);
+    public UserDto updateUser(@Valid @RequestBody UserDto userDto) {
+        return UserMapper.mapToDto(userManagementService.updateUser(UserMapper.mapToDao(userDto)));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/{childId}")
-    public User addChildToUser(@PathVariable Long childId, @RequestBody UserDto userDto) {
-        return userManagementService.addChildToUser(childId , UserMapper.mapToUserDao(userDto));
+    @PutMapping("/{userId}/{childId}")
+    public UserDto addChildToUser(@PathVariable Long childId, @PathVariable Long userId) {
+        return UserMapper.mapToUserDto(userManagementService.addChildToUser(childId , userId));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
