@@ -31,4 +31,14 @@ public class ChildController {
     public ChildDto addChild(@Valid @RequestBody ChildDto childDto) {
         return ChildMapper.mapToDto(childService.addChild(ChildMapper.mapToChildDao(childDto)));
     }
+
+    @PutMapping
+    public ChildDto updateChild(@Valid @RequestBody ChildDto childDto) {
+        return ChildMapper.mapToDto(childService.updateChild(ChildMapper.mapToChildDao(childDto)));
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteChild(@PathVariable Long id) {
+        childService.deleteChild(id);
+    }
 }

@@ -7,6 +7,7 @@ import com.example.wirtualneprzedszkole.repository.ChildRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -24,5 +25,18 @@ public class ChildService {
 
     public Child addChild(Child child) {
         return childRepo.save(child);
+    }
+
+    @Transactional
+    public Child updateChild(Child child) {
+        Child childEdited = childRepo.findById(child.getId()).orElseThrow();
+        childEdited.setClassId(child.getClassId());
+        childEdited.setName(child.getName());
+        childEdited.setLastName(child.getLastName());
+        return childEdited;
+    }
+
+    public void deleteChild(Long id) {
+        childRepo.deleteById(id);
     }
 }
