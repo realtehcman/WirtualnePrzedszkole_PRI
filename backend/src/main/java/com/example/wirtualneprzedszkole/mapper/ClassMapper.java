@@ -1,7 +1,9 @@
 package com.example.wirtualneprzedszkole.mapper;
 
 
+import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.Class;
+import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.model.dto.ClassDto;
 
 import java.util.List;
@@ -19,6 +21,12 @@ public class ClassMapper {
     public static List<ClassDto> mapToDto(List<Class> aClasses) {
         return aClasses.stream()
                 .map(ClassMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    public static List<Class> mapToClassDao(List<ClassDto> aclassesDtos) {
+        return aclassesDtos.stream()
+                .map(ClassMapper::mapToGroupDao)
                 .collect(Collectors.toList());
     }
 

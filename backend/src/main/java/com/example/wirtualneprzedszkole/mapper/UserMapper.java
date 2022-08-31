@@ -50,6 +50,19 @@ public class UserMapper {
                 .build();
     }
 
+    public static User mapToDao(UserDto userDto) {
+        return User.builder()
+                .id(userDto.getId())
+                .email(userDto.getEmail())
+                .name(userDto.getName())
+                .lastName(userDto.getLastName())
+                .picture(userDto.getPicture())
+                .address(userDto.getAddress())
+                .phoneNumber(userDto.getPhoneNumber())
+                .role(userDto.getRole())
+                .build();
+    }
+
     public static User mapToUserDao(UserDto userDto) {
         return User.builder()
                 .id(userDto.getId())
@@ -61,6 +74,7 @@ public class UserMapper {
                 .phoneNumber(userDto.getPhoneNumber())
                 .role(userDto.getRole())
                 .children(ChildMapper.mapToChildDao(userDto.getChildren()))
+                //.classes(ClassMapper.mapToClassDao(userDto.getClasses()))
                 .build();
     }
 }

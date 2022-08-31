@@ -44,7 +44,10 @@ public class UserManagementController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public User addUser(@Valid @RequestBody UserDto userDto) {
-        return userManagementService.addUser(UserMapper.mapToUserDao(userDto));
+        if (userDto.getChildren() == null)
+            return userManagementService.addUser(UserMapper.mapToDao(userDto));
+        else
+            return userManagementService.addUser(UserMapper.mapToUserDao(userDto));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
