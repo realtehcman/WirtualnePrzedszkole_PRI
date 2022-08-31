@@ -67,6 +67,12 @@ public class UserManagementController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("add_to_class/{userId}/{classId}")
+    public UserDto addClassToTeacher(@PathVariable Long userId, @PathVariable Long classId) {
+        return UserMapper.mapToUserDto(userManagementService.addClassToTeacher(userId, classId));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("{id}")
     public void deleteUser(@PathVariable Long id) {
         userManagementService.deleteUser(id);

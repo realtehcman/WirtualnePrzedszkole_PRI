@@ -3,6 +3,7 @@ package com.example.wirtualneprzedszkole.service;
 import com.example.wirtualneprzedszkole.config.RandomPasswordGenerator;
 import com.example.wirtualneprzedszkole.exception.UserAlreadyExistException;
 import com.example.wirtualneprzedszkole.model.dao.Child;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class UserManagementService {
     private final RandomPasswordGenerator randomPasswordGenerator;
     private final EmailSenderServiceImpl emailSenderService;
     private final ChildService childService;
+    private final ClassService classService;
 
     public User getUser(Long id) {
         return userRepo.findById(id).orElseThrow();
@@ -64,6 +66,14 @@ public class UserManagementService {
         User userEdited = userRepo.findById(userId).orElseThrow();
         Child child = childService.getChild(childId);
         userEdited.getChildren().add(child);
+        return userEdited;
+    }
+
+    @Transactional
+    public User addClassToTeacher(Long userId, Long classId) {
+        User userEdited = userRepo.findById(userId).orElseThrow();
+        Class aClass = classService.getClass(classId);
+        userEdited.getClasses().add(aClass);
         return userEdited;
     }
 
