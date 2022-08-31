@@ -28,7 +28,7 @@ public class ChildController {
     }
 
     @PostMapping
-    public Child addChild(@Valid @RequestBody ChildDto childDto) {
-        return childService.addChild(ChildMapper.mapToChildDao(childDto));
+    public ChildDto addChild(@Valid @RequestBody ChildDto childDto) {
+        return ChildMapper.mapToDto(childService.addChild(ChildMapper.mapToChildDao(childDto)));
     }
 }

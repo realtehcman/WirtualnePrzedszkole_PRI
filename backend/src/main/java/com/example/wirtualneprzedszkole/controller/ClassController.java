@@ -31,20 +31,20 @@ public class ClassController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping("/children")
-    public List<Class> getClassesWithChildren() {
-        return classService.getClassesWithChildren();
+    public List<ClassDto> getClassesWithChildren() {
+        return ClassMapper.mapToGroupDto(classService.getClassesWithChildren());
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public Class addClass(@Valid @RequestBody ClassDto classDto) {
-        return classService.addClass(ClassMapper.mapToGroupDao(classDto));
+    public ClassDto addClass(@Valid @RequestBody ClassDto classDto) {
+        return ClassMapper.mapToDto(classService.addClass(ClassMapper.mapToGroupDao(classDto)));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping
-    public Class updateClass(@Valid @RequestBody Class group) {
-        return classService.updateClass(group);
+    public ClassDto updateClass(@Valid @RequestBody ClassDto classDto) {
+        return ClassMapper.mapToDto(classService.updateClass(ClassMapper.mapToGroupDao(classDto)));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

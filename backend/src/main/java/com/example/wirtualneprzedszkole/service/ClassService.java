@@ -48,6 +48,7 @@ public class ClassService {
     @Transactional
     public Class updateClass(Class aClass) {
         Class classEdited = classRepo.findById(aClass.getId()).orElseThrow();
+        classEdited.setName(aClass.getName());
         classEdited.setDescription(aClass.getDescription());
         return classEdited;
     }
