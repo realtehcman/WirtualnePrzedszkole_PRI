@@ -1,6 +1,8 @@
 package com.example.wirtualneprzedszkole.controller;
 
 import com.example.wirtualneprzedszkole.mapper.UserMapper;
+import com.example.wirtualneprzedszkole.model.dao.Child;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
@@ -31,14 +33,14 @@ public class UserManagementController {
     public List<UserDto> getUserByLastName(@PathVariable String lastName,
                                            @RequestParam(required = false) Integer page) {
         int pageNumber = page != null && page >= 0 ? page : 0;
-        return UserMapper.mapToUserDto(userManagementService.getUserByLastName(lastName, pageNumber));
+        return UserMapper.mapToDto(userManagementService.getUserByLastName(lastName, pageNumber));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public List<UserDto> getAllUser(@RequestParam(required = false) Integer page) {
         int pageNumber = page != null && page >= 0 ? page : 0;
-        return UserMapper.mapToUserDto(userManagementService.getAllUser(pageNumber));
+        return UserMapper.mapToDto(userManagementService.getAllUser(pageNumber));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -61,15 +63,15 @@ public class UserManagementController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/{userId}/{childId}")
-    public UserDto addChildToUser(@PathVariable Long childId, @PathVariable Long userId) {
-        return UserMapper.mapToUserDto(userManagementService.addChildToUser(childId , userId));
+    @PutMapping("/{userId}")
+    public UserDto addChildToUser(@PathVariable Long userId, @RequestBody Child child) {
+        return UserMapper.mapToUserDto(userManagementService.addChildToUser(userId, child.getId()));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("add_to_class/{userId}/{classId}")
-    public UserDto addClassToTeacher(@PathVariable Long userId, @PathVariable Long classId) {
-        return UserMapper.mapToUserDto(userManagementService.addClassToTeacher(userId, classId));
+    @PutMapping("add_to_class/{userId}")
+    public UserDto addClassToTeacher(@PathVariable Long userId, @RequestBody Class aClass) {
+        return UserMapper.mapToUserDto(userManagementService.addClassToTeacher(userId, aClass.getId()));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

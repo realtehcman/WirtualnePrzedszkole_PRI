@@ -62,7 +62,7 @@ public class UserManagementService {
     }
 
     @Transactional
-    public User addChildToUser(Long childId, Long userId) {
+    public User addChildToUser(Long userId, Long childId) {
         User userEdited = userRepo.findById(userId).orElseThrow();
         Child child = childService.getChild(childId);
         userEdited.getChildren().add(child);
