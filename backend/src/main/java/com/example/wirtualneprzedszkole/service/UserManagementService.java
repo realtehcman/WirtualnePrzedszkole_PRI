@@ -65,6 +65,9 @@ public class UserManagementService {
     public User addChildToUser(Long userId, Long childId) {
         User userEdited = userRepo.findById(userId).orElseThrow();
         Child child = childService.getChild(childId);
+        if (child.getParents().contains(userEdited)) {
+            throw new UserAlreadyExistException("Ten rodzic jest już przipsany do tego dziecka");
+        }
         userEdited.getChildren().add(child);
         return userEdited;
     }
@@ -73,6 +76,9 @@ public class UserManagementService {
     public User addClassToTeacher(Long userId, Long classId) {
         User userEdited = userRepo.findById(userId).orElseThrow();
         Class aClass = classService.getClass(classId);
+        if (aClass.getTeachers().contains(userEdited)) {
+            throw new UserAlreadyExistException("Ten nauczyciel jest już przypisany do tej klasy");
+        }
         userEdited.getClasses().add(aClass);
         return userEdited;
     }
