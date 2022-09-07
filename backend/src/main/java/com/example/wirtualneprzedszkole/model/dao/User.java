@@ -33,7 +33,7 @@ public class User {
     private UserRole role;
 
     @JsonIgnoreProperties(value = {"parents"})
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "parent_child",
             joinColumns = @JoinColumn(name = "parentId"),
@@ -41,7 +41,7 @@ public class User {
     private List<Child> children;
 
     @JsonIgnoreProperties(value = {"teachers"})
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "teacher_class",
             joinColumns = @JoinColumn(name = "teacherId"),
