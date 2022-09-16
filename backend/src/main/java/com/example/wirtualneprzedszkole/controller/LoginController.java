@@ -3,7 +3,7 @@ package com.example.wirtualneprzedszkole.controller;
 import com.example.wirtualneprzedszkole.model.dto.LoginDto;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000/", exposedHeaders = {"authorization"})
 @RestController
 public class LoginController {
 
