@@ -9,26 +9,26 @@ class CreateUser extends Component {
         super(props)
 
         this.state = {
+            email: "",
             name: "",
             lastName: "",
-            picture: null,
-            email: "",
             address: "",
             phoneNumber: "",
-            role: "parent",
+            role: "PARENT"
         }
         this.changeNameHandler = this.changeNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changeAddressHandler = this.changeAddressHandler.bind(this);
         this.changePhoneHandler = this.changePhoneHandler.bind(this);
+        this.changeRoleHandler = this.changeRoleHandler.bind(this);
         this.saveUser = this.saveUser.bind(this);
     }
 
     saveUser = (e) => {
         e.preventDefault();
-        let user = {name: this.state.name, lastName: this.state.lastName, email: this.state.email,picture: this.state.picture, address: this.state.address, phoneNumber: this.state.phoneNumber, role: this.state.role};
-        console.log("user =>" + JSON.stringify(user))
+        let user = JSON.stringify({email: this.state.email, name: this.state.name, lastName: this.state.lastName, address: this.state.address, phoneNumber: this.state.phoneNumber, role: this.state.role});
+        //user = JSON.stringify(user)
         
 
         UserService.addUser(user).then(response => {
@@ -59,6 +59,10 @@ class CreateUser extends Component {
         this.setState({phoneNumber: event.target.value})
     }
 
+    changeRoleHandler = (event) => {
+        this.setState({role: event.target.value})
+    }
+
     render() {
         return (
         
@@ -68,7 +72,7 @@ class CreateUser extends Component {
                     <div className='row'>
                         <div className='card col-md-6 offset-md-3 offset-md-3'>
                             <div className='form-body'>
-                                <form>
+                                <form onSubmit = {this.saveUser}>
                                     <div className='form-group'>
                                         <input placeholder='Imię' name="Imię" className='"form-control' 
                                         value={this.state.name} onChange={this.changeNameHandler}/>
@@ -89,7 +93,16 @@ class CreateUser extends Component {
                                         <input placeholder='Numer Telefonu' name="Numer Telefonu" className='"form-control' 
                                         value={this.state.phoneNumber} onChange={this.changePhoneHandler}/>
                                     </div>
-                                    <button className="button" onClick={this.saveUser}>Zapisz</button>
+                                    <div className='form-group'>
+                                        <select id="lang" value={this.state.role} onChange={this.changeRoleHandler}>
+                                            <option value='PARENT'>PARENT</option>
+                                            <option value='TEACHER'>TEACHER</option>
+                `                           <option value='ADMIN'>ADMIN</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-but">
+                                        <button className="button">Zapisz</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

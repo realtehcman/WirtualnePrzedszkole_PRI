@@ -3,7 +3,7 @@ import './CreateUser.scss'
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar"
 import { useNavigate } from "react-router-dom";
-import CreateUser from "./CreateUser.js";
+import CreateUser from "./CreateUser";
 
 const AddUser = () => {
     const navigate = useNavigate();

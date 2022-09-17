@@ -10,7 +10,12 @@ class UserService {
     }
 
     addUser(user){
-        return axios.post(USERS_REST_API_URL, user);
+        console.log(user)
+        return axios.post(USERS_REST_API_URL, user, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+            });
     }
 
     deleteUser(id){
