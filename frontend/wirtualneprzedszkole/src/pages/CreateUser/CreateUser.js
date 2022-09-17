@@ -65,9 +65,6 @@ class CreateUser extends Component {
 
     render() {
         return (
-        
-
-
                 <div className='formContainer'>
                     <div className='row'>
                         <div className='card col-md-6 offset-md-3 offset-md-3'>
@@ -97,7 +94,7 @@ class CreateUser extends Component {
                                         <select id="lang" value={this.state.role} onChange={this.changeRoleHandler}>
                                             <option value='PARENT'>PARENT</option>
                                             <option value='TEACHER'>TEACHER</option>
-                `                           <option value='ADMIN'>ADMIN</option>
+                                            <option value='ADMIN'>ADMIN</option>
                                         </select>
                                     </div>
                                     <div className="form-but">

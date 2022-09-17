@@ -1,10 +1,18 @@
 import React from 'react';
 import UserService from './UserService';
 import "./Table.scss"
+import { useNavigate } from "react-router-dom";
 
+
+const Navi = (props) => {
+    const navigate = useNavigate()
+    return(
+        <button onClick={() => navigate("/user/" + props.value, { replace: true })} className='btn btn-info'>Zobacz</button>
+    )
+}
 
 class UserComponent extends React.Component {
-
+    
     constructor(props){
         super(props)
         this.state = {
@@ -18,13 +26,11 @@ class UserComponent extends React.Component {
         });
     }
 
-
     componentDidMount(){
         UserService.getUsers().then((response) => {
             this.setState({users: response.data})
         });
     }
-
     
     render (){
         return(
@@ -50,6 +56,9 @@ class UserComponent extends React.Component {
                                     <td>{user.lastName}</td>
                                     <td>{user.email}</td>
                                     <td>
+                                        
+                                        <Navi value={user.id}/>
+                                        {/* <button onClick={() => this.props.navigation.navigate("/home//")} className='btn btn-info'>Zobacz</button> */}
                                         <button onClick={() => this.deleteUser(user.id)} className='btn btn-danger'>Usuń</button>
                                     </td>
                                 </tr>
