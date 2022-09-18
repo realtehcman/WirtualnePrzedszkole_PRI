@@ -2,8 +2,9 @@ import Users from './pages/User/Users';
 import Home from './pages/Home/Home';
 import AddUser from './pages/CreateUser/AddUser';
 import Login from './pages/Login/Login'
-import User from './pages/User/User'
 import UserNavi from './pages/User/UserNavi'
+import GroupNavi from './pages/GroupDisplay/GroupNavi'
+import GroupIdNavi from './pages/GroupDisplay/GroupIdNavi'
 
 import {
   BrowserRouter,
@@ -32,6 +33,12 @@ function App() {
         </Route>
         <Route path='/user/:id'>
           <Route index element={<UserNavi/>}></Route>
+        </Route>
+        <Route path='/groups'>
+          <Route index element={<GroupNavi/>}></Route>
+        </Route>
+        <Route path='/group/:id'>
+          <Route index element={<GroupIdNavi/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,4 @@
-body {
-    background: rgb(99, 39, 120)
-}
+
 
 .container {
     width: 100%;
@@ -13,15 +11,29 @@ body {
 }
 
 .col-md-3 {
-    width: 40%;
+    width: 30%;
     height: 80%;
     margin-right: 50px;
+    font-size: 20px;
+}
+
+.text-right {
+    font-size: 50px;
+}
+
+.labels {
+    margin-right: 20px;
 }
 
 .col-md-5 {
-    margin-left: 50px;
+    margin-left: 40px;
     height: 80%;
     width: 60%;
+}
+
+.col-md-4 {
+    height: 80%;
+    width: 20%;
 }
 
 .form-control:focus {
@@ -55,7 +67,7 @@ body {
 }
 
 .labels {
-    font-size: 15px
+    font-size: 25px;
 }
 
 .add-experience:hover {

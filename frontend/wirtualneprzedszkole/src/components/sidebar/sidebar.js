@@ -27,7 +27,7 @@ const Sidebar = () => {
                     </li>
                     <li>
                         <GroupsIcon className="icon"/>
-                        <span>Grupy</span>
+                        <span  onClick={() => navigate('/groups', { replace: true })}>Grupy</span>
                     </li>
                     <li>
                         <MessageIcon className="icon"/>
