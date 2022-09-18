@@ -3,6 +3,7 @@ import Home from './pages/Home/Home';
 import AddUser from './pages/CreateUser/AddUser';
 import Login from './pages/Login/Login'
 import User from './pages/User/User'
+import UserNavi from './pages/User/UserNavi'
 
 import {
   BrowserRouter,
@@ -30,7 +31,7 @@ function App() {
           <Route index element={<Home/>}></Route>
         </Route>
         <Route path='/user/:id'>
-          <Route index element={<User/>}></Route>
+          <Route index element={<UserNavi/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
