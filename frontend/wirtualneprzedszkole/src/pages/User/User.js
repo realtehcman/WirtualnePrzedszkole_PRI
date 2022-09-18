@@ -61,14 +61,30 @@ const User = () => {
                     <div className="col-md-12"><label className="labels">Adres: </label>  <label className="labels">{user.address}</label></div>
                     <div className="col-md-12"><label className="labels">Rola: </label>  <label className="labels">{user.role}</label></div>
                     {/* <div class="col-md-12"><label class="labels">Dziecko: </label>  <label class="labels">{user.children.map(item => {item.classId})}</label></div> */}
+                    <div className="col-md-12">
 
+                    
+                    <h1>Dzieci: </h1>
+                    <table className='children' >
+                    <thead>
+                        <tr>
+                            <th>Imię</th>
+                            <th>classId</th>
+                        </tr>
+                    </thead>
 
                     {user.children.map(child => (
-                        <div className="col-md-12"><label className="labels">dzieci: </label>  <label className="labels">{child.name}</label></div>
+                        <tr>
+                            <td>{child.name}</td>
+                            <td>{child.classId}</td>
+                        </tr>
+                        //<div className="col-md-12"><label className="labels">dzieci: </label>  <label className="labels">{child.name}</label></div>
                     )
 
                         )}
-                      
+
+                    </table>
+                    </div>
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-6"><label className="labels"></label></div>
