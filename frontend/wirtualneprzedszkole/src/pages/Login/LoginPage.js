@@ -17,7 +17,9 @@ const LoginPage = () => {
     }
 
     return (
+        
         <div className='formContainer'>
+                <span className="logo-login">Przedszkole nr 25</span>
                 <div className='row'>
                     <div className='card col-md-6 offset-md-3 offset-md-3'>
                         <div className='form-body'>

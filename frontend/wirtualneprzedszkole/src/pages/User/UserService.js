@@ -25,6 +25,10 @@ class UserService {
     getUser(id) {
         return axios.get(USERS_REST_API_URL + '/' + id)
     }
+
+    addChildToUser(id, child) {
+        return axios.put(USERS_REST_API_URL + "/" + id, child)
+    }
 }
 
 export default new UserService();

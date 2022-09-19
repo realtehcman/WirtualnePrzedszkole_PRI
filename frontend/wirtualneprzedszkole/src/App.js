@@ -10,6 +10,7 @@ import ChildrenNavi from './pages/Children/ChildrenNavi';
 import AddChild from './pages/CreateChild/AddChild';
 import ChildNavi from './pages/Children/ChildNavi';
 import LoginService from "./pages/Login/LoginService"
+import UserChildNavi from "./pages/UserChild/UserChildNavi"
 
 import {
   BrowserRouter,
@@ -57,6 +58,9 @@ function App() {
         </Route>
         <Route path='/child/:id' element={<PrivateOutlet />}>
           <Route index element={<ChildNavi/>}></Route>
+        </Route>
+        <Route path='/user/:id/child' element={<PrivateOutlet />}>
+          <Route index element={<UserChildNavi/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
