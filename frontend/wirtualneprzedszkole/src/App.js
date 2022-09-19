@@ -9,13 +9,15 @@ import AddGroup from './pages/CreateGroup/AddGroup';
 import ChildrenNavi from './pages/Children/ChildrenNavi';
 import AddChild from './pages/CreateChild/AddChild';
 import ChildNavi from './pages/Children/ChildNavi';
+import LoginService from "./pages/Login/LoginService"
 
 import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
+  Outlet
 } from "react-router-dom";
-
 
 
 function App() {
@@ -26,34 +28,34 @@ function App() {
         <Route path='/'>
         <Route index element={<Login/>}></Route>
         </Route>
-        <Route path="users">
+        <Route path="users" element={<PrivateOutlet />}>
           <Route index element={<Users/>}></Route>
         </Route>
-        <Route path='add-user'>
+        <Route path='add-user' element={<PrivateOutlet />}>
           <Route index element={<AddUser/>}></Route>
         </Route>
-        <Route path='/home'>
+        <Route path='/home' element={<PrivateOutlet />}>
           <Route index element={<Home/>}></Route>
         </Route>
-        <Route path='/user/:id'>
+        <Route path='/user/:id' element={<PrivateOutlet />}>
           <Route index element={<UserNavi/>}></Route>
         </Route>
-        <Route path='/groups'>
+        <Route path='/groups' element={<PrivateOutlet />}>
           <Route index element={<GroupNavi/>}></Route>
         </Route>
-        <Route path='/group/:id'>
+        <Route path='/group/:id' element={<PrivateOutlet />}>
           <Route index element={<GroupIdNavi/>}></Route>
         </Route>
-        <Route path='/add-group'>
+        <Route path='/add-group' element={<PrivateOutlet />}>
           <Route index element={<AddGroup/>}></Route>
         </Route>
-        <Route path="children">
+        <Route path="children" element={<PrivateOutlet />}>
           <Route index element={<ChildrenNavi/>}></Route>
         </Route>
-        <Route path='/add-child'>
+        <Route path='/add-child' element={<PrivateOutlet />}>
           <Route index element={<AddChild/>}></Route>
         </Route>
-        <Route path='/child/:id'>
+        <Route path='/child/:id' element={<PrivateOutlet />}>
           <Route index element={<ChildNavi/>}></Route>
         </Route>
       </Routes>
@@ -63,3 +65,12 @@ function App() {
 }
 
 export default App;
+
+function PrivateOutlet() {
+  const auth = useAuth();
+  return auth ? <Outlet /> : <Navigate to="/" />;
+}
+
+function useAuth() {
+  return LoginService.isLoggedIn();
+}

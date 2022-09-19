@@ -13,7 +13,8 @@ const Child = () => {
         parents: [{
             id: '',
             name: '',
-            lastName: ''
+            lastName: '',
+            email: ''
         }]
     });
     let {id} = useParams()
