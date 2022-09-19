@@ -27,7 +27,8 @@ class CreateUser extends Component {
 
     saveUser = (e) => {
         e.preventDefault();
-        let user = JSON.stringify({email: this.state.email, name: this.state.name, lastName: this.state.lastName, address: this.state.address, phoneNumber: this.state.phoneNumber, role: this.state.role});
+        let user = JSON.stringify({email: this.state.email, name: this.state.name, lastName: this.state.lastName, address: this.state.address, 
+            phoneNumber: this.state.phoneNumber, role: this.state.role});
         //user = JSON.stringify(user)
         
 

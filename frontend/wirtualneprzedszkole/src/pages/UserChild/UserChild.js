@@ -35,7 +35,7 @@ const UserChild = () => {
 
     const onClick = (id, child) => {
         putUser(id, child)
-        navigate(window.location.href="/user/" + id, { replace: true })
+        navigate("/user/" + id, { replace: true })
      }
         
     return (
