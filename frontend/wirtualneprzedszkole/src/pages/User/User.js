@@ -75,7 +75,7 @@ const User = () => {
                     </thead>
 
                     {user.children.map(child => (
-                        <tr>
+                        <tr onClick={() => navigate("/child/" + child.id, { replace: true })}>
                             <td>{child.name}</td>
                             <td>{child.classId}</td>
                         </tr>

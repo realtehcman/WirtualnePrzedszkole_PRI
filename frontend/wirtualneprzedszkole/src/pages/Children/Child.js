@@ -35,6 +35,7 @@ const Child = () => {
 
     return (
         <div>
+            <h1>Rodzice: {child.name}  {child.lastName}</h1>
                 <table className='content-table'>
                     <thead>
                         <tr className='table-head'>
