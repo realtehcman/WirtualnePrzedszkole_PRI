@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Navi = (props) => {
     const navigate = useNavigate()
     return(
-        <button onClick={() => navigate("/group/" + props.value, { replace: true })} className='btn btn-info'>Zobacz</button>
+        <button onClick={() => navigate("/child/" + props.value, { replace: true })} className='btn btn-info'>Zobacz</button>
     )
 }
 

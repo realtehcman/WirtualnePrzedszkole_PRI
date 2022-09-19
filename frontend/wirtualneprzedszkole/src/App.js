@@ -8,6 +8,7 @@ import GroupIdNavi from './pages/GroupDisplay/GroupIdNavi'
 import AddGroup from './pages/CreateGroup/AddGroup';
 import ChildrenNavi from './pages/Children/ChildrenNavi';
 import AddChild from './pages/CreateChild/AddChild';
+import ChildNavi from './pages/Children/ChildNavi';
 
 import {
   BrowserRouter,
@@ -51,6 +52,9 @@ function App() {
         </Route>
         <Route path='/add-child'>
           <Route index element={<AddChild/>}></Route>
+        </Route>
+        <Route path='/child/:id'>
+          <Route index element={<ChildNavi/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
