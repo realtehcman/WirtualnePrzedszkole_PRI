@@ -8,6 +8,7 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import SchoolIcon from '@mui/icons-material/School';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import ChildCareIcon from '@mui/icons-material/ChildCare';
 import { useNavigate } from "react-router-dom";
 
 
@@ -28,6 +29,10 @@ const Sidebar = () => {
                     <li>
                         <GroupsIcon className="icon"/>
                         <span  onClick={() => navigate('/groups', { replace: true })}>Grupy</span>
+                    </li>
+                    <li>
+                        <ChildCareIcon className="icon"/>
+                        <span  onClick={() => navigate('/children', { replace: true })}>Dzieci</span>
                     </li>
                     <li>
                         <MessageIcon className="icon"/>

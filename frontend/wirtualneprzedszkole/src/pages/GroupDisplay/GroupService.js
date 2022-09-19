@@ -9,9 +9,9 @@ class GroupService {
         return axios.get(GROUP_REST_API_URL)
     }
 
-    addGroup(user){
-        console.log(user)
-        return axios.post(GROUP_REST_API_URL, user, {
+    addGroup(group){
+        console.log(group)
+        return axios.post(GROUP_REST_API_URL, group, {
             headers: {
               'Content-Type': 'application/json'
             }
