@@ -33,10 +33,10 @@ const EditUser = () => {
         });
     }
 
-    function putData()  {
-        console.log(user)
-        UserService.editUser(user)
-    }
+    // function putData()  {
+    //     console.log(user)
+    //     UserService.editUser(user)
+    // }
 
 
     return (
@@ -52,7 +52,7 @@ const EditUser = () => {
             <input placeholder={user.address} onChange={() => setUser({address: user.address})}/><br></br>
             <label>Telefon:</label><br></br>
             <input placeholder={user.phoneNumber} onChange={() => setUser({phoneNumber: user.phoneNumber})}/><br></br>
-            <button onClick={putData} className='btn btn-danger'>Zapisz</button>
+            <button onClick className='btn btn-danger'>Zapisz</button>
             </form>
         </div>
     )

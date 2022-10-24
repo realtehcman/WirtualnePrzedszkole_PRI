@@ -9,6 +9,7 @@ const Home = () => {
             <Sidebar/>
             <div className="homeContainer">
                 <Navbar/>
+                <h1>WITAJ</h1>
             </div>
         </div>
     )

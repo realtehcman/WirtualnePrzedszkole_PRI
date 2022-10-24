@@ -1,9 +1,12 @@
 package com.example.wirtualneprzedszkole.model.dao;
 
 import com.example.wirtualneprzedszkole.model.UserRole;
+import com.example.wirtualneprzedszkole.model.dao.message.Message;
 import com.example.wirtualneprzedszkole.validation.ValidPassword;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -47,4 +50,12 @@ public class User {
             joinColumns = @JoinColumn(name = "teacherId"),
             inverseJoinColumns = @JoinColumn(name = "classId"))
     private List<Class> classes;
+
+    @JsonIgnoreProperties(value = {"author"})
+    @OneToMany(mappedBy = "author")
+    private List<Message> messagesAuthor;
+
+    @JsonIgnoreProperties(value = {"to"})
+    @ManyToMany(mappedBy = "to")
+    private List<Message> messagesReceived;
 }

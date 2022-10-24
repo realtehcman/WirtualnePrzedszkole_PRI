@@ -39,4 +39,8 @@ public class ChildService {
     public void deleteChild(Long id) {
         childRepo.deleteById(id);
     }
+
+    public List<Long> getChildByClassIn(Long classId) {
+        return childRepo.findAllIdsByClassId(classId);
+    }
 }

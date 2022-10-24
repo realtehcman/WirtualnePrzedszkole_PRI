@@ -2,6 +2,7 @@ package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.config.RandomPasswordGenerator;
 import com.example.wirtualneprzedszkole.exception.UserAlreadyExistException;
+import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.User;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -85,5 +87,17 @@ public class UserManagementService {
 
     public void deleteUser(Long id) {
         userRepo.deleteById(id);
+    }
+
+    public List<User> getAllUserByEmail(List<String> emails) {
+        return userRepo.findByEmailIn(emails);
+    }
+
+    public List<User> getAllParents() {
+        return userRepo.findByRole(UserRole.PARENT);
+    }
+
+    public Set<User> getAllParentsFromClass(List<Long> childrenIds) {
+        return userRepo.findUsersByChildrenIdIn(childrenIds);
     }
 }
