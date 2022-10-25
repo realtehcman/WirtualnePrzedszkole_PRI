@@ -65,6 +65,17 @@ public class MessageController {
         return MessageMapper.mapToDto(messageService.readMsg(msgId, userId));
     }
 
+    @GetMapping("received_messages")
+    public List<MessageDto> getReceivedMessages(Authentication authentication) {
+        Long userId = getCurrentUser(authentication).getId();
+        return MessageMapper.mapMessagesToDto(messageService.getReceivedMessages(userId));
+    }
+
+    @GetMapping("sent_msg/{msgId}")
+    public MessageDto getSentMsg(@PathVariable Long msgId) {
+        return MessageMapper.mapToDto(messageService.getSentMsg(msgId));
+    }
+
     private User getCurrentUser(Authentication authentication) {
         String email = authentication.getName();
         return userService.getCurrentUser(email);

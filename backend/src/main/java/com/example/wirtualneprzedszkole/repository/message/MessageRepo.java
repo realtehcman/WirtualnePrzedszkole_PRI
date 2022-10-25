@@ -15,4 +15,8 @@ public interface MessageRepo extends JpaRepository<Message, Long> {
 
     @Query("select m from Message m join m.to t where t.id = :userId and m.id = :msgId")
     Message readMsg(Long msgId, Long userId);
+
+    @Query("select m from Message m join m.to t where t.id = :userId")
+    List<Message> getReceivedMessages(Long userId);
+
 }

@@ -25,4 +25,12 @@ public class MessageService {
     public Message readMsg(Long msgId, Long userId) {
         return messageRepo.readMsg(msgId, userId);
     }
+
+    public List<Message> getReceivedMessages(Long userId) {
+        return messageRepo.getReceivedMessages(userId);
+    }
+
+    public Message getSentMsg(Long msgId) {
+        return messageRepo.findById(msgId).orElseThrow();
+    }
 }
