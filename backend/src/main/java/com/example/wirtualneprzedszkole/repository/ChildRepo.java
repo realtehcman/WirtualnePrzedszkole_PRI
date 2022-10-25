@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ChildRepo extends JpaRepository<Child, Long> {
     @Query("Select c From Child c")
-    List<Child> findAllChild();
+    List<Child> findAllChildren();
 
     List<Child> findAllByClassIdIn(List<Long> ids);
 
