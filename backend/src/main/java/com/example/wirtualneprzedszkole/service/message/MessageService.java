@@ -29,7 +29,7 @@ public class MessageService {
 
     @Transactional
     public void msgIsRead(Long msgId, Long userId) {
-        messageRepo.msgIsRead2(msgId, userId, true);
+        messageRepo.msgIsRead(msgId, userId, true);
     }
 
     public List<Message> getReceivedMessages(Long userId) {

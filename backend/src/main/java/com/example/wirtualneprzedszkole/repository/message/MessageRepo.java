@@ -21,11 +21,8 @@ public interface MessageRepo extends JpaRepository<Message, Long> {
     @Query("select m from Message m join m.userMessageList uML where uML.user.id = :userId")
     List<Message> getReceivedMessages(Long userId);
 
-    @Query("select uML from Message m join m.userMessageList uML where uML.user.id = :userId and m.id = :msgId")
-    UserMessage msgIsRead(Long msgId, Long userId);
-
     @Modifying
     @Query("update UserMessage um set um.isRead = :state where um.user.id = :userId and um.message.id = :msgId")
-    void msgIsRead2(Long msgId, Long userId, boolean state);
+    void msgIsRead(Long msgId, Long userId, boolean state);
 
 }
