@@ -3,6 +3,7 @@ package com.example.wirtualneprzedszkole.mapper.message;
 
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
+import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.model.dto.message.MessageDto;
 import com.example.wirtualneprzedszkole.model.dto.message.SendMessageDto;
 import com.example.wirtualneprzedszkole.model.dto.message.UserMsgDto;
@@ -14,10 +15,16 @@ public class MessageMapper {
     private MessageMapper(){}
 
 
-    public static List<UserMsgDto> usersMapToUsersMsgDto(List<User> users) {
+    public static List<UserMsgDto> usersMapToUsersMsgDto(List<UserMessage> users) {
         return users.stream()
                 .map(MessageMapper::userMapToUserMsgDto)
                 .collect(Collectors.toList());
+    }
+
+    public static UserMsgDto userMapToUserMsgDto(UserMessage user) {
+        return UserMsgDto.builder()
+                .email(user.getUser().getEmail())
+                .build();
     }
 
     public static UserMsgDto userMapToUserMsgDto(User user) {
@@ -37,9 +44,21 @@ public class MessageMapper {
                 .id(msgDto.getId())
                 .author(msgDto.getAuthor())
                 .content(msgDto.getContent())
-                .isRead(msgDto.isRead())
+                //.isRead(msgDto.isRead())
                 .subject(msgDto.getSubject())
-                .to(users)
+                //.to(users)
+                //.userMessageList(msgDto.getUserMessageList())
+                .build();
+    }
+
+    public static Message mapSendMessageDtoToMessage(SendMessageDto sendMessageDto) {
+        return Message.builder()
+                .id(sendMessageDto.getId())
+                .author(sendMessageDto.getAuthor())
+                .content(sendMessageDto.getContent())
+                //.isRead(sendMessageDto.isRead())
+                .subject(sendMessageDto.getSubject())
+                //.userMessageList(sendMessageDto.getUserMessageList())
                 .build();
     }
 
@@ -52,13 +71,13 @@ public class MessageMapper {
     public static MessageDto mapToDto(Message message) {
         return MessageDto.builder()
                 .id(message.getId())
-                .to(mapToMessageDto(usersMapToUsersMsgDto(message.getTo())))
+                .to(mapToMessageDto(usersMapToUsersMsgDto(message.getUserMessageList())))
                 .content(message.getContent())
                 .author(userMapToUserMsgDto(message.getAuthor()).getEmail())
-                .isRead(message.isRead())
+                //.isRead(message.isRead())
                 .subject(message.getSubject())
+                //.userMessageList(message.getUserMessageList())
                 .build();
     }
-
 
 }

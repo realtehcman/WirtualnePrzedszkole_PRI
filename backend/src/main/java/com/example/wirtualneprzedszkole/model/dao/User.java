@@ -2,6 +2,7 @@ package com.example.wirtualneprzedszkole.model.dao;
 
 import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
+import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.validation.ValidPassword;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -55,7 +57,10 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Message> messagesAuthor;
 
-    @JsonIgnoreProperties(value = {"to"})
+    /*@JsonIgnoreProperties(value = {"to"})
     @ManyToMany(mappedBy = "to")
-    private List<Message> messagesReceived;
+    private List<Message> messagesReceived;*/
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserMessage> userMessageList;
 }

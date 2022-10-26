@@ -9,6 +9,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,14 +29,17 @@ public class Message {
     @JoinColumn(name="userId")
     private User author;
 
-    @JsonIgnoreProperties(value = {"messagesReceived"})
+    /*@JsonIgnoreProperties(value = {"messagesReceived"})
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "message_to",
             joinColumns = @JoinColumn(name = "messageId"),
             inverseJoinColumns = @JoinColumn(name = "userId"))
-    private List<User> to;
-    private boolean isRead;
+    private List<User> to;*/
+    //private boolean isRead;
     private String subject;
     private String content;
+
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
+    private List<UserMessage> userMessageList;
 }

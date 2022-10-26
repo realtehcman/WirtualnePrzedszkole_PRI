@@ -1,6 +1,7 @@
 package com.example.wirtualneprzedszkole.model.dto.message;
 
 import com.example.wirtualneprzedszkole.model.dao.User;
+import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,9 @@ public class SendMessageDto {
     private Long id;
     private User author;
     private List<String> emails;
-    private boolean isRead;
+    //private boolean isRead;
     private String subject;
     private String content;
+    //private List<UserMessage> userMessageList;
+
 }
