@@ -45,7 +45,7 @@ public class MessageController {
         List<User> users = userManagementService.getAllUserByEmail(sendMessageDto.getEmails());
 
         return MessageMapper.mapToDto(assignUserMessageToMsg(messageService
-                .sendMessage(MessageMapper.mapToDao(sendMessageDto, users)), users));
+                .sendMessage(MessageMapper.mapToDao(sendMessageDto, users), sendMessageDto.getEmails()), users));
     }
 
     @PostMapping("to_parents")
@@ -54,7 +54,7 @@ public class MessageController {
         sendMessageDto.setAuthor(getCurrentUser(authentication));
         List<User> users = userManagementService.getAllParents();
         return MessageMapper.mapToDto(assignUserMessageToMsg(messageService
-                .sendMessage(MessageMapper.mapToDao(sendMessageDto, users)), users));
+                .sendMessage(MessageMapper.mapToDao(sendMessageDto, users), sendMessageDto.getEmails()), users));
     }
 
     @PostMapping("to_class/{classId}")
@@ -65,7 +65,7 @@ public class MessageController {
         List<User> users = List.copyOf(userManagementService.getAllParentsFromClass(childrenIds));
 
         return MessageMapper.mapToDto(assignUserMessageToMsg(messageService
-                .sendMessage(MessageMapper.mapToDao(sendMessageDto, users)), users));
+                .sendMessage(MessageMapper.mapToDao(sendMessageDto, users), sendMessageDto.getEmails()), users));
     }
 
     @GetMapping("read_msg/{msgId}")
