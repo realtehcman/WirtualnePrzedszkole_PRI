@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +45,9 @@ public class MessageService {
     public void editMessage(Message msg) {
         Message messageEdit = messageRepo.findById(msg.getId()).orElseThrow();
         messageEdit.setUserMessageList(msg.getUserMessageList());
+    }
+
+    public boolean checkMessageIsRead(Long msgId, Long userId) {
+        return messageRepo.checkMessageIsRead(msgId, userId).orElseThrow(NullPointerException::new);
     }
 }

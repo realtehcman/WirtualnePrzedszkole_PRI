@@ -80,4 +80,16 @@ public class MessageMapper {
                 .build();
     }
 
+    public static MessageDto mapToDtoWithIsRead(Message message) {
+        return MessageDto.builder()
+                .id(message.getId())
+                .to(mapToMessageDto(usersMapToUsersMsgDto(message.getUserMessageList())))
+                .content(message.getContent())
+                .author(userMapToUserMsgDto(message.getAuthor()).getEmail())
+                //.isRead(getIsReadFromUserMessage(message.getUserMessageList(), message.getId()))
+                .subject(message.getSubject())
+                //.userMessageList(message.getUserMessageList())
+                .build();
+    }
+
 }

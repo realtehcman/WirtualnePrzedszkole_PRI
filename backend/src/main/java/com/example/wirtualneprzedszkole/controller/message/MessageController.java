@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -83,6 +84,11 @@ public class MessageController {
     @GetMapping("sent_msg/{msgId}")
     public MessageDto getSentMsg(@PathVariable Long msgId) {
         return MessageMapper.mapToDto(messageService.getSentMsg(msgId));
+    }
+
+    @GetMapping("{msgId}/to/{userId}")
+    public boolean checkMessageIsRead(@PathVariable Long msgId, @PathVariable Long userId) {
+        return messageService.checkMessageIsRead(msgId, userId);
     }
 
     private Message assignUserMessageToMsg(Message msg, List<User> users) {
