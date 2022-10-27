@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-
 import GroupService from '../GroupDisplay/GroupService'
 import "../CreateUser/CreateUser.scss"
+
+
 
 
 class CreateGroup extends Component {
@@ -39,7 +40,7 @@ class CreateGroup extends Component {
         this.setState({description: event.target.value})
     }
 
-    
+
 
     render() {
         return (
@@ -49,7 +50,7 @@ class CreateGroup extends Component {
                             <div className='form-body'>
                                 <form onSubmit = {this.saveGroup}>
                                     <div className='form-group'>
-                                        <input placeholder='Nazwa' name="Nazwa" className='"form-control' 
+                                        <input placeholder='Nazwa' name="Nazwa" className='"form-control'
                                         value={this.state.name} onChange={this.changeNameHandler}/>
                                     </div>
                                     <div className='form-group'>
@@ -57,7 +58,11 @@ class CreateGroup extends Component {
                                         value={this.state.description} onChange={this.changeDescriptionHandler}/>
                                     </div>
                                     <div className="form-but">
-                                        <button className="button">Zapisz</button>
+                                        <button onClick={event =>  window.location.href='/groups'} className="button2">Wróć</button>
+                                        <button className="button2">Zapisz</button>
+
+
+
                                     </div>
                                 </form>
                             </div>

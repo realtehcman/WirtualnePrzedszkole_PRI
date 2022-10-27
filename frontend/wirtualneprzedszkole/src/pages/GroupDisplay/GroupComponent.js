@@ -12,13 +12,13 @@ const Navi = (props) => {
 
 
 class GroupComponent extends React.Component {
-    
+
     constructor(props){
         super(props)
         this.state = {
             groups:[]
         }
-    this.deleteGroup = this.deleteGroup.bind(this);
+        this.deleteGroup = this.deleteGroup.bind(this);
     }
     deleteGroup(id) {
         GroupService.deleteGroup(id).then(response => {
@@ -31,43 +31,46 @@ class GroupComponent extends React.Component {
             this.setState({groups: response.data})
         });
     }
-    
+
     render (){
         return(
+            <div className="scrollable-div">
+
             <div>
                 <table className='content-table'>
                     <thead>
-                        <tr className='table-head'>
+                    <tr className='table-head'>
 
-                            <td>Id</td>
-                            <td>Nazwa</td>
-                            <td></td>
-                            <td></td>
-                            <td>Akcje</td>
-                        </tr>
+                        <td>Id</td>
+                        <td>Nazwa</td>
+                        <td>Opis</td>
+                        <td></td>
+                        <td>Akcje</td>
+                    </tr>
                     </thead>
                     <tbody className='body'>
-                        {
-                            this.state.groups.map(
-                                group =>
+                    {
+                        this.state.groups.map(
+                            group =>
                                 <tr key = {group.id}>
                                     <td>{group.id}</td>
                                     <td>{group.name}</td>
-                                    <td></td>
+                                    <td>{group.description}</td>
                                     <td></td>
                                     <td>
-                                        
+
                                         <Navi value={group.id}/>
                                         <button onClick={() => this.deleteGroup(group.id)} className='btn btn-danger'>Usuń</button>
                                     </td>
                                 </tr>
-                            )
-                        }
+                        )
+                    }
                     </tbody>
                 </table>
 
-            </div>
+            </div></div>
         )
+
     }
 
 }

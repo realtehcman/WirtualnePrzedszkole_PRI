@@ -53,6 +53,7 @@ const EditUser = () => {
             <label>Telefon:</label><br></br>
             <input placeholder={user.phoneNumber} onChange={() => setUser({phoneNumber: user.phoneNumber})}/><br></br>
             <button onClick={putData} className='btn btn-danger'>Zapisz</button>
+
             </form>
         </div>
     )

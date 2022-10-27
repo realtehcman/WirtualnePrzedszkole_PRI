@@ -54,10 +54,7 @@ const Sidebar = () => {
                         <CollectionsIcon className="icon"/>
                         <span>Galeria</span>
                     </li>
-                    <li>
-                        <RestaurantIcon className="icon"/>
-                        <span>Jadłospis</span>
-                    </li>
+
                 </ul>
             </div>
         </div>

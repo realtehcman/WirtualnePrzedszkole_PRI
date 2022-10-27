@@ -12,7 +12,7 @@ const Navi = (props) => {
 
 
 class ChildrenComponent extends React.Component {
-    
+
     constructor(props){
         super(props)
         this.state = {
@@ -56,7 +56,7 @@ class ChildrenComponent extends React.Component {
                                     <td>{child.lastName}</td>
                                     <td>{child.classId}</td>
                                     <td>
-                                        
+
                                         <Navi value={child.id}/>
                                         <button onClick={() => this.deleteChild(child.id)} className='btn btn-danger'>Usuń</button>
                                     </td>
