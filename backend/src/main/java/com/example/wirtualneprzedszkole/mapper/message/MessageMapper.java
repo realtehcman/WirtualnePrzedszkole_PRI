@@ -5,11 +5,15 @@ import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
 import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.model.dto.message.MessageDto;
+import com.example.wirtualneprzedszkole.model.dto.message.MessageDtoWithIsRead;
 import com.example.wirtualneprzedszkole.model.dto.message.SendMessageDto;
 import com.example.wirtualneprzedszkole.model.dto.message.UserMsgDto;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MessageMapper {
     private MessageMapper(){}
@@ -80,10 +84,18 @@ public class MessageMapper {
                 .build();
     }
 
-    public static MessageDto mapToDtoWithIsRead(Message message) {
-        return MessageDto.builder()
+    public static Map<String, Boolean> MailAndIsReadMapToKeyValue(List<String> keys, List<UserMessage> userMessageList) {
+        List<Boolean> values = userMessageList.stream().map(UserMessage::isRead).collect(Collectors.toList());
+
+        return IntStream.range(0, keys.size()).boxed()
+                .collect(Collectors.toMap(keys::get, values::get));
+
+    }
+
+    public static MessageDtoWithIsRead mapToDtoWithIsRead(Message message) {
+        return MessageDtoWithIsRead.builder()
                 .id(message.getId())
-                .to(mapToMessageDto(usersMapToUsersMsgDto(message.getUserMessageList())))
+                .to(MailAndIsReadMapToKeyValue(mapToMessageDto(usersMapToUsersMsgDto(message.getUserMessageList())), message.getUserMessageList()))
                 .content(message.getContent())
                 .author(userMapToUserMsgDto(message.getAuthor()).getEmail())
                 //.isRead(getIsReadFromUserMessage(message.getUserMessageList(), message.getId()))

@@ -21,6 +21,6 @@ public class SendMessageDto {
     //private boolean isRead;
     private String subject;
     private String content;
-    //private List<UserMessage> userMessageList;
+    private List<UserMessage> userMessageList;
 
 }

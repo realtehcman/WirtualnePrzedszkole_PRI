@@ -24,6 +24,6 @@ public class UserMessage {
     @JoinColumn(name = "message", referencedColumnName = "id")
     private Message message;
 
-    @Column(name = "is_read")
+    //@Column(name = "isRead", nullable = false)
     private boolean isRead;
 }

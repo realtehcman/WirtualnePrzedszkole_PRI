@@ -8,6 +8,7 @@ import com.example.wirtualneprzedszkole.model.dao.message.Message;
 import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.model.dto.message.MessageDto;
+import com.example.wirtualneprzedszkole.model.dto.message.MessageDtoWithIsRead;
 import com.example.wirtualneprzedszkole.model.dto.message.SendMessageDto;
 import com.example.wirtualneprzedszkole.model.dto.message.UserMsgDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
@@ -82,8 +83,10 @@ public class MessageController {
     }
 
     @GetMapping("sent_msg/{msgId}")
-    public MessageDto getSentMsg(@PathVariable Long msgId) {
-        return MessageMapper.mapToDto(messageService.getSentMsg(msgId));
+    public MessageDtoWithIsRead getSentMsg(@PathVariable Long msgId) {
+        Message message = messageService.getSentMsg(msgId);
+        return MessageMapper.mapToDtoWithIsRead(message);
+        //return MessageMapper.mapToDto(messageService.getSentMsg(msgId));
     }
 
     @GetMapping("{msgId}/to/{userId}")
