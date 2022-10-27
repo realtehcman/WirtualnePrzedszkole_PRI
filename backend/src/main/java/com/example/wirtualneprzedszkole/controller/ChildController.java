@@ -7,14 +7,15 @@ import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
 import java.util.List;
-
-@CrossOrigin(origins = "http://localhost:3000/")
+@EnableWebMvc
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/child")
+@CrossOrigin(originPatterns =  "http://127.0.0.1:8080/api/users")
 public class ChildController {
     private final ChildService childService;
 
@@ -44,3 +45,7 @@ public class ChildController {
         childService.deleteChild(id);
     }
 }
+
+//  @CrossOrigin(originPatterns = "http://192.168.1.9:3000")
+
+
