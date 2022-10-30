@@ -2,7 +2,6 @@ package com.example.wirtualneprzedszkole.controller;
 
 //import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 import com.example.wirtualneprzedszkole.mapper.ChildMapper;
-import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/child")
-@CrossOrigin(originPatterns =  "http://127.0.0.1:8080/api/users")
 public class ChildController {
     private final ChildService childService;
 
