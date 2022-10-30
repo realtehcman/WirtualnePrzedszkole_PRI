@@ -2,16 +2,15 @@ package com.example.wirtualneprzedszkole.controller;
 
 //import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 import com.example.wirtualneprzedszkole.mapper.ChildMapper;
-import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
 import java.util.List;
-
-@CrossOrigin(origins = "http://localhost:3000/")
+@EnableWebMvc
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/child")
@@ -30,6 +29,7 @@ public class ChildController {
 
     @PostMapping
     public ChildDto addChild(@Valid @RequestBody ChildDto childDto) {
+//        childService.getChild();
         return ChildMapper.mapToDto(childService.addChild(ChildMapper.mapToChildDao(childDto)));
     }
 
@@ -43,3 +43,7 @@ public class ChildController {
         childService.deleteChild(id);
     }
 }
+
+//  @CrossOrigin(originPatterns = "http://192.168.1.9:3000")
+
+

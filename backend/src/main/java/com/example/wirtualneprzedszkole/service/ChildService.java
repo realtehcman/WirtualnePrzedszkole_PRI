@@ -1,8 +1,6 @@
 package com.example.wirtualneprzedszkole.service;
 
-import com.example.wirtualneprzedszkole.mapper.UserMapper;
 import com.example.wirtualneprzedszkole.model.dao.Child;
-import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.repository.ChildRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,10 +18,11 @@ public class ChildService {
     }
 
     public List<Child> getChildren() {
-        return childRepo.findAllChild();
+        return childRepo.findAllChildren();
     }
 
     public Child addChild(Child child) {
+
         return childRepo.save(child);
     }
 
