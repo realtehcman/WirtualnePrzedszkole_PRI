@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000/", exposedHeaders = {"authorization"})
 
+
 @RestController
 public class LoginController {
 
