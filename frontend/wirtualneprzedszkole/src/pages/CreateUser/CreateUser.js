@@ -93,13 +93,15 @@ class CreateUser extends Component {
                                     </div>
                                     <div className='form-group'>
                                         <select id="lang" value={this.state.role} onChange={this.changeRoleHandler}>
-                                            <option value='PARENT'>PARENT</option>
-                                            <option value='TEACHER'>TEACHER</option>
-                                            <option value='ADMIN'>ADMIN</option>
+                                            <option value='PARENT'>Rodzic</option>
+                                            <option value='TEACHER'>Nauczyciel</option>
+                                            <option value='ADMIN'>Administrator</option>
                                         </select>
                                     </div>
                                     <div className="form-but">
-                                        <button className="button">Zapisz</button>
+                                        <button onClick={event =>  window.location.href='/children'} className="button2">Wróć</button>
+
+                                        <button className="button2">Zapisz</button>
                                     </div>
                                 </form>
                             </div>

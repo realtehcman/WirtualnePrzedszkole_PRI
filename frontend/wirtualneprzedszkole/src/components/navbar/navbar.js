@@ -2,7 +2,7 @@ import React from "react";
 import "./navbar.scss"
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
-import LoginService from "C:/Users/Szogunek/Desktop/WirtualnePrzedszkole_PRI/frontend/wirtualneprzedszkole/src/pages/Login/LoginService"
+import LoginService from "../../pages/Login/LoginService.js"
 
 
 const Navbar = () => {

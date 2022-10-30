@@ -1,3 +1,10 @@
+
+
+body {
+  min-height: 100vh;
+  background-color: dodgerblue;
+}
+
 .addusers {
     display: flex;
 
@@ -39,6 +46,18 @@ margin: 8px 0;
 border: none;
 cursor: pointer;
 }
+
+.button2 {
+  background-color: #4424bb;;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  margin-left: 12%;
+
+}
+
 
 .formContainer {
   margin-left:23%;

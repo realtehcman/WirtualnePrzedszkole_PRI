@@ -45,10 +45,11 @@ class CreateChild extends Component {
         this.setState({classId: event.target.value})
     }
 
-    
+
 
     render() {
         return (
+
                 <div className='formContainer'>
                     <div className='row'>
                         <div className='card col-md-6 offset-md-3 offset-md-3'>
@@ -63,11 +64,14 @@ class CreateChild extends Component {
                                         value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                                     </div>
                                     <div className='form-group'>
-                                        <input placeholder='Id grupy' name="Id grupy" className='"form-control' 
+                                        <input placeholder='Id grupy' name="Id grupy" className='"form-control'
                                         value={this.state.classId} onChange={this.changeClassIdHandler}/>
                                     </div>
                                     <div className="form-but">
-                                        <button className="button">Zapisz</button>
+                                        <button onClick={event =>  window.location.href='/children'} className="button2">Wróć</button>
+
+                                        <button className="button2">Zapisz</button>
+
                                     </div>
                                 </form>
                             </div>

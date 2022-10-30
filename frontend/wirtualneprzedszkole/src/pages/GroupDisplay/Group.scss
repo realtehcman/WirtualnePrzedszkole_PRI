@@ -1,10 +1,20 @@
 .show-table {
-    width: 80%;
-    margin-left: 8%;
-    margin-top: 2%;
-    border-left: 3px solid #4424bb;
-    border-right: 3px solid #4424bb;
-    border-top: 3px solid #4424bb;
+    border-collapse: collapse;
+    font-size: 20px;
+    margin: 5px 0;
+    width: 90%;
+    margin-left:5%;
+    margin-right:5%;
+    border-radius: 5px 5px 5px 5px;
+    overflow: hidden;
+    box-shadow:  0 0 20px rgba(0,0,0,0.15);
+
+    .table-head{
+        background-color: #4424bb;
+        color: #e8e3f8;
+        text-align: left;
+        font-weight: bold;
+    }
 }
 .thead-dark {
     background-color: #4424bb;
@@ -13,4 +23,20 @@
 
 .teacher {
     background-color: rgb(102, 171, 228);
+}
+
+.show-table td{
+    padding: 14px 15px;
+}
+
+.show-table tbody td{
+    border-bottom: 3px solid #dddddd;
+}
+
+.show-table tbody tr:nth-of-type(even){
+    background-color: rgb(232, 236, 235);
+}
+
+.show-table tbody tr:last-of-type{
+    border-bottom: 2px solid #4424bb;
 }

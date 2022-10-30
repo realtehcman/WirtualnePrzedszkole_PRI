@@ -39,16 +39,16 @@ const Group = () => {
     }
 
     return (
-        <div className='show-table'>
-            <table className="table">
-                <thead className="thead-dark">
-                    <tr>
-                        <th scope="col">{group.name}</th>
-                        <th scope="col">Imię</th>
-                        <th scope="col">Nazwisko</th>
+        <div>
+            <table className="content-table">
+                <thead>
+                    <tr className='table-head'>
+                        <td>{group.name}</td>
+                        <td>Imię</td>
+                        <td>Nazwisko</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className='body'>
                     {group.teachers.map(teacher => (
                     <tr className="teacher" key={teacher.id}>
                         <td>Nauczyciel</td>
