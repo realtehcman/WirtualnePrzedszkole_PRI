@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LoginDto {
     private String email;

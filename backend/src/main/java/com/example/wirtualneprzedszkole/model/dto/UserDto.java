@@ -16,25 +16,26 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
-    private final Long id;
+    private Long id;
 
     @Email(regexp = ".+@.+\\..+", message = "Nie poprawny format")
-    private final String email;
+    private String email;
 
     @NotEmpty(message = "To pole nie może być puste")
-    private final String name;
+    private String name;
 
     @NotEmpty(message = "To pole nie może być puste")
-    private final String lastName;
-    private final String picture;
+    private String lastName;
+    private String picture;
 
     @NotEmpty(message = "To pole nie może być puste")
-    private final String address;
+    private String address;
 
     @ValidPhoneNumber
-    private final String phoneNumber;
+    private String phoneNumber;
 
     /*@NotEmpty(message = "To pole nie może być puste")*/
     @Enumerated(EnumType.STRING)
