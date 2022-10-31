@@ -2,9 +2,8 @@ package com.example.wirtualneprzedszkole.model.dto;
 
 import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.validation.ValidPhoneNumber;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,6 +15,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
     private final Long id;
 

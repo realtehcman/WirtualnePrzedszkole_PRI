@@ -1,15 +1,17 @@
 package com.example.wirtualneprzedszkole.model.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClassDto {
     private Long id;
 
