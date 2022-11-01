@@ -5,11 +5,10 @@ import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
 import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.model.dto.message.MessageDto;
-import com.example.wirtualneprzedszkole.model.dto.message.MessageDtoWithIsRead;
+import com.example.wirtualneprzedszkole.model.dto.message.MessageDtoWithFieldIsRead;
 import com.example.wirtualneprzedszkole.model.dto.message.SendMessageDto;
-import com.example.wirtualneprzedszkole.model.dto.message.UserMsgDto;
+import com.example.wirtualneprzedszkole.model.dto.message.UserEmailDto;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,68 +18,52 @@ public class MessageMapper {
     private MessageMapper(){}
 
 
-    public static List<UserMsgDto> usersMapToUsersMsgDto(List<UserMessage> users) {
+    public static List<UserEmailDto> userMessagesMapToUsersEmailsDto(List<UserMessage> users) {
         return users.stream()
-                .map(MessageMapper::userMapToUserMsgDto)
+                .map(MessageMapper::userMessageMapToUserEmailDto)
                 .collect(Collectors.toList());
     }
 
-    public static UserMsgDto userMapToUserMsgDto(UserMessage user) {
-        return UserMsgDto.builder()
+    public static UserEmailDto userMessageMapToUserEmailDto(UserMessage user) {
+        return UserEmailDto.builder()
                 .email(user.getUser().getEmail())
                 .build();
     }
 
-    public static UserMsgDto userMapToUserMsgDto(User user) {
-        return UserMsgDto.builder()
+    public static UserEmailDto userMapToUserEmailDto(User user) {
+        return UserEmailDto.builder()
                 .email(user.getEmail())
                 .build();
     }
 
-    public static List<String> mapToMessageDto(List<UserMsgDto> usersMsgDto) {
-        return usersMsgDto.stream()
-                .map(UserMsgDto::getEmail)
+    public static List<String> userEmailsDtoMapToFieldToFromMessageDto(List<UserEmailDto> userEmailsDto) {
+        return userEmailsDto.stream()
+                .map(UserEmailDto::getEmail)
                 .collect(Collectors.toList());
     }
 
-    public static Message mapToDao(SendMessageDto msgDto, List<User> users) {
+    public static Message SendMessageDtoMapToMessage(SendMessageDto msgDto) {
         return Message.builder()
                 .id(msgDto.getId())
                 .author(msgDto.getAuthor())
                 .content(msgDto.getContent())
-                //.isRead(msgDto.isRead())
                 .subject(msgDto.getSubject())
-                //.to(users)
-                //.userMessageList(msgDto.getUserMessageList())
                 .build();
     }
 
-    public static Message mapSendMessageDtoToMessage(SendMessageDto sendMessageDto) {
-        return Message.builder()
-                .id(sendMessageDto.getId())
-                .author(sendMessageDto.getAuthor())
-                .content(sendMessageDto.getContent())
-                //.isRead(sendMessageDto.isRead())
-                .subject(sendMessageDto.getSubject())
-                //.userMessageList(sendMessageDto.getUserMessageList())
-                .build();
-    }
-
-    public static List<MessageDto> mapMessagesToDto(List<Message> messages) {
+    public static List<MessageDto> mapMessagesToMessagesDto(List<Message> messages) {
         return messages.stream()
-                .map(MessageMapper::mapToDto)
+                .map(MessageMapper::mapMessageToMessageDto)
                 .collect(Collectors.toList());
     }
 
-    public static MessageDto mapToDto(Message message) {
+    public static MessageDto mapMessageToMessageDto(Message message) {
         return MessageDto.builder()
                 .id(message.getId())
-                .to(mapToMessageDto(usersMapToUsersMsgDto(message.getUserMessageList())))
+                .to(userEmailsDtoMapToFieldToFromMessageDto(userMessagesMapToUsersEmailsDto(message.getUserMessageList())))
                 .content(message.getContent())
-                .author(userMapToUserMsgDto(message.getAuthor()).getEmail())
-                //.isRead(message.isRead())
+                .author(userMapToUserEmailDto(message.getAuthor()).getEmail())
                 .subject(message.getSubject())
-                //.userMessageList(message.getUserMessageList())
                 .build();
     }
 
@@ -92,15 +75,13 @@ public class MessageMapper {
 
     }
 
-    public static MessageDtoWithIsRead mapToDtoWithIsRead(Message message) {
-        return MessageDtoWithIsRead.builder()
+    public static MessageDtoWithFieldIsRead messageMapToMsgDtoWithFieldIsRead(Message message) {
+        return MessageDtoWithFieldIsRead.builder()
                 .id(message.getId())
-                .to(MailAndIsReadMapToKeyValue(mapToMessageDto(usersMapToUsersMsgDto(message.getUserMessageList())), message.getUserMessageList()))
+                .to(MailAndIsReadMapToKeyValue(userEmailsDtoMapToFieldToFromMessageDto(userMessagesMapToUsersEmailsDto(message.getUserMessageList())), message.getUserMessageList()))
                 .content(message.getContent())
-                .author(userMapToUserMsgDto(message.getAuthor()).getEmail())
-                //.isRead(getIsReadFromUserMessage(message.getUserMessageList(), message.getId()))
+                .author(userMapToUserEmailDto(message.getAuthor()).getEmail())
                 .subject(message.getSubject())
-                //.userMessageList(message.getUserMessageList())
                 .build();
     }
 

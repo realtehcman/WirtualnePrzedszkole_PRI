@@ -11,7 +11,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Builder
-public class MessageDtoWithIsRead {
+public class MessageDtoWithFieldIsRead {
     private Long id;
     private String author;
     private Map<String, Boolean> to;

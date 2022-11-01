@@ -1,18 +1,13 @@
 package com.example.wirtualneprzedszkole.controller.message;
 
 import com.example.wirtualneprzedszkole.mapper.message.MessageMapper;
-import com.example.wirtualneprzedszkole.model.dao.Child;
-import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
 import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
-import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.model.dto.message.MessageDto;
-import com.example.wirtualneprzedszkole.model.dto.message.MessageDtoWithIsRead;
+import com.example.wirtualneprzedszkole.model.dto.message.MessageDtoWithFieldIsRead;
 import com.example.wirtualneprzedszkole.model.dto.message.SendMessageDto;
-import com.example.wirtualneprzedszkole.model.dto.message.UserMsgDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
-import com.example.wirtualneprzedszkole.service.ClassService;
 import com.example.wirtualneprzedszkole.service.UserManagementService;
 import com.example.wirtualneprzedszkole.service.UserService;
 import com.example.wirtualneprzedszkole.service.message.MessageService;
@@ -22,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,7 +29,7 @@ public class MessageController {
 
     @GetMapping
     public List<MessageDto> getAllSentMessages() {
-        return MessageMapper.mapMessagesToDto(messageService.getAllSentMessages());
+        return MessageMapper.mapMessagesToMessagesDto(messageService.getAllSentMessages());
     }
 
     @PostMapping
@@ -44,8 +38,8 @@ public class MessageController {
         sendMessageDto.setAuthor(getCurrentUser(authentication));
         List<User> users = userManagementService.getAllUserByEmail(sendMessageDto.getEmails());
 
-        return MessageMapper.mapToDto(assignUserMessageToMsg(messageService
-                .sendMessage(MessageMapper.mapToDao(sendMessageDto, users), sendMessageDto.getEmails()), users));
+        return MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
+                .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), sendMessageDto.getEmails()), users));
     }
 
     @PostMapping("to_parents")
@@ -53,8 +47,8 @@ public class MessageController {
 
         sendMessageDto.setAuthor(getCurrentUser(authentication));
         List<User> users = userManagementService.getAllParents();
-        return MessageMapper.mapToDto(assignUserMessageToMsg(messageService
-                .sendMessage(MessageMapper.mapToDao(sendMessageDto, users), sendMessageDto.getEmails()), users));
+        return MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
+                .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), sendMessageDto.getEmails()), users));
     }
 
     @PostMapping("to_class/{classId}")
@@ -64,14 +58,14 @@ public class MessageController {
         List<Long> childrenIds = childService.getChildByClassIn(classId);
         List<User> users = List.copyOf(userManagementService.getAllParentsFromClass(childrenIds));
 
-        return MessageMapper.mapToDto(assignUserMessageToMsg(messageService
-                .sendMessage(MessageMapper.mapToDao(sendMessageDto, users), sendMessageDto.getEmails()), users));
+        return MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
+                .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), sendMessageDto.getEmails()), users));
     }
 
     @GetMapping("read_msg/{msgId}")
     public MessageDto readMsg(Authentication authentication, @PathVariable Long msgId) {
         Long userId = getCurrentUser(authentication).getId();
-        MessageDto messageDto = MessageMapper.mapToDto(messageService.readMsg(msgId, userId));
+        MessageDto messageDto = MessageMapper.mapMessageToMessageDto(messageService.readMsg(msgId, userId));
         messageService.msgIsRead(msgId, userId);
         return messageDto;
     }
@@ -79,13 +73,13 @@ public class MessageController {
     @GetMapping("received_messages")
     public List<MessageDto> getReceivedMessages(Authentication authentication) {
         Long userId = getCurrentUser(authentication).getId();
-        return MessageMapper.mapMessagesToDto(messageService.getReceivedMessages(userId));
+        return MessageMapper.mapMessagesToMessagesDto(messageService.getReceivedMessages(userId));
     }
 
     @GetMapping("sent_msg/{msgId}")
-    public MessageDtoWithIsRead getSentMsg(@PathVariable Long msgId) {
+    public MessageDtoWithFieldIsRead getSentMsg(@PathVariable Long msgId) {
         Message message = messageService.getSentMsg(msgId);
-        return MessageMapper.mapToDtoWithIsRead(message);
+        return MessageMapper.messageMapToMsgDtoWithFieldIsRead(message);
         //return MessageMapper.mapToDto(messageService.getSentMsg(msgId));
     }
 

@@ -2,9 +2,8 @@ package com.example.wirtualneprzedszkole.model.dto.message;
 
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -14,6 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SendMessageDto {
     private Long id;
     private User author;
@@ -21,6 +23,6 @@ public class SendMessageDto {
     //private boolean isRead;
     private String subject;
     private String content;
-    private List<UserMessage> userMessageList;
+    //private List<UserMessage> userMessageList;
 
 }
