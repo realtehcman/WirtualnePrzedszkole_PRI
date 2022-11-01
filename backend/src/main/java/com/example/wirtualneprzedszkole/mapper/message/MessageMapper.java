@@ -1,13 +1,12 @@
 package com.example.wirtualneprzedszkole.mapper.message;
 
 
+import com.example.wirtualneprzedszkole.mapper.UserMapper;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
 import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
-import com.example.wirtualneprzedszkole.model.dto.message.MessageDto;
-import com.example.wirtualneprzedszkole.model.dto.message.MessageDtoWithFieldIsRead;
-import com.example.wirtualneprzedszkole.model.dto.message.SendMessageDto;
-import com.example.wirtualneprzedszkole.model.dto.message.UserEmailDto;
+import com.example.wirtualneprzedszkole.model.dto.UserDto;
+import com.example.wirtualneprzedszkole.model.dto.message.*;
 
 import java.util.List;
 import java.util.Map;
@@ -51,6 +50,20 @@ public class MessageMapper {
                 .build();
     }
 
+    public static List<UserDto> userMessagesMapToUsersDto(List<UserMessage> userMessageList) {
+        return userMessageList.stream()
+                .map(MessageMapper::userMessageMapToUserDto)
+                .collect(Collectors.toList());
+    }
+
+    public static UserDto userMessageMapToUserDto(UserMessage userMessage) {
+        return UserDto.builder()
+                .name(userMessage.getUser().getName())
+                .lastName(userMessage.getUser().getLastName())
+                .email(userMessage.getUser().getEmail())
+                .build();
+    }
+
     public static List<MessageDto> mapMessagesToMessagesDto(List<Message> messages) {
         return messages.stream()
                 .map(MessageMapper::mapMessageToMessageDto)
@@ -60,7 +73,24 @@ public class MessageMapper {
     public static MessageDto mapMessageToMessageDto(Message message) {
         return MessageDto.builder()
                 .id(message.getId())
-                .to(userEmailsDtoMapToFieldToFromMessageDto(userMessagesMapToUsersEmailsDto(message.getUserMessageList())))
+                //.to(userEmailsDtoMapToFieldToFromMessageDto(userMessagesMapToUsersEmailsDto(message.getUserMessageList())))
+                .to(userMessagesMapToUsersDto(message.getUserMessageList()))
+                .content(message.getContent())
+                .author(userMapToUserEmailDto(message.getAuthor()).getEmail())
+                .subject(message.getSubject())
+                .build();
+    }
+
+    public static List<MessageToRecipientDto> mapMessagesToMessageToRecipientsDto(List<Message> messages) {
+        return messages.stream()
+                .map(MessageMapper::mapMessageToMessageToRecipientDto)
+                .collect(Collectors.toList());
+    }
+
+    public static MessageToRecipientDto mapMessageToMessageToRecipientDto(Message message) {
+        return MessageToRecipientDto.builder()
+                .id(message.getId())
+                //.to(userEmailsDtoMapToFieldToFromMessageDto(userMessagesMapToUsersEmailsDto(message.getUserMessageList())))
                 .content(message.getContent())
                 .author(userMapToUserEmailDto(message.getAuthor()).getEmail())
                 .subject(message.getSubject())

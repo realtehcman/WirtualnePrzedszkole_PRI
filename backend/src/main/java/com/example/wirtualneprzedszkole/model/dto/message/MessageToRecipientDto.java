@@ -1,7 +1,5 @@
 package com.example.wirtualneprzedszkole.model.dto.message;
 
-import com.example.wirtualneprzedszkole.model.dao.User;
-import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,10 +10,10 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class MessageDto {
+public class MessageToRecipientDto {
     private Long id;
     private String author;
-    private List<UserDto> to;
+    //private List<String> to;
     private String subject;
     private String content;
 }

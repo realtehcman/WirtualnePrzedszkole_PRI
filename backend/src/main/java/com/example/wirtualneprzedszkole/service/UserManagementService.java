@@ -92,8 +92,8 @@ public class UserManagementService {
         userRepo.deleteById(id);
     }
 
-    public List<User> getAllUserByEmail(List<String> emails) {
-        return userRepo.findByEmailIn(emails);
+    public List<User> getAllUserByName(List<String> usersName) {
+        return userRepo.findUsersIn(usersName);
     }
 
     public List<User> getAllParents() {

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Repository
@@ -17,7 +18,9 @@ public interface UserRepo extends JpaRepository<User, Long> {
     List<User> findAllByLastName(String lastName, Pageable page);
     Boolean existsByEmail(String email);
     User findByEmail(String email);
-    List<User> findByEmailIn(List<String> emails);
+
+    @Query("select u from User u where concat(u.name, ' ', u.lastName) IN :userNames")
+    List<User> findUsersIn(List<String> userNames);
 
     List<User> findByRole(UserRole parent);
     Set<User> findUsersByChildrenIdIn(List<Long> childrenIds);

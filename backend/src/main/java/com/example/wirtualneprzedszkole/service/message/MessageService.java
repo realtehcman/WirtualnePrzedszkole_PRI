@@ -22,13 +22,13 @@ public class MessageService {
         return messageRepo.findAllMessage();
     }
 
-    public Message sendMessage(Message message, List<String> emails) {
+    public Message sendMessage(Message message, List<User> users) {
         Message msg = messageRepo.save(message);
         String subject = msg.getSubject();
         //Wysyłanie powiadomienia narazie zakomentowane bo wysypuje sie,
         //gdy adres mail nieistnieje
-        /*emails.forEach(e -> emailSenderService.sendEmail(e, subject,
-                "Sprawdź nową wiadomość na twoim koncie "));*/
+        users.forEach(e -> emailSenderService.sendEmail(e.getEmail(), subject,
+                "Sprawdź nową wiadomość na twoim koncie "));
         return msg;
     }
 

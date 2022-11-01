@@ -19,7 +19,7 @@ import java.util.List;
 public class SendMessageDto {
     private Long id;
     private User author;
-    private List<String> emails;
+    private List<String> to;
     //private boolean isRead;
     private String subject;
     private String content;
