@@ -81,7 +81,6 @@ public class MessageController {
     public MessageDtoWithFieldIsRead getSentMsg(@PathVariable Long msgId) {
         Message message = messageService.getSentMsg(msgId);
         return MessageMapper.messageMapToMsgDtoWithFieldIsRead(message);
-        //return MessageMapper.mapToDto(messageService.getSentMsg(msgId));
     }
 
     @GetMapping("{msgId}/to/{userId}")

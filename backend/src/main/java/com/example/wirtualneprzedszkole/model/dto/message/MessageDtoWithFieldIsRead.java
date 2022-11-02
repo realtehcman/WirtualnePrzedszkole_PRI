@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Map;
 
 
 @Getter
@@ -14,7 +13,7 @@ import java.util.Map;
 public class MessageDtoWithFieldIsRead {
     private Long id;
     private String author;
-    private Map<String, Boolean> to;
+    private List<UserReadMsg> to;
     private String subject;
     private String content;
 }
