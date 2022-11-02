@@ -13,7 +13,6 @@ import java.util.List;
 public class MessageToRecipientDto {
     private Long id;
     private String author;
-    //private List<String> to;
     private String subject;
     private String content;
 }

@@ -1,7 +1,5 @@
 package com.example.wirtualneprzedszkole.model.dto.message;
 
-import com.example.wirtualneprzedszkole.model.dao.User;
-import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
