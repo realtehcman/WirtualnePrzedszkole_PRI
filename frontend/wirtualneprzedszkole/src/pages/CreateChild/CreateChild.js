@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import ChildrenService from '../Children/ChildrenService'
 import "../CreateUser/CreateUser.scss"
+import { Link } from 'react-router-dom'
 
 
 class CreateChild extends Component {
@@ -68,7 +69,7 @@ class CreateChild extends Component {
                                         value={this.state.classId} onChange={this.changeClassIdHandler}/>
                                     </div>
                                     <div className="form-but">
-                                        <button onClick={event =>  window.location.href='/children'} className="button2">Wróć</button>
+                                        <Link className="button3" to={"/children"}>Wróć</Link>
 
                                         <button className="button2">Zapisz</button>
 

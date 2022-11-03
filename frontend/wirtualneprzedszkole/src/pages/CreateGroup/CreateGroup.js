@@ -46,6 +46,7 @@ class CreateGroup extends Component {
           <div className="card col-md-6 offset-md-3 offset-md-3">
             <div className="form-body">
               <form onSubmit={this.saveGroup}>
+                {/* mixes the buttons */}
                 <div className="form-group">
                   <input
                     placeholder="Nazwa"
@@ -66,7 +67,7 @@ class CreateGroup extends Component {
                 </div>
                 <div className="form-but">
                   {/* <button onClick={event =>  window.location.href='/groups'} className="button2">Wróć</button> */}
-                  <Link className="button2" to={"/groups"}>
+                  <Link className="button3" to={"/groups"}>
                     Wróć
                   </Link>
 

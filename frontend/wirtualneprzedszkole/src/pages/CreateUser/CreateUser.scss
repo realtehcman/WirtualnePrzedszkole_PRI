@@ -1,71 +1,77 @@
-
-
 body {
   min-height: 100vh;
   background-color: dodgerblue;
 }
 
 .addusers {
-    display: flex;
+  display: flex;
 
-    .addusersContainer{
-        flex: 6;
-    }
+  .addusersContainer {
+    flex: 6;
+  }
 }
 
-
 input {
-  display:block;
+  display: block;
   border: none;
   border-radius: 5px 5px 5px 5px;
   background-color: #fafafa;
-  box-shadow:0 0 4px rgba(0,0,0,0.15);
-  transition: .3s box-shadow;
-  width:100%;
-  margin:10px 0;
-  padding:20px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  transition: 0.3s box-shadow;
+  width: 100%;
+  margin: 10px 0;
+  padding: 20px;
 }
-.form-group{
+.form-group {
   padding: 15px;
-  display:block
+  display: block;
 }
 
-.form-but{
-display: block;
-padding: 15px;
-width: 50%;
-text-align: center;
-margin-left: 22.5%;
+.form-but {
+  display: block;
+  padding: 15px;
+  width: 50%;
+  text-align: center;
+  margin-left: 22.5%;
 }
 
-.button{
-background-color: #4424bb;;
-color: white;
-padding: 14px 20px;
-margin: 8px 0;
-border: none;
-cursor: pointer;
+.button {
+  background-color: #4424bb;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
 }
 
 .button2 {
-  background-color: #4424bb;;
+  background-color: #4424bb;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
   margin-left: 12%;
-
 }
 
+.button3 {
+  background-color: #4424bb;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  margin-left: 12%;
+  text-decoration: none;
+  &:hover{color: white;}
+}
 
 .formContainer {
-  margin-left:23%;
+  margin-left: 23%;
   margin-top: 10%;
   display: block;
   width: 50%;
 }
-
 
 body {
   width: 100%;
