@@ -66,51 +66,83 @@ class CreateUser extends Component {
 
     render() {
         return (
-                <div className='formContainer'>
-                    <div className='row'>
-                        <div className='card col-md-6 offset-md-3 offset-md-3'>
-                            <div className='form-body'>
-                                <form onSubmit = {this.saveUser}>
-                                    <div className='form-group'>
-                                        <input placeholder='Imię' name="Imię" className='"form-control' 
-                                        value={this.state.name} onChange={this.changeNameHandler}/>
-                                    </div>
-                                    <div className='form-group'>
-                                        <input placeholder='Nazwisko' name="Nazwisko" className='"form-control' 
-                                        value={this.state.lastName} onChange={this.changeLastNameHandler}/>
-                                    </div>
-                                    <div className='form-group'>
-                                        <input placeholder='Email' name="Email" className='"form-control' 
-                                        value={this.state.email} onChange={this.changeEmailHandler}/>
-                                    </div>
-                                    <div className='form-group'>
-                                        <input placeholder='Adres' name="Adres" className='"form-control' 
-                                        value={this.state.address} onChange={this.changeAddressHandler}/>
-                                    </div>
-                                    <div className='form-group'>
-                                        <input placeholder='Numer Telefonu' name="Numer Telefonu" className='"form-control' 
-                                        value={this.state.phoneNumber} onChange={this.changePhoneHandler}/>
-                                    </div>
-                                    <div className='form-group'>
-                                        <select id="lang" value={this.state.role} onChange={this.changeRoleHandler}>
-                                            <option value='PARENT'>Rodzic</option>
-                                            <option value='TEACHER'>Nauczyciel</option>
-                                            <option value='ADMIN'>Administrator</option>
-                                        </select>
-                                    </div>
-                                    <div className="form-but">
-                                        <button onClick={event =>  window.location.href='/children'} className="button2">Wróć</button>
-
-                                        <button className="button2">Zapisz</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
+          <div className="formContainer">
+            <div className="row">
+              <div className="card col-md-6 offset-md-3 offset-md-3">
+                <div className="form-body">
+                  <form onSubmit={this.saveUser}>
+                    <div className="form-group">
+                      <input
+                        placeholder="Imię"
+                        name="Imię"
+                        className='"form-control'
+                        value={this.state.name}
+                        onChange={this.changeNameHandler}
+                      />
                     </div>
-                </div>
+                    <div className="form-group">
+                      <input
+                        placeholder="Nazwisko"
+                        name="Nazwisko"
+                        className='"form-control'
+                        value={this.state.lastName}
+                        onChange={this.changeLastNameHandler}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        placeholder="Email"
+                        name="Email"
+                        className='"form-control'
+                        value={this.state.email}
+                        onChange={this.changeEmailHandler}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        placeholder="Adres"
+                        name="Adres"
+                        className='"form-control'
+                        value={this.state.address}
+                        onChange={this.changeAddressHandler}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        placeholder="Numer Telefonu"
+                        name="Numer Telefonu"
+                        className='"form-control'
+                        value={this.state.phoneNumber}
+                        onChange={this.changePhoneHandler}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <select
+                        id="lang"
+                        value={this.state.role}
+                        onChange={this.changeRoleHandler}
+                      >
+                        <option value="PARENT">Rodzic</option>
+                        <option value="TEACHER">Nauczyciel</option>
+                        <option value="ADMIN">Administrator</option>
+                      </select>
+                    </div>
+                    <div className="form-but">
+                      <button
+                        onClick={(event) => (window.location.href = "/users")}
+                        className="button2"
+                      >
+                        Wróć
+                      </button>
 
-        )
+                      <button className="button2">Zapisz</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
     }
 }
 
