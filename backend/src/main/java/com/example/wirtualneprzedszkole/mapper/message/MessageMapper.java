@@ -47,7 +47,7 @@ public class MessageMapper {
                 .to(userMessagesMapToUsersDto(message.getUserMessageList()))
                 .content(message.getContent())
                 .author(message.getAuthor().getName() + " " + message.getAuthor().getLastName()
-                        + " - " + message.getAuthor().getRole() + " (" + message.getAuthor().getEmail() + ")")
+                         + " (" + message.getAuthor().getEmail() + ")")
                 .subject(message.getSubject())
                 .build();
     }
@@ -63,7 +63,7 @@ public class MessageMapper {
                 .id(message.getId())
                 .content(message.getContent())
                 .author(message.getAuthor().getName() + " " + message.getAuthor().getLastName()
-                        + " - " + message.getAuthor().getRole() + " (" + message.getAuthor().getEmail() + ")")
+                        + " (" + message.getAuthor().getEmail() + ")")
                 .subject(message.getSubject())
                 .build();
     }
@@ -74,7 +74,7 @@ public class MessageMapper {
                 .to(userMessagesMapToUserReadMsg(message.getUserMessageList()))
                 .content(message.getContent())
                 .author(message.getAuthor().getName() + " " + message.getAuthor().getLastName()
-                        + " - " + message.getAuthor().getRole() + " (" + message.getAuthor().getEmail() + ")")
+                        + " (" + message.getAuthor().getEmail() + ")")
                 .subject(message.getSubject())
                 .build();
     }
