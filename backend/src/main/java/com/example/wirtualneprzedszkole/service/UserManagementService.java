@@ -45,8 +45,8 @@ public class UserManagementService {
             throw new UserAlreadyExistException(user.getEmail());
         }
         user.setPassword(randomPasswordGenerator.generatePassayPassword());
-        /*emailSenderService.sendEmail(user.getEmail(), "Hasło w serwsisie Wirtualne przedszkole",
-                "Twoje Hasło: " + user.getPassword());*/
+        emailSenderService.sendEmail(user.getEmail(), "Hasło w serwsisie Wirtualne przedszkole",
+                "Twoje Hasło: " + user.getPassword());
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         return userRepo.save(user);
