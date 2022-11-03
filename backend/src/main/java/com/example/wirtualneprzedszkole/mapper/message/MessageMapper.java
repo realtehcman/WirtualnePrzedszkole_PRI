@@ -1,7 +1,5 @@
 package com.example.wirtualneprzedszkole.mapper.message;
 
-
-import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
 import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
@@ -12,12 +10,6 @@ import java.util.stream.Collectors;
 
 public class MessageMapper {
     private MessageMapper(){}
-
-    public static UserEmailDto userMapToUserEmailDto(User user) {
-        return UserEmailDto.builder()
-                .email(user.getEmail())
-                .build();
-    }
 
     public static Message SendMessageDtoMapToMessage(SendMessageDto msgDto) {
         return Message.builder()
@@ -54,7 +46,8 @@ public class MessageMapper {
                 .id(message.getId())
                 .to(userMessagesMapToUsersDto(message.getUserMessageList()))
                 .content(message.getContent())
-                .author(userMapToUserEmailDto(message.getAuthor()).getEmail())
+                .author(message.getAuthor().getName() + " " + message.getAuthor().getLastName()
+                        + " - " + message.getAuthor().getRole() + " (" + message.getAuthor().getEmail() + ")")
                 .subject(message.getSubject())
                 .build();
     }
@@ -69,7 +62,8 @@ public class MessageMapper {
         return MessageToRecipientDto.builder()
                 .id(message.getId())
                 .content(message.getContent())
-                .author(userMapToUserEmailDto(message.getAuthor()).getEmail())
+                .author(message.getAuthor().getName() + " " + message.getAuthor().getLastName()
+                        + " - " + message.getAuthor().getRole() + " (" + message.getAuthor().getEmail() + ")")
                 .subject(message.getSubject())
                 .build();
     }
@@ -79,7 +73,8 @@ public class MessageMapper {
                 .id(message.getId())
                 .to(userMessagesMapToUserReadMsg(message.getUserMessageList()))
                 .content(message.getContent())
-                .author(userMapToUserEmailDto(message.getAuthor()).getEmail())
+                .author(message.getAuthor().getName() + " " + message.getAuthor().getLastName()
+                        + " - " + message.getAuthor().getRole() + " (" + message.getAuthor().getEmail() + ")")
                 .subject(message.getSubject())
                 .build();
     }
