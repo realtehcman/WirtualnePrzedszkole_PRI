@@ -12,12 +12,11 @@ const UserChild = () => {
       id: "",
       name: "",
       lastName: "",
-    //   add another field in the backend (parents amount)
+      //   add another field in the backend (parents amount)
     },
   ]);
 
-
-//   request to the database
+  //   request to the database
   const getData = async () => {
     ChildrenService.getChildren().then((response) => {
       console.log("Response from main API: ", response);
@@ -26,9 +25,9 @@ const UserChild = () => {
         return { id: it.id, name: it.name, lastName: it.lastName };
       });
       setChild(childrenData);
+      console.log(childrenData);
     });
   };
-
 
   useEffect(() => {
     getData();
@@ -44,7 +43,6 @@ const UserChild = () => {
     putUser(id, child);
     navigate("/user/" + id, { replace: true });
   };
-
 
   return (
     <div>

@@ -36,6 +36,7 @@ public class ClassMapper {
                 .name(aClass.getName())
                 .description(aClass.getDescription())
                 .children(ChildMapper.mapToDto(aClass.getChildren()))
+//                .parents(UserMapper.mapToDto(child.getParents()))
                 .teachers(UserMapper.mapToDto(aClass.getTeachers()))
                 .build();
     }
