@@ -12,7 +12,7 @@ const UserChild = () => {
       id: "",
       name: "",
       lastName: "",
-      //   add another field in the backend (parents amount)
+      parents: [],
     },
   ]);
 
@@ -22,10 +22,14 @@ const UserChild = () => {
       console.log("Response from main API: ", response);
       let ChildData = response.data;
       let childrenData = ChildData.map((it) => {
-        return { id: it.id, name: it.name, lastName: it.lastName };
+        return {
+          id: it.id,
+          name: it.name,
+          lastName: it.lastName,
+          parents: it.parents,
+        };
       });
       setChild(childrenData);
-      console.log(childrenData);
     });
   };
 
@@ -55,21 +59,26 @@ const UserChild = () => {
           </tr>
         </thead>
         <tbody className="body">
-          {children.map((child) => (
-            // child.filter(i=> ) sorting parents amount (if >2 return null)
-            <tr key={child.id}>
-              <td>{child.name}</td>
-              <td>{child.lastName}</td>
-              <td>
-                <button
-                  onClick={() => onClick(id, child)}
-                  className="btn btn-danger"
-                >
-                  Przypisz Dziecko
-                </button>
-              </td>
-            </tr>
-          ))}
+          {children.map((child) => {
+            if (child.parents.length < 2) {
+              return (
+                <tr key={child.id}>
+                  <td>{child.name}</td>
+                  <td>{child.lastName}</td>
+                  <td>
+                    <button
+                      onClick={() => onClick(id, child)}
+                      className="btn btn-danger"
+                    >
+                      Przypisz Dziecko
+                    </button>
+                  </td>
+                </tr>
+              );
+            } else {
+              return null;
+            }
+          })}
         </tbody>
       </table>
     </div>
