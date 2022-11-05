@@ -110,18 +110,20 @@ const User = () => {
                     </tr>
                   </thead>
 
-                  {user.children.map((child) => (
-                    <tr
-                      key={child.id}
-                      onClick={() =>
-                        navigate("/child/" + child.id, { replace: true })
-                      }
-                    >
-                      <td>{child.name}</td>
-                      <td>{child.classId}</td>
-                    </tr>
-                    //<div className="col-md-12"><label className="labels">dzieci: </label>  <label className="labels">{child.name}</label></div>
-                  ))}
+                  <tbody>
+                    {user.children.map((child) => (
+                      <tr
+                        key={child.id}
+                        onClick={() =>
+                          navigate("/child/" + child.id, { replace: true })
+                        }
+                      >
+                        <td>{child.name}</td>
+                        <td>{child.classId}</td>
+                      </tr>
+                      //<div className="col-md-12"><label className="labels">dzieci: </label>  <label className="labels">{child.name}</label></div>
+                    ))}
+                  </tbody>
                 </table>
                 <div className="mt-5 text-center">
                   <button
