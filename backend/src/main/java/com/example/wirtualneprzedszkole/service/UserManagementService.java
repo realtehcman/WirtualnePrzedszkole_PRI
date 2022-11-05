@@ -42,7 +42,7 @@ public class UserManagementService {
 
     public User addUser(User user) {
         if (userRepo.existsByEmail(user.getEmail())) {
-            throw new UserAlreadyExistException(user.getEmail());
+            throw new UserAlreadyExistException("Uzytkownik o takim adresie email istnieje");
         }
         user.setPassword(randomPasswordGenerator.generatePassayPassword());
         emailSenderService.sendEmail(user.getEmail(), "Hasło w serwsisie Wirtualne przedszkole",
