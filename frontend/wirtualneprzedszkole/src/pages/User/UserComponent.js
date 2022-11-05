@@ -56,14 +56,14 @@ class UserComponent extends React.Component {
               <td>Akcje</td>
             </tr>
           </thead>
-          <tbody className="body">
+          <tbody className="body table-body">
             {this.state.users.map((user) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.lastName}</td>
                 <td>{user.email}</td>
-                <td>
+                <td className="foobar">
                   <Navi value={user.id} />
                   {/* <button onClick={() => this.props.navigation.navigate("/home//")} className='btn btn-info'>Zobacz</button> */}
                   <button

@@ -1,28 +1,28 @@
 .login {
   display: flex;
 
-  .loginContainer{
-      flex: 6;
+  .loginContainer {
+    flex: 6;
   }
 }
 
 input {
-    display:block;
-    border: none;
-    border-radius: 5px 5px 5px 5px;
-    background-color: #fafafa;
-    box-shadow:0 0 4px rgba(0,0,0,0.15);
-    transition: .3s box-shadow;
-    width:100%;
-    margin:10px 0;
-    padding:20px;
-  }
-.form-group{
-    padding: 15px;
-    display:block
+  display: block;
+  border: none;
+  border-radius: 5px 5px 5px 5px;
+  background-color: #fafafa;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  transition: 0.3s box-shadow;
+  width: 100%;
+  margin: 10px 0;
+  padding: 20px;
+}
+.form-group {
+  padding: 15px;
+  display: block;
 }
 
-.form-but{
+.form-but {
   display: block;
   padding: 15px;
   width: 50%;
@@ -30,8 +30,8 @@ input {
   margin-left: 22.5%;
 }
 
-.button{
-  background-color: #4424bb;;
+.button {
+  background-color: #4424bb;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -40,31 +40,30 @@ input {
 }
 
 .formContainer {
-    margin-left:23%;
-    margin-top: 10%;
-    display: block;
-    width: 50%;
+  margin-left: 23%;
+  margin-top: 10%;
+  display: block;
+  width: 50%;
 }
 
-
 body {
-    width: 100%;
-    margin: 0;
-    position: fixed;
-    overflow: hidden;
-  }
-  
-  .body-container {
-    width: 100vw;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+  width: 100%;
+  margin: 0;
+  // position: fixed;
+  // overflow: hidden;
+}
 
-  .logo-login{
-    margin-left: 36.5%;
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-    color: #4424bb;
+.body-container {
+  width: 100vw;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.logo-login {
+  margin-left: 36.5%;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: #4424bb;
 }

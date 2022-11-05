@@ -63,7 +63,9 @@ input {
   cursor: pointer;
   margin-left: 12%;
   text-decoration: none;
-  &:hover{color: white;}
+  &:hover {
+    color: white;
+  }
 }
 
 .formContainer {
@@ -76,8 +78,8 @@ input {
 body {
   width: 100%;
   margin: 0;
-  position: fixed;
-  overflow: hidden;
+  // position: fixed;
+  // overflow: hidden;
 }
 
 .body-container {
