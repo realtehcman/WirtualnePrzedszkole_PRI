@@ -75,7 +75,12 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
+<<<<<<< HEAD
        <!-- <dependency>
+=======
+<!--
+        <dependency>
+>>>>>>> frontend_bug_fixes
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
             <version>1.4.7</version>

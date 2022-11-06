@@ -29,8 +29,7 @@ public class UserManagementController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping("/search/{lastName}")
-    public List<UserDto> getUserByLastName(@PathVariable String lastName,
-                                           @RequestParam(required = false) Integer page) {
+    public List<UserDto> getUserByLastName(@PathVariable String lastName, @RequestParam(required = false) Integer page) {
         int pageNumber = page != null && page >= 0 ? page : 0;
         return UserMapper.mapToDto(userManagementService.getUserByLastName(lastName, pageNumber));
     }

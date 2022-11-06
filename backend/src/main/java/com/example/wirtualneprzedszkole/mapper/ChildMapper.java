@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ChildMapper {
+
     private ChildMapper(){}
 
     public static List<ChildDto> mapToChildDto(List<Child> children) {
