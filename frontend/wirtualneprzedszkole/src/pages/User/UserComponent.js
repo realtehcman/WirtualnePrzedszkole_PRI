@@ -45,7 +45,7 @@ class UserComponent extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="scrollable-div">
         <table className="content-table">
           <thead>
             <tr className="table-head">
