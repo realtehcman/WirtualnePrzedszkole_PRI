@@ -1,3 +1,9 @@
+.scrollable-div {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 .content-table {
   border-collapse: collapse;
   font-size: 20px;
