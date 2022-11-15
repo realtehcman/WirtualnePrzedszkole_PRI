@@ -1,3 +1,9 @@
+// .scrollable-div {
+//   height: 100%;
+//   overflow-x: hidden;
+//   overflow-y: scroll;
+// }
+
 .content-table {
   border-collapse: collapse;
   font-size: 20px;
@@ -41,26 +47,7 @@
   width: min-content;
   overflow-x: auto;
 }
-.dzia {
-  position: fixed;
-}
-.fp23{
-  background-color: #4424bb;
-  color: #f8e3f8;
-  text-align: center;
-  font-weight: bold;
 
-}
-.fp22{
-  position: center;
-  border-collapse: collapse;
-  font-size: 20px;
-  margin-left: 15px;
-  border-radius: 5px 5px 5px 5px;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  width: 400px;
-}
 // .foobar {
 //   display: flex;
 //   align-items: center;
