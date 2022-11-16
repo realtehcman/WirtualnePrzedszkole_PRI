@@ -16,65 +16,67 @@ import { IconContext } from "react-icons";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [sidebar, setSidebar] = useState(false);
-  const showSidebar = () => setSidebar(!sidebar);
+  const [sidebar, setSidebar] = useState(true);
+  //const showSidebar = () => setSidebar(!sidebar);
 
   return (
-    <div className="sidebar">
-      <div className="center">
-        <div className="navbar">
-          <span onClick={() => navigate("/users", { replace: true })}>
-            <FaIcons.FaBars value={{size: 42}} onClick={showSidebar} />
-          </span>
+    <div>
+      <span onClick={() => navigate("/users", { replace: true })}>
+        <FaIcons.FaBars
+          value={{ size: 42 }}
+          onClick={() => setSidebar(!sidebar)}
+        />
+      </span>
+      <div className={sidebar ? "sidebar" : "sidebar-hidden"}>
+        <div className="center">
+          <div className="navbar"></div>
         </div>
-      </div>
-      <hr />
-      <div className="top">
-        <span className="logo">Przedszkole nr 25</span>
-      </div>
-      <hr />
-      <div className="center">
-        <ul>
-          <li>
-            <FamilyRestroomIcon className="icon" />
-            <span onClick={() => navigate("/users", { replace: true })}>
-              {" "}
-              Rodzice
-            </span>
-          </li>
-          <li>
-            <GroupsIcon className="icon" />
-            <span onClick={() => navigate("/groups", { replace: true })}>
-              Grupy
-            </span>
-          </li>
-          <li>
-            <ChildCareIcon className="icon" />
-            <span onClick={() => navigate("/children", { replace: true })}>
-              Dzieci
-            </span>
-          </li>
-          <li>
-            <MessageIcon className="icon" />
-            <span>Wiadomości</span>
-          </li>
-          <li>
-            <FeedIcon className="icon" />
-            <span>Aktualości</span>
-          </li>
-          <li>
-            <SupervisorAccountIcon className="icon" />
-            <span>Portal rodzica</span>
-          </li>
-          <li>
-            <SchoolIcon className="icon" />
-            <span>Baza wiedzy</span>
-          </li>
-          <li>
-            <CollectionsIcon className="icon" />
-            <span>Galeria</span>
-          </li>
-        </ul>
+        <div className="top">
+          <span className="logo">Przedszkole nr 25</span>
+        </div>
+        <div className="center">
+          <ul>
+            <li>
+              <FamilyRestroomIcon className="icon" />
+              <span onClick={() => navigate("/users", { replace: true })}>
+                {" "}
+                Rodzice
+              </span>
+            </li>
+            <li>
+              <GroupsIcon className="icon" />
+              <span onClick={() => navigate("/groups", { replace: true })}>
+                Grupy
+              </span>
+            </li>
+            <li>
+              <ChildCareIcon className="icon" />
+              <span onClick={() => navigate("/children", { replace: true })}>
+                Dzieci
+              </span>
+            </li>
+            <li>
+              <MessageIcon className="icon" />
+              <span>Wiadomości</span>
+            </li>
+            <li>
+              <FeedIcon className="icon" />
+              <span>Aktualości</span>
+            </li>
+            <li>
+              <SupervisorAccountIcon className="icon" />
+              <span>Portal rodzica</span>
+            </li>
+            <li>
+              <SchoolIcon className="icon" />
+              <span>Baza wiedzy</span>
+            </li>
+            <li>
+              <CollectionsIcon className="icon" />
+              <span>Galeria</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
