@@ -62,3 +62,71 @@
     }
   }
 }
+
+//For hiding sidebar
+
+.sidebar-hidden {
+  flex: 1;
+  border-right: 0.5px solid rgb(230, 227, 227);
+  min-height: 100vh;
+//   background-color: blue;
+    display: none;
+
+  .top {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: #4424bb;
+    }
+  }
+  .navbar {
+    height: 80px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
+  .hr {
+    height: 0;
+    border: 0.5px solid rgb(230, 227, 227);
+  }
+
+  .center {
+    padding-left: 20px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #e8e3f8;
+        }
+
+        .icon {
+          font-size: 30px;
+          color: #4424bb;
+        }
+
+        span {
+          font-size: 25px;
+          font-weight: 600;
+          padding: 10px;
+          color: #888;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
