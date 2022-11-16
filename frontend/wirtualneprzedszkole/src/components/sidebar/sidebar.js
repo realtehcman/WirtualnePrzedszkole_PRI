@@ -20,8 +20,8 @@ const Sidebar = () => {
   //const showSidebar = () => setSidebar(!sidebar);
 
   return (
-    <div>
-      <span onClick={() => navigate("/users", { replace: true })}>
+    <div className="">
+      <span onClick={() => navigate("#", { replace: true })}>
         <FaIcons.FaBars
           value={{ size: 42 }}
           onClick={() => setSidebar(!sidebar)}
@@ -29,10 +29,7 @@ const Sidebar = () => {
       </span>
       <div className={sidebar ? "sidebar" : "sidebar-hidden"}>
         <div className="center">
-          <div className="navbar"></div>
-        </div>
-        <div className="top">
-          <span className="logo">Przedszkole nr 25</span>
+          {/* <div className="navbar"></div> */}
         </div>
         <div className="center">
           <ul>
@@ -76,6 +73,9 @@ const Sidebar = () => {
               <span>Galeria</span>
             </li>
           </ul>
+          <div className="top">
+            <span className="logo">Przedszkole nr 25</span>
+          </div>
         </div>
       </div>
     </div>
