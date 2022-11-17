@@ -1,9 +1,17 @@
+@import "/src/utilities/_variables.scss";
+
 .sidebar {
   flex: 1;
   border-right: 0.5px solid rgb(230, 227, 227);
   min-height: 100vh;
   background-color: white;
   transition: 850ms;
+
+  @media (max-width: $phoneMaxWidth) {
+    float: right;
+    width: 100vw;
+    border-right: none;
+  }
 
   .top {
     height: 75px;
@@ -76,12 +84,11 @@
   top: 0;
   left: -100%;
   transition: 850ms;
-
 }
 
 .menu-bars {
   height: 80px;
-  margin-top: 30em;
+  margin-top: 300000em;
   margin-left: 1.5rem;
   font-size: 2rem;
   background: none;
