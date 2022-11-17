@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./sidebar.scss";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -13,16 +13,31 @@ import { useNavigate } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { IconContext } from "react-icons";
+// import MediaQuery from "react-responsive";
+import { isMobile } from "react-device-detect";
+import { BrowserView, MobileView } from "react-device-detect";
+import useWindowDimensions from "./useWindowDimensions.js";
 
 const Sidebar = () => {
+  const { height, width } = useWindowDimensions();
+  const phoneMaxWidth = 480;
+  const screenSize = width;
+
   const navigate = useNavigate();
-  const [sidebar, setSidebar] = useState(true);
+  var [sidebar, setSidebar] = useState(true);
   //const showSidebar = () => setSidebar(!sidebar);
+
+  var width1 = useEffect(() => {
+    window.addEventListener("resize", () => {
+      const myWidth = window.innerWidth;
+      console.log("my width :::", myWidth);
+    });
+  }, [window]);
 
   return (
     <>
-    <div className="">
-
+      {/* <MobileView> */}
+      <div className="">
         <span
           onClick={() => navigate("#", { replace: true })}
           className="menu-bars"
@@ -37,7 +52,15 @@ const Sidebar = () => {
             <ul>
               <li>
                 <FamilyRestroomIcon className="icon" />
-                <span onClick={() => navigate("/users", { replace: true })}>
+                <span
+                  onClick={() => {
+                    if (screenSize < phoneMaxWidth) {
+                      setSidebar(!sidebar);
+                      navigate("/users", { replace: true });
+                    }
+                    navigate("/users", { replace: true });
+                  }}
+                >
                   {" "}
                   Rodzice
                 </span>
@@ -81,8 +104,16 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
+      {/* </MobileView> */}
     </>
   );
+};
+
+const SidebarPhone = () => {
+  if (isMobile) {
+    return <div> This content is available only on mobile</div>;
+  }
+  return <div> content... </div>;
 };
 
 export default Sidebar;
