@@ -20,65 +20,68 @@ const Sidebar = () => {
   //const showSidebar = () => setSidebar(!sidebar);
 
   return (
+    <>
     <div className="">
-      <span onClick={() => navigate("#", { replace: true })}>
-        <FaIcons.FaBars
-          value={{ size: 42 }}
-          onClick={() => setSidebar(!sidebar)}
-        />
-      </span>
-      <div className={sidebar ? "sidebar" : "sidebar-hidden"}>
-        <div className="center">
-          {/* <div className="navbar"></div> */}
-        </div>
-        <div className="center">
-          <ul>
-            <li>
-              <FamilyRestroomIcon className="icon" />
-              <span onClick={() => navigate("/users", { replace: true })}>
-                {" "}
-                Rodzice
-              </span>
-            </li>
-            <li>
-              <GroupsIcon className="icon" />
-              <span onClick={() => navigate("/groups", { replace: true })}>
-                Grupy
-              </span>
-            </li>
-            <li>
-              <ChildCareIcon className="icon" />
-              <span onClick={() => navigate("/children", { replace: true })}>
-                Dzieci
-              </span>
-            </li>
-            <li>
-              <MessageIcon className="icon" />
-              <span>Wiadomości</span>
-            </li>
-            <li>
-              <FeedIcon className="icon" />
-              <span>Aktualości</span>
-            </li>
-            <li>
-              <SupervisorAccountIcon className="icon" />
-              <span>Portal rodzica</span>
-            </li>
-            <li>
-              <SchoolIcon className="icon" />
-              <span>Baza wiedzy</span>
-            </li>
-            <li>
-              <CollectionsIcon className="icon" />
-              <span>Galeria</span>
-            </li>
-          </ul>
-          <div className="top">
-            <span className="logo">Przedszkole nr 25</span>
+
+        <span
+          onClick={() => navigate("#", { replace: true })}
+          className="menu-bars"
+        >
+          <FaIcons.FaBars onClick={() => setSidebar(!sidebar)} />
+          <hr />
+        </span>
+
+        <div className={sidebar ? "sidebar" : "sidebar-hidden"}>
+          <div className="center">{/* <div className="navbar"></div> */}</div>
+          <div className="center">
+            <ul>
+              <li>
+                <FamilyRestroomIcon className="icon" />
+                <span onClick={() => navigate("/users", { replace: true })}>
+                  {" "}
+                  Rodzice
+                </span>
+              </li>
+              <li>
+                <GroupsIcon className="icon" />
+                <span onClick={() => navigate("/groups", { replace: true })}>
+                  Grupy
+                </span>
+              </li>
+              <li>
+                <ChildCareIcon className="icon" />
+                <span onClick={() => navigate("/children", { replace: true })}>
+                  Dzieci
+                </span>
+              </li>
+              <li>
+                <MessageIcon className="icon" />
+                <span>Wiadomości</span>
+              </li>
+              <li>
+                <FeedIcon className="icon" />
+                <span>Aktualości</span>
+              </li>
+              <li>
+                <SupervisorAccountIcon className="icon" />
+                <span>Portal rodzica</span>
+              </li>
+              <li>
+                <SchoolIcon className="icon" />
+                <span>Baza wiedzy</span>
+              </li>
+              <li>
+                <CollectionsIcon className="icon" />
+                <span>Galeria</span>
+              </li>
+            </ul>
+            <div className="top">
+              <span className="logo">Przedszkole nr 25</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
