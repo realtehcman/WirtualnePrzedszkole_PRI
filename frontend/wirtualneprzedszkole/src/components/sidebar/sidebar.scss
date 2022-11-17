@@ -67,6 +67,15 @@
           color: #888;
           margin-left: 10px;
         }
+        @media (max-width: $phoneMaxWidth) {
+          span {
+            font-size: 20px;
+            font-weight: 700;
+            padding: 10px;
+            color: #888;
+            margin-left: 10px;
+          }
+        }
       }
     }
   }
@@ -88,9 +97,13 @@
 
 .menu-bars {
   height: 80px;
-  margin-top: 300000em;
+  margin-top: 25px;
   margin-left: 1.5rem;
   font-size: 2rem;
   background: none;
   color: #6610f2;
+  display: inline-block;
+  @media (max-width: $phoneMaxWidth) {
+    display: block;
+  }
 }
