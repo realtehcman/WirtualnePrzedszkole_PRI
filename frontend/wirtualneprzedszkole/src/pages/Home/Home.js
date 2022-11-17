@@ -14,7 +14,7 @@ const Home = () => {
         {/* <h1>Work in progress :(</h1> */}
 
         <section className="home__info">
-          <h1 className="home__title">Work in progress :(</h1>
+          <h1 className="home__title">Work in progress :)</h1>
           <img
             className="home__banner"
             src={img}
