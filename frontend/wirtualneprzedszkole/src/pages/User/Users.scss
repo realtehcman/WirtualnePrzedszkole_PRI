@@ -4,6 +4,16 @@
   .usersContainer {
     flex: 6;
     max-height: 75vh;
+    // overflow-x: hidden;
+    // overflow-y: scroll;
+  }
+
+  .scrollAtChildren {
+    flex: 6;
+    max-height: 75vh;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .button {
@@ -16,3 +26,5 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }
 }
+
+//FIND THE CSS FOR THE WHOLE PAGE
