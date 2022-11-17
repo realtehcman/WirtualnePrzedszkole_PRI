@@ -1,23 +1,30 @@
 import React from "react";
-import "../User/Users.scss"
+import "../User/Users.scss";
 import Sidebar from "../../components/sidebar/sidebar";
-import Navbar from "../../components/navbar/navbar"
-import "./ChildrenComponent"
-import ChildrenComponent from "./ChildrenComponent"
+import Navbar from "../../components/navbar/navbar";
+import "./ChildrenComponent";
+import ChildrenComponent from "./ChildrenComponent";
 import { useNavigate } from "react-router-dom";
 
 const ChildrenNavi = () => {
-    const navigate = useNavigate();
-    return (
-        <div className="users">
-            <Sidebar/>
-            <div className="usersContainer">
-                <Navbar/>
-                <ChildrenComponent/>
-                <button className="button" onClick={() => navigate('/add-child', { replace: true })}>Dodaj Dziecko</button>
-            </div>
+  const navigate = useNavigate();
+  return (
+    <div className="users">
+      <Sidebar />
+      <div className="usersContainer">
+        <Navbar />
+        <div className="scrollable-div">
+          <ChildrenComponent />
+          <button
+            className="button"
+            onClick={() => navigate("/add-child", { replace: true })}
+          >
+            Dodaj Dziecko
+          </button>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default ChildrenNavi
+export default ChildrenNavi;
