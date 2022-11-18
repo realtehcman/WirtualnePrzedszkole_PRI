@@ -21,13 +21,14 @@ import useWindowDimensions from "./useWindowDimensions.js";
 const Sidebar = () => {
   const { height, width } = useWindowDimensions();
   const phoneMaxWidth = 480;
-  const screenSize = width;
+  // const screenSize = width;
+  // const  = width;
 
   const navigate = useNavigate();
   var [sidebar, setSidebar] = useState(true);
   //const showSidebar = () => setSidebar(!sidebar);
 
-  var width1 = useEffect(() => {
+  const screenSize = useEffect(() => {
     window.addEventListener("resize", () => {
       const myWidth = window.innerWidth;
       console.log("my width :::", myWidth);
@@ -56,7 +57,6 @@ const Sidebar = () => {
                   onClick={() => {
                     if (screenSize < phoneMaxWidth) {
                       setSidebar(!sidebar);
-                      navigate("/users", { replace: true });
                     }
                     navigate("/users", { replace: true });
                   }}
@@ -67,13 +67,27 @@ const Sidebar = () => {
               </li>
               <li>
                 <GroupsIcon className="icon" />
-                <span onClick={() => navigate("/groups", { replace: true })}>
+                <span
+                  onClick={() => {
+                    if (screenSize < phoneMaxWidth) {
+                      setSidebar(!sidebar);
+                    }
+                    navigate("/groups", { replace: true });
+                  }}
+                >
                   Grupy
                 </span>
               </li>
               <li>
                 <ChildCareIcon className="icon" />
-                <span onClick={() => navigate("/children", { replace: true })}>
+                <span
+                  onClick={() => {
+                    if (screenSize < phoneMaxWidth) {
+                      setSidebar(!sidebar);
+                    }
+                    navigate("/children", { replace: true });
+                  }}
+                >
                   Dzieci
                 </span>
               </li>
