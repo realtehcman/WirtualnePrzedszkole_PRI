@@ -7,10 +7,11 @@ import FeedIcon from '@mui/icons-material/Feed';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import SchoolIcon from '@mui/icons-material/School';
 import CollectionsIcon from '@mui/icons-material/Collections';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import { useNavigate } from "react-router-dom";
-
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -19,9 +20,12 @@ const Sidebar = () => {
             <div className="top">
                 <span className="logo">Przedszkole nr 25</span>
             </div>
-            <hr/>
             <div className="center">
                 <ul>
+                    <li>
+                        <AccountBoxIcon className="icon"/>
+                        <span onClick={() => navigate('/home', { replace: true })}> Profil</span>
+                    </li>
                     <li>
                         <FamilyRestroomIcon className="icon"/>
                         <span onClick={() => navigate('/users', { replace: true })}> Rodzice</span>
@@ -36,8 +40,18 @@ const Sidebar = () => {
                     </li>
                     <li>
                         <MessageIcon className="icon"/>
-                        <span>Wiadomości</span>
+                        <span  onClick={() => navigate('/Message', { replace: true })}>Wiadomości</span>
                     </li>
+                    <li>
+                        <RateReviewIcon className="icon"/>
+                        <span  onClick={() => navigate('/SendMessage', { replace: true })}>Utwórz</span>
+                    </li>
+
+                    <li>
+                        <MarkChatReadIcon className="icon"/>
+                        <span  onClick={() => navigate('/SentMessage', { replace: true })}>Wysłane</span>
+                    </li>
+
                     <li>
                         <FeedIcon className="icon"/>
                         <span>Aktualości</span>
@@ -54,6 +68,7 @@ const Sidebar = () => {
                         <CollectionsIcon className="icon"/>
                         <span>Galeria</span>
                     </li>
+
 
                 </ul>
             </div>

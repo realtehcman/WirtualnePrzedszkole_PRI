@@ -1,46 +1,134 @@
 .home {
   display: flex;
 
-  .homeContainer {
+  .homeContainer{
     flex: 6;
   }
 }
 
-.home__info {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.a{
+  margin-left: 1%;
+  padding-top: 15px;
 
-  position: relative;
+}
+.v{
+margin-bottom: 1%;
+}
+h1{
+  margin-right: 80%;
 }
 
-.home__banner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
+.container {
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
-.home__title {
-  font-size: 40px;
-  font-weight: 600;
-  color: #000;
+.row {
+  width: 100%;
+  height: 100%;
+}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 60px;
-  background-color: rgba(0, 0, 0, 0.2);
+.col-md-3 {
+  width: 30%;
+  height: 80%;
+  margin-right: 50px;
+  font-size: 20px;
+}
 
-  border-radius: 20px;
+.text-right {
+  font-size: 50px;
+}
 
-  @media (max-width: 600px) {
-    font-size: 20px;
-    padding: 10px;
-  }
+.labels {
+  margin-right: 20px;
+}
+
+.col-md-5 {
+  margin-left: 40px;
+  height: 80%;
+  width: 60%;
+}
+
+.col-md-4 {
+  height: 80%;
+  width: 20%;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #BA68C8
+}
+
+.profile-button {
+  background: rgb(99, 39, 120);
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: #682773
+}
+
+.profile-button:focus {
+  background: #682773;
+  box-shadow: none
+}
+
+.profile-button:active {
+  background: #682773;
+  box-shadow: none
+}
+
+.back:hover {
+  color: #682773;
+  cursor: pointer
+}
+
+.labels {
+  font-size: 25px;
+}
+
+.add-experience:hover {
+  background: #BA68C8;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #BA68C8
+}
+
+
+.children {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+ul {
+  list-style-type: none;
+}
+
+
+.children tr {
+  background-color: white;
+  color: black;
+}
+
+.children td, .children th {
+  border: 1px solid #4424bb;
+  padding: 8px;
+  color: black;
+}
+
+.children tr:nth-child(even){background-color: #f2f2f2;}
+
+.children tr:hover {background-color: #ddd;}
+
+.children th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4424bb;
+  color: white;
+}
+
+h1 {
+  text-align:center;
 }
