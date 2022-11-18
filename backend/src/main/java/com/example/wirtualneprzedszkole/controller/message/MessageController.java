@@ -13,6 +13,7 @@ import com.example.wirtualneprzedszkole.service.UserManagementService;
 import com.example.wirtualneprzedszkole.service.UserService;
 import com.example.wirtualneprzedszkole.service.message.MessageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -100,4 +101,10 @@ public class MessageController {
         String email = authentication.getName();
         return userService.getCurrentUser(email);
     }
+
+
+    @DeleteMapping("{id}")
+    public void deleteClass(@PathVariable Long id) {messageService.deleteMessage(id);
+    }
+
 }
