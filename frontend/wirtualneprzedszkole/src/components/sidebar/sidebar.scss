@@ -1,11 +1,38 @@
 @import "/src/utilities/_variables.scss";
 
+.sidebar__list {
+  width: 300px;
+  transition: width 0.3s, transform 0.3s;
+
+  &--hidden {
+    padding-top: 80px;
+    width: 0px;
+    transform: translateX(-300px);
+    transition: width 0.3s, transform 0.3s;
+    pointer-events: none;
+  }
+}
+
+.sidebar__wrap {
+  width: min-content;
+  height: 100%;
+
+  @media (max-width: 600px) {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.6);
+  }
+}
+
 .sidebar {
-  flex: 1;
   border-right: 0.5px solid rgb(230, 227, 227);
   min-height: 100vh;
+  width: min-content;
   background-color: white;
-  transition: 850ms;
+  transition: 0.8 ease-in;
 
   @media (max-width: $phoneMaxWidth) {
     float: right;
@@ -39,6 +66,11 @@
 
   .center {
     padding-left: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
 
     ul {
       list-style: none;
@@ -83,26 +115,37 @@
 
 //For hiding sidebar
 
-.sidebar-hidden {
-  background-color: #000000;
-  width: 0px;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: -100%;
-  transition: 850ms;
+.sidebar__controls {
+  width: 100%;
+  height: min-content;
+  padding: 20px 20px 20px 25px;
+  position: relative;
+
+  &--hidden {
+    width: 0px;
+    padding: 0;
+
+    & > .sidebar__maenu-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1;
+    }
+  }
 }
 
-.menu-bars {
-  height: 80px;
-  margin-top: 25px;
-  margin-left: 1.5rem;
+.sidebar__maenu-btn {
+  height: 32px;
+  width: 32px;
   font-size: 2rem;
-  background: none;
+  background: transparent;
   color: #6610f2;
   display: inline-block;
+
+  margin: 0;
+
+  border: none;
+
   @media (max-width: $phoneMaxWidth) {
     display: block;
   }
