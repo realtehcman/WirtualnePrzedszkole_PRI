@@ -1,17 +1,17 @@
-import {React, useState, useEffect} from "react";
-import "./sidebar.scss"
-import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
-import GroupsIcon from '@mui/icons-material/Groups';
-import MessageIcon from '@mui/icons-material/Message';
-import FeedIcon from '@mui/icons-material/Feed';
-import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import SchoolIcon from '@mui/icons-material/School';
-import CollectionsIcon from '@mui/icons-material/Collections';
-import ChildCareIcon from '@mui/icons-material/ChildCare';
+import { React, useState, useEffect } from "react";
+import "./sidebar.scss";
+import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
+import GroupsIcon from "@mui/icons-material/Groups";
+import MessageIcon from "@mui/icons-material/Message";
+import FeedIcon from "@mui/icons-material/Feed";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import SchoolIcon from "@mui/icons-material/School";
+import CollectionsIcon from "@mui/icons-material/Collections";
+import ChildCareIcon from "@mui/icons-material/ChildCare";
 import { useNavigate } from "react-router-dom";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
-import RateReviewIcon from '@mui/icons-material/RateReview';
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
+import RateReviewIcon from "@mui/icons-material/RateReview";
 import "./sidebar.scss";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
@@ -21,36 +21,53 @@ import { isMobile } from "react-device-detect";
 import { BrowserView, MobileView } from "react-device-detect";
 import useWindowDimensions from "./useWindowDimensions.js";
 
-
-
 const Sidebar = () => {
   const { height, width } = useWindowDimensions();
+
   const phoneMaxWidth = 480;
   // const screenSize = width;
   // const  = width;
+
   const navigate = useNavigate();
+
   var [sidebar, setSidebar] = useState(true);
   //const showSidebar = () => setSidebar(!sidebar);
+
   const screenSize = useEffect(() => {
     window.addEventListener("resize", () => {
       const myWidth = window.innerWidth;
       console.log("my width :::", myWidth);
     });
   }, [window]);
-  
+
+  useEffect(() => {
+    const startWidth = window.innerWidth;
+    if (+startWidth < 600) {
+      setSidebar(false);
+    }
+  }, []);
+
   return (
     <>
       <div className="sidebar">
-        <div className="center">
-          <span
-            onClick={() => navigate("#", { replace: true })}
-            className="menu-bars"
+        <div className="sidebar__wrap">
+          <div
+            className={
+              sidebar
+                ? "sidebar__controls"
+                : "sidebar__controls sidebar__controls--hidden"
+            }
           >
-            <FaIcons.FaBars onClick={() => setSidebar(!sidebar)} />
-            <hr />
-          </span>
+            <button
+              className="sidebar__maenu-btn"
+              type="button"
+              onClick={() => setSidebar(!sidebar)}
+            >
+              <FaIcons.FaBars />
+            </button>
+          </div>
 
-          <div className={sidebar ? "sidebar" : "sidebar-hidden"}>
+          <div className={sidebar ? "sidebar__list" : "sidebar__list--hidden"}>
             <div className="center">{/* <div className="navbar"></div> */}</div>
             <div className="center">
               <ul>
@@ -132,7 +149,7 @@ const Sidebar = () => {
       </div>
     </>
   );
-}
+};
 
 const SidebarPhone = () => {
   if (isMobile) {
@@ -141,4 +158,4 @@ const SidebarPhone = () => {
   return <div> content... </div>;
 };
 
-export default Sidebar
+export default Sidebar;
