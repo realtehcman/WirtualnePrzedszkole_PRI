@@ -68,86 +68,93 @@ const Sidebar = () => {
           </div>
 
           <div className={sidebar ? "sidebar__list" : "sidebar__list--hidden"}>
-            <div className="center">{/* <div className="navbar"></div> */}</div>
-            <div className="center">
-              <ul>
-                <li>
-                  <AccountBoxIcon className="icon" />
-                  <span onClick={() => navigate("/home", { replace: true })}>
-                    {" "}
-                    Profil
-                  </span>
-                </li>
-                <li>
-                  <FamilyRestroomIcon className="icon" />
-                  <span onClick={() => navigate("/users", { replace: true })}>
-                    {" "}
-                    Rodzice
-                  </span>
-                </li>
-                <li>
-                  <GroupsIcon className="icon" />
-                  <span onClick={() => navigate("/groups", { replace: true })}>
-                    Grupy
-                  </span>
-                </li>
-                <li>
-                  <ChildCareIcon className="icon" />
-                  <span
-                    onClick={() => navigate("/children", { replace: true })}
-                  >
-                    Dzieci
-                  </span>
-                </li>
-                <li>
-                  <MessageIcon className="icon" />
-                  <span onClick={() => navigate("/Message", { replace: true })}>
-                    Wiadomości
-                  </span>
-                </li>
-                <li>
-                  <RateReviewIcon className="icon" />
-                  <span
-                    onClick={() => navigate("/SendMessage", { replace: true })}
-                  >
-                    Utwórz
-                  </span>
-                </li>
+              <div className="center">
+                <ul>
+                  <li>
+                    <AccountBoxIcon className="icon" />
+                    <span onClick={() => navigate("/home", { replace: true })}>
+                      {" "}
+                      Profil
+                    </span>
+                  </li>
+                  <li>
+                    <FamilyRestroomIcon className="icon" />
+                    <span onClick={() => navigate("/users", { replace: true })}>
+                      {" "}
+                      Rodzice
+                    </span>
+                  </li>
+                  <li>
+                    <GroupsIcon className="icon" />
+                    <span
+                      onClick={() => navigate("/groups", { replace: true })}
+                    >
+                      Grupy
+                    </span>
+                  </li>
+                  <li>
+                    <ChildCareIcon className="icon" />
+                    <span
+                      onClick={() => navigate("/children", { replace: true })}
+                    >
+                      Dzieci
+                    </span>
+                  </li>
+                  <li>
+                    <MessageIcon className="icon" />
+                    <span
+                      onClick={() => navigate("/Message", { replace: true })}
+                    >
+                      Wiadomości
+                    </span>
+                  </li>
+                  <li>
+                    <RateReviewIcon className="icon" />
+                    <span
+                      onClick={() =>
+                        navigate("/SendMessage", { replace: true })
+                      }
+                    >
+                      Utwórz
+                    </span>
+                  </li>
 
-                <li>
-                  <MarkChatReadIcon className="icon" />
-                  <span
-                    onClick={() => navigate("/SentMessage", { replace: true })}
-                  >
-                    Wysłane
-                  </span>
-                </li>
+                  <li>
+                    <MarkChatReadIcon className="icon" />
+                    <span
+                      onClick={() =>
+                        navigate("/SentMessage", { replace: true })
+                      }
+                    >
+                      Wysłane
+                    </span>
+                  </li>
 
-                <li>
-                  <FeedIcon className="icon" />
-                  <span>Aktualości</span>
-                </li>
-                <li>
-                  <SupervisorAccountIcon className="icon" />
-                  <span>Portal rodzica</span>
-                </li>
-                <li>
-                  <SchoolIcon className="icon" />
-                  <span>Baza wiedzy</span>
-                </li>
-                <li>
-                  <CollectionsIcon className="icon" />
-                  <span>Galeria</span>
-                </li>
-              </ul>
-              <div className="top">
-                <span className="logo">Przedszkole nr 25</span>
+                  <li>
+                    <FeedIcon className="icon" />
+                    <span>Aktualości</span>
+                  </li>
+                  <li>
+                    <SupervisorAccountIcon className="icon" />
+                    <span>Portal rodzica</span>
+                  </li>
+                  <li>
+                    <SchoolIcon className="icon" />
+                    <span>Baza wiedzy</span>
+                  </li>
+                  <li>
+                    <CollectionsIcon className="icon" />
+                    <span>Galeria</span>
+                  </li>
+                </ul>
+                <div className="top">
+                  <span className="logo">Przedszkole nr 25</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
+     </>
   );
 };
 
