@@ -1,7 +1,9 @@
 @import "/src/utilities/_variables.scss";
 
 .sidebar__list {
-  // overflow-y: scroll;
+  overflow-y: scroll;
+  height: 100vh;
+
   width: 300px;
   transition: width 0.3s, transform 0.3s;
 
