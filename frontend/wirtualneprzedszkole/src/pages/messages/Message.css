@@ -1,0 +1,35 @@
+.message {
+  display: flex;
+}
+.message .messageContainer {
+  flex: 6;
+}
+
+.send {
+  margin-left: 15%;
+}
+
+.box {
+  padding: 50px;
+  margin: 5%;
+}
+
+.text2 {
+  margin-top: 3%;
+  margin-left: 5%;
+}
+
+.topic {
+  height: auto;
+  width: auto;
+}
+
+.aki {
+  height: 100px;
+  width: 450px;
+  margin-top: 4%;
+}
+
+.submit15 {
+  margin-top: 2%;
+}/*# sourceMappingURL=Message.css.map */

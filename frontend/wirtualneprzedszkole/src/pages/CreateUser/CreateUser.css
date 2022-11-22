@@ -1,0 +1,89 @@
+body {
+  min-height: 100vh;
+  background-color: dodgerblue;
+}
+
+.addusers {
+  display: flex;
+}
+.addusers .addusersContainer {
+  flex: 6;
+}
+
+input {
+  display: block;
+  border: none;
+  border-radius: 5px 5px 5px 5px;
+  background-color: #fafafa;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  transition: 0.3s box-shadow;
+  width: 100%;
+  margin: 10px 0;
+  padding: 20px;
+}
+
+.form-group {
+  padding: 15px;
+  display: block;
+}
+
+.form-but {
+  display: block;
+  padding: 15px;
+  width: 50%;
+  text-align: center;
+  margin-left: 22.5%;
+}
+
+.button {
+  background-color: #4424bb;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+}
+
+.button2 {
+  background-color: #4424bb;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  margin-left: 12%;
+}
+
+.button3 {
+  background-color: #4424bb;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  margin-left: 12%;
+  text-decoration: none;
+}
+.button3:hover {
+  color: white;
+}
+
+.formContainer {
+  margin-left: 23%;
+  margin-top: 10%;
+  display: block;
+  width: 50%;
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.body-container {
+  width: 100vw;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}/*# sourceMappingURL=CreateUser.css.map */
