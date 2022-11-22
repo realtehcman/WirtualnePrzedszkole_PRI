@@ -8,7 +8,7 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import SchoolIcon from "@mui/icons-material/School";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import RateReviewIcon from "@mui/icons-material/RateReview";
@@ -68,93 +68,88 @@ const Sidebar = () => {
           </div>
 
           <div className={sidebar ? "sidebar__list" : "sidebar__list--hidden"}>
-              <div className="center">
-                <ul>
-                  <li>
+            <div className="center">
+              <ul>
+                <li>
+                  {/*  className="center" */}
+                  <Link to={"/home"}>
                     <AccountBoxIcon className="icon" />
-                    <span onClick={() => navigate("/home", { replace: true })}>
-                      {" "}
-                      Profil
-                    </span>
-                  </li>
-                  <li>
+                    {/* <span onClick={() => navigate("/home", { replace: true })}> */}{" "}
+                    <span>Profil</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/users"}>
                     <FamilyRestroomIcon className="icon" />
-                    <span onClick={() => navigate("/users", { replace: true })}>
-                      {" "}
-                      Rodzice
-                    </span>
-                  </li>
-                  <li>
+                    <span> Rodzice</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/groups"}>
                     <GroupsIcon className="icon" />
-                    <span
-                      onClick={() => navigate("/groups", { replace: true })}
-                    >
-                      Grupy
-                    </span>
-                  </li>
-                  <li>
+                    <span>Grupy</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/children"}>
                     <ChildCareIcon className="icon" />
-                    <span
-                      onClick={() => navigate("/children", { replace: true })}
-                    >
-                      Dzieci
-                    </span>
-                  </li>
-                  <li>
+                    <span>Dzieci</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/Message"}>
                     <MessageIcon className="icon" />
-                    <span
-                      onClick={() => navigate("/Message", { replace: true })}
-                    >
-                      Wiadomości
-                    </span>
-                  </li>
-                  <li>
+                    <span>Wiadomości</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/SendMessage"}>
                     <RateReviewIcon className="icon" />
-                    <span
-                      onClick={() =>
-                        navigate("/SendMessage", { replace: true })
-                      }
-                    >
-                      Utwórz
-                    </span>
-                  </li>
+                    <span>Utwórz</span>
+                  </Link>
+                </li>
 
-                  <li>
+                <li>
+                  <Link to={"/SentMessage"}>
                     <MarkChatReadIcon className="icon" />
-                    <span
-                      onClick={() =>
-                        navigate("/SentMessage", { replace: true })
-                      }
-                    >
-                      Wysłane
-                    </span>
-                  </li>
+                    <span>Wysłane</span>
+                  </Link>
+                </li>
 
-                  <li>
+                <li>
+                  {/* TODO */}
+                  <Link to={"#"}>
                     <FeedIcon className="icon" />
                     <span>Aktualości</span>
-                  </li>
-                  <li>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"#"}>
                     <SupervisorAccountIcon className="icon" />
                     <span>Portal rodzica</span>
-                  </li>
-                  <li>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"#"}>
                     <SchoolIcon className="icon" />
                     <span>Baza wiedzy</span>
-                  </li>
-                  <li>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"#"}>
                     <CollectionsIcon className="icon" />
                     <span>Galeria</span>
-                  </li>
-                </ul>
-                <div className="top">
-                  <span className="logo">Przedszkole nr 25</span>
-                </div>
+                  </Link>
+                </li>
+              </ul>
+              <div className="top">
+                <span className="logo">Przedszkole nr 25</span>
               </div>
             </div>
           </div>
         </div>
-     </>
+      </div>
+    </>
   );
 };
 
