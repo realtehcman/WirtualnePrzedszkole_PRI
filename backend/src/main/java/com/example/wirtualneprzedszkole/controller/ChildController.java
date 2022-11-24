@@ -5,6 +5,7 @@ import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -27,17 +28,20 @@ public class ChildController {
         return ChildMapper.mapToDto(childService.getChildren());
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ChildDto addChild(@Valid @RequestBody ChildDto childDto) {
 //        childService.getChild();
         return ChildMapper.mapToDto(childService.addChild(ChildMapper.mapToChildDao(childDto)));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping
     public ChildDto updateChild(@Valid @RequestBody ChildDto childDto) {
         return ChildMapper.mapToDto(childService.updateChild(ChildMapper.mapToChildDao(childDto)));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("{id}")
     public void deleteChild(@PathVariable Long id) {
         childService.deleteChild(id);
