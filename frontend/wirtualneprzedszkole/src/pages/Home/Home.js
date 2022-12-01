@@ -64,7 +64,7 @@ const Current_User = () => {
 
                  <div className="v"> <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
 
-                     <EditCurrent_User/>
+                     <EditCurrent_User  {...current_user}/>
 
                  </Popup></div>
 <div className="fixt">
