@@ -20,7 +20,7 @@
   width: min-content;
   height: 100%;
 
-  @media (max-width: 600px) {
+  @media (max-width: $phoneMaxWidth) {
     z-index: 1;
     position: fixed;
     top: 0;
@@ -41,6 +41,8 @@
     float: right;
     width: 70vw;
     border-right: none;
+      z-index: 1;
+
   }
 
   .top {

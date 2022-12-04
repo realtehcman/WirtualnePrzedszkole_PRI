@@ -1,3 +1,5 @@
+@import "/src/utilities/_variables.scss";
+
 .navbar {
   height: 75 px;
   display: flex;
@@ -12,12 +14,13 @@
   align-items: center;
   justify-content: center;
 }
-.navbar .wrapper .logout {
+.navbar.wrapper.logout {
   display: flex;
   align-items: center;
   margin-left: 90%;
   cursor: pointer;
+
 }
-.navbar .wrapper .logout:hover {
+.navbar.wrapper.logout:hover {
   background-color: #e8e3f8;
 }/*# sourceMappingURL=navbar.css.map */

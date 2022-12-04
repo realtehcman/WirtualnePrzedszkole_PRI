@@ -37,7 +37,7 @@ const Child = () => {
     return (
         <div>
             <h1>Rodzice: {child.name}  {child.lastName}</h1>
-                <table className='content-table'>
+                <table className='usersContainer'>
                     <thead>
 
                         <tr className='table-head'>
