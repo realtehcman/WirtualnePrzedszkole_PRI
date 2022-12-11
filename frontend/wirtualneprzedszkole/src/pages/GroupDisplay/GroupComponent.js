@@ -33,43 +33,42 @@ class GroupComponent extends React.Component {
     }
 
     render (){
-        return(
-            <div className="scrollable-div">
-
+        return (
+          <div className="scrollable-div">
             <div>
-                <table className='content-table'>
-                    <thead>
-                    <tr className='table-head'>
-
-                        <td>Id</td>
-                        <td>Nazwa</td>
-                        <td>Opis</td>
-                        <td></td>
-                        <td>Akcje</td>
+              <table className="content-table">
+                <thead>
+                  <tr className="table-head">
+                    <td>Id</td>
+                    <td>Nazwa</td>
+                    <td>Opis</td>
+                    <td></td>
+                    <td>Akcje</td>
+                  </tr>
+                </thead>
+                <tbody className="body table-body" >
+                  {this.state.groups.map((group) => (
+                    <tr key={group.id}>
+                      <td>{group.id}</td>
+                      <td>{group.name}</td>
+                      <td>{group.description}</td>
+                      <td></td>
+                      <td>
+                        <Navi value={group.id} />
+                        <button
+                          onClick={() => this.deleteGroup(group.id)}
+                          className="btn btn-danger"
+                        >
+                          Usuń
+                        </button>
+                      </td>
                     </tr>
-                    </thead>
-                    <tbody className='body'>
-                    {
-                        this.state.groups.map(
-                            group =>
-                                <tr key = {group.id}>
-                                    <td>{group.id}</td>
-                                    <td>{group.name}</td>
-                                    <td>{group.description}</td>
-                                    <td></td>
-                                    <td>
-
-                                        <Navi value={group.id}/>
-                                        <button onClick={() => this.deleteGroup(group.id)} className='btn btn-danger'>Usuń</button>
-                                    </td>
-                                </tr>
-                        )
-                    }
-                    </tbody>
-                </table>
-
-            </div></div>
-        )
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
 
     }
 
