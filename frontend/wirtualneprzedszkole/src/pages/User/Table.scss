@@ -38,7 +38,8 @@
 }
 
 .table-body {
-  width: min-content;
+  //makes table wider
+  min-width: max-content;
   // overflow-x: auto;
 }
 .dzia {
