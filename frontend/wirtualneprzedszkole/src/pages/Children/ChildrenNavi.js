@@ -15,13 +15,13 @@ const ChildrenNavi = () => {
         <Navbar />
         <div className="scrollable-div">
           <ChildrenComponent />
-          <button
-            className="button"
-            onClick={() => navigate("/add-child", { replace: true })}
-          >
-            Dodaj Dziecko
-          </button>
         </div>
+        <button
+          className="button"
+          onClick={() => navigate("/add-child", { replace: true })}
+        >
+          Dodaj Dziecko
+        </button>
       </div>
     </div>
   );
