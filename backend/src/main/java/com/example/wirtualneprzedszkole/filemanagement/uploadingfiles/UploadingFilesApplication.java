@@ -1,3 +1,4 @@
+/*
 package com.example.wirtualneprzedszkole.filemanagement.uploadingfiles;
 
 import org.springframework.boot.CommandLineRunner;
@@ -24,4 +25,4 @@ public class UploadingFilesApplication {
             storageService.init();
         };
     }
-}
+}*/
