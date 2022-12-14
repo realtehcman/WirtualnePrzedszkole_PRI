@@ -2,6 +2,7 @@ import Users from './pages/User/Users';
 import Home from './pages/Home/Home';
 import AddUser from './pages/CreateUser/AddUser';
 import Login from './pages/Login/Login'
+import RestartPassword from './pages/Login/RestartPassword';
 import UserNavi from './pages/User/UserNavi'
 import GroupNavi from './pages/GroupDisplay/GroupNavi'
 import GroupIdNavi from './pages/GroupDisplay/GroupIdNavi'
@@ -26,6 +27,8 @@ import {
   Navigate,
   Outlet
 } from "react-router-dom";
+import ChangePassword from './pages/Login/ChangePassword';
+
 
 
 function App() {
@@ -47,6 +50,12 @@ function App() {
             <Route path='/'>
               <Route index element={<Login/>}></Route>
             </Route>
+            <Route path='restart-password'>
+              <Route index element={<RestartPassword/>}></Route>
+            </Route>
+            <Route path='change/:token'>
+              <Route index element={<ChangePassword/>}></Route>
+            </Route>
             <Route path="users" element={<PrivateOutlet />}>
               <Route index element={<Users/>}></Route>
             </Route>
@@ -55,6 +64,9 @@ function App() {
             </Route>
             <Route path='/home' element={<PrivateOutlet />}>
               <Route index element={<Home/>}></Route>
+            </Route>
+            <Route path='/home/restart-password' element={<PrivateOutlet />}>
+              <Route index element={<RestartPassword/>}></Route>
             </Route>
             <Route path='/user/:id' element={<PrivateOutlet />}>
               <Route index element={<UserNavi/>}></Route>

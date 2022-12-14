@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -17,7 +18,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     List<User> findAllUsers(Pageable page);
     List<User> findAllByLastName(String lastName, Pageable page);
     Boolean existsByEmail(String email);
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     @Query("select u from User u where concat(u.name, ' ', u.lastName) IN :userNames")
     List<User> findUsersIn(List<String> userNames);
