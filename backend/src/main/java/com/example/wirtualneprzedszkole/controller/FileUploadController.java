@@ -40,7 +40,7 @@ import com.example.wirtualneprzedszkole.service.StorageService;*/
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/file")
+@RequestMapping(value = "api/file", method = RequestMethod.POST)
 public class FileUploadController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
