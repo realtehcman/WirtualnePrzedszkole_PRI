@@ -4,19 +4,33 @@
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+  width: 100%;
+  //makes table wider
+  min-width: 100%;
 }
 .content-table {
-  max-height: 100%;
+
+ max-height: 100%;
   border-collapse: collapse;
   font-size: 20px;
   margin: 5px 0;
-  width: 90%;
+  min-width: 100%;
   margin-left: 5%;
   margin-right: 5%;
   border-radius: 5px 5px 5px 5px;
-  overflow: hidden;
+  // overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
+/*
+  border-radius: 5px;
+  font-size: 20px;
+  box-shadow: black;
+  gap: normal;
+  line-height: 30px;
+  margin: 5px, 19.5px;
+  padding: 0px, 40px, 0px, 0px;
+  text-align: right;
+*/
 }
 
 .content-table td {
@@ -39,9 +53,7 @@
   margin-right: 15px;
 }
 
-
-@media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
+  @media (max-width: $phoneMaxWidth) {
   div.logout {
     display: block;
     padding-left: 30%;
@@ -66,9 +78,10 @@
   //moves whole table row content
   tr {
     display: block;
-    padding-right: 10%;
+    // padding-right: 10%;
     text-align: right;
     text-decoration: solid;
+    // top:84.9333px; --left:19.5125px; --position:absolute; --width:346.587px; --height:6995.96px;
   }
 
   /* Hide table headers (but not display: none;, for accessibility) */
