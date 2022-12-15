@@ -41,11 +41,10 @@ const LoginPage = () => {
                                 <div className="form-but">
                                     <button className="button">Zaloguj się</button>
                                 </div>
-                        
-                            </form>
-                            <div className="form-but">
+                                <div className="form-but">
                                     <button type="button" className='btn btn-info' onClick={() => resetPassword() }>Nie pamiętasz hasła?</button>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
 

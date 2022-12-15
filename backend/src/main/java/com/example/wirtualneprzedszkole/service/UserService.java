@@ -59,6 +59,6 @@ public class UserService {
     }
 
     public User getCurrentUser() {
-        return userRepo.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();//.orElseThrow(EntityNotFoundException::new);
+        return userRepo.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();
     }
 }
