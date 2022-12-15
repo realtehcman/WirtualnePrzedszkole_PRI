@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import LoginService from './LoginService'
 import "./login.scss"
 import { useNavigate } from "react-router-dom";
+import RestartPassword from './RestartPassword';
 
 const LoginPage = () => {    
     const navigate = useNavigate();
@@ -14,6 +15,11 @@ const LoginPage = () => {
         let loggedIn = await LoginService.login(email, password)
         console.log(loggedIn)
         navigate("/home")
+    }
+
+    const resetPassword = () => {
+        
+        navigate("/restart-password")
     }
 
     return (
@@ -34,6 +40,9 @@ const LoginPage = () => {
                                 </div>
                                 <div className="form-but">
                                     <button className="button">Zaloguj się</button>
+                                </div>
+                                <div className="form-but">
+                                    <button type="button" className='btn btn-info' onClick={() => resetPassword() }>Nie pamiętasz hasła?</button>
                                 </div>
                             </form>
                         </div>

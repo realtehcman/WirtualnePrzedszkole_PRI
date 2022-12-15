@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -40,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .cors().and()
                 .authorizeRequests()
+                // dodany dostęp bez autoryzacji do resetu hasła (sprawdzić czy działa odpowiednio!!!)
+                .antMatchers(HttpMethod.PATCH, "/api/user/restart").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/api/user/change_password").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -4,13 +4,15 @@ import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar"
 import Popup from "../GroupDisplay/Popup";
 import "../GroupDisplay/abc.css"
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import current_UserService from "./Current_UserService";
 import UserComponent from "../User/UserComponent";
 import EditCurrent_User from "./EditCurrent_User";
 import "../User/UserInfo.scss";
+import RestartPassword from '../Login/RestartPassword';
 
 const Current_User = () => {
+    const navigate = useNavigate();
 
     const [current_user, setCurrent_User] = useState({
         id:'',
@@ -61,6 +63,7 @@ const Current_User = () => {
                 <label className="labels">Adres: </label>  <label className="labels">{current_user.address}</label><br />
                 <label className="labels">Rola: </label>  <label className="labels">{current_user.role}</label><br /> <br/>
                 <button type="button" className='btn btn-info' onClick={() => setButtonPopup(true) }>Edytuj Dane</button>
+                <button type="button" className='btn btn-info' onClick={() =>  navigate("restart-password")}>Zmień Hasło</button>
 
                  <div className="v"> <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
 

@@ -2,6 +2,7 @@ import axios from 'axios'
 
 
 const Current_UserService_REST_API_URL = 'http://localhost:8080/api/user/current_user'
+const USER_API = 'http://localhost:8080/api/user'
 
 class Current_UserService {
 
@@ -22,6 +23,18 @@ class Current_UserService {
                 'Content-Type': 'application/json'
             }
         });
+    }
+
+    restartPassword(reset) {
+        return axios.patch(USER_API + "/restart", reset, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }
+
+    changePassword(change) {
+        return axios.patch(USER_API + "/change_password", change)
     }
 }
 
