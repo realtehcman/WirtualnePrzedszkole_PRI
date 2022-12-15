@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import GroupService from "../GroupDisplay/GroupService";
 import "../CreateUser/CreateUser.scss";
 import { Link } from "react-router-dom";
-
+import { MDBInput } from 'mdb-react-ui-kit';
 class CreateGroup extends Component {
   constructor(props) {
     super(props);
@@ -51,6 +51,8 @@ class CreateGroup extends Component {
                   <input
                     placeholder="Nazwa"
                     name="Nazwa"
+                    required
+                    type="text"
                     className='"form-control'
                     value={this.state.name}
                     onChange={this.changeNameHandler}
@@ -60,7 +62,8 @@ class CreateGroup extends Component {
                   <input
                     placeholder="Opis"
                     name="Opis"
-                    className='"form-control'
+                    required
+                    type="text"
                     value={this.state.description}
                     onChange={this.changeDescriptionHandler}
                   />
@@ -69,8 +72,8 @@ class CreateGroup extends Component {
                   {/* <button onClick={event =>  window.location.href='/groups'} className="button2">Wróć</button> */}
                   <Link className="button3" to={"/groups"}>
                     Wróć
-                  </Link>
-
+                  </Link></div>
+                  <div className="form-but">
                   <button className="button2">Zapisz</button>
                 </div>
               </form>

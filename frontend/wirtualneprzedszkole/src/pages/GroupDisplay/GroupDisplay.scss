@@ -1,30 +1,36 @@
+@import "/src/utilities/_variables";
+
 .scrollable-div {
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+  width: 100%;
+  //makes table wider
+  min-width: 100%;
 }
 .content-table {
-  max-height: 100%;
+
+ max-height: 100%;
   border-collapse: collapse;
   font-size: 20px;
   margin: 5px 0;
-  width: 90%;
+  min-width: 100%;
   margin-left: 5%;
   margin-right: 5%;
   border-radius: 5px 5px 5px 5px;
-  overflow: hidden;
+  // overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
-  .table-head {
-    background-color: #4424bb;
-    color: #e8e3f8;
-    text-align: left;
-    font-weight: bold;
-  }
-
-  & tr {
-    word-break: break-all !important;
-  }
+/*
+  border-radius: 5px;
+  font-size: 20px;
+  box-shadow: black;
+  gap: normal;
+  line-height: 30px;
+  margin: 5px, 19.5px;
+  padding: 0px, 40px, 0px, 0px;
+  text-align: right;
+*/
 }
 
 .content-table td {
@@ -45,4 +51,103 @@
 
 .btn-info {
   margin-right: 15px;
+}
+
+  @media (max-width: $phoneMaxWidth) {
+  div.logout {
+    display: block;
+    padding-left: 30%;
+  }
+
+  .users {
+    display: flex;
+
+    //tweak this to make tables to load more content
+    .usersContainer {
+      flex: 6;
+    }
+  }
+  /* Force table to not be like tables anymore */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  
+  
+  //moves whole table row content
+  tr {
+    display: block;
+    // padding-right: 10%;
+    text-align: right;
+    text-decoration: solid;
+    // top:84.9333px; --left:19.5125px; --position:absolute; --width:346.587px; --height:6995.96px;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    height: 100%;
+
+    //does not do anything
+    #text {
+      position: absolute;
+      text-align: right;
+      background-color: black;
+      left: 1000px;
+    }
+  }
+
+  //moves the "columns"
+  td:before {
+    /* Now like a table header */
+    display: block;
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 1px;
+    text-align: left;
+    left: 1%;
+    width: 45%;
+    padding-right: 40px;
+    padding-bottom: 100px;
+    font-weight: bold;
+    height: 100%;
+
+    // padding-left: 100px;
+
+    white-space: nowrap;
+  }
+
+  /*
+	Label the data
+	*/
+  td:nth-of-type(1):before {
+    content: "Id";
+  }
+  td:nth-of-type(2):before {
+    content: "Imię";
+  }
+  td:nth-of-type(3):before {
+    content: "Nazwisko";
+  }
+  td:nth-of-type(4):before {
+    content: "Email";
+  }
+  td:nth-of-type(5):before {
+    content: "Akcje";
+  }
 }

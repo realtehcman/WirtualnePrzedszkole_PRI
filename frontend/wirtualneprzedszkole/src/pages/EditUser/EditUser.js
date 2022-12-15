@@ -14,6 +14,15 @@ const EditUser = () => {
         address: ''
     });
 
+    const [userEdit, setUserEdit] = useState({
+        id:'',
+        email: '',
+        name:'',
+        lastName: '',
+        phoneNumber: '',
+        address: ''
+    });
+
     let {id} = useParams()
     
     useEffect(() => {
@@ -33,9 +42,16 @@ const EditUser = () => {
         });
     }
 
-    function putData()  {
-        console.log(user)
-        UserService.editUser(user)
+    const updateData = (e) => {
+        e.preventDefault()
+        userEdit.id = user.id
+        if (userEdit.name === "") userEdit.name = user.name
+        if (userEdit.lastName === "") userEdit.lastName = user.lastName
+        if (userEdit.email === "") userEdit.email = user.email
+        if (userEdit.phoneNumber === "") userEdit.phoneNumber = user.phoneNumber
+        if (userEdit.address === "") userEdit.address = user.address
+        console.log(userEdit)
+        UserService.editUser(userEdit)
     }
 
 
@@ -43,16 +59,16 @@ const EditUser = () => {
         <div>
             <form>
             <label>Imię:</label><br></br>
-            <input placeholder={user.name} onChange={() => setUser({name: user.name})}/><br></br>
+            <input placeholder={user.name} onChange={(e) => setUserEdit({...userEdit, name : e.target.value})}/><br></br>
             <label>Nazwisko:</label><br></br>
-            <input  placeholder={user.lastName} onChange={() => setUser({lastName: user.lastName})}/><br></br>
+            <input  placeholder={user.lastName} onChange={(e) => setUserEdit({...userEdit, lastName : e.target.value})}/><br></br>
             <label>Email:</label><br></br>
-            <input  placeholder={user.email} onChange={() => setUser({email: user.email})}/><br></br>
+            <input  placeholder={user.email} onChange={(e) => setUserEdit({...userEdit,email : e.target.value})}/><br></br>
             <label>Adres:</label><br></br>
-            <input placeholder={user.address} onChange={() => setUser({address: user.address})}/><br></br>
+            <input placeholder={user.address} onChange={(e) => setUserEdit({...userEdit, address : e.target.value})}/><br></br>
             <label>Telefon:</label><br></br>
-            <input placeholder={user.phoneNumber} onChange={() => setUser({phoneNumber: user.phoneNumber})}/><br></br>
-            <button onClick={putData} className='btn btn-danger'>Zapisz</button>
+            <input placeholder={user.phoneNumber} onChange={(e) => setUserEdit({...userEdit,phoneNumber : e.target.value})}/><br></br>
+            <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
 
             </form>
         </div>

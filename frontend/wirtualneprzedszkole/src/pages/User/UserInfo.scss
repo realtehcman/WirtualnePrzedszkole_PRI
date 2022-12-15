@@ -1,112 +1,156 @@
-
+@import "/src/utilities/_variables.scss";
 
 .container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+}
+.fixt {
+  width: 15%;
+}
+.row {
+  width: 100%;
+  height: 100%;
+  @media (max-width: $phoneMaxWidth) {
+    display: block;
+    overflow-y: scroll;
+  }
+}
+div {
+  @media (max-width: $phoneMaxWidth) {
+    text-align: left;
+    font-size: 15px;
+  }
 }
 
-.row {
+//TODO
+
+
+// .users{
+//   @media (max-width: $phoneMaxWidth) {
+//     padding-top: 1px;
+//     width: 100%;
+//     // height: 100%;
+//     // overflow-x: hidden;
+//     // padding-top: 3em;
+//   }  
+// }
+
+.usersContainer {
+  @media (max-width: $phoneMaxWidth) {
+    text-align: left;
+    font-size: 100px;
+    padding-top: 1px;
     width: 100%;
-    height: 100%;
+    // height: 100%;
+    // overflow-x: hidden;
+    // padding-top: 3em;
+  }
 }
 
 .col-md-3 {
-    width: 30%;
-    height: 80%;
-    margin-right: 50px;
-    font-size: 20px;
+  width: 30%;
+  height: 80%;
+  margin-right: 50px;
+  font-size: 20px;
 }
 
 .text-right {
-    font-size: 50px;
+  font-size: 50px;
+  @media (max-width: $phoneMaxWidth) {
+    padding-top: 15%;
+  }
 }
 
 .labels {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .col-md-5 {
-    margin-left: 40px;
-    height: 80%;
-    width: 60%;
+  margin-left: 40px;
+  height: 80%;
+  width: 60%;
 }
 
 .col-md-4 {
-    height: 80%;
-    width: 20%;
+  height: 80%;
+  width: 20%;
 }
 
 .form-control:focus {
-    box-shadow: none;
-    border-color: #BA68C8
+  box-shadow: none;
+  border-color: #ba68c8;
 }
 
 .profile-button {
-    background: rgb(99, 39, 120);
-    box-shadow: none;
-    border: none
+  background: rgb(99, 39, 120);
+  box-shadow: none;
+  border: none;
 }
 
 .profile-button:hover {
-    background: #682773
+  background: #682773;
 }
 
 .profile-button:focus {
-    background: #682773;
-    box-shadow: none
+  background: #682773;
+  box-shadow: none;
 }
 
 .profile-button:active {
-    background: #682773;
-    box-shadow: none
+  background: #682773;
+  box-shadow: none;
 }
 
 .back:hover {
-    color: #682773;
-    cursor: pointer
+  color: #682773;
+  cursor: pointer;
 }
 
 .labels {
-    font-size: 25px;
+  font-size: 15px;
 }
 
 .add-experience:hover {
-    background: #BA68C8;
-    color: #fff;
-    cursor: pointer;
-    border: solid 1px #BA68C8
+  background: #ba68c8;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #ba68c8;
 }
 
-
 .children {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
-  .children tr {
-      background-color: white;
-      color: black;
-  }
-  
-  .children td, .children th {
-    border: 1px solid #4424bb;
-    padding: 8px;
-    color: black;
-  }
-  
-  .children tr:nth-child(even){background-color: #f2f2f2;}
-  
-  .children tr:hover {background-color: #ddd;}
-  
-  .children th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4424bb;
-    color: white;
-  }
+.children tr {
+  background-color: white;
+  color: black;
+}
+
+.children td,
+.children th {
+  border: 1px solid #4424bb;
+  padding: 8px;
+  color: black;
+}
+
+.children tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.children tr:hover {
+  background-color: #ddd;
+}
+
+.children th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4424bb;
+  color: white;
+}
 
 h1 {
-    text-align:center;
+  text-align: center;
 }

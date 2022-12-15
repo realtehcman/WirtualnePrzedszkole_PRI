@@ -58,6 +58,7 @@ class CreateChild extends Component {
                   <input
                     placeholder="Imię"
                     name="Imię"
+                    required
                     className='"form-control'
                     value={this.state.name}
                     onChange={this.changeNameHandler}
@@ -67,6 +68,7 @@ class CreateChild extends Component {
                   <input
                     placeholder="Nazwisko"
                     name="Nazwisko"
+                    required
                     className='"form-control'
                     value={this.state.lastName}
                     onChange={this.changeLastNameHandler}
@@ -75,6 +77,7 @@ class CreateChild extends Component {
                 <div className="form-group">
                   <input
                     placeholder="Id grupy"
+                    required
                     name="Id grupy"
                     className='"form-control'
                     value={this.state.classId}
@@ -85,7 +88,7 @@ class CreateChild extends Component {
                   <Link className="button3" to={"/children"}>
                     Wróć
                   </Link>
-
+                </div> <div className="form-but">
                   <button className="button2">Zapisz</button>
                 </div>
               </form>

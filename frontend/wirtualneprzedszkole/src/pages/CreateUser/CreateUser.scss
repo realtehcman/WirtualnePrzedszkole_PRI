@@ -39,7 +39,7 @@ input {
   background-color: #4424bb;
   color: white;
   padding: 14px 20px;
-  margin: 8px 0;
+  margin: 8px 10px;
   border: none;
   cursor: pointer;
 }
@@ -79,7 +79,7 @@ body {
   width: 100%;
   margin: 0;
   // position: fixed;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .body-container {
@@ -87,4 +87,13 @@ body {
   height: calc(100vh - 100px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+}
+.asd123{
+  margin-left: 36%;
+ margin-top: 4%;
+  display: block;
+}
+.asd124{
+  margin-left: 35%;
+  margin-top: 4%;
 }
