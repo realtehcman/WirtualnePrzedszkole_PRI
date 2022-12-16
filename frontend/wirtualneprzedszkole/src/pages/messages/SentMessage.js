@@ -27,7 +27,7 @@ const Navi = (props) => {
     const navigate = useNavigate();
     return (
         <button
-            onClick={() => navigate("/ReadMessage/" + props.value, { replace: true })}
+            onClick={() => navigate("/ViewMessage/" + props.value, { replace: true })}
             className="btn btn-info"
         >
             Wyświetl

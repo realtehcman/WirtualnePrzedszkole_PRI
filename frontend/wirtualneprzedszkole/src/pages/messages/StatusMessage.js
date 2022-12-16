@@ -14,11 +14,8 @@ const StatusMsg = () => {
             { lastName: ""},
             {email: ""},
             { isRead: ""}
-
         ]
-    }
-
-    );
+    });
 
     // const message = [
     //     { isRead: 'title1', aaa: true  },

@@ -18,6 +18,7 @@ import SentMessageNavi from './pages/messages/SentMessageNavi';
 import ReadMessageNavi from './pages/messages/ReadMessageNavi';
 import GalleryNavi from "./pages/gallery/GalleryNavi";
 import StatusMessageNavi from './pages/messages/StatusMessageNavi';
+import ViewMessageNavi from './pages/messages/ViewMessageNavi';
 
 
 import React, {useState} from 'react';
@@ -103,6 +104,8 @@ function App() {
             </Route>
             <Route path='/StatusMessage/:id' element={<PrivateOutlet />}>
               <Route index element={<StatusMessageNavi/>}></Route>
+            </Route><Route path='/ViewMessage/:id' element={<PrivateOutlet />}>
+              <Route index element={<ViewMessageNavi/>}></Route>
             </Route>
           </Routes>
         </BrowserRouter>

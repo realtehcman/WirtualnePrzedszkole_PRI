@@ -12,6 +12,9 @@ class MessageService {
     getMessage(id) {
         return axios.get("http://localhost:8080/api/message/read_msg" + '/' + id)
     }
+    ViewMessage(id){
+        return axios.get("http://localhost:8080/api/message/sent_msg" + '/' + id )
+    }
     getSentMessage(id) {
         return axios.get("http://localhost:8080/api/message/sent_msg" + '/' + id)
     }
