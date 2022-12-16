@@ -31,6 +31,7 @@ import {
       this.changePhoneHandler = this.changePhoneHandler.bind(this);
       this.changeRoleHandler = this.changeRoleHandler.bind(this);
       this.saveUser = this.saveUser.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     saveUser = (e) => {
@@ -75,7 +76,10 @@ import {
     changeRoleHandler = (event) => {
       this.setState({role: event.target.value});
     };
-
+    handleSubmit(e) {
+      alert('Użytkownik został dodany : ' + '\n' + " Imię : " + this.state.name + '\n' + " Nazwisko : " + this.state.lastName + '\n' + " Email : " + this.state.email+ '\n' + " Adres : " + this.state.address + '\n' + " Numer telefonu : " + this.state.phoneNumber + '\n' + " Rola : " + this.state.role);
+      e.preventDefault();
+    }
 
 
     render() {
@@ -84,7 +88,10 @@ import {
             <div className="row">
               <div className="card col-md-6 offset-md-3 offset-md-3">
                 <div className="form-body">
-                  <form onSubmit={this.saveUser}>
+                  <form onSubmit={(e) =>{
+                    this.saveUser(e);
+                    this.handleSubmit(e);
+                  } }>
                     <div className="form-group">
                       <MDBInput
                           placeholder="Imię"

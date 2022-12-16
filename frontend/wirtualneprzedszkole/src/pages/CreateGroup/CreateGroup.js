@@ -14,6 +14,7 @@ class CreateGroup extends Component {
     this.changeNameHandler = this.changeNameHandler.bind(this);
     this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
     this.saveGroup = this.saveGroup.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   saveGroup = (e) => {
@@ -21,7 +22,10 @@ class CreateGroup extends Component {
     let group = JSON.stringify({
       name: this.state.name,
       description: this.state.description,
-    });
+
+    }
+
+    );
     //user = JSON.stringify(user)
 
     GroupService.addGroup(group).then((response) => {
@@ -39,13 +43,22 @@ class CreateGroup extends Component {
     this.setState({ description: event.target.value });
   };
 
+  handleSubmit(e) {
+    alert('Grupa została utworzona : ' + '\n' + " Nazwa grupy : " + this.state.name + '\n' + " Opis grupy : " + this.state.description);
+    e.preventDefault();
+  }
+
   render() {
     return (
       <div className="formContainer">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
             <div className="form-body">
-              <form onSubmit={this.saveGroup}>
+              <form onSubmit={(e) =>{
+                this.saveGroup(e);
+                this.handleSubmit(e);
+              } }>
+              {/*<form onSubmit={this.handleSubmit }>*/}
                 {/* mixes the buttons */}
                 <div className="form-group">
                   <input

@@ -17,6 +17,7 @@ class CreateChild extends Component {
     this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
     this.changeClassIdHandler = this.changeClassIdHandler.bind(this);
     this.saveChild = this.saveChild.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   saveChild = (e) => {
@@ -47,13 +48,21 @@ class CreateChild extends Component {
     this.setState({ classId: event.target.value });
   };
 
+  handleSubmit(e) {
+    alert('Dziecko zostało pomyślnie dodane : ' + '\n' + " Imię : " + this.state.name + '\n' + " Nazwisko : " + this.state.lastName + '\n' + " id grupy : " + this.state.classId);
+    e.preventDefault();
+  }
+
   render() {
     return (
       <div className="formContainer">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
             <div className="form-body">
-              <form onSubmit={this.saveChild}>
+              <form onSubmit={(e) =>{
+                this.saveChild(e);
+                this.handleSubmit(e);
+              } }>
                 <div className="form-group">
                   <input
                     placeholder="Imię"
