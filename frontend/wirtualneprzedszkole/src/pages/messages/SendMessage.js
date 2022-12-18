@@ -27,6 +27,8 @@ class SendMessage extends Component {
         this.GetRecieverHandler = this.GetRecieverHandler.bind(this);
         this.saveMessage = this.saveMessage.bind(this);
         this.saveMessage2 = this.saveMessage2.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit2 = this.handleSubmit2.bind(this);
     }
 
     saveMessage = (e) => {
@@ -69,13 +71,23 @@ class SendMessage extends Component {
             }
         });
     };
-
+    handleSubmit(e) {
+        alert('Wiadomość została wysłana : ' + '\n' + " Do : " + this.state.to + '\n' + " Temat : " + this.state.subject);
+        e.preventDefault();
+    }
+    handleSubmit2(e) {
+        alert('Wiadomość została wysłana do wszystkich rodziców ' + '\n' + " Temat : " + this.state.subject);
+        e.preventDefault();
+    }
 
     render() {
         return (
             <div className="container mt-5">
                 <h2 className="mb-3">Utwórz wiadomość</h2>
-                <form onSubmit={this.saveMessage}>
+                <form onSubmit={(e) =>{
+                    this.saveMessage(e);
+                    this.handleSubmit(e);
+                } }>
                     <div className="mb-3">
                         <label className="form-label" htmlFor="name">
                             Do :
@@ -101,7 +113,10 @@ class SendMessage extends Component {
                     <div className="form-but">
 
                         <button className="button">Wyślij</button>
-                        <button className="button" onClick={this.saveMessage2}>Wyślij do wszystkich rodziców</button>
+                        <button className="button" onClick={(e) =>{
+                            this.saveMessage2(e);
+                            this.handleSubmit2(e);
+                        } }>Wyślij do wszystkich rodziców</button>
                     </div>
 
                 </form>

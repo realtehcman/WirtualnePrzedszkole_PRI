@@ -17,6 +17,7 @@ class CreateChild extends Component {
     this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
     this.changeClassIdHandler = this.changeClassIdHandler.bind(this);
     this.saveChild = this.saveChild.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   saveChild = (e) => {
@@ -47,17 +48,26 @@ class CreateChild extends Component {
     this.setState({ classId: event.target.value });
   };
 
+  handleSubmit(e) {
+    alert('Dziecko zostało pomyślnie dodane : ' + '\n' + " Imię : " + this.state.name + '\n' + " Nazwisko : " + this.state.lastName + '\n' + " id grupy : " + this.state.classId);
+    e.preventDefault();
+  }
+
   render() {
     return (
       <div className="formContainer">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
             <div className="form-body">
-              <form onSubmit={this.saveChild}>
+              <form onSubmit={(e) =>{
+                this.saveChild(e);
+                this.handleSubmit(e);
+              } }>
                 <div className="form-group">
                   <input
                     placeholder="Imię"
                     name="Imię"
+                    required
                     className='"form-control'
                     value={this.state.name}
                     onChange={this.changeNameHandler}
@@ -67,6 +77,7 @@ class CreateChild extends Component {
                   <input
                     placeholder="Nazwisko"
                     name="Nazwisko"
+                    required
                     className='"form-control'
                     value={this.state.lastName}
                     onChange={this.changeLastNameHandler}
@@ -75,6 +86,7 @@ class CreateChild extends Component {
                 <div className="form-group">
                   <input
                     placeholder="Id grupy"
+                    required
                     name="Id grupy"
                     className='"form-control'
                     value={this.state.classId}
@@ -85,7 +97,7 @@ class CreateChild extends Component {
                   <Link className="button3" to={"/children"}>
                     Wróć
                   </Link>
-
+                </div> <div className="form-but">
                   <button className="button2">Zapisz</button>
                 </div>
               </form>

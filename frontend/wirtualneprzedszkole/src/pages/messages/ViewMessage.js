@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import messageService from "./MessageService";
 import "../User/Table.scss";
 
-    const ReadMsg = () => {
+const ViewMsg = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState({
         id: "",
@@ -22,7 +22,7 @@ import "../User/Table.scss";
     const getData = async () => {
         // const response = UserService.getUser(id)
         // setUser((await response).data)
-        messageService.getMessage(id).then((response) => {
+        messageService.ViewMessage(id).then((response) => {
             console.log("Response from main API: ", response);
             let msgData = response.data;
 
@@ -35,27 +35,27 @@ import "../User/Table.scss";
         });
     };
 
-        return (
+    return (
 
 
-<div >
+        <div >
 
-       <table class="table table-responsive">
-                    <thead>
-                    <tr className="table-head">
-                        <td class="text-center">Treść</td>
-                    </tr>
-                    </thead>
-                    <tbody className="body">
-                        <tr>
-                            <td class="text-center">{message.content}</td>
-                        </tr>
+            <table class="table table-responsive">
+                <thead>
+                <tr className="table-head">
+                    <td class="text-center">Treść</td>
+                </tr>
+                </thead>
+                <tbody className="body">
+                <tr>
+                    <td class="text-center">{message.content}</td>
+                </tr>
 
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
 
-</div>
-        );
+        </div>
+    );
 
 }
-export default ReadMsg
+export default ViewMsg

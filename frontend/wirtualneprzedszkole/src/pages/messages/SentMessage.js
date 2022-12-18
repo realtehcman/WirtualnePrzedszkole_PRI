@@ -10,7 +10,31 @@ import "../User/Table.scss";
 import UserService from "../User/UserService";
 import SentMessageService from "./SentMessageService";
 
+const Navi2 = (props) => {
+    const navigate = useNavigate();
+    return (
+        <button
+            onClick={() => navigate("/StatusMessage/" + props.value, { replace: true })}
+            className="btn btn-info"
+        >
+            Status
+        </button>
 
+    );
+};
+
+const Navi = (props) => {
+    const navigate = useNavigate();
+    return (
+        <button
+            onClick={() => navigate("/ViewMessage/" + props.value, { replace: true })}
+            className="btn btn-info"
+        >
+            Wyświetl
+        </button>
+
+    );
+};
 
 class SentMessage extends React.Component {
 
@@ -47,11 +71,7 @@ class SentMessage extends React.Component {
     render() {
 
         return (
-
             <div className="scrollable-div">
-
-
-
                 <table className="content-table">
                     <thead>
                     <tr className="table-head">
@@ -62,15 +82,16 @@ class SentMessage extends React.Component {
                         <td>Akcje</td>
                     </tr>
                     </thead>
-                    <tbody className="body table-body">
+                    <tbody>
                     {this.state.sent_messages.map((sent_messages) => (
                         <tr key={sent_messages.id}>
                             <td>{sent_messages.id}</td>
                             <td>{sent_messages.author}</td>
                             <td>{sent_messages.subject}</td>
-                            <td>{sent_messages.content}</td>
+                        <td><Navi value={sent_messages.id} />
+                            <Navi2 value={sent_messages.id} />
+                        </td>
                             <td className="foobar">
-                                {/* <button onClick={() => this.props.navigation.navigate("/home//")} className='btn btn-info'>Zobacz</button> */}
                                 <button2
                                     onClick={() => this.deleteSentMessages(sent_messages.id)}
                                     className="btn btn-danger"

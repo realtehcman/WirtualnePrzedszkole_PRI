@@ -17,6 +17,10 @@ import MessageNavi from './pages/messages/MessageNavi';
 import SendMessageNavi from './pages/messages/SendMessageNavi';
 import SentMessageNavi from './pages/messages/SentMessageNavi';
 import ReadMessageNavi from './pages/messages/ReadMessageNavi';
+import GalleryNavi from "./pages/gallery/GalleryNavi";
+import StatusMessageNavi from './pages/messages/StatusMessageNavi';
+import ViewMessageNavi from './pages/messages/ViewMessageNavi';
+
 
 import React, {useState} from 'react';
 
@@ -106,6 +110,14 @@ function App() {
             </Route>
             <Route path='/ReadMessage/:id' element={<PrivateOutlet />}>
               <Route index element={<ReadMessageNavi/>}></Route>
+            </Route>
+            <Route path='/Gallery' element={<PrivateOutlet />}>
+              <Route index element={<GalleryNavi/>}></Route>
+            </Route>
+            <Route path='/StatusMessage/:id' element={<PrivateOutlet />}>
+              <Route index element={<StatusMessageNavi/>}></Route>
+            </Route><Route path='/ViewMessage/:id' element={<PrivateOutlet />}>
+              <Route index element={<ViewMessageNavi/>}></Route>
             </Route>
           </Routes>
         </BrowserRouter>

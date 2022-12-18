@@ -67,3 +67,24 @@
 //   align-items: center;
 //   justify-content: space-between;
 // }
+
+.table-responsive{
+  border-collapse: collapse;
+  font-size: 20px;
+  margin-right: 5%;
+  border-radius: 5px 5px 5px 5px;
+  // overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+  .table-head {
+    background-color: #4424bb;
+    color: #f8e3f8;
+    text-align: left;
+    font-weight: bold;
+  }
+
+}
+
+.booleans{
+
+}
