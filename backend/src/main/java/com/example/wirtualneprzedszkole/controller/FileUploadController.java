@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;*/
+import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.UploadFileResponse;
 import com.example.wirtualneprzedszkole.service.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 /*import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -48,8 +50,8 @@ public class FileUploadController {
     private final StorageService storageService;
 
     @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = storageService.store(file);
+    public UploadFileResponse uploadFile(@RequestPart("file") MultipartFile file, @Nullable @RequestPart("folder") String folder) {
+        String fileName = storageService.store(file, folder);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -60,16 +62,16 @@ public class FileUploadController {
     }
 
     @PostMapping("/uploadMultiFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("file") MultipartFile[] files) {
+    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("file") MultipartFile[] files, @RequestPart("folder") String folder) {
         return Arrays.asList(files)
                 .stream()
-                .map(this::uploadFile)
+                .map(file -> uploadFile(file, folder))
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
-        Resource resource = storageService.loadAsResource(fileName);
+    @GetMapping("/downloadFile/{folderId}/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, @PathVariable Long folderId, HttpServletRequest request) {
+        Resource resource = storageService.loadAsResource(fileName, folderId);
 
         String contentType = null;
         try {
