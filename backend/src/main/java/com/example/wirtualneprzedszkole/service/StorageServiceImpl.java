@@ -19,11 +19,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class StorageServiceImpl implements StorageService {
     private Path fileStorageLocation;
     private final FileStorageProperties fileStorageProperties;
@@ -31,9 +35,10 @@ public class StorageServiceImpl implements StorageService {
     private final FolderService folderService;
 
     // default file path
-    /*public StorageServiceImpl(FileStorageProperties fileStorageProperties, FileDataRepo fileDataRepo) {
+    public StorageServiceImpl(FileStorageProperties fileStorageProperties, FileDataRepo fileDataRepo, FolderService folderService) {
         this.fileDataRepo = fileDataRepo;
         this.fileStorageProperties = fileStorageProperties;
+        this.folderService = folderService;
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
 
@@ -42,45 +47,37 @@ public class StorageServiceImpl implements StorageService {
         } catch (Exception exception) {
             throw new StorageException("Could not create the directory where the uploaded files will be stored.", exception);
         }
-    }*/
+    }
 
     // path type like default/folder
     // zastanawiam się nad tabelką w bazie danych zawierającą hash,
     // i dostępność pliku (wszyyscy/klasa/user) ->
     // wtedy wszystkie pliki będą mogły być właściwie w jednym folderze (bo hash da unikalne nazwy,
     // a zapytanie najpierw pójdzie do bazy danych)
-    /*public Path init (String folder) {
-        Path folderPath = Paths.get(fileStorageProperties.getUploadDir() + "/" + folder)
+    /*public void init () {
+        Path folderPath = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
-
         try {
             Files.createDirectories(folderPath);
-            return folderPath;
         } catch (Exception exception) {
             throw new StorageException("Could not create the directory where the uploaded files will be stored.", exception);
         }
     }*/
 
-    public String store(MultipartFile file, String folder) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Optional<String> fileExtension = Optional.ofNullable(fileName)
+    public FileData store(MultipartFile file, String folder) {
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        Optional<String> fileExtension = Optional.of(fileName)
                 .filter(f -> f.contains("."))
                 .map(f -> f.substring(fileName.lastIndexOf(".") + 1));
-        fileExtension.ifPresent(System.out::println);
         fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folder)
                 .toAbsolutePath().normalize();
-        //String fileType = fileName.
-
         try {
             if (fileName.contains("..")) {
                 throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
             Path targetLocation;
-            if (folder == null)
-                targetLocation = this.fileStorageLocation.resolve(fileName);
-            else {
-                targetLocation = fileStorageLocation.resolve(fileName);
-            }
+
+            targetLocation = this.fileStorageLocation.resolve(DigestUtils.md5DigestAsHex(file.getBytes()) + "." + fileExtension.get());
 
             FileData fileData = FileData.builder()
                     .name(fileName)
@@ -90,7 +87,7 @@ public class StorageServiceImpl implements StorageService {
 
             fileDataRepo.save(fileData);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            return fileName;
+            return fileData;
         } catch (IOException exception) {
             throw new StorageException("Could not store file " + fileName + ". Please try again!", exception);
         }
@@ -98,10 +95,10 @@ public class StorageServiceImpl implements StorageService {
 
     public Resource loadAsResource(String fileName, Long folderId) {
         try {
-            fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
+            fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" +folderService.getFolder(folderId).getPath() + "/")
                     .toAbsolutePath().normalize();
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
-            //System.out.println(filePath);
+            System.out.println(filePath);
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
                 return resource;
@@ -112,5 +109,26 @@ public class StorageServiceImpl implements StorageService {
         } catch (MalformedURLException exception) {
             throw new StorageFileNotFoundException("FileData not found " + fileName, exception);
         }
+    }
+
+    public List<Resource> loadAsResources(Long folderId) {
+        List<Resource> resources = new ArrayList<>();
+        try(Stream<Path> paths = Files.walk(Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath())
+                    .toAbsolutePath().normalize())) {
+            List<Path> files = paths.filter(Files::isRegularFile)
+                    .collect(Collectors.toList());
+            for (Path file : files) {
+                Resource resource = new UrlResource(file.normalize().toUri());
+                if (resource.exists()) {
+                    resources.add(resource);
+                } else {
+                    throw new StorageFileNotFoundException("FileData not found " + file);
+                }
+            }
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        return resources;
     }
 }

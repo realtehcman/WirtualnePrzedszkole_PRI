@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +29,9 @@ public class FolderService {
 
     public Folder getFolder(Long id) {
         return folderRepo.findById(id).orElseThrow();
+    }
+
+    public List<Folder> getAllFolders() {
+        return folderRepo.findAll();
     }
 }

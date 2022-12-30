@@ -2,9 +2,14 @@ package com.example.wirtualneprzedszkole.controller;
 
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /*import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -12,20 +17,25 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;*/
 import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.UploadFileResponse;
+import com.example.wirtualneprzedszkole.model.dao.FileData;
 import com.example.wirtualneprzedszkole.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 /*import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,14 +61,15 @@ public class FileUploadController {
 
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestPart("file") MultipartFile file, @Nullable @RequestPart("folder") String folder) {
-        String fileName = storageService.store(file, folder);
+        FileData fileData = storageService.store(file, folder);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
-                .path(fileName)
+                .path("folderId/")
+                .path(fileData.getHash() + ".fileExtension")
                 .toUriString();
 
-        return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+        return new UploadFileResponse(fileData.getName(), fileDownloadUri, file.getContentType(), file.getSize());
     }
 
     @PostMapping("/uploadMultiFiles")
@@ -83,11 +94,38 @@ public class FileUploadController {
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
+        
+        System.out.println(resource);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"" )
                 .body(resource);
+    }
+
+    @GetMapping("/downloadFolder/{folderId}")
+    public ResponseEntity<StreamingResponseBody> downloadFolder(@PathVariable Long folderId, HttpServletResponse response) throws IOException {
+        List<Resource> resources = storageService.loadAsResources(folderId);
+
+        StreamingResponseBody streamingResponseBody = out -> {
+            ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
+
+            for (Resource resource : resources) {
+                System.out.println(resource);
+                ZipEntry zipEntry = new ZipEntry(Objects.requireNonNull(resource.getFilename()));
+                zipEntry.setSize(resource.contentLength());
+                zipOutputStream.putNextEntry(zipEntry);
+                StreamUtils.copy(resource.getInputStream(), zipOutputStream);
+                zipOutputStream.closeEntry();
+            }
+
+            zipOutputStream.finish();
+            zipOutputStream.close();
+        };
+        response.setContentType("application/zip");
+        response.setHeader("Content-Disposition", "attachment; filename=example.zip");
+
+        return ResponseEntity.ok(streamingResponseBody);
     }
 
     /*private final StorageService storageService;

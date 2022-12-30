@@ -5,6 +5,8 @@ import com.example.wirtualneprzedszkole.service.FolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/folder")
@@ -20,5 +22,10 @@ public class FolderController {
     @GetMapping("{id}")
     public Folder getFolder(@PathVariable Long id) {
         return folderService.getFolder(id);
+    }
+
+    @GetMapping("/all")
+    public List<Folder> getAllFolders() {
+        return folderService.getAllFolders();
     }
 }
