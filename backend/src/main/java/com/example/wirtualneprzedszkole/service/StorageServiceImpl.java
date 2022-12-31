@@ -5,7 +5,6 @@ import com.example.wirtualneprzedszkole.filemanagement.StorageException;
 import com.example.wirtualneprzedszkole.filemanagement.StorageFileNotFoundException;
 import com.example.wirtualneprzedszkole.model.dao.FileData;
 import com.example.wirtualneprzedszkole.repository.FileDataRepo;
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -13,6 +12,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -33,14 +33,16 @@ public class StorageServiceImpl implements StorageService {
     private final FileStorageProperties fileStorageProperties;
     private final FileDataRepo fileDataRepo;
     private final FolderService folderService;
+    private ArrayList<Path> filePaths;
 
     // default file path
-    public StorageServiceImpl(FileStorageProperties fileStorageProperties, FileDataRepo fileDataRepo, FolderService folderService) {
+    public StorageServiceImpl(FileStorageProperties fileStorageProperties, FileDataRepo fileDataRepo, FolderService folderService, ArrayList<Path> filePaths) {
         this.fileDataRepo = fileDataRepo;
         this.fileStorageProperties = fileStorageProperties;
         this.folderService = folderService;
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
+        this.filePaths = filePaths;
 
         try {
             Files.createDirectories(this.fileStorageLocation);
@@ -100,7 +102,6 @@ public class StorageServiceImpl implements StorageService {
                     .toAbsolutePath().normalize();
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             System.out.println(filePath);
-            Resource resource = new UrlResource(filePath.toUri());
 
             Files.delete(filePath);
 
@@ -118,8 +119,32 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public Resource deleteAll(String folder) {
-        return null;
+    public boolean deleteAllRecursivelyService(Long folderId) {
+        fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
+                .toAbsolutePath().normalize();
+        System.out.println(fileStorageLocation);
+
+        try {
+            Files.walk(fileStorageLocation).forEach(path -> saveFileNamesToArray(path.toFile()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        filePaths.forEach(file -> {
+            try {
+                Files.delete(file);
+                String stringFile = file.toString().substring(0, file.toString().lastIndexOf("."));
+                FileData fileData = fileDataRepo.findByHash(stringFile);
+                fileDataRepo.delete(fileData); //error somewhere here
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+        return true;
     }
 
     //method for a get request
@@ -160,5 +185,15 @@ public class StorageServiceImpl implements StorageService {
             exception.printStackTrace();
         }
         return resources;
+    }
+
+    private void saveFileNamesToArray(File file) {
+        if (file.isDirectory()) {
+            System.out.println("Directory: " + file.getAbsolutePath());
+        } else {
+            System.out.println("File: " + file.getAbsolutePath());
+            Path pathToFile= file.toPath();
+            filePaths.add(pathToFile);
+        }
     }
 }

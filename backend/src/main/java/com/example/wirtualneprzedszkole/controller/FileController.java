@@ -65,13 +65,22 @@ public class FileController {
     }
 
     @DeleteMapping("/downloadFile/{folderId}/{fileName:.+}")
-    public void deleteFile(@PathVariable String fileName, @PathVariable Long folderId, HttpServletRequest request) {
+    public void deleteFile(@PathVariable String fileName, @PathVariable Long folderId) {
         if (storageService.delete(fileName, folderId)){
             System.out.println("deleting " + fileName);
         }
     }
 
-    @GetMapping("/downloadFile/{folderId}/{fileName:.+}")
+    @DeleteMapping("/downloadFile/{folderId}/")
+    public void deleteAllRecursively(@PathVariable Long folderId) {
+        if (storageService.deleteAllRecursivelyService(folderId)){
+            System.out.println("deleting everything folder id " + folderId.toString());
+
+        }
+    }
+
+
+        @GetMapping("/downloadFile/{folderId}/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, @PathVariable Long folderId, HttpServletRequest request) {
         Resource resource = storageService.loadAsResource(fileName, folderId);
 

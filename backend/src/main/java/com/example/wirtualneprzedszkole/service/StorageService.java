@@ -1,13 +1,10 @@
 package com.example.wirtualneprzedszkole.service;
 
-import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.model.dao.FileData;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Stream;
 
 public interface StorageService {
 
@@ -15,7 +12,8 @@ public interface StorageService {
 
     FileData store(MultipartFile file, String folder);
     boolean delete(String fileName, Long folderId);
-    Resource deleteAll(String folder);
+    boolean deleteAllRecursivelyService(Long folderId);
+
 
     //Stream<Path> loadAll();
 
