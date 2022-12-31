@@ -14,6 +14,8 @@ public interface StorageService {
     //void init();
 
     FileData store(MultipartFile file, String folder);
+    boolean delete(String fileName, Long folderId);
+    Resource deleteAll(String folder);
 
     //Stream<Path> loadAll();
 

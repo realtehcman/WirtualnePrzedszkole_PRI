@@ -93,9 +93,39 @@ public class StorageServiceImpl implements StorageService {
         }
     }
 
+    @Override
+    public boolean delete(String fileName, Long folderId) {
+        try {
+            fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
+                    .toAbsolutePath().normalize();
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            System.out.println(filePath);
+            Resource resource = new UrlResource(filePath.toUri());
+
+            Files.delete(filePath);
+
+            fileName = fileName.substring(0, fileName.lastIndexOf("."));
+            FileData fileData = fileDataRepo.findByHash(fileName);
+            fileDataRepo.delete(fileData);
+
+            return true;
+
+        } catch (MalformedURLException exception) {
+            throw new StorageFileNotFoundException("FileData not found " + fileName, exception);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Resource deleteAll(String folder) {
+        return null;
+    }
+
+    //method for a get request
     public Resource loadAsResource(String fileName, Long folderId) {
         try {
-            fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" +folderService.getFolder(folderId).getPath() + "/")
+            fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
                     .toAbsolutePath().normalize();
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             System.out.println(filePath);
@@ -113,8 +143,8 @@ public class StorageServiceImpl implements StorageService {
 
     public List<Resource> loadAsResources(Long folderId) {
         List<Resource> resources = new ArrayList<>();
-        try(Stream<Path> paths = Files.walk(Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath())
-                    .toAbsolutePath().normalize())) {
+        try (Stream<Path> paths = Files.walk(Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath())
+                .toAbsolutePath().normalize())) {
             List<Path> files = paths.filter(Files::isRegularFile)
                     .collect(Collectors.toList());
             for (Path file : files) {
