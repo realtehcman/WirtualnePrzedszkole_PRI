@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -73,26 +74,44 @@ public class StorageServiceImpl implements StorageService {
                 .map(f -> f.substring(fileName.lastIndexOf(".") + 1));
         fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folder)
                 .toAbsolutePath().normalize();
+        if (fileName.contains("..")) {
+            throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
+        }
+        Path targetLocation;
+
         try {
-            if (fileName.contains("..")) {
-                throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-            Path targetLocation;
-
             targetLocation = this.fileStorageLocation.resolve(DigestUtils.md5DigestAsHex(file.getBytes()) + "." + fileExtension.get());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-            FileData fileData = FileData.builder()
+        FileData fileData = null;
+        try {
+            fileData = FileData.builder()
                     .name(fileName)
                     .path(targetLocation.toString())
                     .hash(DigestUtils.md5DigestAsHex(file.getBytes()))
                     .build();
-
-            fileDataRepo.save(fileData);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            return fileData;
-        } catch (IOException exception) {
-            throw new StorageException("Could not store file " + fileName + ". Please try again!", exception);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
+        String selectResponseFromDB = String.valueOf(fileDataRepo.findByPath(fileData.getPath()));
+        System.out.println("Response " + selectResponseFromDB);
+        if (!selectResponseFromDB.equals("null")) {
+            try {
+                throw new SQLIntegrityConstraintViolationException("Sorry! File data already exists in the DB");
+            } catch (SQLIntegrityConstraintViolationException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        fileDataRepo.save(fileData);
+        try {
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return fileData;
     }
 
     @Override
@@ -105,8 +124,8 @@ public class StorageServiceImpl implements StorageService {
 
             Files.delete(filePath);
 
-            fileName = fileName.substring(0, fileName.lastIndexOf("."));
-            FileData fileData = fileDataRepo.findByHash(fileName);
+//            String hashName  = fileName.substring(0, fileName.lastIndexOf("."));
+            FileData fileData = fileDataRepo.findByPath(filePath.toString());
             fileDataRepo.delete(fileData);
 
             return true;
@@ -134,10 +153,8 @@ public class StorageServiceImpl implements StorageService {
         filePaths.forEach(file -> {
             try {
                 Files.delete(file);
-                String stringFile = file.toString().substring(0, file.toString().lastIndexOf("."));
-                FileData fileData = fileDataRepo.findByHash(stringFile);
-                fileDataRepo.delete(fileData); //error somewhere here
-
+                FileData fileData = fileDataRepo.findByHash(file.toString());
+                fileDataRepo.delete(fileData);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -192,7 +209,7 @@ public class StorageServiceImpl implements StorageService {
             System.out.println("Directory: " + file.getAbsolutePath());
         } else {
             System.out.println("File: " + file.getAbsolutePath());
-            Path pathToFile= file.toPath();
+            Path pathToFile = file.toPath();
             filePaths.add(pathToFile);
         }
     }

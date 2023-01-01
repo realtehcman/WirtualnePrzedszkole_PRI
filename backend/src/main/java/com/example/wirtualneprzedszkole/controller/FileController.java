@@ -2,6 +2,7 @@ package com.example.wirtualneprzedszkole.controller;
 
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -66,21 +67,21 @@ public class FileController {
 
     @DeleteMapping("/downloadFile/{folderId}/{fileName:.+}")
     public void deleteFile(@PathVariable String fileName, @PathVariable Long folderId) {
-        if (storageService.delete(fileName, folderId)){
+        if (storageService.delete(fileName, folderId)) {
             System.out.println("deleting " + fileName);
         }
     }
 
     @DeleteMapping("/downloadFile/{folderId}/")
     public void deleteAllRecursively(@PathVariable Long folderId) {
-        if (storageService.deleteAllRecursivelyService(folderId)){
+        if (storageService.deleteAllRecursivelyService(folderId)) {
             System.out.println("deleting everything folder id " + folderId.toString());
 
         }
     }
 
 
-        @GetMapping("/downloadFile/{folderId}/{fileName:.+}")
+    @GetMapping("/downloadFile/{folderId}/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, @PathVariable Long folderId, HttpServletRequest request) {
         Resource resource = storageService.loadAsResource(fileName, folderId);
 

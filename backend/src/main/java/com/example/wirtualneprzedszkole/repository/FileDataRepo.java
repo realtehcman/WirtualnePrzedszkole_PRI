@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FileDataRepo extends JpaRepository<FileData, Long> {
     FileData findByHash(String hash); //https://wesome.org/spring-data-jpa-findby-equals
+    FileData findByPath(String filePath);
 }
