@@ -1,6 +1,7 @@
 package com.example.wirtualneprzedszkole.service;
 
-import com.example.wirtualneprzedszkole.exception.ApiRequestException;
+import com.example.wirtualneprzedszkole.exception.ApiRequestConflictException;
+import com.example.wirtualneprzedszkole.exception.ApiRequestNotFoundException;
 import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.StorageException;
 import com.example.wirtualneprzedszkole.filemanagement.StorageFileNotFoundException;
@@ -68,12 +69,24 @@ public class StorageServiceImpl implements StorageService {
     }*/
 
     public FileData store(MultipartFile file, String folder) {
+
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         Optional<String> fileExtension = Optional.of(fileName)
                 .filter(f -> f.contains("."))
                 .map(f -> f.substring(fileName.lastIndexOf(".") + 1));
         fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folder)
                 .toAbsolutePath().normalize();
+
+        System.out.println(fileStorageLocation);
+        if (Files.notExists(fileStorageLocation)) {
+            try {
+                throw new ApiRequestNotFoundException("Folder does not exist. Create it first");
+            } catch (ApiRequestNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
         try {
             if (fileName.contains("..")) {
                 throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
@@ -89,9 +102,9 @@ public class StorageServiceImpl implements StorageService {
                     .build();
 
             String selectResponseFromDB = String.valueOf(fileDataRepo.findByPath(fileData.getPath()));
-            System.out.println("Response " + selectResponseFromDB);
+            System.out.println("Response from DB " + selectResponseFromDB);
             if (!selectResponseFromDB.equals("null")) {
-                throw new ApiRequestException("Sorry! File data already exists in the DB ");
+                throw new ApiRequestConflictException("Sorry! File data already exists in the DB ");
             }
             fileDataRepo.save(fileData);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);

@@ -10,11 +10,10 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @ControllerAdvice
-public class ApiExceptionConflictHandler extends Throwable {
-
-    @ExceptionHandler(value = {ApiRequestConflictException.class})
-    public ResponseEntity<Object> handleApiRequestExceptionConflict(ApiRequestConflictException e) {
-        HttpStatus conflict = HttpStatus.CONFLICT;
+public class ApiExceptionNotFoundHandler extends Throwable {
+    @ExceptionHandler(value = {ApiRequestNotFoundException.class})
+    public ResponseEntity<Object> handleApiRequestExceptionConflict(ApiRequestNotFoundException e) {
+        HttpStatus conflict = HttpStatus.NOT_FOUND;
 
         ApiException apiException = new ApiException(
                 e.getMessage(),
