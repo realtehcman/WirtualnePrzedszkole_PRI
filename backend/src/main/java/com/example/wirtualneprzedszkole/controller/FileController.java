@@ -2,7 +2,6 @@ package com.example.wirtualneprzedszkole.controller;
 
 
 import java.io.IOException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -74,7 +73,7 @@ public class FileController {
 
     @DeleteMapping("/downloadFile/{folderId}/")
     public void deleteAllRecursively(@PathVariable Long folderId) {
-        if (storageService.deleteAllRecursivelyService(folderId)) {
+        if (storageService.deleteAllService(folderId)) {
             System.out.println("deleting everything folder id " + folderId.toString());
 
         }

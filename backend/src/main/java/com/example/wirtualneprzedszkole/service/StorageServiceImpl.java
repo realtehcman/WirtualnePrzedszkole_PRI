@@ -74,44 +74,33 @@ public class StorageServiceImpl implements StorageService {
                 .map(f -> f.substring(fileName.lastIndexOf(".") + 1));
         fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folder)
                 .toAbsolutePath().normalize();
-        if (fileName.contains("..")) {
-            throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
-        }
-        Path targetLocation;
-
         try {
+            if (fileName.contains("..")) {
+                throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
+            }
+            Path targetLocation;
+
             targetLocation = this.fileStorageLocation.resolve(DigestUtils.md5DigestAsHex(file.getBytes()) + "." + fileExtension.get());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        FileData fileData = null;
-        try {
-            fileData = FileData.builder()
+            FileData fileData = FileData.builder()
                     .name(fileName)
                     .path(targetLocation.toString())
                     .hash(DigestUtils.md5DigestAsHex(file.getBytes()))
                     .build();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        String selectResponseFromDB = String.valueOf(fileDataRepo.findByPath(fileData.getPath()));
-        System.out.println("Response " + selectResponseFromDB);
-        if (!selectResponseFromDB.equals("null")) {
-            try {
-                throw new SQLIntegrityConstraintViolationException("Sorry! File data already exists in the DB");
-            } catch (SQLIntegrityConstraintViolationException e) {
-                throw new RuntimeException(e);
+            String selectResponseFromDB = String.valueOf(fileDataRepo.findByPath(fileData.getPath()));
+            System.out.println("Response " + selectResponseFromDB);
+            if (!selectResponseFromDB.equals("null")) {
+                throw new SQLIntegrityConstraintViolationException();
             }
-        }
-        fileDataRepo.save(fileData);
-        try {
+            fileDataRepo.save(fileData);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            return fileData;
+        } catch (IOException exception) {
+            throw new StorageException("Could not store file " + fileName + ". Please try again!", exception);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new RuntimeException("Sorry! File data already exists in the DB" + e);
         }
-        return fileData;
     }
 
     @Override
@@ -129,7 +118,6 @@ public class StorageServiceImpl implements StorageService {
             fileDataRepo.delete(fileData);
 
             return true;
-
         } catch (MalformedURLException exception) {
             throw new StorageFileNotFoundException("FileData not found " + fileName, exception);
         } catch (IOException e) {
@@ -138,7 +126,7 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public boolean deleteAllRecursivelyService(Long folderId) {
+    public boolean deleteAllService(Long folderId) {
         fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
                 .toAbsolutePath().normalize();
         System.out.println(fileStorageLocation);
@@ -149,17 +137,17 @@ public class StorageServiceImpl implements StorageService {
             throw new RuntimeException(e);
         }
 
-
         filePaths.forEach(file -> {
             try {
                 Files.delete(file);
-                FileData fileData = fileDataRepo.findByHash(file.toString());
+                String stringFile = file.toString();
+                FileData fileData = fileDataRepo.findByPath(stringFile);
                 fileDataRepo.delete(fileData);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
-
+        filePaths = new ArrayList<Path>();
 
         return true;
     }
