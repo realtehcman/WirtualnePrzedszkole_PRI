@@ -1,5 +1,6 @@
 package com.example.wirtualneprzedszkole.service;
 
+import com.example.wirtualneprzedszkole.exception.ApiRequestException;
 import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.StorageException;
 import com.example.wirtualneprzedszkole.filemanagement.StorageFileNotFoundException;
@@ -19,7 +20,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -91,15 +91,13 @@ public class StorageServiceImpl implements StorageService {
             String selectResponseFromDB = String.valueOf(fileDataRepo.findByPath(fileData.getPath()));
             System.out.println("Response " + selectResponseFromDB);
             if (!selectResponseFromDB.equals("null")) {
-                throw new SQLIntegrityConstraintViolationException();
+                throw new ApiRequestException("Sorry! File data already exists in the DB ");
             }
             fileDataRepo.save(fileData);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileData;
         } catch (IOException exception) {
             throw new StorageException("Could not store file " + fileName + ". Please try again!", exception);
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new RuntimeException("Sorry! File data already exists in the DB" + e);
         }
     }
 
