@@ -1,19 +1,17 @@
 package com.example.wirtualneprzedszkole.service;
 
-import com.example.wirtualneprzedszkole.exception.ApiRequestConflictException;
 import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.StorageException;
 import com.example.wirtualneprzedszkole.model.dao.Folder;
 import com.example.wirtualneprzedszkole.repository.FolderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Service
@@ -56,12 +54,14 @@ public class FolderService {
         System.out.println("Deleting folder at " + fileStorageLocation);
 
         try {
-            Files.delete(fileStorageLocation);
+            FileUtils.deleteDirectory(new File(fileStorageLocation.toUri()));
         } catch (IOException e) {
             throw new RuntimeException("Could not delete the folder" + e);
         }
 
-        folderRepo.deleteFolderByPath(folderRelativePath);
+        String fullPath = String.valueOf(fileStorageLocation);
+        Folder folder = folderRepo.findByPath(fullPath);
+        folderRepo.delete(folder);
         return true;
     }
 }

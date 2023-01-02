@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FolderRepo extends JpaRepository<Folder, Long> {
-    Folder deleteFolderByPath(String folderPath);
+    Folder findByPath(String path);
 }

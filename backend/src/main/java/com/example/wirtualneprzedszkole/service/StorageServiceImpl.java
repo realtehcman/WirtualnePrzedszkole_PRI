@@ -125,7 +125,6 @@ public class StorageServiceImpl implements StorageService {
 
             Files.delete(filePath);
 
-//            String hashName  = fileName.substring(0, fileName.lastIndexOf("."));
             FileData fileData = fileDataRepo.findByPath(filePath.toString());
             fileDataRepo.delete(fileData);
 
