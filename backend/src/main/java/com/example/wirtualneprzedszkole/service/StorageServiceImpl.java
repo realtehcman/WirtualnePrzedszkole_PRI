@@ -74,6 +74,7 @@ public class StorageServiceImpl implements StorageService {
         Optional<String> fileExtension = Optional.of(fileName)
                 .filter(f -> f.contains("."))
                 .map(f -> f.substring(fileName.lastIndexOf(".") + 1));
+
         fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folder)
                 .toAbsolutePath().normalize();
 
