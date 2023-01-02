@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,8 +42,10 @@ public class FolderService {
         return folderRepo.findAll();
     }
 
-    public boolean deleteFolder(Long id) {
-        folderRepo.deleteById(id);
+    public boolean deleteFolder(String folderRelativePath) {
+//        Files.delete(filePath);
+
+        folderRepo.deleteFolderByPath(folderRelativePath);
         return true;
     }
 }
