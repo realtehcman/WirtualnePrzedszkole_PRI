@@ -8,9 +8,12 @@ import com.example.wirtualneprzedszkole.repository.FolderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Service
@@ -26,9 +29,13 @@ public class FolderService {
                     .toAbsolutePath().normalize();
             folder.setPath(String.valueOf(fileStorageLocation));
 
-            System.out.println(fileStorageLocation);
-
-            return folderRepo.save(folder);
+            File directory = new File(fileStorageLocation.toUri());
+            if (!directory.exists()) {
+                directory.mkdir();
+                System.out.println("created folder at" + fileStorageLocation);
+                return folderRepo.save(folder);
+            }
+            throw new StorageException("Could not create the directory where the uploaded files will be stored.");
         } catch (Exception exception) {
             throw new StorageException("Could not create the directory where the uploaded files will be stored.", exception);
         }
@@ -43,7 +50,16 @@ public class FolderService {
     }
 
     public boolean deleteFolder(String folderRelativePath) {
-//        Files.delete(filePath);
+        fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderRelativePath)
+                .toAbsolutePath().normalize();
+
+        System.out.println("Deleting folder at " + fileStorageLocation);
+
+        try {
+            Files.delete(fileStorageLocation);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not delete the folder" + e);
+        }
 
         folderRepo.deleteFolderByPath(folderRelativePath);
         return true;
