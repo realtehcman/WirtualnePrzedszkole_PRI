@@ -37,7 +37,7 @@ public class ClassService {
 
     private List<Child> exctractChildren(List<Child> children, Long id) {
         return children.stream()
-                .filter(child -> child.getClassId() == id)
+                .filter(child -> child.getClassId().equals(id))
                 .collect(Collectors.toList());
     }
 
@@ -53,8 +53,10 @@ public class ClassService {
         return classEdited;
     }
 
-    public void deleteClass(Long id) {
+    public String deleteClass(Long id) {
+        String className = classRepo.findById(id).orElseThrow().getName();
         classRepo.deleteById(id);
+        return className;
     }
 
 }
