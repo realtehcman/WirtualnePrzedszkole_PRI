@@ -17,4 +17,5 @@ public class Folder {
     private Long id;
     private String name;
     private String path;
+    private String className;
 }

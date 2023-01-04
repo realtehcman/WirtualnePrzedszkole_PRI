@@ -46,12 +46,14 @@ public class ClassController {
         Folder folder = new Folder();
         folder.setName(receivedClassDto.getName());
         folder.setPath(receivedClassDto.getName());
+        folder.setClassName(receivedClassDto.getName());
         Folder receivedFolder = folderService.createFolder(folder);
-        List<String> subFolderNames = List.of("Photos", "Knowledge");
+        List<String> subFolderNames = List.of("Photos", "Other");
         for (String subFolderName : subFolderNames) {
             Folder subFolder = new Folder();
             subFolder.setName(subFolderName);
             subFolder.setPath(receivedFolder.getName() + "/" + subFolderName);
+            subFolder.setClassName(receivedClassDto.getName());
             folderService.createFolder(subFolder);
         }
         return receivedClassDto;
@@ -67,6 +69,6 @@ public class ClassController {
     @DeleteMapping("{id}")
     public void deleteClass(@PathVariable Long id) {
         String className = classService.deleteClass(id);
-        folderService.deleteFolder(className);
+        folderService.deleteFolder(className, true);
     }
 }

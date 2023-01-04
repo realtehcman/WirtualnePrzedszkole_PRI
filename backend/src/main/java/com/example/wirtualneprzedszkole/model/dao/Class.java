@@ -26,4 +26,8 @@ public class Class {
     @JsonIgnoreProperties(value = {"classes"})
     @ManyToMany(mappedBy = "classes")
     private List<User> teachers;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "className")
+    private List<Folder> folders;
 }

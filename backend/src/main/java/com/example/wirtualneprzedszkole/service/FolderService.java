@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -48,7 +47,7 @@ public class FolderService {
         return folderRepo.findAll();
     }
 
-    public boolean deleteFolder(String folderRelativePath) {
+    public boolean deleteFolder(String folderRelativePath, boolean isDeleteClass) {
         fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderRelativePath)
                 .toAbsolutePath().normalize();
 
@@ -60,9 +59,12 @@ public class FolderService {
             throw new RuntimeException("Could not delete the folder" + e);
         }
 
-        String fullPath = String.valueOf(fileStorageLocation);
-        Folder folder = folderRepo.findByPath(fullPath);
-        folderRepo.delete(folder);
+        if (!isDeleteClass) {
+            String fullPath = String.valueOf(fileStorageLocation);
+            Folder folder = folderRepo.findByPath(fullPath);
+            folderRepo.delete(folder);
+        }
+
         return true;
     }
 }

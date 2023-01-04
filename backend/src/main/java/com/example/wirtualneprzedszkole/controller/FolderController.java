@@ -37,7 +37,7 @@ public class FolderController {
     @Transactional
     @DeleteMapping("{folderRelativePath}")
     public ResponseEntity deleteFolder(@PathVariable String folderRelativePath) {
-        if (!folderService.deleteFolder(folderRelativePath)) {
+        if (!folderService.deleteFolder(folderRelativePath,  false)) {
             throw new RuntimeException("Could not delete the folder");
         }
         return new ResponseEntity<Void>(HttpStatus.OK);
