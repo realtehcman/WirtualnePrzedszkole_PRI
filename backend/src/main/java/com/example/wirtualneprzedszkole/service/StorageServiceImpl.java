@@ -42,7 +42,7 @@ public class StorageServiceImpl implements StorageService {
         this.fileDataRepo = fileDataRepo;
         this.fileStorageProperties = fileStorageProperties;
         this.folderService = folderService;
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
+        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + "Knowledge")
                 .toAbsolutePath().normalize();
         this.filePaths = filePaths;
 
