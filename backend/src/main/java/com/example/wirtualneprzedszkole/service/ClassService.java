@@ -53,10 +53,8 @@ public class ClassService {
         return classEdited;
     }
 
-    public String deleteClass(Long id) {
-        String className = classRepo.findById(id).orElseThrow().getName();
+    public void deleteClass(Long id) {
         classRepo.deleteById(id);
-        return className;
     }
 
 }

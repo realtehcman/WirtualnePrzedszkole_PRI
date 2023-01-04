@@ -68,7 +68,10 @@ public class ClassController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("{id}")
     public void deleteClass(@PathVariable Long id) {
-        String className = classService.deleteClass(id);
-        folderService.deleteFolder(className, true);
+        String className = classService.getClass(id).getName();
+        Long folderId = folderService.getFolderByClassName(className);
+        folderService.deleteFolder(folderId, true);
+        classService.deleteClass(id);
+        //folderService.deleteFolder(folderId, true);
     }
 }

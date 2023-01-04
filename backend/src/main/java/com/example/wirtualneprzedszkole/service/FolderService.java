@@ -25,7 +25,7 @@ public class FolderService {
         try {
             fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folder.getPath())
                     .toAbsolutePath().normalize();
-            folder.setPath(String.valueOf(fileStorageLocation));
+            //folder.setPath(String.valueOf(fileStorageLocation));
 
             File directory = new File(fileStorageLocation.toUri());
             if (!directory.exists()) {
@@ -47,8 +47,13 @@ public class FolderService {
         return folderRepo.findAll();
     }
 
-    public boolean deleteFolder(String folderRelativePath, boolean isDeleteClass) {
-        fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderRelativePath)
+    public Long getFolderByClassName(String className) {
+        return folderRepo.findOneByClassName(className);
+    }
+
+    public boolean deleteFolder(Long folderId, boolean isDeleteClass) {
+        Folder folder = folderRepo.findById(folderId).orElseThrow();
+        fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folder.getPath())
                 .toAbsolutePath().normalize();
 
         System.out.println("Deleting folder at " + fileStorageLocation);
@@ -60,8 +65,8 @@ public class FolderService {
         }
 
         if (!isDeleteClass) {
-            String fullPath = String.valueOf(fileStorageLocation);
-            Folder folder = folderRepo.findByPath(fullPath);
+            //String relativePath = String.valueOf(fileStorageLocation);
+            //Folder folder = folderRepo.findByPath(relativePath);
             folderRepo.delete(folder);
         }
 

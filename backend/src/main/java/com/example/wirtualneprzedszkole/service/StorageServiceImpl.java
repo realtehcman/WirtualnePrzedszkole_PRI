@@ -6,6 +6,7 @@ import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.StorageException;
 import com.example.wirtualneprzedszkole.filemanagement.StorageFileNotFoundException;
 import com.example.wirtualneprzedszkole.model.dao.FileData;
+import com.example.wirtualneprzedszkole.model.dao.Folder;
 import com.example.wirtualneprzedszkole.repository.FileDataRepo;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -42,7 +43,7 @@ public class StorageServiceImpl implements StorageService {
         this.fileDataRepo = fileDataRepo;
         this.fileStorageProperties = fileStorageProperties;
         this.folderService = folderService;
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + "Knowledge")
+        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/Knowledge")
                 .toAbsolutePath().normalize();
         this.filePaths = filePaths;
 
@@ -118,15 +119,21 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public boolean delete(String fileName, Long folderId) {
         try {
-            fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
-                    .toAbsolutePath().normalize();
+            if (folderId != 0)
+                fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
+                        .toAbsolutePath().normalize();
+            else
+                fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/Knowledge")
+                        .toAbsolutePath().normalize();
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             System.out.println(filePath);
 
             Files.delete(filePath);
 
-            FileData fileData = fileDataRepo.findByPath(filePath.toString());
-            fileDataRepo.delete(fileData);
+            if (folderId != 0) {
+                FileData fileData = fileDataRepo.findByPath(filePath.toString());
+                fileDataRepo.delete(fileData);
+            }
 
             return true;
         } catch (MalformedURLException exception) {
@@ -138,8 +145,12 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public boolean deleteAllService(Long folderId) {
-        fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
-                .toAbsolutePath().normalize();
+        if (folderId != 0)
+            fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
+                    .toAbsolutePath().normalize();
+        else
+            fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/Knowledge")
+                    .toAbsolutePath().normalize();
         System.out.println(fileStorageLocation);
 
         try {
@@ -151,9 +162,11 @@ public class StorageServiceImpl implements StorageService {
         filePaths.forEach(file -> {
             try {
                 Files.delete(file);
-                String stringFile = file.toString();
-                FileData fileData = fileDataRepo.findByPath(stringFile);
-                fileDataRepo.delete(fileData);
+                if (folderId != 0) {
+                    String stringFile = file.toString();
+                    FileData fileData = fileDataRepo.findByPath(stringFile);
+                    fileDataRepo.delete(fileData);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -166,8 +179,12 @@ public class StorageServiceImpl implements StorageService {
     //method for a get request
     public Resource loadAsResource(String fileName, Long folderId) {
         try {
-            fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
-                    .toAbsolutePath().normalize();
+            if (folderId != 0)
+                fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
+                        .toAbsolutePath().normalize();
+            else
+                fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/Knowledge")
+                        .toAbsolutePath().normalize();
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             System.out.println(filePath);
             Resource resource = new UrlResource(filePath.toUri());
@@ -184,7 +201,12 @@ public class StorageServiceImpl implements StorageService {
 
     public List<Resource> loadAsResources(Long folderId) {
         List<Resource> resources = new ArrayList<>();
-        try (Stream<Path> paths = Files.walk(Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath())
+        String path;
+        if (folderId != 0)
+            path = folderService.getFolder(folderId).getPath();
+        else
+            path = "Knowledge";
+        try (Stream<Path> paths = Files.walk(Paths.get(fileStorageProperties.getUploadDir() + "/" + path)
                 .toAbsolutePath().normalize())) {
             List<Path> files = paths.filter(Files::isRegularFile)
                     .collect(Collectors.toList());
