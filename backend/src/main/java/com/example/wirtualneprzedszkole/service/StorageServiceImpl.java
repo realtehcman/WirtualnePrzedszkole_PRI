@@ -73,8 +73,10 @@ public class StorageServiceImpl implements StorageService {
         String folder;
         if (folderId != 0)
             folder = folderService.getFolder(folderId).getPath();
-        else
+        else {
+            folderId = null;
             folder = "Knowledge";
+        }
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         Optional<String> fileExtension = Optional.of(fileName)
                 .filter(f -> f.contains("."))
@@ -135,10 +137,8 @@ public class StorageServiceImpl implements StorageService {
 
             Files.delete(filePath);
 
-            if (folderId != 0) {
-                FileData fileData = fileDataRepo.findByPath(filePath.toString());
-                fileDataRepo.delete(fileData);
-            }
+            FileData fileData = fileDataRepo.findByPath(filePath.toString());
+            fileDataRepo.delete(fileData);
 
             return true;
         } catch (MalformedURLException exception) {
@@ -167,11 +167,9 @@ public class StorageServiceImpl implements StorageService {
         filePaths.forEach(file -> {
             try {
                 Files.delete(file);
-                if (folderId != 0) {
-                    String stringFile = file.toString();
-                    FileData fileData = fileDataRepo.findByPath(stringFile);
-                    fileDataRepo.delete(fileData);
-                }
+                String stringFile = file.toString();
+                FileData fileData = fileDataRepo.findByPath(stringFile);
+                fileDataRepo.delete(fileData);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
