@@ -10,7 +10,7 @@ public interface StorageService {
 
     //void init();
 
-    FileData store(MultipartFile file, String folder);
+    FileData store(MultipartFile file, Long folderId/*, String folder*/);
     boolean delete(String fileName, Long folderId);
     boolean deleteAllService(Long folderId);
 

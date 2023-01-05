@@ -18,5 +18,6 @@ public class FileData {
     private String name;
     private String hash;
     private String path;
+    private Long folderId;
     //private String type;
 }

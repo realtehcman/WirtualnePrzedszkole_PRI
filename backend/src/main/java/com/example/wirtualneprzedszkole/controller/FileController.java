@@ -23,6 +23,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,9 +44,9 @@ public class FileController {
 
     private final StorageService storageService;
 
-    @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestPart("file") MultipartFile file, @Nullable @RequestPart("folder") String folder) {
-        FileData fileData = storageService.store(file, folder);
+    @PostMapping("/uploadFile/{folderId}")
+    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @PathVariable Long folderId/*, @Nullable @RequestPart("folder") String folder*/) {
+        FileData fileData = storageService.store(file, folderId /*folder*/);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -56,11 +57,11 @@ public class FileController {
         return new UploadFileResponse(fileData.getName(), fileDownloadUri, file.getContentType(), file.getSize());
     }
 
-    @PostMapping("/uploadMultiFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("file") MultipartFile[] files, @RequestPart("folder") String folder) {
+    @PostMapping("/uploadMultiFiles/{folderId}")
+    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("file") MultipartFile[] files, @PathVariable Long folderId/*, @RequestPart("folder") String folder*/) {
         return Arrays.asList(files)
                 .stream()
-                .map(file -> uploadFile(file, folder))
+                .map(file -> uploadFile(file, folderId))
                 .collect(Collectors.toList());
     }
 

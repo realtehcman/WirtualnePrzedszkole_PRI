@@ -69,8 +69,12 @@ public class StorageServiceImpl implements StorageService {
         }
     }*/
 
-    public FileData store(MultipartFile file, String folder) {
-
+    public FileData store(MultipartFile file, Long folderId/*, String folder*/) {
+        String folder;
+        if (folderId != 0)
+            folder = folderService.getFolder(folderId).getPath();
+        else
+            folder = "Knowledge";
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         Optional<String> fileExtension = Optional.of(fileName)
                 .filter(f -> f.contains("."))
@@ -101,6 +105,7 @@ public class StorageServiceImpl implements StorageService {
                     .name(fileName)
                     .path(targetLocation.toString())
                     .hash(DigestUtils.md5DigestAsHex(file.getBytes()))
+                    .folderId(folderId)
                     .build();
 
             String selectResponseFromDB = String.valueOf(fileDataRepo.findByPath(fileData.getPath()));

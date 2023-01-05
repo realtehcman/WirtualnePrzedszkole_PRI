@@ -2,7 +2,9 @@ package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.StorageException;
+import com.example.wirtualneprzedszkole.model.dao.FileData;
 import com.example.wirtualneprzedszkole.model.dao.Folder;
+import com.example.wirtualneprzedszkole.repository.FileDataRepo;
 import com.example.wirtualneprzedszkole.repository.FolderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -65,9 +67,7 @@ public class FolderService {
         }
 
         if (!isDeleteClass) {
-            //String relativePath = String.valueOf(fileStorageLocation);
-            //Folder folder = folderRepo.findByPath(relativePath);
-            folderRepo.delete(folder);
+            folderRepo.deleteById(folderId);
         }
 
         return true;
