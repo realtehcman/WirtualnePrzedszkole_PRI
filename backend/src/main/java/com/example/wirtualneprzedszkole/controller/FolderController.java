@@ -1,6 +1,8 @@
 package com.example.wirtualneprzedszkole.controller;
 
+import com.example.wirtualneprzedszkole.mapper.FolderMapper;
 import com.example.wirtualneprzedszkole.model.dao.Folder;
+import com.example.wirtualneprzedszkole.model.dto.FolderDto;
 import com.example.wirtualneprzedszkole.service.FolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,18 +22,18 @@ public class FolderController {
     private final FolderService folderService;
 
     @PostMapping
-    public Folder createFolder(@RequestBody Folder folder) {
-        return folderService.createFolder(folder);
+    public FolderDto createFolder(@RequestBody FolderDto folderDto) {
+        return FolderMapper.FolderMapToDto(folderService.createFolder(FolderMapper.FolderDtoMapToFolder(folderDto)));
     }
 
     @GetMapping("{id}")
-    public Folder getFolder(@PathVariable Long id) {
-        return folderService.getFolder(id);
+    public FolderDto getFolder(@PathVariable Long id) {
+        return FolderMapper.FolderMapToDto(folderService.getFolder(id));
     }
 
     @GetMapping("/all")
-    public List<Folder> getAllFolders() {
-        return folderService.getAllFolders();
+    public List<FolderDto> getAllFolders() {
+        return FolderMapper.FolderMapToDto(folderService.getAllFolders());
     }
 
     @Transactional

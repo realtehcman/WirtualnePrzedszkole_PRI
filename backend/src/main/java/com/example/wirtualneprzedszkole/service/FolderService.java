@@ -9,6 +9,7 @@ import com.example.wirtualneprzedszkole.repository.FolderRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.apache.commons.io.FileUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,12 @@ public class FolderService {
             if (!directory.exists()) {
                 directory.mkdir();
                 System.out.println("created folder at" + fileStorageLocation);
+                if (StringUtils.countOccurrencesOf(folder.getPath(), "/") > 0) {
+                    String pathBeforeLatSlash = folder.getPath().substring(0, folder.getPath().lastIndexOf("/"));
+                    Long parentIndex = folderRepo.findByPath(pathBeforeLatSlash).getId();
+                    System.out.println("Parent Index: " + parentIndex);
+                    folder.setParent(folderRepo.findByPath(pathBeforeLatSlash));
+                }
                 return folderRepo.save(folder);
             }
             throw new StorageException("Could not create the directory where the uploaded files will be stored.");
