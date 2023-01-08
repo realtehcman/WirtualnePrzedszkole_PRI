@@ -43,11 +43,11 @@ class GroupComponent extends React.Component {
         <div>
           <table className="content-table">
             <thead>
-              <tr className="table-head">
+              <tr className="table-head table-head--groups">
                 <td>Id</td>
                 <td>Nazwa</td>
                 <td>Opis</td>
-                <td></td>
+                {/* <td></td> */}
                 <td>Akcje</td>
               </tr>
             </thead>
@@ -55,11 +55,11 @@ class GroupComponent extends React.Component {
             <tbody className="body table-body">
               {this.state.groups.map((group) => (
                 <tr key={group.id}>
-                  <td>{group.id}</td>
-                  <td>{group.name}</td>
-                  <td>{group.description}</td>
-                  <td></td>
-                  <td>
+                  <td id="td--groups">{group.id}</td>
+                  <td id="td--groups">{group.name}</td>
+                  <td id="td--groups">{group.description}</td>
+                  {/* <td id="td--groups"></td> */}
+                  <td id="td--groups">
                     <Navi value={group.id} />
                     <button
                       onClick={() => this.deleteGroup(group.id)}
