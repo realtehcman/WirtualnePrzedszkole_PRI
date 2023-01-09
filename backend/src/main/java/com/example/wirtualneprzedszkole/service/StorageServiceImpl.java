@@ -54,21 +54,6 @@ public class StorageServiceImpl implements StorageService {
         }
     }
 
-    // path type like default/folder
-    // zastanawiam się nad tabelką w bazie danych zawierającą hash,
-    // i dostępność pliku (wszyyscy/klasa/user) ->
-    // wtedy wszystkie pliki będą mogły być właściwie w jednym folderze (bo hash da unikalne nazwy,
-    // a zapytanie najpierw pójdzie do bazy danych)
-    /*public void init () {
-        Path folderPath = Paths.get(fileStorageProperties.getUploadDir())
-                .toAbsolutePath().normalize();
-        try {
-            Files.createDirectories(folderPath);
-        } catch (Exception exception) {
-            throw new StorageException("Could not create the directory where the uploaded files will be stored.", exception);
-        }
-    }*/
-
     public FileData store(MultipartFile file, Long folderId/*, String folder*/) {
         String folder;
         if (folderId != 0)
