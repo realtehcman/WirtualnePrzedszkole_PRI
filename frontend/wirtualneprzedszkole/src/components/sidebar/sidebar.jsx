@@ -14,7 +14,7 @@ import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import "./sidebar.scss";
 import * as FaIcons from "react-icons/fa";
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import * as AiIcons from "react-icons/ai";
 import { IconContext } from "react-icons";
 // import MediaQuery from "react-responsive";
@@ -145,7 +145,7 @@ const Sidebar = () => {
                 <li>
                   <Link to={"/AddGallery"}>
                     <AddPhotoAlternateIcon className="icon" />
-                    <span>Dodaj zdjęcia</span>
+                    <span>Dodaj pliki</span>
                   </Link>
                 </li>
               </ul>

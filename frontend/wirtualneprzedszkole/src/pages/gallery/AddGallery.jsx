@@ -1,7 +1,7 @@
 import React from "react";
-
-
+import "./Gallery.scss";
 import axios from "axios";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const AddGallery = ({ files, setFiles, removeFile }) => {
   const uploadHandler = (event) => {
@@ -26,15 +26,14 @@ const AddGallery = ({ files, setFiles, removeFile }) => {
       });
   };
 
-
   return (
     <>
-      <div className="file-card">
+      <div class="file-card">
         <div className="file-inputs">
           <input type="file" onChange={uploadHandler} />
           <button>
             <i>
-              
+              <UploadFileIcon></UploadFileIcon>
             </i>
             Upload
           </button>

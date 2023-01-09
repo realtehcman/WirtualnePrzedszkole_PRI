@@ -1,21 +1,21 @@
 import React from "react";
-import "../User/Users.scss"
+import "../User/Users.scss";
 import Sidebar from "../../components/sidebar/sidebar";
-import Navbar from "../../components/navbar/navbar"
-import AddGallery from "./AddGallery"
-import {useNavigate, useParams} from "react-router-dom";
+import Navbar from "../../components/navbar/navbar";
+import AddGallery from "./AddGallery";
+import { useNavigate, useParams } from "react-router-dom";
 
 const GalleryNavi = () => {
-    const navigate = useNavigate();
-    return (
-        <div className="gallery">
-            <Sidebar/>
-            <div className="usersContainer">
-                <Navbar/>
-                <AddGallery/>
-            </div>
-        </div>
-    )
-}
+  const navigate = useNavigate();
+  return (
+    <div className="gallery">
+      <Sidebar />
+      <div className="usersContainer">
+        <Navbar />
+        <AddGallery />
+      </div>
+    </div>
+  );
+};
 
-export default GalleryNavi
+export default GalleryNavi;
