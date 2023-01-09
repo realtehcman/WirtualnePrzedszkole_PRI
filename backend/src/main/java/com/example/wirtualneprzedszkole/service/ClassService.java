@@ -37,7 +37,7 @@ public class ClassService {
 
     private List<Child> exctractChildren(List<Child> children, Long id) {
         return children.stream()
-                .filter(child -> child.getClassId() == id)
+                .filter(child -> child.getClassId().equals(id))
                 .collect(Collectors.toList());
     }
 

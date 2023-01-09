@@ -32,7 +32,10 @@ public class ChildController {
     @PostMapping
     public ChildDto addChild(@Valid @RequestBody ChildDto childDto) {
 //        childService.getChild();
-        return ChildMapper.mapToDto(childService.addChild(ChildMapper.mapToChildDao(childDto)));
+        if (childDto.getParents() == null)
+            return ChildMapper.mapToDto(childService.addChild(ChildMapper.mapToChildDao(childDto)));
+        else
+            return ChildMapper.mapToChildDto(childService.addChild(ChildMapper.mapToChildDao(childDto)));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

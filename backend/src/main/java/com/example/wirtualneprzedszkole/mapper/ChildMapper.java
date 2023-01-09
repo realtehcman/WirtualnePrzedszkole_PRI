@@ -45,7 +45,7 @@ public class ChildMapper {
                 .classId(child.getClassId())
                 .name(child.getName())
                 .lastName(child.getLastName())
-                .parents(UserMapper.mapToDto(child.getParents()))
+                //.parents(UserMapper.mapToDto(child.getParents()))
                 .build();
     }
 
