@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const GalleryNavi = () => {
   const navigate = useNavigate();
   return (
-    <div className="gallery">
+    <div className="users gallery">
       <Sidebar />
       <div className="usersContainer">
         <Navbar />
