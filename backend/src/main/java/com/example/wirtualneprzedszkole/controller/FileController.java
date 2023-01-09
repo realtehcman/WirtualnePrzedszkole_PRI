@@ -1,7 +1,10 @@
 package com.example.wirtualneprzedszkole.controller;
 
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +20,7 @@ import com.example.wirtualneprzedszkole.filemanagement.UploadFileResponse;
 import com.example.wirtualneprzedszkole.model.dao.FileData;
 import com.example.wirtualneprzedszkole.service.StorageService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -108,21 +112,41 @@ public class FileController {
     public ResponseEntity<StreamingResponseBody> downloadFolder(@PathVariable Long folderId, HttpServletResponse response) throws IOException {
         List<Resource> resources = storageService.loadAsResources(folderId);
 
-        StreamingResponseBody streamingResponseBody = out -> {
-            ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
+        int BUFFER_SIZE = 1024;
 
-            for (Resource resource : resources) {
-                System.out.println(resource);
-                ZipEntry zipEntry = new ZipEntry(Objects.requireNonNull(resource.getFilename()));
-                zipEntry.setSize(resource.contentLength());
-                zipOutputStream.putNextEntry(zipEntry);
-                StreamUtils.copy(resource.getInputStream(), zipOutputStream);
-                zipOutputStream.closeEntry();
+
+        StreamingResponseBody streamingResponseBody = out -> {
+            final ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
+            try {
+                for (Resource resource : resources) {
+                    final InputStream inputStream = new FileInputStream(resource.getFile());
+                    final ZipEntry zipEntry = new ZipEntry(Objects.requireNonNull(resource.getFilename()));
+                    zipOutputStream.putNextEntry(zipEntry);
+                    byte[] bytes=new byte[BUFFER_SIZE];
+                    int length;
+                    while ((length=inputStream.read(bytes)) >= 0) {
+                        zipOutputStream.write(bytes, 0, length);
+                    }
+                    inputStream.close();
+
+                    /*System.out.println(resource);
+                    ZipEntry zipEntry = new ZipEntry(Objects.requireNonNull(resource.getFilename()));
+                    zipEntry.setSize(resource.contentLength());
+                    zipOutputStream.putNextEntry(zipEntry);
+                    StreamUtils.copy(resource.getInputStream(), zipOutputStream);
+                    zipOutputStream.closeEntry();*/
+                }
+                zipOutputStream.close();
+            } catch (IOException exception) {
+                logger.error("Exception while reading and streaming data {} ", exception);
+            } finally {
+                zipOutputStream.close();
             }
 
-            zipOutputStream.finish();
-            zipOutputStream.close();
+            /*zipOutputStream.finish();
+            zipOutputStream.close();*/
         };
+
         response.setContentType("application/zip");
         response.setHeader("Content-Disposition", "attachment; filename=example.zip");
 
