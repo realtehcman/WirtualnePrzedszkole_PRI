@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./Gallery.scss";
+
 import axios from "axios";
 
 const AddGallery = ({ files, setFiles, removeFile }) => {
@@ -14,7 +14,7 @@ const AddGallery = ({ files, setFiles, removeFile }) => {
     const formData = new FormData();
     formData.append("newFile", file, file.name);
     axios
-      .post("http://localhost:8080/upload", formData)
+      .post("http://localhost:8080/api/file/uploadMultiFiles/152", formData)
       .then((res) => {
         file.isUploading = false;
         setFiles([...files, file]);
@@ -26,6 +26,7 @@ const AddGallery = ({ files, setFiles, removeFile }) => {
       });
   };
 
+
   return (
     <>
       <div className="file-card">
@@ -33,7 +34,7 @@ const AddGallery = ({ files, setFiles, removeFile }) => {
           <input type="file" onChange={uploadHandler} />
           <button>
             <i>
-              <FontAwesomeIcon icon={faPlus} />
+              
             </i>
             Upload
           </button>
