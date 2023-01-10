@@ -131,7 +131,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to={"#"}>
+                  <Link to={"/Knowledge"}>
                     <SchoolIcon className="icon" />
                     <span>Baza wiedzy</span>
                   </Link>

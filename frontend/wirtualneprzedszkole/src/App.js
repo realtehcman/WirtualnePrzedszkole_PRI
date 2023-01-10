@@ -20,6 +20,7 @@ import ReadMessageNavi from './pages/messages/ReadMessageNavi';
 import GalleryNavi from "./pages/gallery/GalleryNavi";
 import StatusMessageNavi from './pages/messages/StatusMessageNavi';
 import ViewMessageNavi from './pages/messages/ViewMessageNavi';
+import KnowledgeNavi from './pages/gallery/KnowledgeNavi';
 
 
 import React, {useState} from 'react';
@@ -121,6 +122,9 @@ function App() {
           </Route>
           <Route path="/ViewMessage/:id" element={<PrivateOutlet />}>
             <Route index element={<ViewMessageNavi />}></Route>
+          </Route>
+          <Route path="/Knowledge" element={<PrivateOutlet />}>
+            <Route index element={<KnowledgeNavi />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
