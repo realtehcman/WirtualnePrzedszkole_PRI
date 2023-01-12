@@ -1,0 +1,104 @@
+.content-table {
+    border-collapse: collapse;
+    font-size: 20px;
+    margin: 5px 0;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 5px 5px 5px 5px;
+    // overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  
+    .table-head {
+      background-color: #4424bb;
+      color: #f8e3f8;
+      text-align: left;
+      font-weight: bold;
+    }
+  }
+  
+  .content-table td {
+    padding: 12px 15px;
+  }
+  
+  .content-table tbody td {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .content-table tbody tr:nth-of-type(even) {
+    background-color: rgb(232, 236, 235);
+  }
+  
+  .content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #4424bb;
+  }
+  
+  .btn-info {
+    margin-right: 15px;
+  }
+  
+  .table-body {
+    //makes table wider
+    min-width: max-content;
+    // overflow-x: auto;
+  }
+  .dzia {
+    position: fixed;
+  }
+  .fp23{
+    background-color: #4424bb;
+    color: #f8e3f8;
+    text-align: center;
+    font-weight: bold;
+  
+  }
+  .fp22{
+    position: center;
+    border-collapse: collapse;
+    font-size: 20px;
+    margin-left: 15px;
+    border-radius: 5px 5px 5px 5px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 400px;
+  }
+  // .foobar {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: space-between;
+  // }
+  
+  .table-responsive{
+    border-collapse: collapse;
+    font-size: 20px;
+    margin-right: 5%;
+    border-radius: 5px 5px 5px 5px;
+    // overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  
+    .table-head {
+      background-color: #4424bb;
+      color: #f8e3f8;
+      text-align: left;
+      font-weight: bold;
+    }
+  
+  }
+  
+  .booleans{
+  
+  }
+
+  .btndown {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /* Darker background on mouse-over */
+  .btndown:hover {
+    background-color: RoyalBlue;
+  }
