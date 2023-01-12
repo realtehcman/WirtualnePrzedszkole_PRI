@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import GroupService from "../GroupDisplay/GroupService";
 import "../CreateUser/CreateUser.scss";
 import { Link } from "react-router-dom";
-
+import { MDBInput } from 'mdb-react-ui-kit';
 class CreateGroup extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +14,7 @@ class CreateGroup extends Component {
     this.changeNameHandler = this.changeNameHandler.bind(this);
     this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
     this.saveGroup = this.saveGroup.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   saveGroup = (e) => {
@@ -21,7 +22,10 @@ class CreateGroup extends Component {
     let group = JSON.stringify({
       name: this.state.name,
       description: this.state.description,
-    });
+
+    }
+
+    );
     //user = JSON.stringify(user)
 
     GroupService.addGroup(group).then((response) => {
@@ -39,18 +43,29 @@ class CreateGroup extends Component {
     this.setState({ description: event.target.value });
   };
 
+  handleSubmit(e) {
+    alert('Grupa została utworzona : ' + '\n' + " Nazwa grupy : " + this.state.name + '\n' + " Opis grupy : " + this.state.description);
+    e.preventDefault();
+  }
+
   render() {
     return (
       <div className="formContainer">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
             <div className="form-body">
-              <form onSubmit={this.saveGroup}>
+              <form onSubmit={(e) =>{
+                this.saveGroup(e);
+                this.handleSubmit(e);
+              } }>
+              {/*<form onSubmit={this.handleSubmit }>*/}
                 {/* mixes the buttons */}
                 <div className="form-group">
                   <input
                     placeholder="Nazwa"
                     name="Nazwa"
+                    required
+                    type="text"
                     className='"form-control'
                     value={this.state.name}
                     onChange={this.changeNameHandler}
@@ -60,7 +75,8 @@ class CreateGroup extends Component {
                   <input
                     placeholder="Opis"
                     name="Opis"
-                    className='"form-control'
+                    required
+                    type="text"
                     value={this.state.description}
                     onChange={this.changeDescriptionHandler}
                   />
@@ -69,8 +85,8 @@ class CreateGroup extends Component {
                   {/* <button onClick={event =>  window.location.href='/groups'} className="button2">Wróć</button> */}
                   <Link className="button3" to={"/groups"}>
                     Wróć
-                  </Link>
-
+                  </Link></div>
+                  <div className="form-but">
                   <button className="button2">Zapisz</button>
                 </div>
               </form>

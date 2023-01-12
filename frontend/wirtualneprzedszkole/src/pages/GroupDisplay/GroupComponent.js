@@ -15,6 +15,22 @@ const Navi = (props) => {
   );
 };
 
+
+const Navi2 = (props) => {
+  const navigate = useNavigate();
+  return (
+      <button
+          onClick={() => navigate("/AddGallery/" + props.value, { replace: true })}
+          className="btn btn-info"
+      >
+        Dodaj Galerie
+      </button>
+
+  );
+};
+
+
+
 class GroupComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -61,6 +77,7 @@ class GroupComponent extends React.Component {
                   <td></td>
                   <td>
                     <Navi value={group.id} />
+                    <Navi2 value={group.id} />
                     <button
                       onClick={() => this.deleteGroup(group.id)}
                       className="btn btn-danger"

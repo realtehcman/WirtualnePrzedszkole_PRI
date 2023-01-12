@@ -9,6 +9,7 @@ import "../GroupDisplay/Popup.css"
 import "../User/Table.scss";
 import UserService from "../User/UserService";
 import messageService from "./MessageService";
+import ReadMessage from "./ReadMessage";
 
 
 const Navi = (props) => {
@@ -71,18 +72,14 @@ class Message extends React.Component {
                         <td>Akcje</td>
                     </tr>
                     </thead>
-                    <tbody className="body table-body">
+                    <tbody>
                     {this.state.received_messages.map((received_messages) => (
                         <tr key={received_messages.id}>
                             <td>{received_messages.id}</td>
                             <td>{received_messages.author}</td>
                             <td>{received_messages.subject}</td>
-                            <td>{received_messages.content}</td>
+                            <td> <Navi value={received_messages.id} /></td>
                             <td className="foobar">
-                                {/* <button onClick={() => this.props.navigation.navigate("/home//")} className='btn btn-info'>Zobacz</button> */}
-                                {/*
-                                Read more -> read msg
-                                <Navi value={received_messages.id} />*/}
                                 <button
                                     onClick={() => this.deleteReceivedMessages(received_messages.id)}
                                     className="btn btn-danger"

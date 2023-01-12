@@ -17,6 +17,13 @@ import MessageNavi from './pages/messages/MessageNavi';
 import SendMessageNavi from './pages/messages/SendMessageNavi';
 import SentMessageNavi from './pages/messages/SentMessageNavi';
 import ReadMessageNavi from './pages/messages/ReadMessageNavi';
+import GalleryNavi from "./pages/gallery/GalleryNavi";
+import GaleriaNavi from "./pages/gallery/GaleriaNavi";
+import StatusMessageNavi from './pages/messages/StatusMessageNavi';
+import ViewMessageNavi from './pages/messages/ViewMessageNavi';
+import ViewGalleryNavi from './pages/gallery/ViewGalleryNavi';
+import AddGalleryNavi from './pages/gallery/AddGalleryNavi';
+
 
 import React, {useState} from 'react';
 
@@ -27,6 +34,7 @@ import {
   Navigate,
   Outlet
 } from "react-router-dom";
+
 import ChangePassword from './pages/Login/ChangePassword';
 
 
@@ -107,6 +115,28 @@ function App() {
             <Route path='/ReadMessage/:id' element={<PrivateOutlet />}>
               <Route index element={<ReadMessageNavi/>}></Route>
             </Route>
+            <Route path='/Gallery' element={<PrivateOutlet />}>
+              <Route index element={<GalleryNavi/>}></Route>
+            </Route>
+            <Route path='/StatusMessage/:id' element={<PrivateOutlet />}>
+              <Route index element={<StatusMessageNavi/>}></Route>
+            </Route>
+
+            <Route path='/ViewMessage/:id' element={<PrivateOutlet />}>
+              <Route index element={<ViewMessageNavi/>}></Route>
+            </Route>
+
+            <Route path='/ViewGallery/:id' element={<PrivateOutlet />}>
+              <Route index element={<ViewGalleryNavi/>}></Route>
+            </Route>
+
+            <Route path='/AddGallery' element={<PrivateOutlet />}>
+              <Route index element={<AddGalleryNavi/>}></Route>
+            </Route>
+            <Route path='/Galeria' element={<PrivateOutlet />}>
+              <Route index element={<GaleriaNavi/>}></Route>
+            </Route>
+
           </Routes>
         </BrowserRouter>
       </div>

@@ -8,18 +8,21 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import SchoolIcon from "@mui/icons-material/School";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
-import { useNavigate, Link } from "react-router-dom";
+import {useNavigate, Link, useParams} from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import "./sidebar.scss";
 import * as FaIcons from "react-icons/fa";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import * as AiIcons from "react-icons/ai";
 import { IconContext } from "react-icons";
 // import MediaQuery from "react-responsive";
 import { isMobile } from "react-device-detect";
 import { BrowserView, MobileView } from "react-device-detect";
 import useWindowDimensions from "./useWindowDimensions.js";
+import current_UserService from "../../pages/Home/Current_UserService";
+
 
 const Sidebar = () => {
   const { height, width } = useWindowDimensions();
@@ -47,109 +50,175 @@ const Sidebar = () => {
     }
   }, []);
 
+
+
+  const [current_user, setCurrent_User] = useState({
+    role: '',
+  });
+
+  let {isLoggedIn} = current_user.role;
+
+
+  let {id} = useParams()
+
+  useEffect(() => {
+    getData()
+  },[])
+
+  const getData = async () => {
+    current_UserService.getCurrent_User(id).then(response => {
+      console.log('Response from main API: ',response)
+      let current_userData = response.data;
+      setCurrent_User({id: current_userData.id, role: current_userData.role})
+    });
+  }
+
+  const MenuView = () => {
+    if (current_user.role=== ("ADMIN") && ("TEACHER") ){
+      return<ul>
+        <li>
+        <Link to={"/home"}>
+          <AccountBoxIcon className="icon" />
+          <span>Profil</span>
+        </Link>
+      </li>
+      <li>
+        <Link to={"/users"}>
+          <FamilyRestroomIcon className="icon" />
+          <span> Rodzice</span>
+        </Link>
+      </li>
+      <li>
+        <Link to={"/groups"}>
+          <GroupsIcon className="icon" />
+          <span>Grupy</span>
+        </Link>
+      </li>
+      <li>
+        <Link to={"/children"}>
+          <ChildCareIcon className="icon" />
+          <span>Dzieci</span>
+        </Link>
+      </li>
+      <li>
+        <Link to={"/Message"}>
+          <MessageIcon className="icon" />
+          <span>Wiadomości</span>
+        </Link>
+      </li>
+      <li>
+        <Link to={"/SendMessage"}>
+          <RateReviewIcon className="icon" />
+          <span>Utwórz</span>
+        </Link>
+      </li>
+
+      <li>
+        <Link to={"/SentMessage"}>
+          <MarkChatReadIcon className="icon" />
+          <span>Wysłane</span>
+        </Link>
+      </li>
+
+      <li>
+        {/* TODO */}
+        <Link to={"#"}>
+          <FeedIcon className="icon" />
+          <span>Aktualości</span>
+        </Link>
+      </li>
+      <li>
+        <Link to={"#"}>
+          <SupervisorAccountIcon className="icon" />
+          <span>Portal rodzica</span>
+        </Link>
+      </li>
+      <li>
+        <Link to={"/Knowledge"}>
+          <SchoolIcon className="icon" />
+          <span>Baza wiedzy</span>
+        </Link>
+      </li>
+      <li>
+        <Link to={"/Gallery"}>
+          <CollectionsIcon className="icon" />
+          <span>Galeria</span>
+        </Link>
+      </li>
+      <li>
+        <Link to={"/AddGallery"}>
+          <AddPhotoAlternateIcon className="icon" />
+          <span>Dodaj pliki</span>
+        </Link>
+      </li> </ul>;
+    }
+    else
+    {
+      return<ul>
+        <li>
+          <Link to={"/home"}>
+            <AccountBoxIcon className="icon" />
+            <span>Profil</span>
+          </Link>
+        </li>
+        <li>
+          <Link to={"/Message"}>
+            <MessageIcon className="icon" />
+            <span>Wiadomości</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link to={"/Knowledge"}>
+            <SchoolIcon className="icon" />
+            <span>Baza wiedzy</span>
+          </Link>
+        </li>
+        <li>
+          <Link to={"/Galeria"}>
+            <CollectionsIcon className="icon" />
+            <span>Galeria</span>
+          </Link>
+        </li>
+        </ul>
+          ;
+    }
+  }
+
+
+  const[buttonPopup, setButtonPopup] = useState(false);
+
   return (
-    <>
-      <div className="sidebar">
-        <div className="sidebar__wrap">
-          <div
-            className={
-              sidebar
-                ? "sidebar__controls"
-                : "sidebar__controls sidebar__controls--hidden"
-            }
-          >
-            <button
-              className="sidebar__maenu-btn"
-              type="button"
-              onClick={() => setSidebar(!sidebar)}
+      <>
+        <div className="sidebar">
+          <div className="sidebar__wrap">
+            <div
+                className={
+                  sidebar
+                      ? "sidebar__controls"
+                      : "sidebar__controls sidebar__controls--hidden"
+                }
             >
-              <FaIcons.FaBars />
-            </button>
-          </div>
+              <button
+                  className="sidebar__maenu-btn"
+                  type="button"
+                  onClick={() => setSidebar(!sidebar)}
+              >
+                <FaIcons.FaBars />
+              </button>
+            </div>
 
-          <div className={sidebar ? "sidebar__list" : "sidebar__list--hidden"}>
-            <div className="center">
-              <ul>
-                <li>
-                  {/*  className="center" */}
-                  <Link to={"/home"}>
-                    <AccountBoxIcon className="icon" />
-                    {/* <span onClick={() => navigate("/home", { replace: true })}> */}{" "}
-                    <span>Profil</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/users"}>
-                    <FamilyRestroomIcon className="icon" />
-                    <span> Rodzice</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/groups"}>
-                    <GroupsIcon className="icon" />
-                    <span>Grupy</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/children"}>
-                    <ChildCareIcon className="icon" />
-                    <span>Dzieci</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/Message"}>
-                    <MessageIcon className="icon" />
-                    <span>Wiadomości</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/SendMessage"}>
-                    <RateReviewIcon className="icon" />
-                    <span>Utwórz</span>
-                  </Link>
-                </li>
-
-                <li>
-                  <Link to={"/SentMessage"}>
-                    <MarkChatReadIcon className="icon" />
-                    <span>Wysłane</span>
-                  </Link>
-                </li>
-
-                <li>
-                  {/* TODO */}
-                  <Link to={"#"}>
-                    <FeedIcon className="icon" />
-                    <span>Aktualości</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"#"}>
-                    <SupervisorAccountIcon className="icon" />
-                    <span>Portal rodzica</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"#"}>
-                    <SchoolIcon className="icon" />
-                    <span>Baza wiedzy</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"#"}>
-                    <CollectionsIcon className="icon" />
-                    <span>Galeria</span>
-                  </Link>
-                </li>
-              </ul>
-              <div className="top">
-                <span className="logo">Przedszkole nr 25</span>
+            <div className={sidebar ? "sidebar__list" : "sidebar__list--hidden"}>
+              <div className="center">
+                {MenuView()}
+                <div className="top">
+                  <span className="logo">Przedszkole nr 25</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </>
   );
 };
 
