@@ -1,5 +1,5 @@
 import React, { useEffect, useState }from 'react'
-import GalleryService from "./GalleryService";
+import GalleryService from "../gallery/GalleryService";
 import "../GroupDisplay/Popup.css"
 import "../User/Table.scss";
 import {useNavigate, useParams} from "react-router-dom";
@@ -7,18 +7,6 @@ import EditCurrent_User from "../Home/EditCurrent_User";
 import Popup from "../GroupDisplay/Popup";
 import current_UserService from "../Home/Current_UserService";
 
-const Navi2 = (props) => {
-    const navigate = useNavigate();
-    return (
-        <button
-            onClick={() => navigate("/home/" + props.value, { replace: true })}
-            className="btn btn-info"
-        >
-            Dodaj zdjęcia
-        </button>
-
-    );
-};
 
 const Navi = (props) => {
     const navigate = useNavigate();
@@ -35,7 +23,7 @@ const Navi = (props) => {
 
 
 
-class Gallery extends React.Component {
+class Galeria extends React.Component {
 
     constructor(props) {
         super(props);
@@ -92,15 +80,7 @@ class Gallery extends React.Component {
 
                             <td className="foobar">
                                 <Navi value={all_folders.id} />
-                                <Navi2 value={all_folders.id} />
-
                             </td>
-                            <td>  <button2
-                                onClick={() => this.deleteFolder(all_folders.id)}
-                                className="btn btn-danger"
-                            >
-                                Usuń
-                            </button2>  </td>
                         </tr>
                     ))}
                     </tbody>
@@ -110,4 +90,4 @@ class Gallery extends React.Component {
         );
     }
 }
-export default Gallery
+export default Galeria
