@@ -1,7 +1,10 @@
 import FileService from "../gallery/FileService";
+import "../gallery/Knowledge.scss";
 import {useParams, useNavigate} from "react-router-dom";
 import React, { useEffect, useState, useRef } from 'react'
 import saveAs from 'file-saver'
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 
 
 const Knowledge = () => {
@@ -37,26 +40,10 @@ const Knowledge = () => {
         }).then({}).catch((reason) => {
             console.log(`axios request failed: ${reason}`);
         })
-        
-        /* let images = []
-        for (let i = 0; i < files.length; i++) {
-            let img
-            FileService.getFile(KNOWLEDGE_ID, files[i]).then((res) => {
-                //setKnowFile(res.data)
-                img = res.data
-                //console.log(img)
-            })
-            //console.log(typeof(img))
-            images[i] = img.data
-            console.log(img)
-        } 
-        setKnowFile(images)
-        console.log(knowFile) */
-        //console.log(knowFile[0])
     }
 
 
-    const printTickets = (e, i) => {
+    const printFiles = (e, i) => {
         FileService.getFile(KNOWLEDGE_ID, filesHash[i]).then((response) => {
             saveAs(response.data, fileName[i])
       })
@@ -66,7 +53,7 @@ const Knowledge = () => {
         let td = [];
         console.log(filesHash.length)
         for (let i = 0; i < filesHash.length; i++) {
-            td.push(<td key={i}><button onClick={e => printTickets(e, i)}>{fileName[i]}</button></td>)
+            td.push(<tr><td key={i}>{fileName[i]}</td><td key={i}><button className="btndown" onClick={e => printFiles(e, i)}><DownloadForOfflineIcon></DownloadForOfflineIcon></button></td></tr>)
             //<button onClick={saveFile}>download</button>   
         }
 
@@ -74,12 +61,18 @@ const Knowledge = () => {
     }
  
     return (
-        <div>
-            <table>
-                <tbody>
-                    <tr>{renderPageLink()}</tr>
+        <div className="scrollable-div">
+            <table className="content-table">
+                <thead>
+                    <tr className="table-head">
+                        <td>Plik</td>
+                        <td>Pobierz</td>
+                    </tr>
+                </thead>
+                <tbody className="body table-body">
+                    {renderPageLink()}
                 </tbody>
-                </table>
+            </table>
         </div>
     );
 }
