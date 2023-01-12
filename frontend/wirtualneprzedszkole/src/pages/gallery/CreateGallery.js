@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import GalleryService from "../../../../../../../../Downloads/mati front/wirtualneprzedszkole_pri/frontend/wirtualneprzedszkole/src/pages/gallery/GalleryService";
+import GalleryService from "../gallery/GalleryService";
 import "../CreateUser/CreateUser.scss";
 import { Link } from "react-router-dom";
 import { MDBInput } from 'mdb-react-ui-kit';
