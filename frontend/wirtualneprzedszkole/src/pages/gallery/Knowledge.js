@@ -87,10 +87,16 @@ const Knowledge = () => {
                     {renderPageLink()}
                 </tbody>
             </table>
-            <form onSubmit={handleSubmit} encType='multipart/form-data'>
-            <input type='file' name='file' multiple />
-            <button type='submit'>Submit</button>
-            </form>
+            <br />
+            <div>
+                <form onSubmit={handleSubmit} encType='multipart/form-data'>
+                 <div className="input23">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
+                    <p></p>
+                    <button type="submit" className="btn btn-primary"> Wyślij</button>
+                </form>
+
+            </div>
+
         </div>
     );
 }
