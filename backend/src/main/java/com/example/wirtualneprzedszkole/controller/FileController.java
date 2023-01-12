@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -18,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;*/
 import com.example.wirtualneprzedszkole.filemanagement.UploadFileResponse;
 import com.example.wirtualneprzedszkole.model.dao.FileData;
+import com.example.wirtualneprzedszkole.service.FileDataService;
 import com.example.wirtualneprzedszkole.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
@@ -47,6 +46,7 @@ public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     private final StorageService storageService;
+    private final FileDataService fileDataService;
 
     @PostMapping("/uploadFile/{folderId}")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @PathVariable Long folderId/*, @Nullable @RequestPart("folder") String folder*/) {
@@ -151,5 +151,23 @@ public class FileController {
         response.setHeader("Content-Disposition", "attachment; filename=example.zip");
 
         return ResponseEntity.ok(streamingResponseBody);
+    }
+
+    @GetMapping("/downloadKnowledge")
+    public ResponseEntity<Map<String, String>> downloadKnowledge() {
+        Long knowledgeId = 0L;
+        List<Resource> resources = storageService.loadAsResources(knowledgeId);
+        //List<String> filesNames = new ArrayList<>();
+        Map<String, String> filesInfo = new HashMap<>();
+        for (Resource resource : resources) {
+            //filesNames.add(resource.getFilename());
+            try {
+                filesInfo.put(resource.getFilename(), fileDataService.getFile(resource.getFile().getAbsolutePath()).getName());
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        return ResponseEntity.ok(filesInfo);
     }
 }
