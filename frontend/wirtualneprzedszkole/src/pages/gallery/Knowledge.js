@@ -59,6 +59,20 @@ const Knowledge = () => {
 
         return td;
     }
+
+    const [selectedFile, setSelectedFile] = useState([])
+
+  const handleSubmit = async(event) => {
+    event.preventDefault()
+    
+    const formData = new FormData(event.currentTarget);
+    
+    const files = event.currentTarget;
+    for (let i = 0; i < files.length; i++) {
+      formData.append('file', files[i]);
+    }
+    FileService.addFiles(KNOWLEDGE_ID, formData)
+  }
  
     return (
         <div className="scrollable-div">
@@ -73,6 +87,10 @@ const Knowledge = () => {
                     {renderPageLink()}
                 </tbody>
             </table>
+            <form onSubmit={handleSubmit} encType='multipart/form-data'>
+            <input type='file' name='file' multiple />
+            <button type='submit'>Submit</button>
+            </form>
         </div>
     );
 }

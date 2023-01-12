@@ -20,6 +20,12 @@ class FileService {
         })
     }
 
+    addFiles(folderId, formData) {
+        return axios.post(FILE_REST_API_URL + "/uploadMultiFiles/" + folderId, formData/* , {headers: {
+            'Content-Type': 'multipart/form-data',
+          }}, */)
+    }
+
 }
 
 export default new FileService();
