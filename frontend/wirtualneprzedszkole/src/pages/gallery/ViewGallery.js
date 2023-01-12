@@ -1,7 +1,7 @@
 import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import GalleryService from "../../../../../../../../Downloads/mati front/wirtualneprzedszkole_pri/frontend/wirtualneprzedszkole/src/pages/gallery/GalleryService";
+import GalleryService from "../gallery/GalleryService";
 import "../User/Table.scss";
 
 const ViewGallery = () => {
