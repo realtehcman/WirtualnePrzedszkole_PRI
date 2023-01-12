@@ -1,7 +1,13 @@
 import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
+import Sidebar from "../../components/sidebar/sidebar";
+import Navbar from "../../components/navbar/navbar";
+import {useEffect, useState} from "react";
+import MessageService from "./MessageService";
+import Popup from "../GroupDisplay/Popup";
 import "../GroupDisplay/Popup.css"
 import "../User/Table.scss";
+import UserService from "../User/UserService";
 import SentMessageService from "./SentMessageService";
 
 const Navi2 = (props) => {

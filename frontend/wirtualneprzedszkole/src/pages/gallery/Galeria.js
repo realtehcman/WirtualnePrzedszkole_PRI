@@ -1,5 +1,5 @@
 import React, { useEffect, useState }from 'react'
-import GalleryService from "./GalleryService";
+import GalleryService from "../../../../../../../../Downloads/mati front/wirtualneprzedszkole_pri/frontend/wirtualneprzedszkole/src/pages/gallery/GalleryService";
 import "../GroupDisplay/Popup.css"
 import "../User/Table.scss";
 import {useNavigate, useParams} from "react-router-dom";

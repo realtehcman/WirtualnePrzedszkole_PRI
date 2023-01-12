@@ -22,8 +22,8 @@ class GroupService {
         return axios.delete(GROUP_REST_API_URL + '/' + id)
     }
 
-    getGroup(name) {
-        return axios.get(GROUP_REST_API_URL + '/' + name)
+    getGroup(id) {
+        return axios.get(GROUP_REST_API_URL + '/' + id)
     }
 }
 
