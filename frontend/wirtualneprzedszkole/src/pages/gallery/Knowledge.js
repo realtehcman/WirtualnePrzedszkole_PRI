@@ -88,7 +88,7 @@ const Knowledge = () => {
                 </tbody>
             </table>
             <br />
-            <div>
+            <div className="uploadDiv">
                 <form onSubmit={handleSubmit} encType='multipart/form-data'>
                  <div className="input23">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                     <p></p>
