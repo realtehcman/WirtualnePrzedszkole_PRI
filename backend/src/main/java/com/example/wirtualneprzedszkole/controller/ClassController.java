@@ -70,8 +70,8 @@ public class ClassController {
     public void deleteClass(@PathVariable Long id) {
         String className = classService.getClass(id).getName();
         Long folderId = folderService.getFolderByClassName(className);
-        folderService.deleteFolder(folderId, true);
+        if (folderId != null)
+            folderService.deleteFolder(folderId, true);
         classService.deleteClass(id);
-        //folderService.deleteFolder(folderId, true);
     }
 }
