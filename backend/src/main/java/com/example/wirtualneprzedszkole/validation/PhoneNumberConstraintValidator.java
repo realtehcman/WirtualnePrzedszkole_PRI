@@ -13,8 +13,8 @@ public class PhoneNumberConstraintValidator implements ConstraintValidator<Valid
     @Override
     public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
         if (phoneNumber != null) {
-            return phoneNumber.matches("^\\+48\\d{9}$")
-                    && (phoneNumber.length() == 12);
+            return phoneNumber.matches("^\\d{9}$")
+                    && (phoneNumber.length() == 9);
         }
 
         else {
