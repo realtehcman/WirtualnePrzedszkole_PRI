@@ -38,7 +38,7 @@ public class User {
     private UserRole role;
 
     @JsonIgnoreProperties(value = {"parents"})
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "parent_child",
             joinColumns = @JoinColumn(name = "parentId"),

@@ -25,7 +25,7 @@ public class ChildController {
 
     @GetMapping
     public List<ChildDto> getChildren() {
-        return ChildMapper.mapToDto(childService.getChildren());
+        return ChildMapper.mapToChildDto(childService.getChildren());
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
