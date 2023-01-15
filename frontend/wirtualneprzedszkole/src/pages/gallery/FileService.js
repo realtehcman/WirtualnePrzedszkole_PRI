@@ -30,6 +30,10 @@ class FileService {
         return axios.delete(FILE_REST_API_URL + "/deleteFile/" + folderId + "/" + fileName)
     }
 
+    deleteAllFiles(folderId) {
+        return axios.delete(FILE_REST_API_URL + "/deleteAllFiles/" + folderId)
+    }
+
 }
 
 export default new FileService();

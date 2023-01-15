@@ -76,7 +76,7 @@ public class FileController {
         }
     }
 
-    @DeleteMapping("/downloadFile/{folderId}/")
+    @DeleteMapping("/deleteAllFiles/{folderId}")
     public void deleteAllRecursively(@PathVariable Long folderId) {
         if (storageService.deleteAllService(folderId)) {
             System.out.println("deleting everything folder id " + folderId.toString());

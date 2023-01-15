@@ -81,6 +81,12 @@ const Knowledge = () => {
             setFilesInfo(filesInfo.filter((refreshFile) => file.id !== refreshFile.id))
         })
     }
+
+    const deleteAllFiles = async () => {
+        FileService.deleteAllFiles(KNOWLEDGE_ID).then((response) => {
+            setFilesInfo([])
+        })
+    }
  
     return (
         <div className="scrollable-div">
@@ -112,7 +118,10 @@ const Knowledge = () => {
                     <p></p>
                     <button type="submit" className="btn btn-primary"> Wyślij</button>
                 </form>
+            </div>
 
+            <div className="deleteAll">
+                <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">Usuń wszystkie pliki</button>
             </div>
 
         </div>
