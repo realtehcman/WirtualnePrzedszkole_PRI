@@ -87,6 +87,14 @@ const Knowledge = () => {
             setFilesInfo([])
         })
     }
+
+    const checkDataIsNull = (fileDate) => {
+        if (fileDate === null) {
+            return "Brak daty"
+        }
+
+        return fileDate
+    }
  
     return (
         <div className="scrollable-div">
@@ -103,7 +111,7 @@ const Knowledge = () => {
                     {filesInfo.map((file) => (
                         <tr key = {file.id}>
                             <td>{file.name}</td>
-                            <td>{file.dateAdded}</td>
+                            <td>{checkDataIsNull(file.dateAdded)}</td>
                             <td><button className="btndown" onClick={() => printFiles(file)}><DownloadForOfflineIcon></DownloadForOfflineIcon></button></td>
                             <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>
                         {/* {renderPageLink()} */}
