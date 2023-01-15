@@ -41,7 +41,7 @@ const Knowledge = () => {
     }
 
 
-    const printFiles = (e, file) => {
+    const printFiles = async (file) => {
         FileService.getFile(KNOWLEDGE_ID, file.hash).then((response) => {
             saveAs(response.data, file.name)
       })
@@ -71,6 +71,12 @@ const Knowledge = () => {
         }
         FileService.addFiles(KNOWLEDGE_ID, formData)
     }
+
+    const deleteFile = async (file) => {
+        FileService.deleteFile(KNOWLEDGE_ID, file.hash).then((response) => {
+            setFilesInfo(filesInfo.filter((refreshFile) => file.id !== refreshFile.id))
+        })
+    }
  
     return (
         <div className="scrollable-div">
@@ -78,14 +84,17 @@ const Knowledge = () => {
                 <thead>
                     <tr className="table-head">
                         <td>Plik</td>
+                        {/* <td>Data</td> */}
                         <td>Pobierz</td>
+                        <td>Usuń</td>
                     </tr>
                 </thead>
                 <tbody className="body table-body">
                     {filesInfo.map((file) => (
                         <tr key = {file.id}>
                             <td>{file.name}</td>
-                            <td key={file.id}><button className="btndown" onClick={e => printFiles(e, file)}><DownloadForOfflineIcon></DownloadForOfflineIcon></button></td>
+                            <td><button className="btndown" onClick={() => printFiles(file)}><DownloadForOfflineIcon></DownloadForOfflineIcon></button></td>
+                            <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>
                         {/* {renderPageLink()} */}
                         </tr>
                     ))}

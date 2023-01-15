@@ -69,7 +69,7 @@ public class FileController {
                 .collect(Collectors.toList());
     }
 
-    @DeleteMapping("/downloadFile/{folderId}/{fileName:.+}")
+    @DeleteMapping("/deleteFile/{folderId}/{fileName:.+}")
     public void deleteFile(@PathVariable String fileName, @PathVariable Long folderId) {
         if (storageService.delete(fileName, folderId)) {
             System.out.println("deleting " + fileName);
