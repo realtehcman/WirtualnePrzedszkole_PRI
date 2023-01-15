@@ -14,7 +14,8 @@ const Knowledge = () => {
         {
             id: "",
             name: "",
-            hash: ""
+            hash: "",
+            dateAdded: ""
         }
     ])
     const [fileName, setFileName] = useState([])
@@ -32,12 +33,15 @@ const Knowledge = () => {
             responseFiles.sort(function(a, b) {
                 return a.id - b.id;
             });
+            responseFiles.map((file) => {
+                if (file.dateAdded != null) 
+                    file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
+            })
             setFilesInfo(responseFiles)     
         }).then({}).catch((reason) => {
             console.log(`axios request failed: ${reason}`);
         })
-
-        console.log(filesInfo)
+    
     }
 
 
@@ -84,7 +88,7 @@ const Knowledge = () => {
                 <thead>
                     <tr className="table-head">
                         <td>Plik</td>
-                        {/* <td>Data</td> */}
+                        <td>Data</td>
                         <td>Pobierz</td>
                         <td>Usuń</td>
                     </tr>
@@ -93,6 +97,7 @@ const Knowledge = () => {
                     {filesInfo.map((file) => (
                         <tr key = {file.id}>
                             <td>{file.name}</td>
+                            <td>{file.dateAdded}</td>
                             <td><button className="btndown" onClick={() => printFiles(file)}><DownloadForOfflineIcon></DownloadForOfflineIcon></button></td>
                             <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>
                         {/* {renderPageLink()} */}

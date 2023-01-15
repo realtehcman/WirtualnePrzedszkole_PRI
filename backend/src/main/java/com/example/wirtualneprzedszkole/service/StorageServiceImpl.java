@@ -22,10 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.sql.Timestamp;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -87,12 +85,13 @@ public class StorageServiceImpl implements StorageService {
             Path targetLocation;
 
             targetLocation = this.fileStorageLocation.resolve(DigestUtils.md5DigestAsHex(file.getBytes()) + "." + fileExtension.get());
-
+            Calendar calendar = Calendar.getInstance();
             FileData fileData = FileData.builder()
                     .name(fileName)
                     .path(targetLocation.toString())
                     .hash(DigestUtils.md5DigestAsHex(file.getBytes()) + "." + fileExtension.get())
                     .folderId(folderId)
+                    .dateAdded(new Timestamp(calendar.getTimeInMillis()))
                     .build();
 
             String selectResponseFromDB = String.valueOf(fileDataRepo.findByPath(fileData.getPath()));

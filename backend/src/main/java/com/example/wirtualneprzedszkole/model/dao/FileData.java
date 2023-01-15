@@ -3,6 +3,7 @@ package com.example.wirtualneprzedszkole.model.dao;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "file_data")
@@ -19,5 +20,6 @@ public class FileData {
     private String hash;
     private String path;
     private Long folderId;
+    private Timestamp dateAdded;
     //private String type;
 }
