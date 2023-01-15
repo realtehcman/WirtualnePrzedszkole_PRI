@@ -91,7 +91,7 @@ public class StorageServiceImpl implements StorageService {
             FileData fileData = FileData.builder()
                     .name(fileName)
                     .path(targetLocation.toString())
-                    .hash(DigestUtils.md5DigestAsHex(file.getBytes()))
+                    .hash(DigestUtils.md5DigestAsHex(file.getBytes()) + "." + fileExtension.get())
                     .folderId(folderId)
                     .build();
 

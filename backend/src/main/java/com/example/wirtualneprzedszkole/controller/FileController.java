@@ -154,15 +154,16 @@ public class FileController {
     }
 
     @GetMapping("/downloadKnowledge")
-    public ResponseEntity<Map<String, String>> downloadKnowledge() {
+    public ResponseEntity<List<FileData>> downloadKnowledge() {
         Long knowledgeId = 0L;
         List<Resource> resources = storageService.loadAsResources(knowledgeId);
         //List<String> filesNames = new ArrayList<>();
-        Map<String, String> filesInfo = new HashMap<>();
+        //Map<String, FileData> filesInfo = new HashMap<>();
+        List<FileData> filesInfo = new ArrayList<>();
         for (Resource resource : resources) {
             //filesNames.add(resource.getFilename());
             try {
-                filesInfo.put(resource.getFilename(), fileDataService.getFile(resource.getFile().getAbsolutePath()).getName());
+                filesInfo.add(fileDataService.getFile(resource.getFile().getAbsolutePath()));
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
