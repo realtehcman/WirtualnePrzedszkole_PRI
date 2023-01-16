@@ -5,17 +5,19 @@ import React, { useEffect, useState, useRef } from 'react'
 import saveAs from 'file-saver'
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
+import EditFile from "./EditFile";
+import Popup from "../GroupDisplay/Popup";
 
 
 const Knowledge = () => {
-    //const [files, setFiles] = useState([])
     const [filesHash, setFilesHash] = useState([]);
     const [filesInfo, setFilesInfo] = useState([
         {
             id: "",
             name: "",
             hash: "",
-            dateAdded: ""
+            dateAdded: "",
+            description: ""
         }
     ])
     const [fileName, setFileName] = useState([])
@@ -95,6 +97,22 @@ const Knowledge = () => {
 
         return fileDate
     }
+
+    const displayHiddentText = (text) => {
+        return text;
+    }
+
+    const[buttonPopup, setButtonPopup] = useState({
+        isPop: false,
+        fileId: "",
+        description: ""
+    });
+
+    const openPopUp = async(file) => {
+        let r = (<Popup trigger={buttonPopup} setTrigger={setButtonPopup}><EditFile  {...file}/></Popup>)
+        return r
+        
+    }
  
     return (
         <div className="scrollable-div">
@@ -103,6 +121,7 @@ const Knowledge = () => {
                     <tr className="table-head">
                         <td>Plik</td>
                         <td>Data</td>
+                        <td>Opis</td>
                         <td>Pobierz</td>
                         <td>Usuń</td>
                     </tr>
@@ -110,13 +129,15 @@ const Knowledge = () => {
                 <tbody className="body table-body">
                     {filesInfo.map((file) => (
                         <tr key = {file.id}>
-                            <td>{file.name}</td>
+                            <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
+                            <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>
                             <td><button className="btndown" onClick={() => printFiles(file)}><DownloadForOfflineIcon></DownloadForOfflineIcon></button></td>
                             <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>
                         {/* {renderPageLink()} */}
                         </tr>
                     ))}
+                    <Popup trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup>
                 </tbody>
             </table>
             <br />

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;*/
 import com.example.wirtualneprzedszkole.filemanagement.UploadFileResponse;
 import com.example.wirtualneprzedszkole.model.dao.FileData;
+import com.example.wirtualneprzedszkole.model.dto.AddDescriptionDto;
 import com.example.wirtualneprzedszkole.service.FileDataService;
 import com.example.wirtualneprzedszkole.service.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +26,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -170,5 +174,19 @@ public class FileController {
         }
 
         return ResponseEntity.ok(filesInfo);
+    }
+
+    @PatchMapping("/patchFile/{fileId}")
+    public ResponseEntity<FileData> addFileDescription(@PathVariable Long fileId, @RequestBody AddDescriptionDto addDescriptionDto) {
+        try {
+            FileData file = fileDataService.findById(fileId);
+            file.setDescription(addDescriptionDto.getDescription());
+
+            //file.setDescription(description);
+            return new ResponseEntity<FileData>(fileDataService.addFileDescription(file)
+                    , HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

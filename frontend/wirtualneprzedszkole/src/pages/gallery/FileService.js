@@ -34,6 +34,10 @@ class FileService {
         return axios.delete(FILE_REST_API_URL + "/deleteAllFiles/" + folderId)
     }
 
+    patchFile(fileId, description) {
+        return axios.patch(FILE_REST_API_URL + "/patchFile/" + fileId, description)
+    }
+
 }
 
 export default new FileService();

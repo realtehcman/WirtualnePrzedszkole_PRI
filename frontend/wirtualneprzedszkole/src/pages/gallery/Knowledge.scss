@@ -117,3 +117,22 @@
     margin-right: 0.5%;
     margin-top: -5%
   }
+
+  #hiddenText {
+    visibility: hidden;
+    word-wrap:break-word;
+    width: 35%;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+
+  .content-table tbody td:hover #hiddenText {
+    visibility: visible;
+  }

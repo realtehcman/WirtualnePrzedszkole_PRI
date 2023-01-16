@@ -21,5 +21,6 @@ public class FileData {
     private String path;
     private Long folderId;
     private Timestamp dateAdded;
+    private String description;
     //private String type;
 }

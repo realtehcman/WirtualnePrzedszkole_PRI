@@ -140,9 +140,6 @@ function App() {
           <Route path='/Galeria' element={<PrivateOutlet />}>
             <Route index element={<GaleriaNavi/>}></Route>
           </Route>
-
-
-
         </Routes>
       </BrowserRouter>
     </div>
