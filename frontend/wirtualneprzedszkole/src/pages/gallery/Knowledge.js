@@ -10,7 +10,7 @@ import Popup from "../GroupDisplay/Popup";
 
 
 const Knowledge = () => {
-    const [filesHash, setFilesHash] = useState([]);
+    
     const [filesInfo, setFilesInfo] = useState([
         {
             id: "",
@@ -20,7 +20,7 @@ const Knowledge = () => {
             description: ""
         }
     ])
-    const [fileName, setFileName] = useState([])
+    
     const KNOWLEDGE_ID = 0
     
     useEffect(() => {
@@ -53,19 +53,6 @@ const Knowledge = () => {
       })
     }
       
-    /* const renderPageLink = () => {
-        let td = [];
-        console.log(filesInfo.length)
-        for (let i = 0; i < filesInfo.length; i++) {
-            td.push(<td key={i}>{filesInfo[i].name}</td><td key={i}><button className="btndown" onClick={e => printFiles(e, i)}><DownloadForOfflineIcon></DownloadForOfflineIcon></button></td>)
-            //<button onClick={saveFile}>download</button>   
-        }
-
-        return td;
-    } */
-
-    
-
     const handleSubmit = async(event) => {
         event.preventDefault()
     
@@ -119,12 +106,6 @@ const Knowledge = () => {
         fileId: "",
         description: ""
     });
-
-    const openPopUp = async(file) => {
-        let r = (<Popup trigger={buttonPopup} setTrigger={setButtonPopup}><EditFile  {...file}/></Popup>)
-        return r
-        
-    }
  
     return (
         <div className="scrollable-div">
