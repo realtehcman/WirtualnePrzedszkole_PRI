@@ -75,7 +75,19 @@ const Knowledge = () => {
         for (let i = 0; i < files.length; i++) {
         formData.append('file', files[i]);
         }
-        FileService.addFiles(KNOWLEDGE_ID, formData)
+        FileService.addFiles(KNOWLEDGE_ID, formData).then((response) => {
+            if (response.status !== 200) throw new Error(response.status);
+            else {
+                console.log(response.data[0])
+                let responseFiles = response.data
+                responseFiles.map((file) => {
+                    if (file.dateAdded != null) 
+                        file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
+                })
+
+                setFilesInfo(filesInfo => [...filesInfo, ...responseFiles])
+            }
+        })
     }
 
     const deleteFile = async (file) => {

@@ -5,13 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class UploadFileResponse {
-    private String fileName;
-    private String fileDownloadUri;
-    private String fileType;
-    private long size;
+    private Long id;
+    private String name;
+    private String hash;
+    private Timestamp dateAdded ;
+    private String description;
+    //private long size;
 }

@@ -62,7 +62,7 @@ public class FileController {
                 .path(fileData.getHash() + ".fileExtension")
                 .toUriString();
 
-        return new UploadFileResponse(fileData.getName(), fileDownloadUri, file.getContentType(), file.getSize());
+        return new UploadFileResponse(fileData.getId(), fileData.getName(), fileData.getHash(), fileData.getDateAdded(), fileData.getDescription());
     }
 
     @PostMapping("/uploadMultiFiles/{folderId}")
