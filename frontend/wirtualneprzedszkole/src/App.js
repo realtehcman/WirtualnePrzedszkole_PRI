@@ -24,6 +24,7 @@ import ViewMessageNavi from './pages/messages/ViewMessageNavi';
 import KnowledgeNavi from './pages/gallery/KnowledgeNavi';
 import ViewGalleryNavi from './pages/gallery/ViewGalleryNavi';
 import AddGalleryNavi from './pages/gallery/AddGalleryNavi';
+import FolderNavi from './pages/Folders/FolderNavi'
 
 import React, {useState} from 'react';
 
@@ -35,6 +36,7 @@ import {
   Outlet
 } from "react-router-dom";
 import ChangePassword from './pages/Login/ChangePassword';
+import AddFolderNavi from './pages/Folders/AddFolderNavi';
 
 
 
@@ -139,6 +141,12 @@ function App() {
           </Route>
           <Route path='/Galeria' element={<PrivateOutlet />}>
             <Route index element={<GaleriaNavi/>}></Route>
+          </Route>
+          <Route path='/Folder/:folderName/:id' element={<PrivateOutlet />}>
+            <Route index element={<FolderNavi/>}></Route>
+          </Route>
+          <Route path='/addFolder' element={<PrivateOutlet />}>
+            <Route index element={<AddFolderNavi/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

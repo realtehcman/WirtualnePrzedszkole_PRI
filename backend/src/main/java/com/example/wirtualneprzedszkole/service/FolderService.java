@@ -79,4 +79,12 @@ public class FolderService {
 
         return true;
     }
+
+    public List<Folder> getClassFolders(String className) {
+        return folderRepo.findAllByClassName(className);
+    }
+
+    public List<Folder> getClassSubFolders(String className) {
+        return folderRepo.findClassSubFolders(className);
+    }
 }

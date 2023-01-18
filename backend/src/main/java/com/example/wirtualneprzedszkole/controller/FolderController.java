@@ -44,4 +44,14 @@ public class FolderController {
         }
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
+    @GetMapping("/className/{className}")
+    public List<FolderDto> getClassFolders(@PathVariable String className) {
+        return FolderMapper.FolderMapToDto(folderService.getClassFolders(className));
+    }
+
+    @GetMapping("/getSubFolders/{className}")
+    public List<FolderDto> getClassSubFolders(@PathVariable String className) {
+        return FolderMapper.FolderMapToDto(folderService.getClassSubFolders(className));
+    }
 }
