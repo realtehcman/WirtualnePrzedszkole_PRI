@@ -9,14 +9,14 @@ import AddFolder from "./AddFolder"
 const AddFolderNavi = () => {
     const location = useLocation();
 
-    let folder = location.state
+    let showFolder = location.state
   
   return (
     <div className="users gallery">
       <Sidebar />
       <div className="usersContainer">
         <Navbar />
-        <AddFolder {...folder}/>
+        <AddFolder {...showFolder}/>
       </div>
     </div>
   );

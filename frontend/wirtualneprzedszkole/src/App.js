@@ -37,6 +37,7 @@ import {
 } from "react-router-dom";
 import ChangePassword from './pages/Login/ChangePassword';
 import AddFolderNavi from './pages/Folders/AddFolderNavi';
+import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
 
 
 
@@ -147,6 +148,9 @@ function App() {
           </Route>
           <Route path='/addFolder' element={<PrivateOutlet />}>
             <Route index element={<AddFolderNavi/>}></Route>
+          </Route>
+          <Route path='/folderOther/:folderId' element={<PrivateOutlet />}>
+            <Route index element={<FolderOtherNavi/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

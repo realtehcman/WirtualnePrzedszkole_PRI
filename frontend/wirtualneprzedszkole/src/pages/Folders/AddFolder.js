@@ -6,6 +6,7 @@ import './AddFolder.scss'
 import FileService from "../gallery/FileService"
 
 const AddFolder = (props) => {
+    const navigate = useNavigate()
     const [newFolder, setNewFolder] = useState(
         {
             name: "",
@@ -31,9 +32,12 @@ const AddFolder = (props) => {
         let temp = formData.getAll("file").length
         console.log(temp)
         FolderService.addNewFolder(newFolder).then(response => {
-            console.log(response.data)
-            if (temp > 3)
-                FileService.addFiles(response.data.id, formData)
+            if (response.status !== 200) throw new Error(response.status);
+            else {
+                if (temp > 3)
+                    FileService.addFiles(response.data.id, formData)
+                navigate(-1)
+            }
         })
     }
 

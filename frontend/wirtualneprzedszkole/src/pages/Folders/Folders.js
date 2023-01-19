@@ -32,6 +32,27 @@ const Folders = (props) => {
         })
     }
 
+    const deleteFolder = async(folderId) => {
+        FolderService.deleteFolder(folderId).then((response) => {
+            setFolder({childrenFolder: folder.childrenFolder.filter((refreshFolder) => folderId !== refreshFolder.id)})
+        })
+    }
+
+    const showFolderContent = async(folderId) => {
+        FolderService.getFolder(folderId).then((response) => {
+            let showFolder = ({id: response.data.id,
+            name: response.data.name,
+            path: response.data.path,
+            className: response.data.className,
+            fileDataList: response.data.fileDataList,
+            childrenFolder: response.data.childrenFolder,
+            parent: response.data.parent})
+            if (folder.name === "Other") {
+                navigate("/folderOther/" + showFolder.id)
+            }
+        })
+    }
+
     return (
         <>
         <div className="scrollable-div">
@@ -39,6 +60,7 @@ const Folders = (props) => {
                 <thead>
                     <tr className="table-head">
                         <td>Folder</td>
+                        <td>Zobacz</td>
                         <td>Usuń</td>
                     </tr>
                 </thead>
@@ -46,6 +68,8 @@ const Folders = (props) => {
                     {folder.childrenFolder.map((item) => (
                         <tr key = {item.id}>
                             <td>{item.name}</td>
+                            <td><button onClick={() => showFolderContent(item.id)} className="btn btn-info">Zobacz</button></td>
+                            <td><button onClick={() => deleteFolder(item.id)} className="btn btn-danger">Usuń</button></td>
                         </tr>
                     ))}
                 </tbody>

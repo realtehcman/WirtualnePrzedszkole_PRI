@@ -20,6 +20,10 @@ class FolderService {
         return axios.post(FOLDER_REST_API_URL, newFolder)
     }
 
+    deleteFolder(folderId) {
+        return axios.delete(FOLDER_REST_API_URL + "/" + folderId)
+    }
+
 }
 
 export default new FolderService();
