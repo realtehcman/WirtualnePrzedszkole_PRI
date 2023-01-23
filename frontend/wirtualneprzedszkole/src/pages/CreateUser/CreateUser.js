@@ -59,7 +59,10 @@ class CreateUser extends Component {
         //this.state.users.push(user)
         
         UserService.addUser(user).then((response) => {
-          console.log(response)
+          if (response.status !== 200) throw new Error(response.status);
+          else {
+            window.open("users","_self");
+          }
         })
         
       }
@@ -146,6 +149,10 @@ class CreateUser extends Component {
           this.state.children.forEach((child) => {
             UserService.addChildToUser(parent.id, child).then((response) => {
               console.log(response)
+              if (response.status !== 200) throw new Error(response.status);
+              else {
+                window.open("users","_self");
+              }
             })
           })
         })
@@ -285,12 +292,12 @@ class CreateUser extends Component {
                         <option value="ADMIN">Administrator</option>
                       </select>
                     </div>
-                    <div className="asd123">
+                    {/* <div className="asd123">
 
                       <Link className="button" to={"/users"}>
                         Wróć
                       </Link>
-                    </div>
+                    </div> */}
                     <div className="asd124">
                       <button className="button" name="save-user">Zapisz</button>
                     </div>
@@ -383,12 +390,12 @@ class CreateUser extends Component {
                           <option value="ADMIN">Administrator</option>
                         </select>
                       </div>
-                      <div className="asd123">
+                      {/* <div className="asd123">
   
                         <Link className="button" to={"/users"}>
                           Wróć
                         </Link>
-                      </div>
+                      </div> */}
                       <div className="asd124">
                         <button className="button" name="save-user">Zapisz</button>
                       </div>
@@ -442,12 +449,12 @@ class CreateUser extends Component {
                         onChange={this.changeLastNameHandler}
                     />
                   </div> */}
-                  <div className="asd123">
+                  {/* <div className="asd123">
 
                     <Link className="button" to={"/users"}>
                       Wróć
                     </Link>
-                  </div>
+                  </div> */}
                   <div className="asd124">
                     <button className="button" name="save-with-child">Zapisz</button>
                   </div>
