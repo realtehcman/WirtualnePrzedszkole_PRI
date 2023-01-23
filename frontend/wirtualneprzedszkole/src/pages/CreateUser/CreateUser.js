@@ -10,12 +10,12 @@ import {
   MDBValidation,
   MDBValidationItem
 } from 'mdb-react-ui-kit';
+import { display } from "@mui/system";
 
 
   class CreateUser extends Component {
     constructor(props) {
       super(props);
-
       this.state = {
         email: "",
         name: "",
@@ -23,6 +23,12 @@ import {
         address: "",
         phoneNumber: "",
         role: "PARENT",
+        users: [],
+        childName: "",
+        childLastName: "",
+        class: "",
+        children: [],
+        display: 1
       };
       this.changeNameHandler = this.changeNameHandler.bind(this);
       this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
@@ -36,6 +42,7 @@ import {
 
     saveUser = (e) => {
       e.preventDefault();
+      console.log(e.nativeEvent.submitter.name)
       let user = JSON.stringify({
         email: this.state.email,
         name: this.state.name,
@@ -45,12 +52,22 @@ import {
         role: this.state.role,
       });
       //user = JSON.stringify(user)
+      this.state.users.push(user)
 
-      UserService.addUser(user).then((response) => {
+      this.setState({name: ""});
+      this.setState({lastName: ""});
+      this.setState({email: ""});
+      this.setState({address: ""});
+      this.setState({phoneNumber: ""});
+      this.setState({role: ""});
+      //this.setState({display: 0})
+      console.log(this.state.users)
+      console.log(this.state.display)
+      /* UserService.addUser(user).then((response) => {
         if (response.data != null) {
           this.setState(this.state);
         }
-      });
+      }); */
     };
 
     changeNameHandler = (event) => {
@@ -81,8 +98,9 @@ import {
       e.preventDefault();
     }
 
-
     render() {
+      const display = this.state.display
+      if (display === 1) {
       return (
           <div className="formContainer">
             <div className="row">
@@ -90,7 +108,7 @@ import {
                 <div className="form-body">
                   <form onSubmit={(e) =>{
                     this.saveUser(e);
-                    this.handleSubmit(e);
+                    /* this.handleSubmit(e); */
                   } }>
                     <div className="form-group">
                       <MDBInput
@@ -164,16 +182,71 @@ import {
                       <Link className="button" to={"/users"}>
                         Wróć
                       </Link>
-                    </div><div className="asd124">
-                      <button className="button">Zapisz</button>
-                  </div>
+                    </div>
+                    <div className="asd124">
+                      <button className="button" name="zapisz">Zapisz</button>
+                    </div>
+                    <div className="next-parent">
+                      <button className="button">Dodaj następnego opiekuna</button>
+                    </div>
                   </form>
                 </div>
               </div>
             </div>
           </div>
       );
+    } else {
+      return (
+        <div className="formContainer">
+          <div className="row">
+            <div className="card col-md-6 offset-md-3 offset-md-3">
+              <div className="form-body">
+                <form onSubmit={(e) =>{
+                  this.saveUser(e);
+                  this.handleSubmit(e);
+                } }>
+                  <div className="form-group">
+                    <MDBInput
+                        placeholder="imię"
+                        type="text"
+                        required
+                        name="imię"
+                        className='"form-control'
+                        value={this.state.name}
+                        onChange={this.changeNameHandler}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <MDBInput
+                        placeholder="Nazwisko"
+                        type="text"
+                        required
+                        name="Nazwisko"
+                        className='"form-control'
+                        value={this.state.lastName}
+                        onChange={this.changeLastNameHandler}
+                    />
+                  </div>
+                  <div className="asd123">
+
+                    <Link className="button" to={"/users"}>
+                      Wróć
+                    </Link>
+                  </div>
+                  <div className="asd124">
+                    <button className="button">Zapisz</button>
+                  </div>
+                  <div className="next-child">
+                    <button className="button">Dodaj następne dziecko</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    );
     }
+  }
   }
 
 export default CreateUser;
