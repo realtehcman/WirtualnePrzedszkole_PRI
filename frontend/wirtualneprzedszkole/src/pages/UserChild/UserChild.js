@@ -59,9 +59,9 @@ const UserChild = () => {
           </tr>
         </thead>
         <tbody className="body">
-          {children.map((child) => {
-            if (child.parents.length < 2) {
-              return (
+          {children.map((child) => (
+            /* if (child.parents.length < 2) {
+              return ( */
                 <tr key={child.id}>
                   <td>{child.name}</td>
                   <td>{child.lastName}</td>
@@ -74,11 +74,11 @@ const UserChild = () => {
                     </button>
                   </td>
                 </tr>
-              );
+            /*   );
             } else {
               return null;
-            }
-          })}
+            } */
+          ))}
         </tbody>
       </table>
     </div>

@@ -70,9 +70,9 @@ public class UserManagementService {
         Child child = childService.getChild(childId);
         if (child.getParents().contains(userEdited)) {
             throw new UserAlreadyExistException("Ten rodzic jest już przipsany do tego dziecka");
-        } else if (child.getParents().size() > 1) {
+        }/* else if (child.getParents().size() > 1) {
             throw new TooManyUsersAssignedException("Już przipsano dwa rodzica do tego dziecka");
-        }
+        }*/
         userEdited.getChildren().add(child);
         return userEdited;
     }
