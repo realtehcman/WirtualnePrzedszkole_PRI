@@ -5,7 +5,7 @@ import Navbar from "../../components/navbar/navbar";
 import Child from "./Child";
 import { useNavigate } from "react-router-dom";
 
-const ChildrenNavi = () => {
+const ChildNavi = () => {
   const navigate = useNavigate();
   return (
     <div className="users">
@@ -18,4 +18,4 @@ const ChildrenNavi = () => {
   );
 };
 
-export default ChildrenNavi;
+export default ChildNavi;

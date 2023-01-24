@@ -11,7 +11,7 @@ const Navi2 = (props) => {
     const navigate = useNavigate();
     return (
         <button
-            onClick={() => navigate("/home/" + props.value, { replace: true })}
+            onClick={() => navigate("/home/" + props.value/* , { replace: true } */)}
             className="btn btn-info"
         >
             Dodaj zdjęcia

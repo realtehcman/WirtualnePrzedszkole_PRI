@@ -57,7 +57,7 @@ const Child = () => {
                                     <td>{parent.lastName}</td>
                                     <td>{parent.email}</td>
                                     <td>
-                                        <button onClick={() => navigate("/user/" + parent.id, { replace: true })} className='btn btn-info'>Zobacz</button>
+                                        <button onClick={() => navigate("/user/" + parent.id/* , { replace: true } */)} className='btn btn-info'>Zobacz</button>
                                     </td>
                                 </tr>
                             )

@@ -16,7 +16,7 @@ const Users = () => {
         <UserComponent />
         <button
           className="button"
-          onClick={() => navigate("/add-user", { replace: true })}
+          onClick={() => navigate("/add-user"/* , { replace: true } */)}
         >
           Dodaj Rodzica
         </button>

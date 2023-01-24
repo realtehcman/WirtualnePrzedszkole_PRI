@@ -7,7 +7,7 @@ const Navi = (props) => {
   const navigate = useNavigate();
   return (
     <button
-      onClick={() => navigate("/child/" + props.value, { replace: true })}
+      onClick={() => navigate("/child/" + props.value/* , { replace: true } */)}
       className="btn btn-info"
     >
       Zobacz

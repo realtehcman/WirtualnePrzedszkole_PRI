@@ -43,7 +43,7 @@ const UserChild = () => {
     UserService.addChildToUser(id, child).then((response) => {
       if (response.status !== 200) throw new Error(response.status);
       else {
-        navigate("/user/" + id, { replace: true });
+        navigate("/user/" + id/* , { replace: true } */);
       }
     });
   };
