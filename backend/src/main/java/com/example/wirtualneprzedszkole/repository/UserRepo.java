@@ -2,6 +2,7 @@ package com.example.wirtualneprzedszkole.repository;
 
 import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.User;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     List<User> findByRole(UserRole parent);
     Set<User> findUsersByChildrenIdIn(List<Long> childrenIds);
+
+    @Query("select t from User t where t.role = 'TEACHER' ")
+    List<User> findAllTeachers(Pageable page);
 }

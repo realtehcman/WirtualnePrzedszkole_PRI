@@ -38,6 +38,7 @@ import {
 import ChangePassword from './pages/Login/ChangePassword';
 import AddFolderNavi from './pages/Folders/AddFolderNavi';
 import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
+import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
 
 
 
@@ -151,6 +152,9 @@ function App() {
           </Route>
           <Route path='/folderOther/:folderId' element={<PrivateOutlet />}>
             <Route index element={<FolderOtherNavi/>}></Route>
+          </Route>
+          <Route path='/Assign-teacher/:id' element={<PrivateOutlet />}>
+            <Route index element={<AssignTeacherNavi/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

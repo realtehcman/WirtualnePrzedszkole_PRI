@@ -99,9 +99,14 @@ const Group = () => {
                     }
                 </tbody>
             </table>
-            <div className="classFolders">
+            <div className="div-buttons">
+            <div className="class-folders">
                 <button type="button" class="btn btn-success" onClick={() =>  NaviToFolder("Galeria")}>Galerie</button>
                 <button type="button" class="btn btn-warning" onClick={() => NaviToFolder("Inne")}>Inne Pliki</button>
+            </div>
+            <div className="add-teacher">
+                <button type="button" class="btn btn-primary" onClick={() => navigate("/Assign-teacher/" + id)}>Przypisz Nauczyciela</button>
+            </div>
             </div>
     </div>
     )

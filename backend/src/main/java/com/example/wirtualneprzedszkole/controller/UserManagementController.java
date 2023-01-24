@@ -67,14 +67,21 @@ public class UserManagementController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("add_to_class/{userId}")
-    public UserDto addClassToTeacher(@PathVariable Long userId, @RequestBody Class aClass) {
-        return UserMapper.mapToUserDto(userManagementService.addClassToTeacher(userId, aClass.getId()));
+    @PutMapping("add_to_class/{classId}")
+    public UserDto addClassToTeacher(@PathVariable Long classId, @RequestBody UserDto userDto) {
+        return UserMapper.mapToUserDto(userManagementService.addClassToTeacher(userDto.getId(), classId));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("{id}")
     public void deleteUser(@PathVariable Long id) {
         userManagementService.deleteUser(id);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/teachers")
+    public List<UserDto> getAllTeachers(@RequestParam(required = false) Integer page) {
+        int pageNumber = page != null && page >= 0 ? page : 0;
+        return UserMapper.mapToDto(userManagementService.getAllTeachers(pageNumber));
     }
 }

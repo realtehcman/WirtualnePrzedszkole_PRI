@@ -33,6 +33,14 @@ class UserService {
     editUser(user) {
         return axios.put(USERS_REST_API_URL, user)
     }
+
+    getTeachers() {
+        return axios.get(USERS_REST_API_URL + "/teachers")
+    }
+
+    assignTeacherToClass(classId, teacher) {
+        return axios.put(USERS_REST_API_URL + "/add_to_class/" + classId, teacher)
+    }
 }
 
 export default new UserService();

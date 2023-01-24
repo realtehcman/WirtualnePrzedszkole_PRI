@@ -3,20 +3,20 @@ import "../Home/Home.scss"
 
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar"
-import Group from "./Group"
+import AssignTeacher from "./AssignTeacher";
 import {useParams} from "react-router-dom";
 
-const GroupIdNavi = () => {
-    let {id} = useParams()
+const AssignTeacherNavi = () => {
+    let id = useParams()
     return (
         <div className="home">
             <Sidebar/>
             <div className="homeContainer">
                 <Navbar/>
-                <Group value={id}/>
+                <AssignTeacher value={id}/>
             </div>
         </div>
     )
 }
 
-export default GroupIdNavi
+export default AssignTeacherNavi

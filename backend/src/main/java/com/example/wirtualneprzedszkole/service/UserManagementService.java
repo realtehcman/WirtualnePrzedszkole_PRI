@@ -103,4 +103,8 @@ public class UserManagementService {
     public Set<User> getAllParentsFromClass(List<Long> childrenIds) {
         return userRepo.findUsersByChildrenIdIn(childrenIds);
     }
+
+    public List<User> getAllTeachers(int pageNumber) {
+        return userRepo.findAllTeachers(PageRequest.of(pageNumber, PAGE_SIZE));
+    }
 }
