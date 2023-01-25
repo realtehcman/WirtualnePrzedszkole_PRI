@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import ChildrenService from "../Children/ChildrenService";
 import "../CreateUser/CreateUser.scss";
 import { Link } from "react-router-dom";
+import GroupService from "../GroupDisplay/GroupService";
 
 class CreateChild extends Component {
   constructor(props) {
@@ -11,21 +12,30 @@ class CreateChild extends Component {
     this.state = {
       name: "",
       lastName: "",
-      classId: "",
+      className: "",
+      classes: [],
     };
     this.changeNameHandler = this.changeNameHandler.bind(this);
     this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
-    this.changeClassIdHandler = this.changeClassIdHandler.bind(this);
+    this.changeClassNameHandler = this.changeClassNameHandler.bind(this);
     this.saveChild = this.saveChild.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    GroupService.getGroups().then((response) => {
+      this.setState({ classes: response.data });
+      
+    });
+  }
+
   saveChild = (e) => {
     e.preventDefault();
+    const aClass = this.state.classes.find(element => element.name === this.state.className)
     let child = JSON.stringify({
       name: this.state.name,
       lastName: this.state.lastName,
-      classId: this.state.classId,
+      classId: aClass.id,
     });
     //user = JSON.stringify(user)
 
@@ -44,12 +54,12 @@ class CreateChild extends Component {
     this.setState({ lastName: event.target.value });
   };
 
-  changeClassIdHandler = (event) => {
-    this.setState({ classId: event.target.value });
+  changeClassNameHandler = (event) => {
+    this.setState({ className: event.target.value });
   };
 
   handleSubmit(e) {
-    alert('Dziecko zostało pomyślnie dodane : ' + '\n' + " Imię : " + this.state.name + '\n' + " Nazwisko : " + this.state.lastName + '\n' + " id grupy : " + this.state.classId);
+    alert('Dziecko zostało pomyślnie dodane : ' + '\n' + " Imię : " + this.state.name + '\n' + " Nazwisko : " + this.state.lastName + '\n' + " grupa : " + this.state.className);
     e.preventDefault();
   }
 
@@ -84,14 +94,19 @@ class CreateChild extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <input
+                  {/* <input
                     placeholder="Id grupy"
                     required
                     name="Id grupy"
                     className='"form-control'
                     value={this.state.classId}
                     onChange={this.changeClassIdHandler}
-                  />
+                  /> */}
+                  <select value={this.state.className} onChange={this.changeClassNameHandler}>
+                    {this.state.classes.map((aClass) => (
+                      <option key={aClass.id}> {aClass.name}</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="form-but">
                   <Link className="button3" to={"/children"}>
