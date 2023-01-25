@@ -11,6 +11,7 @@ import {
   MDBValidationItem
 } from 'mdb-react-ui-kit';
 import { display } from "@mui/system";
+import GroupService from "../GroupDisplay/GroupService";
 
 
 class CreateUser extends Component {
@@ -28,6 +29,8 @@ class CreateUser extends Component {
         childLastName: "",
         class: "",
         children: [],
+        classes: [],
+        className: "",
         display: 1
       };
     
@@ -40,7 +43,18 @@ class CreateUser extends Component {
       this.saveUser = this.saveUser.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.changeChildNameHandler = this.changeChildNameHandler.bind(this);
-      this.changeChildLastNameHandler = this.changeChildLastNameHandler.bind(this) 
+      this.changeChildLastNameHandler = this.changeChildLastNameHandler.bind(this)
+      this.changeClassNameHandler = this.changeClassNameHandler.bind(this)
+    }
+
+    componentDidMount() {
+      GroupService.getGroups().then((response) => {
+        const res = response.data 
+        this.setState(
+          {classes: ["", ...res ]}
+        )
+        
+      });
     }
 
     saveUser = (e) => {
@@ -117,12 +131,22 @@ class CreateUser extends Component {
           this.state.users.push(response.data)
         })
     } else if (e.nativeEvent.submitter.name === "next-child") {
-
-      let child = JSON.stringify({
-        name: this.state.childName,
-        lastName: this.state.childLastName,
-        
+      let child
+      if(this.state.className !== "") {
+        const aClass = this.state.classes.find(element => element.name === this.state.className)
+        let childWIthClass = JSON.stringify({
+          name: this.state.childName,
+          lastName: this.state.childLastName,
+          classId: aClass.id,
+        });
+        child = childWIthClass
+      } else {
+        let childWIthoutClass = JSON.stringify({
+          name: this.state.childName,
+          lastName: this.state.childLastName,
       });
+      child = childWIthoutClass
+      }
       //this.state.children.push(child)
 
       this.setState({childName: ""});
@@ -135,11 +159,22 @@ class CreateUser extends Component {
         this.state.children.push(response.data)
       })
     } else {
-      let child = JSON.stringify({
-        name: this.state.childName,
-        lastName: this.state.childLastName,
-        
+      let child
+      if (this.state.className !== "") {
+        const aClass = this.state.classes.find(element => element.name === this.state.className)
+        let childWIthClass = JSON.stringify({
+          name: this.state.childName,
+          lastName: this.state.childLastName,
+          classId: aClass.id,
       });
+        child = childWIthClass
+      } else {
+        let childWIthoutClass = JSON.stringify({
+          name: this.state.childName,
+          lastName: this.state.childLastName,
+        });
+        child = childWIthoutClass
+      }
       //this.state.children.push(child)
       
       ChildrenService.addChild(child).then((response) => {
@@ -210,6 +245,10 @@ class CreateUser extends Component {
 
     changeChildLastNameHandler = (event) => {
       this.setState({childLastName: event.target.value})
+    }
+
+    changeClassNameHandler = (event) => {
+      this.setState({className: event.target.value})
     }
 
     render() {
@@ -455,6 +494,13 @@ class CreateUser extends Component {
                       Wróć
                     </Link>
                   </div> */}
+                  <div className="form-group">
+                  <select value={this.state.className} onChange={this.changeClassNameHandler}>
+                    {this.state.classes.map((aClass) => (
+                      <option key={aClass.id}> {aClass.name}</option>
+                    ))}
+                  </select>
+                </div>
                   <div className="asd124">
                     <button className="button" name="save-with-child">Zapisz</button>
                   </div>

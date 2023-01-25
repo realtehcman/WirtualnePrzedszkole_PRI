@@ -24,19 +24,31 @@ class CreateChild extends Component {
 
   componentDidMount() {
     GroupService.getGroups().then((response) => {
-      this.setState({ classes: response.data });
-      
+      const res = response.data 
+      this.setState(
+        {classes: ["", ...res ]}
+      )
     });
   }
 
   saveChild = (e) => {
     e.preventDefault();
-    const aClass = this.state.classes.find(element => element.name === this.state.className)
-    let child = JSON.stringify({
-      name: this.state.name,
-      lastName: this.state.lastName,
-      classId: aClass.id,
-    });
+    let child
+    if(this.state.className !== "") {
+      const aClass = this.state.classes.find(element => element.name === this.state.className)
+      let childWIthClass = JSON.stringify({
+        name: this.state.name,
+        lastName: this.state.lastName,
+        classId: aClass.id,
+      });
+      child = childWIthClass
+    } else {
+      let childWIthoutClass = JSON.stringify({
+        name: this.state.name,
+        lastName: this.state.lastName,
+      });
+      child = childWIthoutClass
+    }
     //user = JSON.stringify(user)
 
     ChildrenService.addChild(child).then((response) => {
