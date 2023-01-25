@@ -3,6 +3,7 @@ import GroupService from './GroupService'
 import {useParams, useNavigate} from "react-router-dom";
 import "./Group.scss"
 import FolderService from '../Folders/FolderService';
+import UserService from '../User/UserService';
 
 const Group = () => {
     const navigate = useNavigate()
@@ -70,6 +71,16 @@ const Group = () => {
         })
     }
 
+    const deleteFromGroup = async(teacher) => {
+        UserService.deleteTeacherFromClass(teacher.id, id).then((response) => {
+            if (response.status !== 200) throw new Error(response.status);
+            else {
+                setGroup({id: group.id, name: group.name, description: group.description, children:  group.children,
+                     teachers: group.teachers.filter((refreshTeachers) => teacher.id !== refreshTeachers.id)})
+            }
+        })
+    }
+
     return (
         <div>
             <table className="content-table">
@@ -78,6 +89,7 @@ const Group = () => {
                         <td>{group.name}</td>
                         <td>Imię</td>
                         <td>Nazwisko</td>
+                        <td>Usuń z grupy</td>
                     </tr>
                 </thead>
                 <tbody className='body'>
@@ -86,6 +98,9 @@ const Group = () => {
                         <td>Nauczyciel</td>
                         <td>{teacher.name}</td>
                         <td>{teacher.lastName}</td>
+                        <td>
+                            <button onClick={() => deleteFromGroup(teacher)}  className="btn btn-danger">Usuń</button>
+                        </td>
                     </tr>
                     ))
                     }

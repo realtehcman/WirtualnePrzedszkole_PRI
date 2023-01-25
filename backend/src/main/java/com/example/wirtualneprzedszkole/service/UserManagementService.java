@@ -7,6 +7,7 @@ import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.User;
+import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -106,5 +107,13 @@ public class UserManagementService {
 
     public List<User> getAllTeachers(int pageNumber) {
         return userRepo.findAllTeachers(PageRequest.of(pageNumber, PAGE_SIZE));
+    }
+
+    @Transactional
+    public User deleteTeacherFromClass(Long userId, Long classId) {
+        User user = userRepo.findById(userId).orElseThrow();
+        Class aClass = classService.getClass(classId);
+        user.getClasses().remove(aClass);
+        return user;
     }
 }
