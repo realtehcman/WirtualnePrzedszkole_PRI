@@ -1,6 +1,8 @@
 package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.model.dao.Child;
+import com.example.wirtualneprzedszkole.model.dao.Class;
+import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.repository.ChildRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,5 +43,12 @@ public class ChildService {
 
     public List<Long> getChildByClassIn(Long classId) {
         return childRepo.findAllIdsByClassId(classId);
+    }
+
+    @Transactional
+    public Child deleteTeacherFromClass(Long childId) {
+        Child child = childRepo.findById(childId).orElseThrow();
+        child.setClassId(null);
+        return child;
     }
 }

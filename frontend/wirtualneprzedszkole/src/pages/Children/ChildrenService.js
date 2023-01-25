@@ -25,6 +25,10 @@ class ChildrenService {
     getChild(id) {
         return axios.get(CHILDREN_REST_API_URL + '/' + id)
     }
+
+    deleteChildFromClass(childId) {
+        return axios.patch(CHILDREN_REST_API_URL + "/deleteChildFromClass/" + childId)
+    }
 }
 
 export default new ChildrenService();

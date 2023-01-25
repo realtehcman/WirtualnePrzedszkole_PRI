@@ -4,6 +4,7 @@ import {useParams, useNavigate} from "react-router-dom";
 import "./Group.scss"
 import FolderService from '../Folders/FolderService';
 import UserService from '../User/UserService';
+import ChildrenService from '../Children/ChildrenService';
 
 const Group = () => {
     const navigate = useNavigate()
@@ -71,12 +72,23 @@ const Group = () => {
         })
     }
 
-    const deleteFromGroup = async(teacher) => {
+    const deleteTeacherFromGroup = async(teacher) => {
         UserService.deleteTeacherFromClass(teacher.id, id).then((response) => {
             if (response.status !== 200) throw new Error(response.status);
             else {
                 setGroup({id: group.id, name: group.name, description: group.description, children:  group.children,
                      teachers: group.teachers.filter((refreshTeachers) => teacher.id !== refreshTeachers.id)})
+            }
+        })
+    }
+
+    const deleteChildFromGroup = async(child) => {
+        ChildrenService.deleteChildFromClass(child.id).then((response) => {
+            if (response.status !== 200) throw new Error(response.status);
+            else {
+                setGroup({id: group.id, name: group.name, description: group.description,
+                     children:  group.children.filter((refreshChildren) => child.id !== refreshChildren.id),
+                     teachers: group.teachers})
             }
         })
     }
@@ -99,7 +111,7 @@ const Group = () => {
                         <td>{teacher.name}</td>
                         <td>{teacher.lastName}</td>
                         <td>
-                            <button onClick={() => deleteFromGroup(teacher)}  className="btn btn-danger">Usuń</button>
+                            <button onClick={() => deleteTeacherFromGroup(teacher)}  className="btn btn-danger">Usuń</button>
                         </td>
                     </tr>
                     ))
@@ -109,6 +121,9 @@ const Group = () => {
                         <td>Dziecko</td>
                         <td>{child.name}</td>
                         <td>{child.lastName}</td>
+                        <td>
+                            <button onClick={() => deleteChildFromGroup(child)}  className="btn btn-danger">Usuń</button>
+                        </td>
                     </tr>
                     ))
                     }
