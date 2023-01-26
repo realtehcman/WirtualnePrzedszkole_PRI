@@ -2,6 +2,7 @@ import React from "react";
 import ChildrenService from "./ChildrenService";
 import "../User/Table.scss";
 import { useNavigate } from "react-router-dom";
+import UserService from "../User/UserService";
 
 const Navi = (props) => {
   const navigate = useNavigate();
@@ -28,13 +29,20 @@ class ChildrenComponent extends React.Component {
     console.log(this.state);
   }
 
+
   deleteChild(id) {
-    ChildrenService.deleteChild(id).then((response) => {
-      this.setState({
-        children: this.state.children.filter((child) => child.id !== id),
+    let childName = this.state.children.find(child => child.id === id).name;
+    let childlastName = this.state.children.find(child => child.id === id).lastName;
+    if(window.confirm("Czy na pewno chcesz usunąć użytkownika: "  + childName +" " + childlastName + " "+ " ?")) {
+      ChildrenService.deleteChild(id).then((response) => {
+        this.setState({
+          children: this.state.children.filter((child) => child.id !== id),
+        });
       });
-    });
+    }
   }
+
+
 
   componentDidMount() {
     ChildrenService.getChildren().then((response) => {

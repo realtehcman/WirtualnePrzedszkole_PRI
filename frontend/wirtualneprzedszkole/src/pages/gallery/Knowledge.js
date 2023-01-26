@@ -7,10 +7,11 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import EditFile from "./EditFile";
 import Popup from "../GroupDisplay/Popup";
+import current_UserService from "../Home/Current_UserService";
 
 
 const Knowledge = () => {
-    
+
     const [filesInfo, setFilesInfo] = useState([
         {
             id: "",
@@ -20,14 +21,33 @@ const Knowledge = () => {
             description: ""
         }
     ])
-    
+
     const KNOWLEDGE_ID = 0
-    
+
     useEffect(() => {
         getKnowledge()
     },[])
 
-    
+    const [current_user, setCurrent_User] = useState({
+        role: '',
+    });
+
+    let {isLoggedIn} = current_user.role;
+
+
+    let {id} = useParams()
+
+    useEffect(() => {
+        getData()
+    },[])
+
+    const getData = async () => {
+        current_UserService.getCurrent_User(id).then(response => {
+            console.log('Response from main API: ',response)
+            let current_userData = response.data;
+            setCurrent_User({id: current_userData.id, role: current_userData.role})
+        });
+    }
 
     const getKnowledge = async () => {
         FileService.getKnowledge().then((response) => {
@@ -36,14 +56,14 @@ const Knowledge = () => {
                 return a.id - b.id;
             });
             responseFiles.map((file) => {
-                if (file.dateAdded != null) 
+                if (file.dateAdded != null)
                     file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
             })
-            setFilesInfo(responseFiles)     
+            setFilesInfo(responseFiles)
         }).then({}).catch((reason) => {
             console.log(`axios request failed: ${reason}`);
         })
-    
+
     }
 
 
@@ -52,12 +72,12 @@ const Knowledge = () => {
             saveAs(response.data, file.name)
       })
     }
-      
+
     const handleSubmit = async(event) => {
         event.preventDefault()
-    
+
         const formData = new FormData(event.currentTarget);
-    
+
         const files = event.currentTarget;
         for (let i = 0; i < files.length; i++) {
         formData.append('file', files[i]);
@@ -68,7 +88,7 @@ const Knowledge = () => {
                 console.log(response.data[0])
                 let responseFiles = response.data
                 responseFiles.map((file) => {
-                    if (file.dateAdded != null) 
+                    if (file.dateAdded != null)
                         file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
                 })
 
@@ -106,27 +126,48 @@ const Knowledge = () => {
         fileId: "",
         description: ""
     });
- 
+
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    }
+
+    const filteredFiles = filesInfo.filter(file =>
+        file.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+
     return (
         <div className="scrollable-div">
+
+            <div className="abc">
+                <form>
+                    <input type="text" placeholder="szukaj plików po nazwie" onChange={handleSearch} />
+                </form>
+            </div>
+
+
             <table className="content-table">
                 <thead>
                     <tr className="table-head">
                         <td>Plik</td>
                         <td>Data</td>
-                        <td>Opis</td>
+                        {current_user.role === "ADMIN" && <td>Opis</td>}
                         <td>Pobierz</td>
-                        <td>Usuń</td>
+                        {current_user.role === "ADMIN" && <td>Usuń</td>}
                     </tr>
                 </thead>
                 <tbody className="body table-body">
-                    {filesInfo.map((file) => (
-                        <tr key = {file.id}>
+                {filteredFiles.map((file) => (
+
+                    <tr key = {file.id}>
                             <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
-                            <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>
-                            <td><button className="btndown" onClick={() => printFiles(file)}><DownloadForOfflineIcon></DownloadForOfflineIcon></button></td>
-                            <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>
+                        {current_user.role === "ADMIN" &&    <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>}
+                            <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>Pobierz</button></td>
+                        {current_user.role === "ADMIN" && <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>}
+
                         {/* {renderPageLink()} */}
                         </tr>
                     ))}
@@ -134,16 +175,16 @@ const Knowledge = () => {
                 </tbody>
             </table>
             <br />
-            <div className="uploadDiv">
+            {current_user.role === "ADMIN" &&      <div className="uploadDiv">
                 <form onSubmit={handleSubmit} encType='multipart/form-data'>
                  <div className="input23">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                     <p></p>
                     <button type="submit" className="btn btn-primary"> Wyślij</button>
                 </form>
-            </div>
+            </div>}
 
             <div className="deleteAll">
-                <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">Usuń wszystkie pliki</button>
+                {current_user.role === "ADMIN" && <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">Usuń wszystkie pliki</button>}
             </div>
 
         </div>

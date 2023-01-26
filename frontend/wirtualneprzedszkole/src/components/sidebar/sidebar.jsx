@@ -75,7 +75,8 @@ const Sidebar = () => {
 
   const MenuView = () => {
     if (current_user.role=== "PARENT" ){
-      return<div>
+      return(
+        <div>
           <li>
             <Link to={"/home"}>
               <AccountBoxIcon className="icon" />
@@ -101,11 +102,13 @@ const Sidebar = () => {
               <span>Galeria</span>
             </Link>
           </li>
-        </div>;
+        </div>
+    );
     }
     else
     {
-      return<div>
+      return(
+        <div>
 
           <li>
             <Link to={"/home"}>
@@ -182,7 +185,7 @@ const Sidebar = () => {
               <span>Dodaj pliki</span>
             </Link>
           </li> </div>
-          ;
+      );
     }
   }
 
