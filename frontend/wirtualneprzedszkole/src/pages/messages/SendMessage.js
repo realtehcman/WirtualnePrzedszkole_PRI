@@ -162,17 +162,17 @@ class SendMessage extends Component {
 
                 {this.state.messageSent &&
                     <div className="popup">
-                        <div className="popup-content">
+                        <div className="popup-inner">
                             Wiadomość została wysłana
-                            <button className="popup-close-btn" onClick={this.closePopup}>X</button>
+                            <button className="close" onClick={this.closePopup}>X</button>
                         </div>
                     </div>
                 }
                 {this.state.error &&
                     <div className="popup">
-                        <div className="popup-content">
+                        <div className="popup-inner">
                             Wystąpił błąd. Spróbuj ponownie
-                            <button className="popup-close-btn" onClick={this.closePopup}>X</button>
+                            <button className="close" onClick={this.closePopup}>X</button>
                         </div>
                     </div>
                 }
