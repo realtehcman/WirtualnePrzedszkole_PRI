@@ -18,6 +18,11 @@ class ChildrenService {
             });
     }
 
+    editChild(child) {
+        return axios.put(CHILDREN_REST_API_URL, child)
+    }
+
+
     deleteChild(id){
         return axios.delete(CHILDREN_REST_API_URL + '/' + id)
     }

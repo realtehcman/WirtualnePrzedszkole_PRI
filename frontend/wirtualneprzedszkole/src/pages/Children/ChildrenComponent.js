@@ -16,6 +16,18 @@ const Navi = (props) => {
   );
 };
 
+const Navi2 = (props) => {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => navigate("/EditChild/" + props.value)}
+      className="btn btn-info"
+    >
+      edytuj
+    </button>
+  );
+};
+
 class ChildrenComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -73,12 +85,20 @@ class ChildrenComponent extends React.Component {
                 <td id="td--children">{child.classId}</td>
                 <td>
                   <Navi value={child.id} />
+
+
+
+                  <Navi2 value={child.id} />
+
                   <button
                     onClick={() => this.deleteChild(child.id)}
                     className="btn btn-danger"
                   >
                     Usuń
                   </button>
+
+
+
                 </td>
               </tr>
             ))}

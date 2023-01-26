@@ -25,6 +25,7 @@ import KnowledgeNavi from './pages/gallery/KnowledgeNavi';
 import ViewGalleryNavi from './pages/gallery/ViewGalleryNavi';
 import AddGalleryNavi from './pages/gallery/AddGalleryNavi';
 import FolderNavi from './pages/Folders/FolderNavi'
+import EditChildNavi from './pages/Children/EditChildNavi';
 
 import React, {useState} from 'react';
 
@@ -155,6 +156,9 @@ function App() {
           </Route>
           <Route path='/Assign-teacher/:id' element={<PrivateOutlet />}>
             <Route index element={<AssignTeacherNavi/>}></Route>
+          </Route>
+          <Route path="/EditChild/:id" element={<PrivateOutlet />}>
+            <Route index element={<EditChildNavi />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
