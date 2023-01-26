@@ -16,10 +16,10 @@ const EditCurrent_User = (props) => {
     };
 
     const [userEdit, setUserEdit] = useState({
-        id:'',
-        email: '',
-        name:'',
-        lastName: '',
+        id: current_user.id,
+        email: current_user.email,
+        name: current_user.name,
+        lastName: current_user.lastName,
         phoneNumber: '',
         address: ''
     });
