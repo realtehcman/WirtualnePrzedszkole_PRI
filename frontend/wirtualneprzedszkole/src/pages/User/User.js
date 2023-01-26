@@ -34,7 +34,7 @@ const User = () => {
       console.log("Response from main API: ", response);
       let userData = response.data;
       let children = userData.children.map((it) => {
-        return { id: it.id, name: it.name, classId: it.classId };
+        return { id: it.id, name: it.name, lastName: it.lastName, classId: it.classId };
       });
       setUser({
         id: userData.id,
@@ -106,7 +106,9 @@ const User = () => {
                   <thead>
                     <tr>
                       <th>Imię</th>
+                      <th>nazwisko</th>
                       <th>classId</th>
+
                     </tr>
                   </thead>
 
@@ -119,7 +121,9 @@ const User = () => {
                         }
                       >
                         <td>{child.name}</td>
+                        <td>{child.lastName}</td>
                         <td>{child.classId}</td>
+
                       </tr>
                       //<div className="col-md-12"><label className="labels">dzieci: </label>  <label className="labels">{child.name}</label></div>
                     ))}
