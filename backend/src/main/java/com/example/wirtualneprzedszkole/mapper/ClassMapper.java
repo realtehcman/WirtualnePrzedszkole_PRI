@@ -1,13 +1,14 @@
 package com.example.wirtualneprzedszkole.mapper;
 
 
-import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.Class;
-import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.model.dto.ClassDto;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.Collections.emptyList;
 
 public class ClassMapper {
     private ClassMapper(){}
@@ -35,9 +36,9 @@ public class ClassMapper {
                 .id(aClass.getId())
                 .name(aClass.getName())
                 .description(aClass.getDescription())
-                .children(ChildMapper.mapToDto(aClass.getChildren()))
+                .children(ChildMapper.mapToDto(Optional.ofNullable(aClass.getChildren()).orElse(emptyList())))
 //                .parents(UserMapper.mapToDto(child.getParents()))
-                .teachers(UserMapper.mapToDto(aClass.getTeachers()))
+                .teachers(UserMapper.mapToDto(Optional.ofNullable(aClass.getTeachers()).orElse(emptyList())))
                 .build();
     }
 
