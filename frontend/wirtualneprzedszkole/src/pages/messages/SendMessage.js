@@ -164,7 +164,7 @@ class SendMessage extends Component {
                     <div className="popup">
                         <div className="popup-inner">
                             Wiadomość została wysłana
-                            <button className="close" onClick={this.closePopup}>X</button>
+                            <div className="close">    <button className="btn-close" onClick={this.closePopup}></button></div>
                         </div>
                     </div>
                 }
@@ -172,7 +172,7 @@ class SendMessage extends Component {
                     <div className="popup">
                         <div className="popup-inner">
                             Wystąpił błąd. Spróbuj ponownie
-                            <button className="close" onClick={this.closePopup}>X</button>
+                            <div className="close">  <button className="btn-close" onClick={this.closePopup}></button></div>
                         </div>
                     </div>
                 }
