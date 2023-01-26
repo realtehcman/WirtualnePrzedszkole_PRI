@@ -31,7 +31,8 @@ class CreateUser extends Component {
         children: [],
         classes: [],
         className: "",
-        display: 1
+        display: 1,
+        isClose: false
       };
     
       this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -180,35 +181,22 @@ class CreateUser extends Component {
       ChildrenService.addChild(child).then((response) => {
         console.log(response)
         this.state.children.push(response.data)
+        let childrenHelper = this.state.children
+        let i = childrenHelper.length * 2
         this.state.users.forEach((parent) => {
-          this.state.children.forEach((child) => {
-            UserService.addChildToUser(parent.id, child).then((response) => {
+          childrenHelper.forEach((child_) => {
+            UserService.addChildToUser(parent.id, child_).then((response) => {
               console.log(response)
               if (response.status !== 200) throw new Error(response.status);
-              else {
-                window.open("users","_self");
-              }
             })
+            i--
           })
         })
+        i--
+        if (i === -1)
+          setTimeout(() => {window.open("users","_self");}, 3000);
       })
-
-      console.log(this.state.users)
-
-      /* this.state.users.forEach((parent) => {
-        this.state.children.forEach((child) => {
-          UserService.addChildToUser(parent.id, child).then((response) => {
-            console.log(response)
-          })
-        })
-      }) */
-
     }
-      /* UserService.addUser(user).then((response) => {
-        if (response.data != null) {
-          this.setState(this.state);
-        }
-      }); */
     };
 
     changeNameHandler = (event) => {
@@ -341,10 +329,10 @@ class CreateUser extends Component {
                       <button className="button" name="save-user">Zapisz</button>
                     </div>
                     <div className="next-parent-class">
-                      <button className="button" name="next-parent">Dodaj następnego opiekuna</button>
+                      <button className="button" name="next-parent">Zapisz i dodaj następnego opiekuna</button>
                     </div>
                     <div className="add-child-class">
-                      <button className="button" name="add-child">Dodaj dziecko</button>
+                      <button className="button" name="add-child">Zapisz i dodaj dziecko</button>
                     </div>
                   </form>
                 </div>
@@ -505,7 +493,7 @@ class CreateUser extends Component {
                     <button className="button" name="save-with-child">Zapisz</button>
                   </div>
                   <div className="next-child-class">
-                    <button className="button" name="next-child">Dodaj następne dziecko</button>
+                    <button className="button" name="next-child">Zapisz i dodaj następne dziecko</button>
                   </div>
                 </form>
               </div>
