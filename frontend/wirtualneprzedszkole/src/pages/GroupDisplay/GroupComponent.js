@@ -8,7 +8,7 @@ const Navi = (props) => {
   const navigate = useNavigate();
   return (
     <button
-      onClick={() => navigate("/group/" + props.value, { replace: true })}
+      onClick={() => navigate("/group/" + props.value)}
       className="btn btn-info"
     >
       Zobacz

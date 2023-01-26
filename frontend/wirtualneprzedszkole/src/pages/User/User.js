@@ -115,7 +115,7 @@ const User = () => {
                       <tr
                         key={child.id}
                         onClick={() =>
-                          navigate("/child/" + child.id/* , { replace: true } */)
+                          navigate("/child/" + child.id)
                         }
                       >
                         <td>{child.name}</td>
@@ -128,7 +128,7 @@ const User = () => {
                 <div className="mt-5 text-center">
                   <button
                     onClick={() =>
-                      navigate("/user/" + user.id + "/child"/* , { replace: true } */)
+                      navigate("/user/" + user.id + "/child")
                     }
                     className="btn btn-primary profile-button"
                     type="button"

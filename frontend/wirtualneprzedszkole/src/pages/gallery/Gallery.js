@@ -11,7 +11,7 @@ const Navi2 = (props) => {
     const navigate = useNavigate();
     return (
         <button
-            onClick={() => navigate("/home/" + props.value/* , { replace: true } */)}
+            onClick={() => navigate("/home/" + props.value)}
             className="btn btn-info"
         >
             Dodaj zdjęcia
@@ -24,7 +24,7 @@ const Navi = (props) => {
     const navigate = useNavigate();
     return (
         <button
-            onClick={() => navigate("/ViewGallery/" + props.value, { replace: true })}
+            onClick={() => navigate("/ViewGallery/" + props.value)}
             className="btn btn-info"
         >
             Wyświetl
