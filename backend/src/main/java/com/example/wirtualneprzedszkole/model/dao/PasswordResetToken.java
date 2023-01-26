@@ -1,8 +1,6 @@
 package com.example.wirtualneprzedszkole.model.dao;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 public class PasswordResetToken {
 
     @Id

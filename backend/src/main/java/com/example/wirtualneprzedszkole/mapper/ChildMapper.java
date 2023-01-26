@@ -4,7 +4,9 @@ package com.example.wirtualneprzedszkole.mapper;
 import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ChildMapper {
@@ -55,6 +57,7 @@ public class ChildMapper {
                 .classId(childDto.getClassId())
                 .name(childDto.getName())
                 .lastName(childDto.getLastName())
+                .parents(Optional.of(childDto.getParents()).orElse(Collections.emptyList()).stream().map(UserMapper::mapToDao).collect(Collectors.toList()))
                 .build();
     }
 }

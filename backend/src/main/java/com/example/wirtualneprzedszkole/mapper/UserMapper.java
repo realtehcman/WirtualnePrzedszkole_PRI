@@ -10,11 +10,6 @@ public class UserMapper {
 
     private UserMapper(){}
 
-    public static List<UserDto> mapToUserDto(List<User> users) {
-        return users.stream()
-                .map(UserMapper::mapToUserDto)
-                .collect(Collectors.toList());
-    }
 
     public static List<UserDto> mapToDto(List<User> users) {
         return users.stream()

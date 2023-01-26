@@ -2,7 +2,6 @@ package com.example.wirtualneprzedszkole.mapper;
 
 import com.example.wirtualneprzedszkole.model.dao.Folder;
 import com.example.wirtualneprzedszkole.model.dto.FolderDto;
-import com.example.wirtualneprzedszkole.model.dto.UserDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

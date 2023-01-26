@@ -1,7 +1,9 @@
 package com.example.wirtualneprzedszkole.config;
 
-import org.passay.*;
-import org.springframework.context.annotation.Bean;
+import org.passay.CharacterData;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 import org.springframework.stereotype.Component;
 
 @Component

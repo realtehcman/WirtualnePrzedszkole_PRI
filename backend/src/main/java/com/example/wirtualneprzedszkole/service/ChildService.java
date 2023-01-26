@@ -1,8 +1,6 @@
 package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.model.dao.Child;
-import com.example.wirtualneprzedszkole.model.dao.Class;
-import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.repository.ChildRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

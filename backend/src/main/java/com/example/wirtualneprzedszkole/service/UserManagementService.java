@@ -7,7 +7,6 @@ import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.User;
-import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -69,23 +70,29 @@ public class UserManagementService {
     public User addChildToUser(Long userId, Long childId) {
         User userEdited = userRepo.findById(userId).orElseThrow();
         Child child = childService.getChild(childId);
-        if (child.getParents().contains(userEdited)) {
+        //avoiding null pointer exception. if null, return the empty list
+        if (Optional.ofNullable(child.getParents()).orElse(Collections.emptyList()).contains(userEdited)) {
             throw new UserAlreadyExistException("Ten rodzic jest już przipsany do tego dziecka");
-        }/* else if (child.getParents().size() > 1) {
+        } else if (Optional.ofNullable(child.getParents()).orElse(Collections.emptyList()).size() > 1) {
             throw new TooManyUsersAssignedException("Już przipsano dwa rodzica do tego dziecka");
-        }*/
-        userEdited.getChildren().add(child);
+        }
+        List<Child> childList = new java.util.ArrayList<>(Optional.ofNullable(userEdited.getChildren()).orElse(Collections.emptyList()));
+        childList.add(child);
+        userEdited.setChildren(childList);
         return userEdited;
     }
+
 
     @Transactional
     public User addClassToTeacher(Long userId, Long classId) {
         User userEdited = userRepo.findById(userId).orElseThrow();
         Class aClass = classService.getClass(classId);
-        if (aClass.getTeachers().contains(userEdited)) {
+        if (Optional.ofNullable(aClass.getTeachers()).orElse(Collections.emptyList()).contains(userEdited)) {
             throw new UserAlreadyExistException("Ten nauczyciel jest już przypisany do tej klasy");
         }
-        userEdited.getClasses().add(aClass);
+        List<Class> classes = new java.util.ArrayList<>(Optional.ofNullable(userEdited.getClasses()).orElse(Collections.emptyList()));
+        classes.add(aClass);
+        userEdited.setClasses(classes);
         return userEdited;
     }
 

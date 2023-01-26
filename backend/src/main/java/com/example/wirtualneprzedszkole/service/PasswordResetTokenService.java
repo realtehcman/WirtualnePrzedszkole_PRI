@@ -12,8 +12,8 @@ import java.util.Optional;
 public class PasswordResetTokenService {
     private final PasswordResetTokenRepo passwordResetTokenRepo;
 
-    public void saveToken(PasswordResetToken passwordResetToken) {
-        passwordResetTokenRepo.save(passwordResetToken);
+    public PasswordResetToken saveToken(PasswordResetToken passwordResetToken) {
+        return passwordResetTokenRepo.save(passwordResetToken);
     }
 
     public Optional<PasswordResetToken> getToken(String token) {

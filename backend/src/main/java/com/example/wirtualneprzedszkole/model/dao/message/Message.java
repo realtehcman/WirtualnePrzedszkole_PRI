@@ -1,11 +1,13 @@
 package com.example.wirtualneprzedszkole.model.dao.message;
 
 import com.example.wirtualneprzedszkole.model.dao.User;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+
+;
 
 @Entity
 @Getter
