@@ -14,7 +14,7 @@ const GroupNavi = () => {
             <div className="usersContainer">
                 <Navbar/>
                 <GroupComponent/>
-                <button className="button" onClick={() => navigate('/add-group', { replace: true })}>Dodaj Grupę</button>
+                <button className="button" onClick={() => navigate('/add-group')}>Dodaj Grupę</button>
             </div>
         </div>
     )

@@ -24,6 +24,8 @@ import ViewMessageNavi from './pages/messages/ViewMessageNavi';
 import KnowledgeNavi from './pages/gallery/KnowledgeNavi';
 import ViewGalleryNavi from './pages/gallery/ViewGalleryNavi';
 import AddGalleryNavi from './pages/gallery/AddGalleryNavi';
+import FolderNavi from './pages/Folders/FolderNavi'
+import EditChildNavi from './pages/Children/EditChildNavi';
 
 import React, {useState} from 'react';
 
@@ -35,6 +37,9 @@ import {
   Outlet
 } from "react-router-dom";
 import ChangePassword from './pages/Login/ChangePassword';
+import AddFolderNavi from './pages/Folders/AddFolderNavi';
+import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
+import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
 
 
 
@@ -139,6 +144,21 @@ function App() {
           </Route>
           <Route path='/Galeria' element={<PrivateOutlet />}>
             <Route index element={<GaleriaNavi/>}></Route>
+          </Route>
+          <Route path='/Folder/:folderName/:id' element={<PrivateOutlet />}>
+            <Route index element={<FolderNavi/>}></Route>
+          </Route>
+          <Route path='/addFolder' element={<PrivateOutlet />}>
+            <Route index element={<AddFolderNavi/>}></Route>
+          </Route>
+          <Route path='/folderOther/:folderId' element={<PrivateOutlet />}>
+            <Route index element={<FolderOtherNavi/>}></Route>
+          </Route>
+          <Route path='/Assign-teacher/:id' element={<PrivateOutlet />}>
+            <Route index element={<AssignTeacherNavi/>}></Route>
+          </Route>
+          <Route path="/EditChild/:id" element={<PrivateOutlet />}>
+            <Route index element={<EditChildNavi />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -2,20 +2,24 @@ import React from "react";
 import "../User/Users.scss";
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar";
-import Child from "./Child";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Folders from "./Folders"
 
-const ChildNavi = () => {
+
+const FolderNavi = () => {
   const navigate = useNavigate();
+
+  let folderId = useParams() 
+  
   return (
-    <div className="users">
+    <div className="users gallery">
       <Sidebar />
       <div className="usersContainer">
         <Navbar />
-        <Child />
+        <Folders value={folderId}/>
       </div>
     </div>
   );
 };
 
-export default ChildNavi;
+export default FolderNavi;

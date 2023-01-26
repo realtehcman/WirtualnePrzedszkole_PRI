@@ -85,6 +85,8 @@ const Current_User = () => {
                         <EditCurrent_User  {...current_user}/>
 
                     </Popup></div>
+
+
                     <div className="fixt">
                         <div className="col-md-12">
                             <h1>Dzieci: </h1>

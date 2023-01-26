@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 const Navi = (props) => {
   const navigate = useNavigate();
   return (
-      <button
-          onClick={() => navigate("/user/" + props.value, { replace: true })}
-          className="btn btn-info"
-      >
-        Zobacz
-      </button>
+    <button
+      onClick={() => navigate("/user/" + props.value)}
+      className="btn btn-info"
+    >
+      Zobacz
+    </button>
   );
 };
 

@@ -40,13 +40,21 @@ const UserChild = () => {
   const putUser = async (id, child) => {
     console.log(id);
     console.log(child);
-    UserService.addChildToUser(id, child);
+    UserService.addChildToUser(id, child).then((response) => {
+      if (response.status !== 200) throw new Error(response.status);
+      else {
+        navigate("/user/" + id);
+      }
+    });
   };
 
-  const onClick = (id, child) => {
-    putUser(id, child);
-    navigate("/user/" + id, { replace: true });
-  };
+  /* const onClick = (id, child) => {
+    const response = putUser(id, child)
+    if (response.status !== 200) throw new Error(response.status);
+    else {
+      navigate("/user/" + id, { replace: true });
+    }
+  }; */
 
   return (
     <div>
@@ -59,26 +67,26 @@ const UserChild = () => {
           </tr>
         </thead>
         <tbody className="body">
-          {children.map((child) => {
-            if (child.parents.length < 2) {
-              return (
+          {children.map((child) => (
+            /* if (child.parents.length < 2) {
+              return ( */
                 <tr key={child.id}>
                   <td>{child.name}</td>
                   <td>{child.lastName}</td>
                   <td>
                     <button
-                      onClick={() => onClick(id, child)}
+                      onClick={() => putUser(id, child)}
                       className="btn btn-danger"
                     >
                       Przypisz Dziecko
                     </button>
                   </td>
                 </tr>
-              );
+            /*   );
             } else {
               return null;
-            }
-          })}
+            } */
+          ))}
         </tbody>
       </table>
     </div>

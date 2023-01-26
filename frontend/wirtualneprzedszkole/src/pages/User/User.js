@@ -34,7 +34,7 @@ const User = () => {
       console.log("Response from main API: ", response);
       let userData = response.data;
       let children = userData.children.map((it) => {
-        return { id: it.id, name: it.name, classId: it.classId };
+        return { id: it.id, name: it.name, lastName: it.lastName, classId: it.classId };
       });
       setUser({
         id: userData.id,
@@ -106,7 +106,9 @@ const User = () => {
                   <thead>
                     <tr>
                       <th>Imię</th>
+                      <th>nazwisko</th>
                       <th>classId</th>
+
                     </tr>
                   </thead>
 
@@ -115,11 +117,13 @@ const User = () => {
                       <tr
                         key={child.id}
                         onClick={() =>
-                          navigate("/child/" + child.id, { replace: true })
+                          navigate("/child/" + child.id)
                         }
                       >
                         <td>{child.name}</td>
+                        <td>{child.lastName}</td>
                         <td>{child.classId}</td>
+
                       </tr>
                       //<div className="col-md-12"><label className="labels">dzieci: </label>  <label className="labels">{child.name}</label></div>
                     ))}
@@ -128,7 +132,7 @@ const User = () => {
                 <div className="mt-5 text-center">
                   <button
                     onClick={() =>
-                      navigate("/user/" + user.id + "/child", { replace: true })
+                      navigate("/user/" + user.id + "/child")
                     }
                     className="btn btn-primary profile-button"
                     type="button"
