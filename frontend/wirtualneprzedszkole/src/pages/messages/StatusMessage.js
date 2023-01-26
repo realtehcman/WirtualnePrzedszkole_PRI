@@ -3,7 +3,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import messageService from "./MessageService";
 import "../User/Table.scss";
-import SentMessageService from "./SentMessageService";
 
 const StatusMsg = () => {
     const [message, setMessage] = useState({
@@ -16,14 +15,7 @@ const StatusMsg = () => {
             { isRead: ""}
         ]
     });
-
-    // const message = [
-    //     { isRead: 'title1', aaa: true  },
-    //     { isRead: 'title2', aaa: false }
-    // ]
-
     let { id } = useParams();
-
     useEffect(() => {
         getData();
     }, []);
@@ -36,7 +28,7 @@ const StatusMsg = () => {
             setMessage({
                 id: msgData.id,
                 author: msgData.author,
-               subject: msgData.subject,
+                subject: msgData.subject,
                 content: msgData.content,
                 to: msgData.to,
 
@@ -58,11 +50,11 @@ const StatusMsg = () => {
                 </thead>
                 <tbody>
                 {message.to.map((aaa) => (
-                    <tr key={aaa.name}>
+                    <tr key={aaa.name} style={aaa.isRead ? {backgroundColor:'#90ee90 '} : {backgroundColor:'#FF6666'}}>
                         <td>{aaa.name}</td>
                         <td>{aaa.lastName}</td>
                         <td>{aaa.email}</td>
-                        <td >{String (aaa.isRead)}</td>
+                        <td>{aaa.isRead ? "wyświetlone" : "nie wyświetlone"}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -71,6 +63,5 @@ const StatusMsg = () => {
 
 
     );
-
 }
-export default StatusMsg
+export default StatusMsg;

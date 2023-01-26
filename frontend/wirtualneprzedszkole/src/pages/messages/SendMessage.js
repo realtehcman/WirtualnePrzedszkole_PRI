@@ -1,15 +1,10 @@
-import Sidebar from "../../components/sidebar/sidebar";
-import Navbar from "../../components/navbar/navbar";
-import MessageService from "./MessageService";
-import Popup from "../GroupDisplay/Popup";
 import "../GroupDisplay/Popup.css"
 import "../User/Table.scss";
-import UserService from "../User/UserService";
 import SendMessageService from "./SendMessageService";
 import React, { Component } from "react";
-import GroupService from "../GroupDisplay/GroupService";
 import "../CreateUser/CreateUser.scss";
-import { Link } from "react-router-dom";
+import UserService from "../User/UserService";
+
 
 
 class SendMessage extends Component {
@@ -20,32 +15,73 @@ class SendMessage extends Component {
             to: "",
             subject: "",
             content: "",
-
+            messageSent: false,
+            error: false,
+            users: [
+                {
+                    name: "",
+                    id: "",
+                },
+            ],
+            selectedUsers: [],
+            filteredUsers: []
         };
+
+
+        this.closePopup = this.closePopup.bind(this);
         this.changeNameHandler = this.changeNameHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.GetRecieverHandler = this.GetRecieverHandler.bind(this);
         this.saveMessage = this.saveMessage.bind(this);
         this.saveMessage2 = this.saveMessage2.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleSubmit2 = this.handleSubmit2.bind(this);
+    }
+
+
+// componentDidMount() {
+// // fetch list of users from your server and set it in the state
+// SendMessageService.fetchUsers().then(users => {
+// this.setState({ users });
+// });
+// }
+
+    componentDidMount() {
+        UserService.getUsers().then((response) => {
+            this.setState({ users: response.data });
+            this.loger();
+        });
+    }
+
+
+    GetRecieverHandler = (event) => {
+        this.setState({ to: event.target.value });
+    };
+
+
+
+
+    closePopup() {
+        this.setState({ messageSent: false, error: false });
     }
 
     saveMessage = (e) => {
         e.preventDefault();
+        const to = this.state.to.split(',').map(item => item.trim());
         let message = JSON.stringify({
-            to: [this.state.to],
+            to: to,
             subject: this.state.subject,
             content: this.state.content,
-
         });
 
         SendMessageService.SendMessage(message).then((response) => {
             if (response.data != null) {
-                this.setState(this.state);
+                this.setState({ messageSent: true });
+            }else {
+                this.setState({ error: true });
             }
         });
     };
+
+
 
     changeNameHandler = (event) => {
         this.setState({subject: event.target.value});
@@ -54,9 +90,7 @@ class SendMessage extends Component {
     changeDescriptionHandler = (event) => {
         this.setState({content: event.target.value});
     };
-    GetRecieverHandler = (event) => {
-        this.setState({ to: event.target.value });
-    };
+
 
     saveMessage2 = (e) => {
         e.preventDefault();
@@ -71,43 +105,49 @@ class SendMessage extends Component {
             }
         });
     };
-    handleSubmit(e) {
-        alert('Wiadomość została wysłana : ' + '\n' + " Do : " + this.state.to + '\n' + " Temat : " + this.state.subject);
-        e.preventDefault();
-    }
-    handleSubmit2(e) {
-        alert('Wiadomość została wysłana do wszystkich rodziców ' + '\n' + " Temat : " + this.state.subject);
-        e.preventDefault();
-    }
+
 
     render() {
+
+        const { to, users } = this.state;
+        const filteredUsers = to.indexOf(" ") === -1 ? users.filter(user => user.name.startsWith(to)) : users.filter(user => `${user.name} ${user.lastName}`.startsWith(to));
         return (
             <div className="container mt-5">
                 <h2 className="mb-3">Utwórz wiadomość</h2>
                 <form onSubmit={(e) =>{
                     this.saveMessage(e);
-                    this.handleSubmit(e);
+
                 } }>
                     <div className="mb-3">
                         <label className="form-label" htmlFor="name">
                             Do :
                         </label>
 
-                        <input className="form-control" type="PrettyPrintJson" id="name" required value={this.state.to}
-                               onChange={this.GetRecieverHandler} />
+                        <input className="form-control" type="PrettyPrintJson" autoComplete="off"  id="name" value={to} onChange={this.GetRecieverHandler} />
+                        {to.length > 0 && filteredUsers.length > 0 && (
+                            <div className="autocomplete-options">
+                                {filteredUsers.map(user => (
+                                    <div key={user.id} onClick={() => this.setState({ to: user.name + ' ' + user.lastName })}>
+                                        {user.name + ' ' + user.lastName}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+
                     </div>
                     <div className="mb-3">
                         <label className="form-label" htmlFor="email">
                             Temat
                         </label>
-                        <input className="form-control" type="PrettyPrintJson" id="" required value={this.state.subject}
+                        <input className="form-control" type="PrettyPrintJson" id="" value={this.state.subject}
                                onChange={this.changeNameHandler} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label" >
                             Treść
                         </label>
-                        <textarea className="form-control" type="PrettyPrintJson" required value={this.state.content}
+                        <textarea className="form-control" type="PrettyPrintJson" value={this.state.content}
                                   onChange={this.changeDescriptionHandler} />
                     </div>
                     <div className="form-but">
@@ -115,13 +155,27 @@ class SendMessage extends Component {
                         <button className="button">Wyślij</button>
                         <button className="button" onClick={(e) =>{
                             this.saveMessage2(e);
-                            this.handleSubmit2(e);
                         } }>Wyślij do wszystkich rodziców</button>
                     </div>
 
                 </form>
 
-
+                {this.state.messageSent &&
+                    <div className="popup">
+                        <div className="popup-inner">
+                            Wiadomość została wysłana
+                            <div className="close">    <button className="btn-close" onClick={this.closePopup}></button></div>
+                        </div>
+                    </div>
+                }
+                {this.state.error &&
+                    <div className="popup">
+                        <div className="popup-inner">
+                            Wystąpił błąd. Spróbuj ponownie
+                            <div className="close">  <button className="btn-close" onClick={this.closePopup}></button></div>
+                        </div>
+                    </div>
+                }
             </div>
         );
     }
