@@ -119,7 +119,7 @@ const FolderOther = (props) => {
                             <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
                             <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>
-                            <td><button className="btndown" onClick={() => printFiles(file)}><DownloadForOfflineIcon></DownloadForOfflineIcon></button></td>
+                            <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>Pobierz</button></td>
                             <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>
                         {/* {renderPageLink()} */}
                         </tr>

@@ -18,7 +18,7 @@ const ChildrenNavi = () => {
         </div>
         <button
           className="button"
-          onClick={() => navigate("/add-child", { replace: true })}
+          onClick={() => navigate("/add-child")}
         >
           Dodaj Dziecko
         </button>
