@@ -12,7 +12,7 @@ import static org.mockito.Mockito.*;
 class PasswordConstraintValidatorTest {
 
     @Test
-    public void testValidPassword() {
+    public void testValidPasswordUnitTest() {
         PasswordConstraintValidator validator = new PasswordConstraintValidator();
         ConstraintValidatorContext context = mock(ConstraintValidatorContext.class);
         when(context.buildConstraintViolationWithTemplate(anyString()))

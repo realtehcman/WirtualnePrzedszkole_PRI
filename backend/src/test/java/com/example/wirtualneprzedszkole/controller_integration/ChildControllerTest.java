@@ -1,4 +1,4 @@
-package com.example.wirtualneprzedszkole.controller;
+package com.example.wirtualneprzedszkole.controller_integration;
 
 import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 import com.example.wirtualneprzedszkole.model.dao.Child;
@@ -93,7 +93,7 @@ class ChildControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void addChild_ShouldReturnBadRequest_WhenChildDtoIsInvalid() throws Exception {
+    void addChild_ShouldReturnBadRequest_WhenChildDtoIsInvalid_Acceptance_Test() throws Exception {
         ChildDto childDto = ChildDto.builder().name("").lastName("").classId(1L).parents(null).build();
         String childDtoJson = objectMapper.writeValueAsString(childDto);
 

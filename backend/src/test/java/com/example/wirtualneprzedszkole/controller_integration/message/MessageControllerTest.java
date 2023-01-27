@@ -1,4 +1,4 @@
-package com.example.wirtualneprzedszkole.controller.message;
+package com.example.wirtualneprzedszkole.controller_integration.message;
 
 import com.example.wirtualneprzedszkole.mapper.message.MessageMapper;
 import com.example.wirtualneprzedszkole.model.UserRole;

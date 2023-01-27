@@ -1,4 +1,4 @@
-package com.example.wirtualneprzedszkole.controller;
+package com.example.wirtualneprzedszkole.controller_integration;
 
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dto.RestartPasswordDto;

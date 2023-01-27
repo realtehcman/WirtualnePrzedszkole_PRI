@@ -1,4 +1,4 @@
-package com.example.wirtualneprzedszkole.controller;
+package com.example.wirtualneprzedszkole.controller_integration;
 
 import com.example.wirtualneprzedszkole.model.dto.LoginDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
