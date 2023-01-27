@@ -57,7 +57,7 @@ public class ChildMapper {
                 .classId(childDto.getClassId())
                 .name(childDto.getName())
                 .lastName(childDto.getLastName())
-                .parents(Optional.of(childDto.getParents()).orElse(Collections.emptyList()).stream().map(UserMapper::mapToDao).collect(Collectors.toList()))
+                .parents(Optional.ofNullable(childDto.getParents()).orElse(Collections.emptyList()).stream().map(UserMapper::mapToDao).collect(Collectors.toList()))
                 .build();
     }
 }
