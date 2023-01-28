@@ -73,9 +73,9 @@ public class UserManagementService {
         //avoiding null pointer exception. if null, return the empty list
         if (Optional.ofNullable(child.getParents()).orElse(Collections.emptyList()).contains(userEdited)) {
             throw new UserAlreadyExistException("Ten rodzic jest już przipsany do tego dziecka");
-        } else if (Optional.ofNullable(child.getParents()).orElse(Collections.emptyList()).size() > 1) {
+        } /*else if (Optional.ofNullable(child.getParents()).orElse(Collections.emptyList()).size() > 1) {
             throw new TooManyUsersAssignedException("Już przipsano dwa rodzica do tego dziecka");
-        }
+        }*/
         List<Child> childList = new java.util.ArrayList<>(Optional.ofNullable(userEdited.getChildren()).orElse(Collections.emptyList()));
         childList.add(child);
         userEdited.setChildren(childList);
