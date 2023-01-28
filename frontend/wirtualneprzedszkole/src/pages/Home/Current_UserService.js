@@ -10,8 +10,8 @@ class Current_UserService {
         return axios.get(Current_UserService_REST_API_URL)
     }
 
-    EditCurrent_User(current_user) {
-        return axios.put(Current_UserService_REST_API_URL, current_user)
+    EditCurrent_User(user) {
+        return axios.put(Current_UserService_REST_API_URL, user)
     }
     getCurrent_user(id) {
         return axios.get(Current_UserService_REST_API_URL + '/' + id)

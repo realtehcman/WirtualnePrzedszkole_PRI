@@ -1,6 +1,7 @@
 import "./AssignTeacher.scss"
 import UserService from "../User/UserService"
 import React, { useEffect, useState } from 'react'
+import {useParams, useNavigate} from "react-router-dom";
 
 const AssignTeacher = (props) => {
 
@@ -23,11 +24,12 @@ const AssignTeacher = (props) => {
         })
     }
 
-
+    const navigate = useNavigate();
     const assignToClass = async(teacher) => {
         console.log(teacher)
         UserService.assignTeacherToClass(id, teacher).then((response) => {
             console.log(response.data)
+            navigate(`/group/${id}`);
         })
     }
     //console.log(id)
@@ -56,6 +58,7 @@ const AssignTeacher = (props) => {
                     >
                       Przypisz
                     </button>
+
                   </td>
                 </tr>
               ))}
