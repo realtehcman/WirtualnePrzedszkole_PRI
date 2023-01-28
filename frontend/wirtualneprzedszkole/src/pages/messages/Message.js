@@ -67,27 +67,31 @@ class Message extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.received_messages.map((received_messages) => (
-              <tr key={received_messages.id}>
-                <td>{received_messages.id}</td>
-                <td id="td--message">{received_messages.author}</td>
-                <td id="td--message">{received_messages.subject}</td>
-                <td id="td--message">
-                  {" "}
-                  <Navi value={received_messages.id} />
-                </td>
-                <td className="foobar">
-                  <button
-                    onClick={() =>
-                      this.deleteReceivedMessages(received_messages.id)
-                    }
-                    className="btn btn-danger"
-                  >
-                    Usuń
-                  </button>
-                </td>
-              </tr>
-            ))}
+          {
+            this.state.received_messages
+                .sort((a, b) => b.id - a.id)
+                .map((received_messages) => (
+                    <tr key={received_messages.id}>
+                      <td>{received_messages.id}</td>
+                      <td id="td--message">{received_messages.author}</td>
+                      <td id="td--message">{received_messages.subject}</td>
+                      <td id="td--message">
+                        {" "}
+                        <Navi value={received_messages.id} />
+                      </td>
+                      <td className="foobar">
+                        <button
+                            onClick={() =>
+                                this.deleteReceivedMessages(received_messages.id)
+                            }
+                            className="btn btn-danger"
+                        >
+                          Usuń
+                        </button>
+                      </td>
+                    </tr>
+                ))
+          }
           </tbody>
         </table>
       </div>

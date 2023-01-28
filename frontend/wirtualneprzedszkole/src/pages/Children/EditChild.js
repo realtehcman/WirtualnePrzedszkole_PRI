@@ -1,25 +1,22 @@
+import React, { useEffect, useState }from 'react'
 import ChildrenService from "./ChildrenService";
 import {useParams, useNavigate} from "react-router-dom";
-import React, { useEffect, useState }from 'react'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditChild = () => {
     const [child, setChild] = useState({
-        id:'',
         name:'',
         lastName: '',
-        classId: ''
+        classId: []
     });
-
     const [childEdit, setChildEdit] = useState({
-        id:'',
         name:'',
         lastName: '',
-        classId: ''
+        classId: []
     });
-
+    const navigate = useNavigate();
     let {id} = useParams()
-
     useEffect(() => {
         getData()
     },[])
@@ -31,35 +28,61 @@ const EditChild = () => {
             let childData = response.data;
             setChild({id: childData.id, name: childData.name, lastName: childData.lastName, classId: childData.classId
             })
+            setChildEdit({id: childData.id, name: childData.name, lastName: childData.lastName, classId: childData.classId
+            })
         });
     }
 
-    const updateData = (e) => {
+    const updateData = async (e) => {
         e.preventDefault()
         childEdit.id = child.id
         if (childEdit.name === "") childEdit.name = child.name
         if (childEdit.lastName === "") childEdit.lastName = child.lastName
         if (childEdit.classId === "") childEdit.classId = child.classId
 
-        console.log(childEdit)
         ChildrenService.editChild(childEdit)
+            .then(response => {
+                if(response.status === 200){
+                    toast.success("Dane zostały poprawnie zedytowane", {
+                        position: toast.POSITION.TOP_CENTER
+                    });
+                    setChildEdit({
+                        name:'',
+                        lastName: '',
+                        classId: ''
+                    });
+
+                    // Timer wywal jak Ci się uda zrobic żeby się zedytowane dane wyswietlaly
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1800);
+                }
+            })
+            .catch(error => {
+                toast.error("Wystąpił błąd podczas edycji", {
+                    position: toast.POSITION.TOP_CENTER
+                });
+            });
     }
 
 
+
+
     return (
-        <div>
+        <div className="form">
+            <ToastContainer position="top-center" />
             <form>
                 <label>Imię:</label><br></br>
                 <input placeholder={child.name} onChange={(e) => setChildEdit({...childEdit, name : e.target.value})}/><br></br>
                 <label>Nazwisko:</label><br></br>
-                <input  placeholder={child.lastName} onChange={(e) => setChildEdit({...childEdit, lastName : e.target.value})}/><br></br>
+                <input placeholder={child.lastName}  onChange={(e) => setChildEdit({...childEdit, lastName : e.target.value})}/><br></br>
                 <label>id klasy:</label><br></br>
-                <input  placeholder={child.classId} onChange={(e) => setChildEdit({...childEdit, classId : e.target.value})}/><br></br>
+                <input placeholder={child.classId} onChange={(e) => setChildEdit({...childEdit, classId : e.target.value})}/><br></br>
                 <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
-
             </form>
         </div>
-    )
+    );
 }
 
-export default EditChild
+export default EditChild;

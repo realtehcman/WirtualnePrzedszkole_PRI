@@ -8,6 +8,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import current_UserService from "./Current_UserService";
 import EditCurrent_User from "./EditCurrent_User";
 import "../User/UserInfo.scss";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Current_User = () => {
     const navigate = useNavigate();
@@ -57,8 +59,9 @@ const Current_User = () => {
 
                 <Navbar/>
                 <div className="a">
+                    <ToastContainer />
 
-                    <h1>Dane użytkownika:</h1>
+                    <h1>Dane użytkownika: </h1>
 
                     <div className="img-container">
                         <img src={current_user.profilePicture} alt="zdjęcie profilowe" className="profile-img"/>
@@ -101,8 +104,11 @@ const Current_User = () => {
                                 <tbody>
                                 {current_user.children.map((child) => (
                                     <tr>
-                                        <td>{child.name}</td>
-                                        <td>{child.classId}</td>
+
+                                        <td className="clickable"
+                                            onClick={() => navigate("/child/" + child.id)}>{child.name}</td>
+                                        <td className="clickable"
+                                            onClick={() => navigate("/child/" + child.id)}>{child.classId}</td>
                                     </tr>
                                 ))}
                                 </tbody>
