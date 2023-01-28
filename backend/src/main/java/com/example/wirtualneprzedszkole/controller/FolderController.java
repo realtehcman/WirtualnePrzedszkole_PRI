@@ -1,18 +1,15 @@
 package com.example.wirtualneprzedszkole.controller;
 
 import com.example.wirtualneprzedszkole.mapper.FolderMapper;
-import com.example.wirtualneprzedszkole.model.dao.Folder;
 import com.example.wirtualneprzedszkole.model.dto.FolderDto;
 import com.example.wirtualneprzedszkole.service.FolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor

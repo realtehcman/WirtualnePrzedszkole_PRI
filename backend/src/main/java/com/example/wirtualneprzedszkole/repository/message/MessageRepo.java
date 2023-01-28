@@ -1,8 +1,6 @@
 package com.example.wirtualneprzedszkole.repository.message;
 
-import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
-import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

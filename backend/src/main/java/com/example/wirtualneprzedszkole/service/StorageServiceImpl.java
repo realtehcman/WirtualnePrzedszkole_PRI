@@ -6,7 +6,6 @@ import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.StorageException;
 import com.example.wirtualneprzedszkole.filemanagement.StorageFileNotFoundException;
 import com.example.wirtualneprzedszkole.model.dao.FileData;
-import com.example.wirtualneprzedszkole.model.dao.Folder;
 import com.example.wirtualneprzedszkole.repository.FileDataRepo;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;

@@ -2,13 +2,11 @@ package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.StorageException;
-import com.example.wirtualneprzedszkole.model.dao.FileData;
 import com.example.wirtualneprzedszkole.model.dao.Folder;
-import com.example.wirtualneprzedszkole.repository.FileDataRepo;
 import com.example.wirtualneprzedszkole.repository.FolderRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.File;

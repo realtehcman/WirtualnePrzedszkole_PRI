@@ -5,7 +5,9 @@ import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import com.example.wirtualneprzedszkole.model.dto.message.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class MessageMapper {
@@ -21,7 +23,7 @@ public class MessageMapper {
     }
 
     public static List<UserDto> userMessagesMapToUsersDto(List<UserMessage> userMessageList) {
-        return userMessageList.stream()
+        return Optional.ofNullable(userMessageList).orElse(Collections.emptyList()).stream()
                 .map(MessageMapper::userMessageMapToUserDto)
                 .collect(Collectors.toList());
     }
@@ -47,7 +49,7 @@ public class MessageMapper {
                 .to(userMessagesMapToUsersDto(message.getUserMessageList()))
                 .content(message.getContent())
                 .author(message.getAuthor().getName() + " " + message.getAuthor().getLastName()
-                         + " (" + message.getAuthor().getEmail() + ")")
+                        + " (" + message.getAuthor().getEmail() + ")")
                 .subject(message.getSubject())
                 .build();
     }
@@ -85,7 +87,7 @@ public class MessageMapper {
                 .collect(Collectors.toList());
     }
 
-    private static UserReadMsg userMessageMapToUserReadMsg(UserMessage userMessage) {
+    static UserReadMsg userMessageMapToUserReadMsg(UserMessage userMessage) {
         return UserReadMsg.builder()
                 .name(userMessage.getUser().getName())
                 .lastName(userMessage.getUser().getLastName())

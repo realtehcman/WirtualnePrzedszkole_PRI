@@ -2,12 +2,8 @@ package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.model.dao.FileData;
 import com.example.wirtualneprzedszkole.repository.FileDataRepo;
-import com.example.wirtualneprzedszkole.repository.FolderRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

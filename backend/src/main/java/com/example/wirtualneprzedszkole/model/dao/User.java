@@ -4,14 +4,10 @@ import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
 import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.validation.ValidPassword;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
