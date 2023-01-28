@@ -1,13 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Sidebar from "../../components/sidebar/sidebar";
-import Navbar from "../../components/navbar/navbar";
-import { useEffect, useState } from "react";
-import MessageService from "./MessageService";
-import Popup from "../GroupDisplay/Popup";
 import "../GroupDisplay/Popup.css";
 import "../User/Table.scss";
-import UserService from "../User/UserService";
 import SentMessageService from "./SentMessageService";
 
 const Navi2 = (props) => {
@@ -59,10 +53,12 @@ class SentMessage extends React.Component {
     });
   }
 
+
+
   componentDidMount() {
     SentMessageService.getSentMessages().then((response) => {
-      this.setState({ sent_messages: response.data });
-      this.loger();
+      let sortedData = response.data.sort((a, b) => b.id - a.id);
+      this.setState({ sent_messages: sortedData });
     });
   }
 

@@ -170,3 +170,17 @@
 .content-table tbody td:hover #hiddenText {
   visibility: visible;
 }
+
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.icon-text {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 10px;
+}

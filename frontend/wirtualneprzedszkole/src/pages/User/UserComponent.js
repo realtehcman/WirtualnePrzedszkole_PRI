@@ -2,6 +2,9 @@ import React from "react";
 import UserService from "./UserService";
 import "./Table.scss";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Navi = (props) => {
   const navigate = useNavigate();
@@ -20,10 +23,14 @@ class UserComponent extends React.Component {
     super(props);
     this.state = {
       users: [],
+      searchTerm: "",
     };
     this.deleteUser = this.deleteUser.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
-
+  handleSearch(e) {
+    this.setState({ searchTerm: e.target.value });
+  }
   loger() {
     console.log(this.state);
   }
@@ -37,6 +44,9 @@ class UserComponent extends React.Component {
         this.setState({
           users: this.state.users.filter((user) => user.id !== id),
         });
+        toast.success(userName + ' ' + userlastName + " został usunięty");
+      }).catch(() => {
+        toast.error("Wystąpił błąd podczas usuwania użytkownika");
       });
     }
   }
@@ -49,8 +59,26 @@ class UserComponent extends React.Component {
   }
 
   render() {
+
+    let filteredusers = this.state.users.filter((user) =>
+        user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+        user.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+        (user.email && user.email.toLowerCase().includes(this.state.searchTerm.toLowerCase())) ||
+        (user.name.toLowerCase() + " " + user.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
+    );
+
+
     return (
         <div className="scrollable-div">
+          <ToastContainer />
+          <div className="abc">
+            <input
+                type="text"
+                placeholder="Wyszukaj.."
+                onChange={this.handleSearch}
+            />
+
+          </div>
           <table className="content-table">
             <thead>
             <tr className="table-head">
@@ -62,7 +90,7 @@ class UserComponent extends React.Component {
             </tr>
             </thead>
             <tbody className="body table-body">
-            {this.state.users.map((user) => (
+            {filteredusers.map((user) =>(
                 <tr key={user.id}>
                   <td>{user.id}</td>
                   <td>{user.name}</td>

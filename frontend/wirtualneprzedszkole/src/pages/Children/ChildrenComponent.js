@@ -3,6 +3,9 @@ import ChildrenService from "./ChildrenService";
 import "../User/Table.scss";
 import { useNavigate } from "react-router-dom";
 import UserService from "../User/UserService";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Navi = (props) => {
   const navigate = useNavigate();
@@ -33,8 +36,14 @@ class ChildrenComponent extends React.Component {
     super(props);
     this.state = {
       children: [],
+      searchTerm: "",
     };
     this.deleteChild = this.deleteChild.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+
+  }
+  handleSearch(e) {
+    this.setState({ searchTerm: e.target.value });
   }
 
   loger() {
@@ -50,6 +59,9 @@ class ChildrenComponent extends React.Component {
         this.setState({
           children: this.state.children.filter((child) => child.id !== id),
         });
+        toast.success("Pomyślnie usunięto dziecko " + childName + " " + childlastName);
+      }).catch(() => {
+        toast.error("Wystąpił błąd podczas usuwania dziecka " + childName + " " + childlastName);
       });
     }
   }
@@ -64,8 +76,24 @@ class ChildrenComponent extends React.Component {
   }
 
   render() {
+    let filteredchildren = this.state.children.filter((child) =>
+        child.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+        child.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+        (child.classId && child.classId.toString().includes(this.state.searchTerm.toLowerCase())) ||
+        (child.name.toLowerCase() + " " + child.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
+    );
+
+
     return (
-      <div>
+      <div>  <ToastContainer position="top-center" />
+        <div className="abc">
+          <input
+              type="text"
+              placeholder="Wyszukaj.."
+              onChange={this.handleSearch}
+          />
+
+        </div>
         <table className="content-table">
           <thead>
             <tr className="table-head">
@@ -77,7 +105,7 @@ class ChildrenComponent extends React.Component {
             </tr>
           </thead>
           <tbody className="body">
-            {this.state.children.map((child) => (
+          {filteredchildren.map((child) =>(
               <tr key={child.id}>
                 <td>{child.id}</td>
                 <td>{child.name}</td>

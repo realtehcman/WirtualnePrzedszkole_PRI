@@ -8,8 +8,9 @@ import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import EditFile from "./EditFile";
 import Popup from "../GroupDisplay/Popup";
 import current_UserService from "../Home/Current_UserService";
-
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SortIcon from '@mui/icons-material/Sort';
+import HeightIcon from '@mui/icons-material/Height';
 const Knowledge = () => {
 
     const [filesInfo, setFilesInfo] = useState([
@@ -37,9 +38,23 @@ const Knowledge = () => {
 
     let {id} = useParams()
 
+    const [sortBy, setSortBy] = useState("id");
+
+    const [sortOrder, setSortOrder] = useState("asc");
+
+    const handleSortByName = () => {
+        setSortBy("name");
+        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    }
+
+    const handleSortByDate = () => {
+        setSortBy("dateAdded");
+        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    }
+
     useEffect(() => {
-        getData()
-    },[])
+        getKnowledge();
+    }, [sortBy, sortOrder]);
 
     const getData = async () => {
         current_UserService.getCurrent_User(id).then(response => {
@@ -51,20 +66,35 @@ const Knowledge = () => {
 
     const getKnowledge = async () => {
         FileService.getKnowledge().then((response) => {
-            let responseFiles = response.data
-            responseFiles.sort(function(a, b) {
-                return a.id - b.id;
-            });
+            let responseFiles = response.data;
+            if (sortBy === "name") {
+                responseFiles.sort((a, b) => {
+                    if (sortOrder === "asc") {
+                        return (a.name > b.name) ? 1 : -1;
+                    } else {
+                        return (a.name < b.name) ? 1 : -1;
+                    }
+                });
+            } else if (sortBy === "dateAdded") {
+                responseFiles.sort((a, b) => {
+                    if (sortOrder === "asc") {
+                        return new Date(a.dateAdded) - new Date(b.dateAdded);
+                    } else {
+                        return new Date(b.dateAdded) - new Date(a.dateAdded);
+                    }
+                });
+            } else {
+                responseFiles.sort((a, b) => a.id - b.id);
+            }
             responseFiles.map((file) => {
                 if (file.dateAdded != null)
                     file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
-            })
-            setFilesInfo(responseFiles)
-        }).then({}).catch((reason) => {
+            });
+            setFilesInfo(responseFiles);
+        }).catch((reason) => {
             console.log(`axios request failed: ${reason}`);
-        })
-
-    }
+        });
+    };
 
 
     const printFiles = async (file) => {
@@ -134,7 +164,8 @@ const Knowledge = () => {
     }
 
     const filteredFiles = filesInfo.filter(file =>
-        file.name.toLowerCase().includes(searchTerm.toLowerCase())
+        file.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        file.dateAdded.toString().includes(searchTerm.toLowerCase())
     );
 
 
@@ -151,8 +182,16 @@ const Knowledge = () => {
             <table className="content-table">
                 <thead>
                     <tr className="table-head">
-                        <td>Plik</td>
-                        <td>Data</td>
+                        <td>
+                            <SortIcon className="icon" onClick={handleSortByName}/>
+                            <span className="text">Plik</span>
+                        </td>
+
+                        <td className="icon-text">
+                            <HeightIcon className="icon" onClick={handleSortByDate}/>
+                            <span className="text">Data</span>
+                        </td>
+
                         {current_user.role === "ADMIN" && <td>Opis</td>}
                         <td>Pobierz</td>
                         {current_user.role === "ADMIN" && <td>Usuń</td>}

@@ -1,9 +1,8 @@
-import UserService from "../Home/Current_UserService";
-import {useParams, useNavigate} from "react-router-dom";
 import React, { useEffect, useState }from 'react'
-import Current_User from "../Home/Home";
+import { useNavigate } from 'react-router-dom'
 import Current_UserService from "./Current_UserService";
-
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const EditCurrent_User = (props) => {
     const current_user = {
@@ -14,7 +13,7 @@ const EditCurrent_User = (props) => {
         phoneNumber: props.phoneNumber,
         address: props.address
     };
-
+    const navigate = useNavigate()
     const [userEdit, setUserEdit] = useState({
         id: current_user.id,
         email: current_user.email,
@@ -31,17 +30,30 @@ const EditCurrent_User = (props) => {
         if (userEdit.address === "") userEdit.address = current_user.address
         console.log(userEdit)
         Current_UserService.EditCurrent_User(userEdit)
-    }
+            .then((response) => {
+                if (response.status === 200) {
+                    toast.success("Dane zostały zmienione poprawnie");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1700);
 
+                } else {
+                    toast.error("Wystąpił błąd podczas edycji, upewnij się że dane zostały wprowadzone poprawnie");
+                }
+            })
+            .catch(error => {
+                toast.error("Wystąpił błąd podczas edycji, upewnij się że dane zostały wprowadzone poprawnie");
+            });
+    }
     return (
         <div>
+            <ToastContainer />
             <form>
                 <label>Adres:</label><br></br>
                 <input placeholder={current_user.address} onChange={(e) => setUserEdit({...userEdit, address : e.target.value})}/><br></br>
                 <label>Telefon:</label><br></br>
                 <input placeholder={current_user.phoneNumber} onChange={(e) => setUserEdit({...userEdit,phoneNumber : e.target.value})}/><br></br>
                 <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
-
             </form>
         </div>
     )
