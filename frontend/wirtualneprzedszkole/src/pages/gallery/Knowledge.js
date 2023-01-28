@@ -11,6 +11,9 @@ import current_UserService from "../Home/Current_UserService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SortIcon from '@mui/icons-material/Sort';
 import HeightIcon from '@mui/icons-material/Height';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Knowledge = () => {
 
     const [filesInfo, setFilesInfo] = useState([
@@ -25,9 +28,7 @@ const Knowledge = () => {
 
     const KNOWLEDGE_ID = 0
 
-    useEffect(() => {
-        getKnowledge()
-    },[])
+
 
     const [current_user, setCurrent_User] = useState({
         role: '',
@@ -35,6 +36,18 @@ const Knowledge = () => {
 
     let {isLoggedIn} = current_user.role;
 
+    useEffect(() => {
+        getData()
+    },[])
+
+
+    const getData = async () => {
+        current_UserService.getCurrent_User(id).then(response => {
+            console.log('Response from main API: ',response)
+            let current_userData = response.data;
+            setCurrent_User({id: current_userData.id, role: current_userData.role})
+        });
+    }
 
     let {id} = useParams()
 
@@ -56,13 +69,7 @@ const Knowledge = () => {
         getKnowledge();
     }, [sortBy, sortOrder]);
 
-    const getData = async () => {
-        current_UserService.getCurrent_User(id).then(response => {
-            console.log('Response from main API: ',response)
-            let current_userData = response.data;
-            setCurrent_User({id: current_userData.id, role: current_userData.role})
-        });
-    }
+
 
     const getKnowledge = async () => {
         FileService.getKnowledge().then((response) => {
@@ -110,33 +117,51 @@ const Knowledge = () => {
 
         const files = event.currentTarget;
         for (let i = 0; i < files.length; i++) {
-        formData.append('file', files[i]);
+            formData.append('file', files[i]);
         }
-        FileService.addFiles(KNOWLEDGE_ID, formData).then((response) => {
-            if (response.status !== 200) throw new Error(response.status);
-            else {
+        try {
+            const response = await FileService.addFiles(KNOWLEDGE_ID, formData);
+            if (response.status === 200) {
                 console.log(response.data[0])
                 let responseFiles = response.data
                 responseFiles.map((file) => {
                     if (file.dateAdded != null)
                         file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
                 })
-
                 setFilesInfo(filesInfo => [...filesInfo, ...responseFiles])
+                toast.success("Pliki zostały pomyślnie dodane");
             }
-        })
+        } catch (error) {
+            toast.error("Wystąpił błąd podczas dodawania plików");
+        }
     }
 
     const deleteFile = async (file) => {
-        FileService.deleteFile(KNOWLEDGE_ID, file.hash).then((response) => {
-            setFilesInfo(filesInfo.filter((refreshFile) => file.id !== refreshFile.id))
-        })
+        const confirm = window.confirm("Czy na pewno chcesz usunąć plik: " + file.name);
+        if (confirm) {
+            FileService.deleteFile(KNOWLEDGE_ID, file.hash)
+                .then((response) => {
+                    setFilesInfo(filesInfo.filter((refreshFile) => file.id !== refreshFile.id));
+                    toast.success("Plik " + file.name + " został pomyślnie usunięty!");
+                })
+                .catch(error => {
+                    toast.error("Wystąpił błąd podczas usuwania pliku!");
+                });
+        }
     }
 
     const deleteAllFiles = async () => {
-        FileService.deleteAllFiles(KNOWLEDGE_ID).then((response) => {
-            setFilesInfo([])
-        })
+        const confirm = window.confirm("Czy na pewno chcesz usunąć wszystkie pliki?");
+        if (confirm) {
+            FileService.deleteAllFiles(KNOWLEDGE_ID)
+                .then((response) => {
+                    setFilesInfo([]);
+                    toast.success("Pliki zostały pomyślnie usunięte!");
+                })
+                .catch(error => {
+                    toast.error("Wystąpił błąd podczas usuwania plików!");
+                });
+        }
     }
 
     const checkDataIsNull = (fileDate) => {
@@ -171,7 +196,7 @@ const Knowledge = () => {
 
     return (
         <div className="scrollable-div">
-
+            <ToastContainer />
             <div className="abc">
                 <form>
                     <input type="text" placeholder="szukaj plików po nazwie" onChange={handleSearch} />
