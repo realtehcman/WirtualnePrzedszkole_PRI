@@ -8,7 +8,7 @@ import {useParams} from "react-router-dom";
 const SendMessageNavi = () => {
     let {id} = useParams()
     return (
-        <div className="users">
+        <div data-testid="send-message-navi" className="users">
             <Sidebar/>
             <div className="usersContainer">
                 <Navbar/>

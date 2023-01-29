@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import GroupService from "../GroupDisplay/GroupService";
 import "../CreateUser/CreateUser.scss";
 import { Link } from "react-router-dom";
-import { MDBInput } from 'mdb-react-ui-kit';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 class CreateGroup extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ class CreateGroup extends Component {
     this.changeNameHandler = this.changeNameHandler.bind(this);
     this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
     this.saveGroup = this.saveGroup.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   saveGroup = (e) => {
@@ -22,17 +24,26 @@ class CreateGroup extends Component {
     let group = JSON.stringify({
       name: this.state.name,
       description: this.state.description,
-
-    }
-
-    );
-    //user = JSON.stringify(user)
-
-    GroupService.addGroup(group).then((response) => {
-      if (response.data != null) {
-        this.setState(this.state);
-      }
     });
+
+    GroupService.addGroup(group)
+        .then((response) => {
+          if (response.data != null) {
+            this.setState(this.state);
+            toast.success("Grupa została dodana pomyślnie", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          } else {
+            toast.error("Wystąpił błąd podczas dodawania grupy", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          }
+        })
+        .catch((error) => {
+          toast.error("Wystąpił błąd podczas dodawania grupy", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        });
   };
 
   changeNameHandler = (event) => {
@@ -43,57 +54,52 @@ class CreateGroup extends Component {
     this.setState({ description: event.target.value });
   };
 
-  handleSubmit(e) {
-    alert('Grupa została utworzona : ' + '\n' + " Nazwa grupy : " + this.state.name + '\n' + " Opis grupy : " + this.state.description);
-    e.preventDefault();
-  }
-
   render() {
     return (
-      <div className="formContainer">
-        <div className="row">
-          <div className="card col-md-6 offset-md-3 offset-md-3">
-            <div className="form-body">
-              <form onSubmit={(e) =>{
-                this.saveGroup(e);
-                this.handleSubmit(e);
-              } }>
-              {/*<form onSubmit={this.handleSubmit }>*/}
-                {/* mixes the buttons */}
-                <div className="form-group">
-                  <input
-                    placeholder="Nazwa"
-                    name="Nazwa"
-                    required
-                    type="text"
-                    className='"form-control'
-                    value={this.state.name}
-                    onChange={this.changeNameHandler}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    placeholder="Opis"
-                    name="Opis"
-                    required
-                    type="text"
-                    value={this.state.description}
-                    onChange={this.changeDescriptionHandler}
-                  />
-                </div>
-                <div className="form-but">
-                  {/* <button onClick={event =>  window.location.href='/groups'} className="button2">Wróć</button> */}
-                  <Link className="button3" to={"/groups"}>
-                    Wróć
-                  </Link></div>
+        <div data-testid="createGroup"
+             className="formContainer">
+          <ToastContainer />
+          <div className="row">
+            <div className="card col-md-6 offset-md-3 offset-md-3">
+              <div className="form-body">
+                <form onSubmit={(e) =>{
+                  this.saveGroup(e);
+                } }>
+                  <div className="form-group">
+                    <input
+                        placeholder="Nazwa"
+                        name="Nazwa"
+                        required
+                        type="text"
+                        className='"form-control'
+                        value={this.state.name}
+                        onChange={this.changeNameHandler}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                        placeholder="Opis"
+                        name="Opis"
+                        required
+                        type="text"
+                        value={this.state.description}
+                        onChange={this.changeDescriptionHandler}
+                    />
+                  </div>
+
                   <div className="form-but">
-                  <button className="button2">Zapisz</button>
-                </div>
-              </form>
+                    <button className="button2">Zapisz</button>
+
+                  </div>
+                  <div><div className="form-but">
+                    <Link className="button3" to={"/groups"}>
+                      Wróć
+                    </Link></div></div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }

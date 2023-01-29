@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
 import ChildrenService from "../Children/ChildrenService";
 import "../CreateUser/CreateUser.scss";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import GroupService from "../GroupDisplay/GroupService";
 
 class CreateChild extends Component {
@@ -19,12 +19,12 @@ class CreateChild extends Component {
     this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
     this.changeClassNameHandler = this.changeClassNameHandler.bind(this);
     this.saveChild = this.saveChild.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   componentDidMount() {
     GroupService.getGroups().then((response) => {
-      const res = response.data 
+      const res = response.data
       this.setState(
         {classes: ["", ...res ]}
       )
@@ -36,26 +36,35 @@ class CreateChild extends Component {
     let child
     if(this.state.className !== "") {
       const aClass = this.state.classes.find(element => element.name === this.state.className)
-      let childWIthClass = JSON.stringify({
+      child = JSON.stringify({
         name: this.state.name,
         lastName: this.state.lastName,
         classId: aClass.id,
-      });
-      child = childWIthClass
+      })
     } else {
-      let childWIthoutClass = JSON.stringify({
+      child = JSON.stringify({
         name: this.state.name,
         lastName: this.state.lastName,
-      });
-      child = childWIthoutClass
+      })
     }
-    //user = JSON.stringify(user)
 
     ChildrenService.addChild(child).then((response) => {
       if (response.data != null) {
-        this.setState(this.state);
+        this.setState({ name: '', lastName: '', className: '' });
+        toast.success("Dziecko zostało dodane poprawnie", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }else {
+        toast.error("Wystąpił błąd, dziecko nie zostało dodane", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
-    });
+    })
+        .catch((error) => {
+          toast.error("Wystąpił błąd", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        });
   };
 
   changeNameHandler = (event) => {
@@ -70,30 +79,31 @@ class CreateChild extends Component {
     this.setState({ className: event.target.value });
   };
 
-  handleSubmit(e) {
-    alert('Dziecko zostało pomyślnie dodane : ' + '\n' + " Imię : " + this.state.name + '\n' + " Nazwisko : " + this.state.lastName + '\n' + " grupa : " + this.state.className);
-    e.preventDefault();
-  }
+
 
   render() {
     return (
+
       <div className="formContainer">
+        <ToastContainer />
+
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
             <div className="form-body">
               <form onSubmit={(e) =>{
                 this.saveChild(e);
-                this.handleSubmit(e);
+
               } }>
                 <div className="form-group">
                   <input
-                    placeholder="Imię"
-                    name="Imię"
-                    required
-                    className='"form-control'
-                    value={this.state.name}
-                    onChange={this.changeNameHandler}
+                      placeholder="Imię"
+                      name="Imię"
+                      required
+                      className='"form-control'
+                      value={this.state.name}
+                      onChange={this.changeNameHandler}
                   />
+
                 </div>
                 <div className="form-group">
                   <input
@@ -105,21 +115,15 @@ class CreateChild extends Component {
                     onChange={this.changeLastNameHandler}
                   />
                 </div>
+
                 <div className="form-group">
-                  {/* <input
-                    placeholder="Id grupy"
-                    required
-                    name="Id grupy"
-                    className='"form-control'
-                    value={this.state.classId}
-                    onChange={this.changeClassIdHandler}
-                  /> */}
                   <select value={this.state.className} onChange={this.changeClassNameHandler}>
                     {this.state.classes.map((aClass) => (
                       <option key={aClass.id}> {aClass.name}</option>
                     ))}
                   </select>
                 </div>
+
                 <div className="form-but">
                   <Link className="button3" to={"/children"}>
                     Wróć

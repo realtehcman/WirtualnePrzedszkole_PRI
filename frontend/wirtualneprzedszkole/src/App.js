@@ -1,5 +1,5 @@
 import Users from './pages/User/Users';
-import Home from './pages/Home/Home';
+import Home from './pages/Home/CurrentUser';
 import AddUser from './pages/CreateUser/AddUser';
 import Login from './pages/Login/Login'
 import RestartPassword from './pages/Login/RestartPassword';
@@ -25,28 +25,22 @@ import KnowledgeNavi from './pages/gallery/KnowledgeNavi';
 import ViewGalleryNavi from './pages/gallery/ViewGalleryNavi';
 import AddGalleryNavi from './pages/gallery/AddGalleryNavi';
 import FolderNavi from './pages/Folders/FolderNavi'
+import EditChildNavi from './pages/Children/EditChildNavi';
 
 import React, {useState} from 'react';
 
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  Outlet
-} from "react-router-dom";
+import {BrowserRouter, Navigate, Outlet, Route, Routes} from "react-router-dom";
 import ChangePassword from './pages/Login/ChangePassword';
 import AddFolderNavi from './pages/Folders/AddFolderNavi';
 import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
 import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
 
 
-
 function App() {
   const [navVisible, showNavbar] = useState(false);
 
   return (
-    <div className="App">
+    <div data-testid="app" className="App">
       <BrowserRouter>
         <navbar visible={navVisible} show={showNavbar} />
         <Routes>
@@ -155,6 +149,9 @@ function App() {
           </Route>
           <Route path='/Assign-teacher/:id' element={<PrivateOutlet />}>
             <Route index element={<AssignTeacherNavi/>}></Route>
+          </Route>
+          <Route path="/EditChild/:id" element={<PrivateOutlet />}>
+            <Route index element={<EditChildNavi />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

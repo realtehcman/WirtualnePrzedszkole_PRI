@@ -1,6 +1,6 @@
-import React, { useEffect, useState }from 'react'
+import React, {useEffect, useState} from 'react'
 import ChildrenService from './ChildrenService'
-import {useParams, useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "../User/Table.scss"
 
 const Child = () => {
@@ -20,13 +20,12 @@ const Child = () => {
     let {id} = useParams()
 
     useEffect(() => {
-        getData()
-    },[])
+        getData().then(() => console.log('Data is loaded'))
+    },[id])
 
     const getData = async () => {
 
         ChildrenService.getChild(id).then(response => {
-            console.log('Response from main API: ',response)
             let ChildData = response.data;
             let parents = ChildData.parents.map(it => {return {id: it.id, name: it.name, lastName: it.lastName, email: it.email}})
             setChild({id: ChildData.id, name: ChildData.name, lastName: ChildData.lastName, parents:  parents})
@@ -35,8 +34,8 @@ const Child = () => {
     }
 
     return (
-        <div>
-            <h1>Rodzice: {child.name}  {child.lastName}</h1>
+        <div data-testid="child">
+            <h1>Rodzice: {child.name} {child.lastName}</h1>
             <table className='content-table'>
                 <thead>
 
@@ -57,6 +56,7 @@ const Child = () => {
                                 <td>{parent.lastName}</td>
                                 <td>{parent.email}</td>
                                 <td>
+
                                     <button onClick={() => navigate("/user/" + parent.id)} className='btn btn-info'>Zobacz</button>
                                 </td>
                             </tr>

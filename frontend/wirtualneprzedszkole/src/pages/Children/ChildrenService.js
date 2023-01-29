@@ -10,13 +10,17 @@ class ChildrenService {
     }
 
     addChild(child){
-        console.log(child)
         return axios.post(CHILDREN_REST_API_URL, child, {
             headers: {
               'Content-Type': 'application/json'
             }
             });
     }
+
+    editChild(child) {
+        return axios.put(CHILDREN_REST_API_URL, child)
+    }
+
 
     deleteChild(id){
         return axios.delete(CHILDREN_REST_API_URL + '/' + id)

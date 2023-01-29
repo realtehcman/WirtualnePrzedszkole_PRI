@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import {React, useEffect, useState} from "react";
 import "./sidebar.scss";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -8,20 +8,15 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import SchoolIcon from "@mui/icons-material/School";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
-import {useNavigate, Link, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import RateReviewIcon from "@mui/icons-material/RateReview";
-import "./sidebar.scss";
 import * as FaIcons from "react-icons/fa";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import * as AiIcons from "react-icons/ai";
-import { IconContext } from "react-icons";
 // import MediaQuery from "react-responsive";
-import { isMobile } from "react-device-detect";
-import { BrowserView, MobileView } from "react-device-detect";
 import useWindowDimensions from "./useWindowDimensions.js";
-import current_UserService from "../../pages/Home/Current_UserService";
+import currentUserService from "../../pages/Home/CurrentUserService";
 
 
 const Sidebar = () => {
@@ -30,8 +25,6 @@ const Sidebar = () => {
   const phoneMaxWidth = 480;
   // const screenSize = width;
   // const  = width;
-
-  const navigate = useNavigate();
 
   var [sidebar, setSidebar] = useState(true);
   //const showSidebar = () => setSidebar(!sidebar);
@@ -62,11 +55,11 @@ const Sidebar = () => {
   let {id} = useParams()
 
   useEffect(() => {
-    getData()
+    getData().then(() => console.log('Data is loaded'))
   },[])
 
   const getData = async () => {
-    current_UserService.getCurrent_User(id).then(response => {
+    currentUserService.getCurrentUsers(id).then(response => {
       console.log('Response from main API: ',response)
       let current_userData = response.data;
       setCurrent_User({id: current_userData.id, role: current_userData.role})
@@ -76,7 +69,7 @@ const Sidebar = () => {
   const MenuView = () => {
     if (current_user.role=== "PARENT" ){
       return(
-        <div>
+        <div data-testid="sidebar">
           <li>
             <Link to={"/home"}>
               <AccountBoxIcon className="icon" />
@@ -108,7 +101,7 @@ const Sidebar = () => {
     else
     {
       return(
-        <div>
+        <div data-testid="sidebar">
 
           <li>
             <Link to={"/home"}>
@@ -226,12 +219,4 @@ const Sidebar = () => {
       </>
   );
 };
-
-const SidebarPhone = () => {
-  if (isMobile) {
-    return <div> This content is available only on mobile</div>;
-  }
-  return <div> content... </div>;
-};
-
 export default Sidebar;

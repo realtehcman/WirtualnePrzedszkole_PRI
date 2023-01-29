@@ -9,7 +9,7 @@
 
   &--hidden {
     padding-top: 80px;
-    width: 0px;
+    width: 0;
     transform: translateX(-300px);
     transition: width 0.3s, transform 0.3s;
     pointer-events: none;

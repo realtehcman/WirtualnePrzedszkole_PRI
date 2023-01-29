@@ -1,6 +1,5 @@
-import React from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
 import messageService from "./MessageService";
 import "../User/Table.scss";
 
@@ -22,7 +21,6 @@ const StatusMsg = () => {
 
     const getData = async () => {
         messageService.getSentMessage(id).then((response) => {
-            console.log("Response from main API: ", response);
             let msgData = response.data;
 
             setMessage({
@@ -37,8 +35,8 @@ const StatusMsg = () => {
     };
 
     return (
-        <div className="scrollable-div">
-            <table className="content-table">
+        <div data-testid="status-message-navi" className="scrollable-div">
+            <table data-testid="status-message" className="content-table">
                 <thead>
                 <tr className="table-head">
                     <td>Imie</td>

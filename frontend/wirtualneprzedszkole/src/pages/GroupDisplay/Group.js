@@ -1,10 +1,11 @@
-import React, { useEffect, useState }from 'react'
+import React, {useEffect, useState} from 'react'
 import GroupService from './GroupService'
-import {useParams, useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "./Group.scss"
 import FolderService from '../Folders/FolderService';
 import UserService from '../User/UserService';
 import ChildrenService from '../Children/ChildrenService';
+import { ToastContainer, toast } from "react-toastify";
 
 const Group = () => {
     const navigate = useNavigate()
@@ -38,13 +39,12 @@ const Group = () => {
     let {id} = useParams()
 
     useEffect(() => {
-        getData()
+        getData().then(r => console.log(r))
     },[])
 
     const getData = async () => {
         
         let className = await GroupService.getGroup(id).then(response => {
-            //console.log('Response from main API: ',response)
             let groupData = response.data;
             let children = groupData.children.map(it => {return {id: it.id, name: it.name, lastName: it.lastName}})
             let teachers = groupData.teachers.map(it => {return {id: it.id, name: it.name, lastName: it.lastName}})
@@ -59,7 +59,6 @@ const Group = () => {
     const getFolders = async (className) => {
         FolderService.getClassSubFolders(className).then(response => {
             setSubFolders(response.data)
-            console.log(subFolders)
         })
     }
 
@@ -73,29 +72,45 @@ const Group = () => {
     }
 
     const deleteTeacherFromGroup = async(teacher) => {
-        UserService.deleteTeacherFromClass(teacher.id, id).then((response) => {
-            if (response.status !== 200) throw new Error(response.status);
-            else {
-                setGroup({id: group.id, name: group.name, description: group.description, children:  group.children,
-                     teachers: group.teachers.filter((refreshTeachers) => teacher.id !== refreshTeachers.id)})
-            }
-        })
+        if(window.confirm("Czy na pewno chcesz usunąć " + teacher.name + " " + teacher.lastName + "z grupy " + group.name )){
+            UserService.deleteTeacherFromClass(teacher.id, id).then((response) => {
+                if (response.status !== 200) {
+                    toast.error("Wystąpił błąd podczas usuwania użytkownika")
+                    throw new Error(response.status);
+                }
+                else {
+                    setGroup({id: group.id, name: group.name, description: group.description, children: group.children,
+                        teachers: group.teachers.filter((refreshTeachers) => teacher.id !== refreshTeachers.id)})
+                    toast.success("Użytkownik " + teacher.name + " "+ teacher.lastName + " został pomyślnie usuniety z grupy")
+                }
+            })
+        }
     }
 
     const deleteChildFromGroup = async(child) => {
-        ChildrenService.deleteChildFromClass(child.id).then((response) => {
-            if (response.status !== 200) throw new Error(response.status);
-            else {
-                setGroup({id: group.id, name: group.name, description: group.description,
-                     children:  group.children.filter((refreshChildren) => child.id !== refreshChildren.id),
-                     teachers: group.teachers})
-            }
-        })
+        if (window.confirm("Czy na pewno chcesz usunąć " + child.name + " " + child.lastName + "z grupy " + group.name)) {
+            ChildrenService.deleteChildFromClass(child.id).then((response) => {
+                if (response.status !== 200) {
+                    toast.error("Wystąpił błąd podczas usuwania użytkownika")
+                    throw new Error(response.status);
+                }
+                else {
+                    setGroup({
+                        id: group.id, name: group.name, description: group.description,
+                        children: group.children.filter((refreshChildren) => child.id !== refreshChildren.id),
+                        teachers: group.teachers
+                    })
+                    toast.success("Użytkownik " + child.name + " "+ child.lastName + " został pomyślnie usuniety z grupy")
+                }
+            })
+        }
     }
 
     return (
-        <div>
+        <div data-testid="group">
+        <ToastContainer />
             <table className="content-table">
+
                 <thead>
                     <tr className='table-head'>
                         <td>{group.name}</td>

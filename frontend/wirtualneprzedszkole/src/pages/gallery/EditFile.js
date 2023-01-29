@@ -1,8 +1,9 @@
 import FileService from "./FileService";
-import {useParams, useNavigate} from "react-router-dom";
-import React, { useEffect, useState }from 'react'
+import React, {useState} from 'react'
 import "../gallery/KnowledgeEdit.scss"
 import Knowledge from "./Knowledge"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const EditFile = (props) => {
@@ -13,25 +14,28 @@ const EditFile = (props) => {
         description: props.description
     }
 
-    console.log(props)
-
     const [fileDescription, setFileDescription] = useState({
         description: ""
     });
 
-    const updateData = (e) => {
-        e.preventDefault()
+    const updateData = async (e) => {
+        e.preventDefault();
         FileService.patchFile(file.id, fileDescription).then((response) => {
-            if (response.status !== 200) throw new Error(response.status)
-            else {
+            if (response.status === 200) {
+                toast.success("Plik został pomyślnie edytowany");
                 window.location.reload(true);
             }
-        })
+        }).catch((error) => {
+            toast.error("Wystąpił błąd podczas edycji pliku");
+        });
     }
+
 
 
     return (
         <div className="edit">
+            <ToastContainer />
+
             <form>
             <label>Opis:</label><br></br>
             <textarea className="text" placeholder={props.description} onChange={(e) => setFileDescription({description : e.target.value})}>{file.description}</textarea><br></br>

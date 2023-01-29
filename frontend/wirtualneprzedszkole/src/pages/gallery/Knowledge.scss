@@ -1,10 +1,8 @@
 .content-table {
   border-collapse: collapse;
   font-size: 20px;
-  margin: 5px 0;
   width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin: 5px 5%;
   border-radius: 5px 5px 5px 5px;
   // overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -169,4 +167,18 @@
 
 .content-table tbody td:hover #hiddenText {
   visibility: visible;
+}
+
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.icon-text {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 10px;
 }
