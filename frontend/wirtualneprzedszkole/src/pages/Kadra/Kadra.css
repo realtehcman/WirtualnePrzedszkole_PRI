@@ -36,7 +36,9 @@
 }
 
 .content-table32 tbody tr:last-of-type {
-    border-bottom: 2px solid #4424bb;
+
+    /* border-bottom: 2px solid #4424bb; */
+    
 }
 
 
