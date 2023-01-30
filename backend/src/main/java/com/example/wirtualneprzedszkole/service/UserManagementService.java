@@ -14,7 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -45,8 +47,8 @@ public class UserManagementService {
             throw new UserAlreadyExistException("Uzytkownik o takim adresie email istnieje");
         }
         user.setPassword(randomPasswordGenerator.generatePassayPassword());
-       /* emailSenderService.sendEmail(user.getEmail(), "Hasło w serwsisie Wirtualne przedszkole",
-                "Twoje Hasło: " + user.getPassword()); */
+        emailSenderService.sendEmail(user.getEmail(), "Hasło w serwsisie Wirtualne przedszkole",
+                "Twoje Hasło: " + user.getPassword());
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         return userRepo.save(user);
@@ -61,6 +63,7 @@ public class UserManagementService {
         userEdited.setPicture(user.getPicture());
         userEdited.setLastName(user.getLastName());
         userEdited.setName(user.getName());
+        userEdited.setOpis(user.getOpis());
         return userEdited;
     }
 
@@ -68,23 +71,29 @@ public class UserManagementService {
     public User addChildToUser(Long userId, Long childId) {
         User userEdited = userRepo.findById(userId).orElseThrow();
         Child child = childService.getChild(childId);
-        if (child.getParents().contains(userEdited)) {
+        //avoiding null pointer exception. if null, return the empty list
+        if (Optional.ofNullable(child.getParents()).orElse(Collections.emptyList()).contains(userEdited)) {
             throw new UserAlreadyExistException("Ten rodzic jest już przipsany do tego dziecka");
-        } else if (child.getParents().size() > 1) {
+        } /*else if (Optional.ofNullable(child.getParents()).orElse(Collections.emptyList()).size() > 1) {
             throw new TooManyUsersAssignedException("Już przipsano dwa rodzica do tego dziecka");
-        }
-        userEdited.getChildren().add(child);
+        }*/
+        List<Child> childList = new java.util.ArrayList<>(Optional.ofNullable(userEdited.getChildren()).orElse(Collections.emptyList()));
+        childList.add(child);
+        userEdited.setChildren(childList);
         return userEdited;
     }
+
 
     @Transactional
     public User addClassToTeacher(Long userId, Long classId) {
         User userEdited = userRepo.findById(userId).orElseThrow();
         Class aClass = classService.getClass(classId);
-        if (aClass.getTeachers().contains(userEdited)) {
+        if (Optional.ofNullable(aClass.getTeachers()).orElse(Collections.emptyList()).contains(userEdited)) {
             throw new UserAlreadyExistException("Ten nauczyciel jest już przypisany do tej klasy");
         }
-        userEdited.getClasses().add(aClass);
+        List<Class> classes = new java.util.ArrayList<>(Optional.ofNullable(userEdited.getClasses()).orElse(Collections.emptyList()));
+        classes.add(aClass);
+        userEdited.setClasses(classes);
         return userEdited;
     }
 
@@ -102,5 +111,17 @@ public class UserManagementService {
 
     public Set<User> getAllParentsFromClass(List<Long> childrenIds) {
         return userRepo.findUsersByChildrenIdIn(childrenIds);
+    }
+
+    public List<User> getAllTeachers(int pageNumber) {
+        return userRepo.findAllTeachers(PageRequest.of(pageNumber, PAGE_SIZE));
+    }
+
+    @Transactional
+    public User deleteTeacherFromClass(Long userId, Long classId) {
+        User user = userRepo.findById(userId).orElseThrow();
+        Class aClass = classService.getClass(classId);
+        user.getClasses().remove(aClass);
+        return user;
     }
 }

@@ -2,14 +2,13 @@ package com.example.wirtualneprzedszkole.controller;
 
 import com.example.wirtualneprzedszkole.mapper.UserMapper;
 import com.example.wirtualneprzedszkole.model.dao.Child;
-import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
-import com.example.wirtualneprzedszkole.service.ChildService;
 import com.example.wirtualneprzedszkole.service.UserManagementService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -67,14 +66,33 @@ public class UserManagementController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("add_to_class/{userId}")
-    public UserDto addClassToTeacher(@PathVariable Long userId, @RequestBody Class aClass) {
-        return UserMapper.mapToUserDto(userManagementService.addClassToTeacher(userId, aClass.getId()));
+    @PutMapping("add_to_class/{classId}")
+    public UserDto addClassToTeacher(@PathVariable Long classId, @RequestBody UserDto userDto) {
+        return UserMapper.mapToUserDto(userManagementService.addClassToTeacher(userDto.getId(), classId));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("{id}")
     public void deleteUser(@PathVariable Long id) {
         userManagementService.deleteUser(id);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/teachers")
+    public List<UserDto> getAllTeachers(@RequestParam(required = false) Integer page) {
+        int pageNumber = page != null && page >= 0 ? page : 0;
+        return UserMapper.mapToDto(userManagementService.getAllTeachers(pageNumber));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/deleteTeacherFromClass/{teacherId}/{classId}")
+    public ResponseEntity<UserDto> deleteTeacherFromClass(@PathVariable Long teacherId, @PathVariable Long classId) {
+        try{
+
+            return new ResponseEntity<>(UserMapper.mapToUserDto(userManagementService.deleteTeacherFromClass(teacherId, classId))
+                    , HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

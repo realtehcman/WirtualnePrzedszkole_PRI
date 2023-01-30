@@ -1,9 +1,7 @@
 package com.example.wirtualneprzedszkole.service;
 
-import com.example.wirtualneprzedszkole.exception.UserAlreadyExistException;
 import com.example.wirtualneprzedszkole.model.dao.PasswordResetToken;
 import com.example.wirtualneprzedszkole.model.dao.User;
-import com.example.wirtualneprzedszkole.repository.PasswordResetTokenRepo;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -11,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.UUID;

@@ -2,7 +2,6 @@ package com.example.wirtualneprzedszkole.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.wirtualneprzedszkole.model.AppUserDetails;
 import com.example.wirtualneprzedszkole.service.UserDetailsServiceImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -22,7 +22,7 @@ import { isMobile } from "react-device-detect";
 import { BrowserView, MobileView } from "react-device-detect";
 import useWindowDimensions from "./useWindowDimensions.js";
 import current_UserService from "../../pages/Home/Current_UserService";
-
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 const Sidebar = () => {
   const { height, width } = useWindowDimensions();
@@ -92,7 +92,7 @@ const Sidebar = () => {
 
           <li>
             <Link to={"/Knowledge"}>
-              <SchoolIcon className="icon" />
+              <LocalLibraryIcon className="icon" />
               <span>Baza wiedzy</span>
             </Link>
           </li>
@@ -102,6 +102,12 @@ const Sidebar = () => {
               <span>Galeria</span>
             </Link>
           </li>
+            <li>
+                <Link to={"/Kadra"}>
+                    <SchoolIcon className="icon" />
+                    <span>Kadra</span>
+                </Link>
+            </li>
         </div>
     );
     }
@@ -119,7 +125,7 @@ const Sidebar = () => {
           <li>
             <Link to={"/users"}>
               <FamilyRestroomIcon className="icon" />
-              <span> Rodzice</span>
+              <span>Użytkownicy </span>
             </Link>
           </li>
           <li>
@@ -134,6 +140,12 @@ const Sidebar = () => {
               <span>Dzieci</span>
             </Link>
           </li>
+            <li>
+                <Link to={"/Kadra"}>
+                    <SchoolIcon className="icon" />
+                    <span>Kadra</span>
+                </Link>
+            </li>
           <li>
             <Link to={"/Message"}>
               <MessageIcon className="icon" />
@@ -154,22 +166,22 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          <li>
-            {/* TODO */}
-            <Link to={"#"}>
-              <FeedIcon className="icon" />
-              <span>Aktualości</span>
-            </Link>
-          </li>
-          <li>
-            <Link to={"#"}>
-              <SupervisorAccountIcon className="icon" />
-              <span>Portal rodzica</span>
-            </Link>
-          </li>
+          {/*<li>*/}
+          {/*  /!* TODO *!/*/}
+          {/*  <Link to={"#"}>*/}
+          {/*    <FeedIcon className="icon" />*/}
+          {/*    <span>Aktualości</span>*/}
+          {/*  </Link>*/}
+          {/*</li>*/}
+          {/*<li>*/}
+          {/*  <Link to={"#"}>*/}
+          {/*    <SupervisorAccountIcon className="icon" />*/}
+          {/*    <span>Portal rodzica</span>*/}
+          {/*  </Link>*/}
+          {/*</li>*/}
           <li>
             <Link to={"/Knowledge"}>
-              <SchoolIcon className="icon" />
+              <LocalLibraryIcon className="icon" />
               <span>Baza wiedzy</span>
             </Link>
           </li>

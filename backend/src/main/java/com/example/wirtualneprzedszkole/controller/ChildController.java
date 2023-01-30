@@ -1,10 +1,13 @@
 package com.example.wirtualneprzedszkole.controller;
 
 //import com.example.wirtualneprzedszkole.mapper.ChildMapper;
+
 import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -48,6 +51,18 @@ public class ChildController {
     @DeleteMapping("{id}")
     public void deleteChild(@PathVariable Long id) {
         childService.deleteChild(id);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/deleteChildFromClass/{childId}")
+    public ResponseEntity<ChildDto> deleteTeacherFromClass(@PathVariable Long childId) {
+        try{
+
+            return new ResponseEntity<>(ChildMapper.mapToDto(childService.deleteTeacherFromClass(childId))
+                    , HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
 

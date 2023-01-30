@@ -2,7 +2,6 @@ package com.example.wirtualneprzedszkole.service.message;
 
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
-import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
 import com.example.wirtualneprzedszkole.repository.message.MessageRepo;
 import com.example.wirtualneprzedszkole.service.EmailSenderServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +23,8 @@ public class MessageService {
     public Message sendMessage(Message message, List<User> users) {
         Message msg = messageRepo.save(message);
 //        String subject = msg.getSubject();
-//        //Wysyłanie powiadomienia narazie zakomentowane bo wysypuje sie,
-//        //gdy adres mail nieistnieje
+////        //Wysyłanie powiadomienia narazie zakomentowane bo wysypuje sie,
+////        //gdy adres mail nieistnieje
 //        users.forEach(e -> emailSenderService.sendEmail(e.getEmail(), subject,
 //               "Sprawdź nową wiadomość na twoim koncie "));
         return msg;

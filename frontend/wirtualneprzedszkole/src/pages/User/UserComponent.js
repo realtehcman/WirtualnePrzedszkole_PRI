@@ -4,6 +4,7 @@ import "./Table.scss";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SortIcon from "@mui/icons-material/Sort";
 
 
 const Navi = (props) => {
@@ -18,19 +19,41 @@ const Navi = (props) => {
   );
 };
 
+
 class UserComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
       searchTerm: "",
+      sortAsc: true,
     };
+
     this.deleteUser = this.deleteUser.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
+
+
+
   handleSearch(e) {
     this.setState({ searchTerm: e.target.value });
   }
+
+
+  sortUsersByRole = () => {
+    let sortedUsers = [...this.state.users];
+    sortedUsers.sort((a, b) => {
+      if (a.role === 'ADMIN' || a.role === 'TEACHER') {
+        return -1;
+      }
+      if (b.role === 'ADMIN' || b.role === 'TEACHER') {
+        return 1;
+      }
+      return 0;
+    });
+    this.setState({ users: sortedUsers });
+  };
+
   loger() {
     console.log(this.state);
   }
@@ -63,6 +86,9 @@ class UserComponent extends React.Component {
     let filteredusers = this.state.users.filter((user) =>
         user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
         user.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+        (user.role === "PARENT" && "rodzic".includes(this.state.searchTerm.toLowerCase())) ||
+        (user.role === "TEACHER" && "nauczyciel".includes(this.state.searchTerm.toLowerCase())) ||
+        (user.role === "ADMIN" && "admin".includes(this.state.searchTerm.toLowerCase())) ||
         (user.email && user.email.toLowerCase().includes(this.state.searchTerm.toLowerCase())) ||
         (user.name.toLowerCase() + " " + user.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
     );
@@ -82,7 +108,7 @@ class UserComponent extends React.Component {
           <table className="content-table">
             <thead>
             <tr className="table-head">
-              <td>Id</td>
+              <td>Rola <SortIcon className="icon" onClick={this.sortUsersByRole}/></td>
               <td>Imię</td>
               <td>Nazwisko</td>
               <td>Email</td>
@@ -92,7 +118,10 @@ class UserComponent extends React.Component {
             <tbody className="body table-body">
             {filteredusers.map((user) =>(
                 <tr key={user.id}>
-                  <td>{user.id}</td>
+                  <td>
+                    {user.role === "TEACHER" ? "nauczyciel" : user.role === "ADMIN" ? "admin" : "rodzic"}
+                  </td>
+
                   <td>{user.name}</td>
                   <td>{user.lastName}</td>
                   <td>{user.email}</td>

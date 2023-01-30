@@ -11,7 +11,8 @@ const EditUser = () => {
         name:'',
         lastName: '',
         phoneNumber: '',
-        address: ''
+        address: '',
+        opis: ''
     });
 
     const [userEdit, setUserEdit] = useState({
@@ -20,7 +21,8 @@ const EditUser = () => {
         name:'',
         lastName: '',
         phoneNumber: '',
-        address: ''
+        address: '',
+        opis: ''
     });
 
     let {id} = useParams()
@@ -37,7 +39,7 @@ const EditUser = () => {
             console.log('Response from main API: ',response)
             let userData = response.data;
             setUser({id: userData.id, email: userData.email, name: userData.name, lastName: userData.lastName, phoneNumber: userData.phoneNumber,
-                 address:userData.address
+                 address:userData.address,opis: userData.opis
             })
         });
     }
@@ -50,6 +52,7 @@ const EditUser = () => {
         if (userEdit.email === "") userEdit.email = user.email
         if (userEdit.phoneNumber === "") userEdit.phoneNumber = user.phoneNumber
         if (userEdit.address === "") userEdit.address = user.address
+        if (userEdit.opis === "") userEdit.opis = user.opis
         console.log(userEdit)
         UserService.editUser(userEdit)
     }
@@ -68,6 +71,8 @@ const EditUser = () => {
             <input placeholder={user.address} onChange={(e) => setUserEdit({...userEdit, address : e.target.value})}/><br></br>
             <label>Telefon:</label><br></br>
             <input placeholder={user.phoneNumber} onChange={(e) => setUserEdit({...userEdit,phoneNumber : e.target.value})}/><br></br>
+            <label>Opis :</label><br></br>
+            <input placeholder={user.opis} onChange={(e) => setUserEdit({...userEdit,opis : e.target.value})}/><br></br>
             <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
 
             </form>

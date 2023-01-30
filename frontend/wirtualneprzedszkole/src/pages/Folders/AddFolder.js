@@ -29,16 +29,20 @@ const AddFolder = (props) => {
         }
         newFolder.path = folder.path + "/" + newFolder.name
         newFolder.className = folder.className
-        let temp = formData.getAll("file").length
+        let temp = formData.getAll("file")[0].size
         console.log(temp)
         FolderService.addNewFolder(newFolder).then(response => {
             if (response.status !== 200) throw new Error(response.status);
             else {
-                if (temp > 3)
-                    FileService.addFiles(response.data.id, formData)
+                if (temp > 0)
+                    FileService.addFiles(response.data.id, formData).then((res) => {
+                    if (res.status !== 200) throw new Error(res.status);
+                    
+                })
                 navigate(-1)
             }
         })
+    
     }
 
     return (

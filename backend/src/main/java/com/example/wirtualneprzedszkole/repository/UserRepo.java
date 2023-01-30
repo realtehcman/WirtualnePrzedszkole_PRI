@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -25,4 +24,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     List<User> findByRole(UserRole parent);
     Set<User> findUsersByChildrenIdIn(List<Long> childrenIds);
+
+    @Query("select t from User t where t.role = 'TEACHER' ")
+    List<User> findAllTeachers(Pageable page);
 }

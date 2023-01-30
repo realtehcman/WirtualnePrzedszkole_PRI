@@ -11,7 +11,8 @@ const EditCurrent_User = (props) => {
         name: props.name,
         lastName: props.lastName,
         phoneNumber: props.phoneNumber,
-        address: props.address
+        address: props.address,
+        opis: props.opis
     };
     const navigate = useNavigate()
     const [userEdit, setUserEdit] = useState({
@@ -20,7 +21,8 @@ const EditCurrent_User = (props) => {
         name: current_user.name,
         lastName: current_user.lastName,
         phoneNumber: '',
-        address: ''
+        address: '',
+        opis: ''
     });
 
     const updateData = (e) => {
@@ -28,6 +30,7 @@ const EditCurrent_User = (props) => {
         userEdit.id = current_user.id
         if (userEdit.phoneNumber === "") userEdit.phoneNumber = current_user.phoneNumber
         if (userEdit.address === "") userEdit.address = current_user.address
+        if (userEdit.opis === "") userEdit.opis = current_user.opis
         console.log(userEdit)
         Current_UserService.EditCurrent_User(userEdit)
             .then((response) => {
@@ -53,6 +56,7 @@ const EditCurrent_User = (props) => {
                 <input placeholder={current_user.address} onChange={(e) => setUserEdit({...userEdit, address : e.target.value})}/><br></br>
                 <label>Telefon:</label><br></br>
                 <input placeholder={current_user.phoneNumber} onChange={(e) => setUserEdit({...userEdit,phoneNumber : e.target.value})}/><br></br>
+                <input placeholder={current_user.opis} onChange={(e) => setUserEdit({...userEdit,opis : e.target.value})}/><br></br>
                 <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
             </form>
         </div>

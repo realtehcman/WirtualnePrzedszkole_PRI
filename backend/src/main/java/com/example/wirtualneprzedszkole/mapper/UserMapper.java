@@ -10,11 +10,6 @@ public class UserMapper {
 
     private UserMapper(){}
 
-    public static List<UserDto> mapToUserDto(List<User> users) {
-        return users.stream()
-                .map(UserMapper::mapToUserDto)
-                .collect(Collectors.toList());
-    }
 
     public static List<UserDto> mapToDto(List<User> users) {
         return users.stream()
@@ -32,6 +27,7 @@ public class UserMapper {
                 .address(user.getAddress())
                 .phoneNumber(user.getPhoneNumber())
                 .role(user.getRole())
+                .opis(user.getOpis())
                 .children(ChildMapper.mapToChildDto(user.getChildren()))
                 .classes(ClassMapper.mapToGroupDto(user.getClasses()))
                 .build();
@@ -47,6 +43,7 @@ public class UserMapper {
                 .address(user.getAddress())
                 .phoneNumber(user.getPhoneNumber())
                 .role(user.getRole())
+                .opis(user.getOpis())
                 .build();
     }
 
@@ -60,6 +57,7 @@ public class UserMapper {
                 .address(userDto.getAddress())
                 .phoneNumber(userDto.getPhoneNumber())
                 .role(userDto.getRole())
+                .opis(userDto.getOpis())
                 .build();
     }
 
@@ -73,6 +71,7 @@ public class UserMapper {
                 .address(userDto.getAddress())
                 .phoneNumber(userDto.getPhoneNumber())
                 .role(userDto.getRole())
+                .opis(userDto.getOpis())
                 .children(ChildMapper.mapToChildDao(userDto.getChildren()))
                 //.classes(ClassMapper.mapToClassDao(userDto.getClasses()))
                 .build();

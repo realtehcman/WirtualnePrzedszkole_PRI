@@ -1,0 +1,48 @@
+
+
+.table-body32 {
+    width: 90%;
+    max-width: 100%;
+
+}
+
+.content-table32 {
+    border-collapse: collapse;
+    font-size: 20px;
+    width: 100%;
+    margin: 5% 5%;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.table-head32 {
+    background-color: #5d44f3;
+    color: #f8e3f8;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table32 td {
+    padding: 12px 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.content-table32 tbody td {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table32 tbody tr:nth-of-type(even) {
+    background-color: rgb(232, 236, 235);
+}
+
+.content-table32 tbody tr:last-of-type {
+    border-bottom: 2px solid #4424bb;
+}
+
+
+
+.kadra{
+    text-align: center;
+    vertical-align: middle;
+
+}

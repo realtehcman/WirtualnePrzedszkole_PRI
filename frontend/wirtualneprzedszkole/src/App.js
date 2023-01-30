@@ -26,6 +26,7 @@ import ViewGalleryNavi from './pages/gallery/ViewGalleryNavi';
 import AddGalleryNavi from './pages/gallery/AddGalleryNavi';
 import FolderNavi from './pages/Folders/FolderNavi'
 import EditChildNavi from './pages/Children/EditChildNavi';
+import KadraNavi from './pages/Kadra/KadraNavi';
 
 import React, {useState} from 'react';
 
@@ -159,6 +160,9 @@ function App() {
           </Route>
           <Route path="/EditChild/:id" element={<PrivateOutlet />}>
             <Route index element={<EditChildNavi />}></Route>
+          </Route>
+          <Route path="/Kadra" element={<PrivateOutlet />}>
+            <Route index element={<KadraNavi />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

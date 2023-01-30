@@ -2,7 +2,6 @@ package com.example.wirtualneprzedszkole.security;
 
 import com.example.wirtualneprzedszkole.model.dto.LoginDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 @CrossOrigin(origins = "http://localhost:3000/", exposedHeaders = {"authorization"})
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

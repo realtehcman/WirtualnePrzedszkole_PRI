@@ -18,7 +18,7 @@ const Users = () => {
           className="button"
           onClick={() => navigate("/add-user")}
         >
-          Dodaj Rodzica
+          Dodaj użytkownika
         </button>
       </div>
     </div>

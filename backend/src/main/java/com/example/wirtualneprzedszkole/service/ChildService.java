@@ -42,4 +42,11 @@ public class ChildService {
     public List<Long> getChildByClassIn(Long classId) {
         return childRepo.findAllIdsByClassId(classId);
     }
+
+    @Transactional
+    public Child deleteTeacherFromClass(Long childId) {
+        Child child = childRepo.findById(childId).orElseThrow();
+        child.setClassId(null);
+        return child;
+    }
 }

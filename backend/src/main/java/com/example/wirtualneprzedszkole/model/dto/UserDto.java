@@ -21,6 +21,8 @@ import java.util.List;
 public class UserDto {
     private Long id;
 
+    private String opis;
+
     @Email(regexp = ".+@.+\\..+", message = "Nie poprawny format")
     private String email;
 
@@ -43,5 +45,7 @@ public class UserDto {
 
     private List<ChildDto> children;
     private List<ClassDto> classes;
+
+
 
 }

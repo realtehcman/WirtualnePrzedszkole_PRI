@@ -13,6 +13,7 @@ const User = () => {
     phoneNumber: "",
     address: "",
     role: "",
+    opis: "",
     children: [
       {
         id: "",
@@ -44,6 +45,7 @@ const User = () => {
         phoneNumber: userData.phoneNumber,
         address: userData.address,
         role: userData.role,
+        opis: userData.opis,
         children: children,
       });
     });
@@ -57,7 +59,7 @@ const User = () => {
             <img
               className="rounded-circle mt-5"
               width="150px"
-              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+              src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"
             />
             <span className="font-weight-bold">
               {user.name} {user.lastName}
@@ -99,6 +101,13 @@ const User = () => {
                 <label className="labels">Rola: </label>{" "}
                 <label className="labels">{user.role}</label>
               </div>
+              <div className="col-md-12">
+                <label className="labels">O mnie : </label>
+              </div>
+              <div className="col-md-12">
+                <label className="labels">{user.opis}</label>
+              </div>
+
               {/* <div class="col-md-12"><label class="labels">Dziecko: </label>  <label class="labels">{user.children.map(item => {item.classId})}</label></div> */}
               <div className="col-md-12">
                 <h1>Dzieci: </h1>
