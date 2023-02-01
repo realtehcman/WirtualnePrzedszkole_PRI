@@ -14,7 +14,7 @@ class CurrentUserService {
         return axios.put(CurrentUserService_REST_API_URL, currentUser)
     }
     getCurrentUser(id) {
-        return axios.get(CurrentUserService_REST_API_URL + '/' + id)
+        return axios.get(CurrentUserService_REST_API_URL)
     }
     addCurrentUser(currentUser){
         return axios.post(CurrentUserService_REST_API_URL, currentUser, {

@@ -36,7 +36,7 @@ const CurrentUser = () => {
     },[])
 
     const getData = async () => {
-        currentUserService.getCurrentUser(id).then(response => {
+        currentUserService.getCurrentUser().then(response => {
             console.log('Response from main API: ',response)
             let current_userData = response.data;
             let children = current_userData.children.map(it => {return {id: it.id, name: it.name, classId: it.classId}})

@@ -1,5 +1,5 @@
 import Users from './pages/User/Users';
-import Home from './pages/Home/CurrentUser';
+import CurrentUser from './pages/Home/CurrentUser';
 import AddUser from './pages/CreateUser/AddUser';
 import Login from './pages/Login/Login'
 import RestartPassword from './pages/Login/RestartPassword';
@@ -70,7 +70,7 @@ function App() {
             <Route index element={<AddUser />}></Route>
           </Route>
           <Route path="/home" element={<PrivateOutlet />}>
-            <Route index element={<Home />}></Route>
+            <Route index element={<CurrentUser />}></Route>
           </Route>
           <Route path="/home/restart-password" element={<PrivateOutlet />}>
             <Route index element={<RestartPassword />}></Route>
