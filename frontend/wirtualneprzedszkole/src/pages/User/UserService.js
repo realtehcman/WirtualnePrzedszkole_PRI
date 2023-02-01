@@ -10,6 +10,7 @@ class UserService {
     }
 
     addUser(user){
+        console.log(user)
         return axios.post(USERS_REST_API_URL, user, {
             headers: {
               'Content-Type': 'application/json'

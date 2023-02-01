@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState }from 'react'
 import GroupService from './GroupService'
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import "./Group.scss"
 import FolderService from '../Folders/FolderService';
 import UserService from '../User/UserService';
@@ -39,12 +39,13 @@ const Group = () => {
     let {id} = useParams()
 
     useEffect(() => {
-        getData().then(r => console.log(r))
+        getData()
     },[])
 
     const getData = async () => {
         
         let className = await GroupService.getGroup(id).then(response => {
+            //console.log('Response from main API: ',response)
             let groupData = response.data;
             let children = groupData.children.map(it => {return {id: it.id, name: it.name, lastName: it.lastName}})
             let teachers = groupData.teachers.map(it => {return {id: it.id, name: it.name, lastName: it.lastName}})
@@ -59,6 +60,7 @@ const Group = () => {
     const getFolders = async (className) => {
         FolderService.getClassSubFolders(className).then(response => {
             setSubFolders(response.data)
+            console.log(subFolders)
         })
     }
 
@@ -107,8 +109,7 @@ const Group = () => {
     }
 
     return (
-        <div data-testid="group">
-        <ToastContainer />
+        <div> <ToastContainer />
             <table className="content-table">
 
                 <thead>

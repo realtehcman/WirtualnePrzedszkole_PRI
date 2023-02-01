@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import {useNavigate} from "react-router-dom";
 import FolderService from './FolderService'
 import "./Folders.scss"
@@ -23,7 +23,7 @@ const Folders = (props) => {
     const {id} = props.value
 
     useEffect(() => {
-        getFolder().then(r => console.log(r))
+        getFolder()
     },[])
 
     const getFolder = async() => {
@@ -54,7 +54,7 @@ const Folders = (props) => {
     }
 
     return (
-        <div data-testid="folders">
+        <>
         <div className="scrollable-div">
             <table className="content-table">
                 <thead>
@@ -83,7 +83,7 @@ const Folders = (props) => {
         >
             Dodaj Folder
         </button>
-        </div>
+        </>
     )
 }
 

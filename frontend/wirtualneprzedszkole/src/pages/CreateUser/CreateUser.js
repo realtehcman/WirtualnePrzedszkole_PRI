@@ -1,8 +1,16 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import ChildrenService from "../Children/ChildrenService"
 import UserService from "../User/UserService";
 import "./CreateUser.scss";
-import {MDBInput} from 'mdb-react-ui-kit';
+import { Link } from "react-router-dom";
+import {
+  MDBInput,
+  MDBBtn,
+  MDBCheckbox,
+  MDBValidation,
+  MDBValidationItem
+} from 'mdb-react-ui-kit';
+import { display } from "@mui/system";
 import GroupService from "../GroupDisplay/GroupService";
 
 
@@ -24,10 +32,9 @@ class CreateUser extends Component {
         classes: [],
         className: "",
         display: 1,
-        isClose: false,
-        opis:""
+        isClose: false
       };
-
+    
       this.changeNameHandler = this.changeNameHandler.bind(this);
       this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
       this.changeEmailHandler = this.changeEmailHandler.bind(this);
@@ -43,11 +50,11 @@ class CreateUser extends Component {
 
     componentDidMount() {
       GroupService.getGroups().then((response) => {
-        const res = response.data
+        const res = response.data 
         this.setState(
           {classes: ["", ...res ]}
         )
-
+        
       });
     }
 
@@ -62,18 +69,17 @@ class CreateUser extends Component {
           address: this.state.address,
           phoneNumber: this.state.phoneNumber,
           role: this.state.role,
-          opis: this.state.opis
         });
         //user = JSON.stringify(user)
         //this.state.users.push(user)
-
+        
         UserService.addUser(user).then((response) => {
           if (response.status !== 200) throw new Error(response.status);
           else {
             window.open("users","_self");
           }
         })
-
+        
       }
       else if (e.nativeEvent.submitter.name === "next-parent") {
         let user = JSON.stringify({
@@ -113,23 +119,34 @@ class CreateUser extends Component {
       //user = JSON.stringify(user)
       //this.state.users.push(user)
         this.setState({display: 0})
+        /* let child = {
+          name: this.state.childName,
+          lastName: this.state.childLastName,
+          
+        };
+        this.state.children.push(child)
+        console.log(this.state.children) */
+        console.log(this.state.users)
         UserService.addUser(user).then((response) => {
+          console.log(response)
           this.state.users.push(response.data)
         })
     } else if (e.nativeEvent.submitter.name === "next-child") {
       let child
       if(this.state.className !== "") {
         const aClass = this.state.classes.find(element => element.name === this.state.className)
-        child = JSON.stringify({
+        let childWIthClass = JSON.stringify({
           name: this.state.childName,
           lastName: this.state.childLastName,
           classId: aClass.id,
-        })
+        });
+        child = childWIthClass
       } else {
-        child = JSON.stringify({
-        name: this.state.childName,
-        lastName: this.state.childLastName,
-      })
+        let childWIthoutClass = JSON.stringify({
+          name: this.state.childName,
+          lastName: this.state.childLastName,
+      });
+      child = childWIthoutClass
       }
       //this.state.children.push(child)
 
@@ -146,19 +163,21 @@ class CreateUser extends Component {
       let child
       if (this.state.className !== "") {
         const aClass = this.state.classes.find(element => element.name === this.state.className)
-        child = JSON.stringify({
+        let childWIthClass = JSON.stringify({
           name: this.state.childName,
           lastName: this.state.childLastName,
           classId: aClass.id,
-        })
+      });
+        child = childWIthClass
       } else {
-        child = JSON.stringify({
+        let childWIthoutClass = JSON.stringify({
           name: this.state.childName,
           lastName: this.state.childLastName,
-        })
+        });
+        child = childWIthoutClass
       }
       //this.state.children.push(child)
-
+      
       ChildrenService.addChild(child).then((response) => {
         console.log(response)
         this.state.children.push(response.data)
@@ -204,13 +223,7 @@ class CreateUser extends Component {
       this.setState({role: event.target.value});
     };
     handleSubmit(e) {
-      alert(`Użytkownik został dodany : 
- Imię : ${this.state.name}
- Nazwisko : ${this.state.lastName}
- Email : ${this.state.email}
- Adres : ${this.state.address}
- Numer telefonu : ${this.state.phoneNumber}
- Rola : ${this.state.role}`);
+      alert('Użytkownik został dodany : ' + '\n' + " Imię : " + this.state.name + '\n' + " Nazwisko : " + this.state.lastName + '\n' + " Email : " + this.state.email+ '\n' + " Adres : " + this.state.address + '\n' + " Numer telefonu : " + this.state.phoneNumber + '\n' + " Rola : " + this.state.role);
       e.preventDefault();
     }
 
@@ -231,7 +244,7 @@ class CreateUser extends Component {
       if (display === 1) {
         if (this.state.role === "PARENT") {
           return (
-          <div data-testid="create-user" className="formContainer">
+          <div className="formContainer">
             <div className="row">
               <div className="card col-md-6 offset-md-3 offset-md-3">
                 <div className="form-body">
@@ -306,6 +319,12 @@ class CreateUser extends Component {
                         <option value="ADMIN">Administrator</option>
                       </select>
                     </div>
+                    {/* <div className="asd123">
+
+                      <Link className="button" to={"/users"}>
+                        Wróć
+                      </Link>
+                    </div> */}
                     <div className="asd124">
                       <button className="button" name="save-user">Zapisz</button>
                     </div>
@@ -323,7 +342,7 @@ class CreateUser extends Component {
           );
         } else {
           return (
-            <div data-testid="create-user" className="formContainer">
+            <div className="formContainer">
               <div className="row">
                 <div className="card col-md-6 offset-md-3 offset-md-3">
                   <div className="form-body">
@@ -379,10 +398,10 @@ class CreateUser extends Component {
                             placeholder="Numer Telefonu"
                             type="tel"
                             pattern="[0-9]{3}[0-9]{3}[0-9]{3}"
-
+  
                             required
                             name="Numer Telefonu"
-
+  
                             value={this.state.phoneNumber}
                             onChange={this.changePhoneHandler}
                         />
@@ -398,6 +417,12 @@ class CreateUser extends Component {
                           <option value="ADMIN">Administrator</option>
                         </select>
                       </div>
+                      {/* <div className="asd123">
+  
+                        <Link className="button" to={"/users"}>
+                          Wróć
+                        </Link>
+                      </div> */}
                       <div className="asd124">
                         <button className="button" name="save-user">Zapisz</button>
                       </div>
@@ -440,6 +465,23 @@ class CreateUser extends Component {
                         onChange={this.changeChildLastNameHandler}
                     />
                   </div>
+                  {/* <div className="form-group">
+                    <MDBInput
+                        placeholder="Klasa"
+                        type="text"
+                        required
+                        name="Nazwisko"
+                        className='"form-control'
+                        value={this.state.childLastName}
+                        onChange={this.changeLastNameHandler}
+                    />
+                  </div> */}
+                  {/* <div className="asd123">
+
+                    <Link className="button" to={"/users"}>
+                      Wróć
+                    </Link>
+                  </div> */}
                   <div className="form-group">
                   <select value={this.state.className} onChange={this.changeClassNameHandler}>
                     {this.state.classes.map((aClass) => (

@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import "./login.scss"
-import {useNavigate, useParams} from "react-router-dom";
-import CurrentUserService from '../Home/CurrentUserService';
+import { useParams,useNavigate } from "react-router-dom";
+import Current_UserService from '../Home/Current_UserService';
 
 const ChangePassword = () => {    
     const navigate = useNavigate();
@@ -15,15 +15,17 @@ const ChangePassword = () => {
 
     const changePassword = async (e) => {
         e.preventDefault();
+        console.log(change.token)
         if (change.password === newPassword) {
-            let restart = await CurrentUserService.changePassword(change)
+            let restart = await Current_UserService.changePassword(change)
+            console.log(restart)
         }
         navigate("/")
     }
 
     return (
         
-        <div data-testid="change-password" className='formContainer'>
+        <div className='formContainer'>
                 <span className="logo-login">Przedszkole nr 25</span>
                 <div className='row'>
                     <div className='card col-md-6 offset-md-3 offset-md-3'>

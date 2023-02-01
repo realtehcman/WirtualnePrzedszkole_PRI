@@ -1,8 +1,15 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Sidebar from "../../components/sidebar/sidebar";
+import Navbar from "../../components/navbar/navbar";
+import { useEffect, useState } from "react";
 import MessageService from "./MessageService";
+import Popup from "../GroupDisplay/Popup";
 import "../GroupDisplay/Popup.css";
 import "../User/Table.scss";
+import UserService from "../User/UserService";
+import messageService from "./MessageService";
+import ReadMessage from "./ReadMessage";
 
 const Navi = (props) => {
   const navigate = useNavigate();
@@ -25,6 +32,10 @@ class Message extends React.Component {
     this.deleteReceivedMessages = this.deleteReceivedMessages.bind(this);
   }
 
+  loger() {
+    console.log(this.state);
+  }
+
   deleteReceivedMessages(id) {
     MessageService.deleteReceivedMessages(id).then((response) => {
       this.setState({
@@ -38,12 +49,13 @@ class Message extends React.Component {
   componentDidMount() {
     MessageService.getReceivedMessages().then((response) => {
       this.setState({ received_messages: response.data });
+      this.loger();
     });
   }
 
   render() {
     return (
-      <div data-testid="message" className="scrollable-div">
+      <div className="scrollable-div">
         <table className="content-table">
           <thead>
             <tr className="table-head">

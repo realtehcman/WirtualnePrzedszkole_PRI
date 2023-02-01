@@ -1,7 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import GalleryService from "../gallery/GalleryService";
 import "../CreateUser/CreateUser.scss";
-
+import { Link } from "react-router-dom";
+import { MDBInput } from 'mdb-react-ui-kit';
+import { MDBFile } from 'mdb-react-ui-kit';
 class CreateGallery extends Component {
 
     constructor(props) {
@@ -11,6 +13,7 @@ class CreateGallery extends Component {
              file: [],
             folder: "",
         };
+        // this.changeFileHandler = this.changeFileHandler.bind(this);
         this.changeFolderHandler = this.changeFolderHandler.bind(this);
         this.saveGroup = this.saveGroup.bind(this);
 
@@ -29,6 +32,9 @@ class CreateGallery extends Component {
             }
         });
     };
+    // changeFileHandler = (event) => {
+    //     this.setState({ file: event.target.value });
+    // };
     changeFileHandler = (files) => {
         const file = files[0];
         const formData = new FormData();

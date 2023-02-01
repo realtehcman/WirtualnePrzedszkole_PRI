@@ -1,16 +1,18 @@
 import FileService from "../gallery/FileService";
 import "../gallery/Knowledge.scss";
-import {useParams} from "react-router-dom";
-import React, {useEffect, useState} from 'react'
+import {useParams, useNavigate} from "react-router-dom";
+import React, { useEffect, useState, useRef } from 'react'
 import saveAs from 'file-saver'
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 import EditFile from "./EditFile";
 import Popup from "../GroupDisplay/Popup";
+import current_UserService from "../Home/Current_UserService";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SortIcon from '@mui/icons-material/Sort';
 import HeightIcon from '@mui/icons-material/Height';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import currentUserService from "../Home/CurrentUserService";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Knowledge = () => {
 
@@ -28,22 +30,22 @@ const Knowledge = () => {
 
 
 
-
-    const [currentUser, setCurrentUser] = useState({
+    const [current_user, setCurrent_User] = useState({
         role: '',
     });
 
-    let {isLoggedIn} = currentUser.role;
+    let {isLoggedIn} = current_user.role;
 
     useEffect(() => {
-        getData().then(r => console.log(r))
+        getData()
     },[])
 
 
     const getData = async () => {
-        currentUserService.getCurrentUsers().then(response => {
-            let currentUserData = response.data;
-            setCurrentUser({id: currentUserData.id, role: currentUserData.role})
+        current_UserService.getCurrent_User(id).then(response => {
+            console.log('Response from main API: ',response)
+            let current_userData = response.data;
+            setCurrent_User({id: current_userData.id, role: current_userData.role})
         });
     }
 
@@ -193,8 +195,7 @@ const Knowledge = () => {
 
 
     return (
-        <div data-testid="knowledge"
-             className="scrollable-div">
+        <div className="scrollable-div">
             <ToastContainer />
             <div className="abc">
                 <form>
@@ -216,9 +217,9 @@ const Knowledge = () => {
                             <span className="text">Data</span>
                         </td>
 
-                        {currentUser.role === "ADMIN" && <td>Opis</td>}
+                        {current_user.role === "ADMIN" && <td>Opis</td>}
                         <td>Pobierz</td>
-                        {currentUser.role === "ADMIN" && <td>Usuń</td>}
+                        {current_user.role === "ADMIN" && <td>Usuń</td>}
                     </tr>
                 </thead>
                 <tbody className="body table-body">
@@ -227,17 +228,18 @@ const Knowledge = () => {
                     <tr key = {file.id}>
                             <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
-                        {currentUser.role === "ADMIN" &&    <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>}
+                        {current_user.role === "ADMIN" &&    <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>}
                             <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>Pobierz</button></td>
-                        {currentUser.role === "ADMIN" && <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>}
+                        {current_user.role === "ADMIN" && <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>}
 
+                        {/* {renderPageLink()} */}
                         </tr>
                     ))}
                     <Popup trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup>
                 </tbody>
             </table>
             <br />
-            {currentUser.role === "ADMIN" &&      <div className="uploadDiv">
+            {current_user.role === "ADMIN" &&      <div className="uploadDiv">
                 <form onSubmit={handleSubmit} encType='multipart/form-data'>
                  <div className="input23">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                     <p></p>
@@ -246,7 +248,7 @@ const Knowledge = () => {
             </div>}
 
             <div className="deleteAll">
-                {currentUser.role === "ADMIN" && <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">Usuń wszystkie pliki</button>}
+                {current_user.role === "ADMIN" && <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">Usuń wszystkie pliki</button>}
             </div>
 
         </div>

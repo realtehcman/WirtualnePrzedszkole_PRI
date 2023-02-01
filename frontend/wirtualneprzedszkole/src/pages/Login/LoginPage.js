@@ -1,12 +1,12 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import LoginService from './LoginService'
 import "./login.scss"
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import RestartPassword from './RestartPassword';
 
 const LoginPage = () => {
     const navigate = useNavigate();
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -14,6 +14,7 @@ const LoginPage = () => {
     const login = async (e) => {
         e.preventDefault();
         let loggedIn = await LoginService.login(email, password)
+        console.log(loggedIn)
         if(loggedIn === false) {
             setErrorMessage("Wprowadzone dane są nieprawidłowe.")
         }
@@ -28,7 +29,7 @@ const LoginPage = () => {
 
     return (
 
-        <div data-testid="login" className='formContainer'>
+        <div className='formContainer'>
             <span className="logo-login">Przedszkole nr 25</span>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>

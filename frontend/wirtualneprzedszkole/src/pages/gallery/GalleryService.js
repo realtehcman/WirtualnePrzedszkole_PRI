@@ -24,7 +24,12 @@ class GalleryService {
     return axios.delete(FILE_REST_API_URL + "/folder/" + id)
 }
 
+    // UploadMultiFiles()  {
+    // return axios.post(FILE_REST_API_URL + "/file/uploadMultiFiles/")
+    // }
+
     UploadMultiFiles(group){
+        console.log(group)
         return axios.post(FILE_REST_API_URL + "/file/uploadMultiFiles/", group, {
             headers: {
                 'Content-Type': 'application/json'

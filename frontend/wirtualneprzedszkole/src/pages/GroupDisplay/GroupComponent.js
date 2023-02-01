@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React from "react";
 import GroupService from "./GroupService";
 import "./GroupDisplay.scss";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UserService from "../User/UserService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,7 +19,7 @@ const Navi = (props) => {
   );
 };
 
-class GroupComponent extends Component {
+class GroupComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,6 +54,7 @@ class GroupComponent extends Component {
     }
   }
 
+
   componentDidMount() {
     GroupService.getGroups().then((response) => {
       this.setState({ groups: response.data });
@@ -66,7 +67,7 @@ class GroupComponent extends Component {
     );
     return (
 
-        <div data-testid="group-component" className="scrollable-div">
+        <div className="scrollable-div">
           <ToastContainer />
           <div className="abc">
             <input

@@ -27,8 +27,8 @@ const AddGallery = ({ files, setFiles, removeFile }) => {
   };
 
   return (
-    <div data-testid="add-gallery">
-      <div className="file-card">
+    <>
+      <div class="file-card">
         <div className="file-inputs">
           <input type="file" onChange={uploadHandler} />
           <button>
@@ -42,7 +42,7 @@ const AddGallery = ({ files, setFiles, removeFile }) => {
         <p className="main">Supported files</p>
         <p className="info">PDF, JPG, PNG</p>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -4,14 +4,14 @@ import "./Users.scss";
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar";
 import UserComponent from "./UserComponent";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Users = () => {
   const navigate = useNavigate();
   return (
-    <div data-testid="user" className="users">
+    <div className="users">
       <Sidebar />
-      <div data-testid="usersContainer" className="usersContainer">
+      <div className="usersContainer">
         <Navbar />
         <UserComponent />
         <button
