@@ -8,9 +8,9 @@ import {useParams} from "react-router-dom";
 const UserNavi = () => {
     let {id} = useParams()
     return (
-        <div className="users">
+        <div data-testid="users" className="users">
             <Sidebar/>
-            <div className="usersContainer">
+            <div data-testid="usersContainer" className="usersContainer">
                 <Navbar/>
                 <User value={id}/>
             </div>

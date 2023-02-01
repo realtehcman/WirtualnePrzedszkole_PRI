@@ -1,6 +1,5 @@
 import FileService from "./FileService";
-import {useParams, useNavigate} from "react-router-dom";
-import React, { useEffect, useState }from 'react'
+import React, {useState} from 'react'
 import "../gallery/KnowledgeEdit.scss"
 import Knowledge from "./Knowledge"
 import { ToastContainer, toast } from "react-toastify";
@@ -13,8 +12,6 @@ const EditFile = (props) => {
         id: props.fileId,
         description: props.description
     }
-
-    console.log(props)
 
     const [fileDescription, setFileDescription] = useState({
         description: ""

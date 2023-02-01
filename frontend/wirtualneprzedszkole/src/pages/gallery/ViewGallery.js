@@ -1,11 +1,9 @@
-import React from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
 import GalleryService from "../gallery/GalleryService";
 import "../User/Table.scss";
 
 const ViewGallery = () => {
-    const navigate = useNavigate();
     const [photos, setPhotos] = useState({
         id: "",
 
@@ -14,12 +12,11 @@ const ViewGallery = () => {
     let { id } = useParams();
 
     useEffect(() => {
-        getData();
+        getData().then(r => console.log(r));
     }, []);
 
     const getData = async () => {
         GalleryService.ViewFolder(id).then((response) => {
-            console.log("Response from main API: ", response);
             let galleryData = response.data;
 
             setPhotos({
