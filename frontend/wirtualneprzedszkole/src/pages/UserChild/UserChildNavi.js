@@ -9,7 +9,7 @@ import UserChild from "./UserChild"
 const UserChildNavi = () => {
     let {id} = useParams()
     return (
-        <div data-testid="user-child-navi" className="users">
+        <div className="users">
             <Sidebar/>
             <div className="usersContainer">
                 <Navbar/>

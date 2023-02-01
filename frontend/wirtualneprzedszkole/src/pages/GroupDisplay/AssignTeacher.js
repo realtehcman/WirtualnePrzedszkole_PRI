@@ -14,7 +14,7 @@ const AssignTeacher = (props) => {
     let {id} = props.value
 
     useEffect(() => {
-        getTeachers().then(r => console.log(r));
+        getTeachers()
     },[])
 
 
@@ -26,6 +26,7 @@ const AssignTeacher = (props) => {
 
     const navigate = useNavigate();
     const assignToClass = async(teacher) => {
+        console.log(teacher)
         UserService.assignTeacherToClass(id, teacher).then((response) => {
             console.log(response.data)
             navigate(`/group/${id}`);

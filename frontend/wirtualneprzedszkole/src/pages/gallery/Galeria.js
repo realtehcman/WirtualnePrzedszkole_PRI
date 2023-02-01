@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState }from 'react'
 import GalleryService from "../gallery/GalleryService";
 import "../GroupDisplay/Popup.css"
 import "../User/Table.scss";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import EditCurrent_User from "../Home/EditCurrent_User";
+import Popup from "../GroupDisplay/Popup";
+import current_UserService from "../Home/Current_UserService";
 
 
 const Navi = (props) => {
@@ -30,6 +33,10 @@ class Galeria extends React.Component {
         this.deleteFolder = this.deleteFolder.bind(this);
     }
 
+    loger() {
+        console.log(this.state);
+    }
+
     deleteFolder(id) {
         GalleryService.deleteFolder(id).then((response) => {
             this.setState({
@@ -41,6 +48,7 @@ class Galeria extends React.Component {
     componentDidMount() {
         GalleryService.getFolders().then((response) => {
             this.setState({ all_folders: response.data });
+            this.loger();
         });
     }
 
@@ -49,7 +57,7 @@ class Galeria extends React.Component {
 
 
         return (
-            <div data-testid="galeria" className="scrollable-div">
+            <div className="scrollable-div">
                 <table className="content-table">
                     <thead>
                     <tr className="table-head">

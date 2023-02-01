@@ -1,5 +1,5 @@
 import Users from './pages/User/Users';
-import CurrentUser from './pages/Home/CurrentUser';
+import Home from './pages/Home/Home';
 import AddUser from './pages/CreateUser/AddUser';
 import Login from './pages/Login/Login'
 import RestartPassword from './pages/Login/RestartPassword';
@@ -30,18 +30,25 @@ import KadraNavi from './pages/Kadra/KadraNavi';
 
 import React, {useState} from 'react';
 
-import {BrowserRouter, Navigate, Outlet, Route, Routes} from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet
+} from "react-router-dom";
 import ChangePassword from './pages/Login/ChangePassword';
 import AddFolderNavi from './pages/Folders/AddFolderNavi';
 import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
 import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
 
 
+
 function App() {
   const [navVisible, showNavbar] = useState(false);
 
   return (
-    <div data-testid="app" className="App">
+    <div className="App">
       <BrowserRouter>
         <navbar visible={navVisible} show={showNavbar} />
         <Routes>
@@ -71,7 +78,7 @@ function App() {
             <Route index element={<AddUser />}></Route>
           </Route>
           <Route path="/home" element={<PrivateOutlet />}>
-            <Route index element={<CurrentUser />}></Route>
+            <Route index element={<Home />}></Route>
           </Route>
           <Route path="/home/restart-password" element={<PrivateOutlet />}>
             <Route index element={<RestartPassword />}></Route>

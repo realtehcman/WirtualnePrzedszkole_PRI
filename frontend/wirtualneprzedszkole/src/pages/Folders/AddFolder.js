@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import {useNavigate} from "react-router-dom";
 import FolderService from './FolderService'
 import '../CreateUser/CreateUser.scss'
@@ -37,16 +37,16 @@ const AddFolder = (props) => {
                 if (temp > 0)
                     FileService.addFiles(response.data.id, formData).then((res) => {
                     if (res.status !== 200) throw new Error(res.status);
-
+                    
                 })
                 navigate(-1)
             }
         })
-
+    
     }
 
     return (
-        <div data-testid="add-folder" className='formContainer'>
+        <div className='formContainer'>
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>
                     <div className='form-body'>

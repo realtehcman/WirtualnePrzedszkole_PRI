@@ -3,10 +3,12 @@ import "../User/Users.scss";
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar";
 import Knowledge from "./Knowledge";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 const KnowledgeNavi = () => {
-
+  const navigate = useNavigate();
+  
   return (
     <div className="users gallery">
       <Sidebar />

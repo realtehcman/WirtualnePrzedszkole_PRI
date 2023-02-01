@@ -2,12 +2,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../User/Table.scss";
 import SendMessageService from "./SendMessageService";
-import React, {Component} from "react";
+import React, { Component } from "react";
 import "../CreateUser/CreateUser.scss";
 import UserService from "../User/UserService";
 import "./Message.scss";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+
 
 
 class SendMessage extends Component {
@@ -45,13 +46,14 @@ class SendMessage extends Component {
 
     componentDidMount() {
         UserService.getUsers().then((response) => {
-            this.setState({users: response.data});
+            this.setState({ users: response.data });
+            this.loger();
         });
     }
 
 
     GetRecieverHandler = (event) => {
-        this.setState({to: event.target.value});
+        this.setState({ to: event.target.value });
     };
 
 
@@ -183,10 +185,10 @@ class SendMessage extends Component {
                             Temat
                         </label>
                         <input className="form-control" type="PrettyPrintJson" id="" value={this.state.subject}
-                               onChange={this.changeNameHandler}/>
+                               onChange={this.changeNameHandler} />
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">
+                        <label className="form-label" >
                             Treść
                         </label>
                         <div className="q1-editor"><ReactQuill value={this.state.content} onChange={this.changeDescriptionHandler} /></div>
@@ -206,5 +208,4 @@ class SendMessage extends Component {
         );
     }
 }
-
 export default SendMessage
