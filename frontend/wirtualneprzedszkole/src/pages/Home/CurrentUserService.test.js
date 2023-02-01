@@ -26,8 +26,8 @@ describe('CurrentUserService', () => {
 
     describe('getCurrent_user', () => {
         it('should make a GET request to the correct URL with the id as a parameter', async () => {
-            await CurrentUserService.getCurrentUser(1);
-            expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/api/user/current_user/1');
+            await CurrentUserService.getCurrentUser();
+            expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/api/user/current_user');
         });
     });
 

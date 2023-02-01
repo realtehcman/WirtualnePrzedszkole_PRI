@@ -57,6 +57,7 @@ const AssignTeacher = (props) => {
                     >
                       Przypisz
                     </button>
+
                   </td>
                 </tr>
               ))}

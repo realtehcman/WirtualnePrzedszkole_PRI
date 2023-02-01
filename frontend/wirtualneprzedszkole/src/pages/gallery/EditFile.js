@@ -5,7 +5,6 @@ import Knowledge from "./Knowledge"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const EditFile = (props) => {
     
     const file = {

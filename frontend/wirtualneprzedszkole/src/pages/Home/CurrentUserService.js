@@ -13,7 +13,7 @@ class CurrentUserService {
     editCurrentUser(currentUser) {
         return axios.put(CurrentUserService_REST_API_URL, currentUser)
     }
-    getCurrentUser(id) {
+    getCurrentUser() {
         return axios.get(CurrentUserService_REST_API_URL)
     }
     addCurrentUser(currentUser){

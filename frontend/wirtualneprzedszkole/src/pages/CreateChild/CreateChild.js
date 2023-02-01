@@ -48,6 +48,7 @@ class CreateChild extends Component {
       })
     }
 
+
     ChildrenService.addChild(child).then((response) => {
       if (response.data != null) {
         this.setState({ name: '', lastName: '', className: '' });

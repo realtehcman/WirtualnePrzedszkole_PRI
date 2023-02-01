@@ -10,7 +10,7 @@ import HeightIcon from '@mui/icons-material/Height';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import currentUserService from "../Home/CurrentUserService";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Knowledge = () => {
 
@@ -28,6 +28,7 @@ const Knowledge = () => {
 
 
 
+
     const [currentUser, setCurrentUser] = useState({
         role: '',
     });
@@ -40,7 +41,7 @@ const Knowledge = () => {
 
 
     const getData = async () => {
-        currentUserService.getCurrentUsers(id).then(response => {
+        currentUserService.getCurrentUsers().then(response => {
             let currentUserData = response.data;
             setCurrentUser({id: currentUserData.id, role: currentUserData.role})
         });

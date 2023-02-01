@@ -24,7 +24,8 @@ class CreateUser extends Component {
         classes: [],
         className: "",
         display: 1,
-        isClose: false
+        isClose: false,
+        opis:""
       };
 
       this.changeNameHandler = this.changeNameHandler.bind(this);
@@ -61,6 +62,7 @@ class CreateUser extends Component {
           address: this.state.address,
           phoneNumber: this.state.phoneNumber,
           role: this.state.role,
+          opis: this.state.opis
         });
         //user = JSON.stringify(user)
         //this.state.users.push(user)

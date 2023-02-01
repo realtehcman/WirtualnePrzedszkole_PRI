@@ -49,6 +49,8 @@ class SentMessage extends React.Component {
     });
   }
 
+
+
   componentDidMount() {
     SentMessageService.getSentMessages().then((response) => {
       let sortedData = response.data.sort((a, b) => b.id - a.id);

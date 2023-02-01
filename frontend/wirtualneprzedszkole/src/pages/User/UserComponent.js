@@ -1,10 +1,9 @@
 import React from "react";
 import UserService from "./UserService";
 import "./Table.scss";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const Navi = (props) => {
   const navigate = useNavigate();
@@ -87,8 +86,7 @@ class UserComponent extends React.Component {
               <td>Akcje</td>
             </tr>
             </thead>
-            <tbody data-testid="user-name"
-                   className="body table-body">
+            <tbody data-testid="user-name" className="body table-body">
             {filteredusers.map((user) =>(
                 <tr key={user.id}>
                   <td>{user.id}</td>

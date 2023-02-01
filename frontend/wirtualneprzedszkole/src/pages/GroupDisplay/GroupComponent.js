@@ -54,7 +54,6 @@ class GroupComponent extends Component {
     }
   }
 
-
   componentDidMount() {
     GroupService.getGroups().then((response) => {
       this.setState({ groups: response.data });

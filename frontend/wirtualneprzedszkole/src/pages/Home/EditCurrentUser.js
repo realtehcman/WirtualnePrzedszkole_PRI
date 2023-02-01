@@ -1,8 +1,9 @@
 import React, { useEffect, useState }from 'react'
 import { useNavigate } from 'react-router-dom'
-import CurrentUserService from "./CurrentUserService";
+import Current_UserService from "./Current_UserService";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import CurrentUserService from "./CurrentUserService";
 
 const EditCurrentUser = (props) => {
     const current_user = {
@@ -28,7 +29,6 @@ const EditCurrentUser = (props) => {
         userEdit.id = current_user.id
         if (userEdit.phoneNumber === "") userEdit.phoneNumber = current_user.phoneNumber
         if (userEdit.address === "") userEdit.address = current_user.address
-        console.log(userEdit)
         CurrentUserService.editCurrentUser(userEdit)
             .then((response) => {
                 if (response.status === 200) {

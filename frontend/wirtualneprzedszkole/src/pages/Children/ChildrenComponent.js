@@ -5,27 +5,28 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const Navi = (props) => {
   const navigate = useNavigate();
   return (
-    <button
-      onClick={() => navigate("/child/" + props.value)}
-      className="btn btn-info"
-    >
-      Zobacz
-    </button>
+      <button
+          onClick={() => navigate("/child/" + props.value)}
+          className="btn btn-info"
+      >
+        Zobacz
+      </button>
   );
 };
 
 const Navi2 = (props) => {
   const navigate = useNavigate();
   return (
-    <button
-      onClick={() => navigate("/EditChild/" + props.value)}
-      className="btn btn-info"
-    >
-      edytuj
-    </button>
+      <button
+          onClick={() => navigate("/EditChild/" + props.value)}
+          className="btn btn-info"
+      >
+        edytuj
+      </button>
   );
 };
 
@@ -44,10 +45,15 @@ class ChildrenComponent extends React.Component {
     this.setState({ searchTerm: e.target.value });
   }
 
+  loger() {
+    console.log(this.state);
+  }
+
+
   deleteChild(id) {
     let childName = this.state.children.find(child => child.id === id).name;
     let childlastName = this.state.children.find(child => child.id === id).lastName;
-    if(window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${childName} ${childlastName}  ?`)) {
+    if(window.confirm("Czy na pewno chcesz usunąć użytkownika: "  + childName +" " + childlastName + " "+ " ?")) {
       ChildrenService.deleteChild(id).then((response) => {
         this.setState({
           children: this.state.children.filter((child) => child.id !== id),
@@ -64,6 +70,7 @@ class ChildrenComponent extends React.Component {
   componentDidMount() {
     ChildrenService.getChildren().then((response) => {
       this.setState({ children: response.data });
+      this.loger();
     });
   }
 
@@ -77,18 +84,17 @@ class ChildrenComponent extends React.Component {
 
 
     return (
-      <div
-          data-testid="children-component">  <ToastContainer position="top-center" />
-        <div className="abc">
-          <input
-              type="text"
-              placeholder="Wyszukaj.."
-              onChange={this.handleSearch}
-          />
+        <div data-testid="children-component">  <ToastContainer position="top-center" />
+          <div className="abc">
+            <input
+                type="text"
+                placeholder="Wyszukaj.."
+                onChange={this.handleSearch}
+            />
 
-        </div>
-        <table className="content-table">
-          <thead>
+          </div>
+          <table className="content-table">
+            <thead>
             <tr className="table-head">
               <td>Id</td>
               <td>Imię</td>
@@ -96,36 +102,36 @@ class ChildrenComponent extends React.Component {
               <td>Grupa</td>
               <td>Akcje</td>
             </tr>
-          </thead>
-          <tbody className="body">
-          {filteredchildren.map((child) =>(
-              <tr key={child.id}>
-                <td>{child.id}</td>
-                <td>{child.name}</td>
-                <td>{child.lastName}</td>
-                <td id="td--children">{child.classId}</td>
-                <td>
-                  <Navi value={child.id} />
+            </thead>
+            <tbody className="body">
+            {filteredchildren.map((child) =>(
+                <tr key={child.id}>
+                  <td>{child.id}</td>
+                  <td>{child.name}</td>
+                  <td>{child.lastName}</td>
+                  <td id="td--children">{child.classId}</td>
+                  <td>
+                    <Navi value={child.id} />
 
 
 
-                  <Navi2 value={child.id} />
+                    <Navi2 value={child.id} />
 
-                  <button
-                    onClick={() => this.deleteChild(child.id)}
-                    className="btn btn-danger"
-                  >
-                    Usuń
-                  </button>
+                    <button
+                        onClick={() => this.deleteChild(child.id)}
+                        className="btn btn-danger"
+                    >
+                      Usuń
+                    </button>
 
 
 
-                </td>
-              </tr>
+                  </td>
+                </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
     );
   }
 }

@@ -11,6 +11,7 @@ const User = () => {
     name: "",
     lastName: "",
     phoneNumber: "",
+    opis: "",
     address: "",
     role: "",
     children: [

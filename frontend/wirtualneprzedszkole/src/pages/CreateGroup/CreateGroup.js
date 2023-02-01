@@ -56,8 +56,7 @@ class CreateGroup extends Component {
 
   render() {
     return (
-        <div data-testid="createGroup"
-             className="formContainer">
+        <div data-testid="createGroup" className="formContainer">
           <ToastContainer />
           <div className="row">
             <div className="card col-md-6 offset-md-3 offset-md-3">
