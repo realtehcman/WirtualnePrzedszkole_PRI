@@ -4,21 +4,23 @@ const MESSAGES_REST_API_URL = 'http://localhost:8080/api/message/received_messag
 
 class MessageService {
 
-    getReceivedMessages(){
+    getReceivedMessages() {
         return axios.get(MESSAGES_REST_API_URL)
     }
 
-
     getMessage(id) {
-        return axios.get("http://localhost:8080/api/message/read_msg" + '/' + id)
+        return axios.get(`http://localhost:8080/api/message/read_msg/${id}`)
     }
-    ViewMessage(id){
-        return axios.get("http://localhost:8080/api/message/sent_msg" + '/' + id )
+
+    ViewMessage(id) {
+        return axios.get(`http://localhost:8080/api/message/sent_msg/${id}`)
     }
+
     getSentMessage(id) {
-        return axios.get("http://localhost:8080/api/message/sent_msg" + '/' + id)
+        return axios.get(`http://localhost:8080/api/message/sent_msg/${id}`)
     }
-    getSentMesage(){
+
+    getSentMesage() {
         return axios.get("http://localhost:8080/api/message/sent_msg")
     }
 
@@ -26,8 +28,8 @@ class MessageService {
         return axios.get("http://localhost:8080/api/message/read_msg")
     }
 
-    deleteReceivedMessages(id){
-        return axios.delete("http://localhost:8080/api/message" + '/' + id)
+    deleteReceivedMessages(id) {
+        return axios.delete(`http://localhost:8080/api/message/${id}`)
     }
 
 

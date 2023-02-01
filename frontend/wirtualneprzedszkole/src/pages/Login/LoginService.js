@@ -9,14 +9,12 @@ class LoginService {
         return axios.post(LOGIN_REST_API_URL,
             JSON.stringify({ email, password })
             ).then(response => {
-            //console.log(response.headers)
             let header = response.headers["authorization"]
             window.localStorage.setItem("authorization", header)
             return true
         })
         .catch(error => {
             window.localStorage.removeItem("authorization")
-            console.log(error)
             return false
         })
     }

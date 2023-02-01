@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import ChildrenService from "../Children/ChildrenService";
 import "../CreateUser/CreateUser.scss";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import GroupService from "../GroupDisplay/GroupService";
 
 class CreateChild extends Component {
@@ -24,7 +24,7 @@ class CreateChild extends Component {
 
   componentDidMount() {
     GroupService.getGroups().then((response) => {
-      const res = response.data 
+      const res = response.data
       this.setState(
         {classes: ["", ...res ]}
       )
@@ -36,18 +36,16 @@ class CreateChild extends Component {
     let child
     if(this.state.className !== "") {
       const aClass = this.state.classes.find(element => element.name === this.state.className)
-      let childWIthClass = JSON.stringify({
+      child = JSON.stringify({
         name: this.state.name,
         lastName: this.state.lastName,
         classId: aClass.id,
-      });
-      child = childWIthClass
+      })
     } else {
-      let childWIthoutClass = JSON.stringify({
+      child = JSON.stringify({
         name: this.state.name,
         lastName: this.state.lastName,
-      });
-      child = childWIthoutClass
+      })
     }
 
 

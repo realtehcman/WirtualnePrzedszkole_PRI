@@ -1,8 +1,7 @@
 import FileService from "../gallery/FileService"
 import "../gallery/Knowledge.scss"
 import Popup from "../GroupDisplay/Popup";
-import React, {useEffect, useState, useParams } from 'react'
-import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
+import React, {useEffect, useState} from 'react'
 import saveAs from 'file-saver'
 import EditFile from "../gallery/EditFile";
 import FolderService from "./FolderService";
@@ -21,7 +20,7 @@ const FolderOther = (props) => {
     
    let {folderId} = props.value
     useEffect(() => {
-        getFiles()
+        getFiles().then(r => console.log(r))
     },[])
 
     const getFiles = async () => {
@@ -59,7 +58,6 @@ const FolderOther = (props) => {
         FileService.addFiles(folderId, formData).then((response) => {
             if (response.status !== 200) throw new Error(response.status);
             else {
-                console.log(response.data[0])
                 let responseFiles = response.data
                 responseFiles.map((file) => {
                     if (file.dateAdded != null) 
@@ -102,7 +100,7 @@ const FolderOther = (props) => {
     });
  
     return (
-        <div className="scrollable-div">
+        <div data-testid = 'folder-other' className="scrollable-div">
             <table className="content-table">
                 <thead>
                     <tr className="table-head">
@@ -121,7 +119,6 @@ const FolderOther = (props) => {
                             <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>
                             <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>Pobierz</button></td>
                             <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>
-                        {/* {renderPageLink()} */}
                         </tr>
                     ))}
                     <Popup trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup>
