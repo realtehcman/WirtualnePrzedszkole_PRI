@@ -3,14 +3,12 @@ import "../User/Users.scss";
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar";
 import Child from "./Child";
-import { useNavigate } from "react-router-dom";
 
 const ChildNavi = () => {
-  const navigate = useNavigate();
   return (
-    <div className="users">
+    <div data-testid="users" className="users">
       <Sidebar />
-      <div className="usersContainer">
+      <div data-testid="usersContainer" className="usersContainer">
         <Navbar />
         <Child />
       </div>

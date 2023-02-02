@@ -14,7 +14,6 @@ class SendMessageService {
     }
 
     SendMessage(message){
-        console.log(message)
         return axios.post(SENDMESSAGE_REST_API_URL, message, {
             headers: {
                 'Content-Type': 'application/json'
@@ -23,7 +22,6 @@ class SendMessageService {
     }
 
     SendMessageParents(message){
-        console.log(message)
         return axios.post(SENDMESSAGE_REST_API_URL + 'to_parents', message, {
             headers: {
                 'Content-Type': 'application/json'

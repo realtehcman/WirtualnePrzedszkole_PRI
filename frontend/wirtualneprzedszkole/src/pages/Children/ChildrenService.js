@@ -10,7 +10,6 @@ class ChildrenService {
     }
 
     addChild(child){
-        console.log(child)
         return axios.post(CHILDREN_REST_API_URL, child, {
             headers: {
               'Content-Type': 'application/json'

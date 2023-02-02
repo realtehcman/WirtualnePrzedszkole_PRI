@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import GroupService from "../GroupDisplay/GroupService";
 import "../CreateUser/CreateUser.scss";
 import { Link } from "react-router-dom";
@@ -56,7 +56,7 @@ class CreateGroup extends Component {
 
   render() {
     return (
-        <div className="formContainer">
+        <div data-testid="createGroup" className="formContainer">
           <ToastContainer />
           <div className="row">
             <div className="card col-md-6 offset-md-3 offset-md-3">

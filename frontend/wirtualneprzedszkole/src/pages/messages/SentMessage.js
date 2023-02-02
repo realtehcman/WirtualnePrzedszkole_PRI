@@ -39,10 +39,6 @@ class SentMessage extends React.Component {
     this.deleteSentMessages = this.deleteSentMessages.bind(this);
   }
 
-  loger() {
-    console.log(this.state);
-  }
-
   deleteSentMessages(id) {
     SentMessageService.deleteSentMessages(id).then((response) => {
       this.setState({
@@ -64,7 +60,7 @@ class SentMessage extends React.Component {
 
   render() {
     return (
-      <div className="scrollable-div">
+      <div data-testid="sent-message" className="scrollable-div">
         <table className="content-table">
           <thead>
             <tr className="table-head">
