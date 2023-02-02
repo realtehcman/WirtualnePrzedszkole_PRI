@@ -14,6 +14,7 @@ before_script:
 build:
   stage: build
   script:
+    - apt-get update -y && apt-get install -y maven nodejs npm
     - cd frontend
     - npm install
     - npm run build
