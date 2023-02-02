@@ -15,12 +15,12 @@ build:
   stage: build
   script:
     - apk add --update nodejs npm maven
-    - cd frontend
+    - cd frontend/wirtualneprzedszkole
     - npm install
     - npm run build
     - docker build -t frontend:latest .
     - docker push frontend:latest
-    - cd ../backend
+    - cd ../../backend
     - mvn clean install
     - docker build -t backend:latest .
     - docker push backend:latest
@@ -28,9 +28,9 @@ build:
 test:
   stage: test
   script:
-    - cd frontend
+    - cd frontend/wirtualneprzedszkole
     - npm run test
-    - cd ../backend
+    - cd ../../backend
     - mvn test
 
 deploy:
