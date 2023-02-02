@@ -14,7 +14,7 @@ before_script:
 build:
   stage: build
   script:
-    - apk add --update nodejs npm maven
+    - apk add --update nodejs npm maven openjdk11
     - cd frontend/wirtualneprzedszkole
     - npm i --save @fortawesome/fontawesome-svg-core
     - npm i --save @fortawesome/free-solid-svg-icons
