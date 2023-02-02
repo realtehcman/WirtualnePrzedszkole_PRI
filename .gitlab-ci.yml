@@ -20,12 +20,8 @@ build:
     - npm i --save @fortawesome/free-solid-svg-icons
     - npm install -f
     - npm run build
-    - docker build -t frontend:latest .
-    - docker push frontend:latest
     - cd ../../backend
     - mvn clean install
-    - docker build -t backend:latest .
-    - docker push backend:latest
 
 test:
   stage: test
