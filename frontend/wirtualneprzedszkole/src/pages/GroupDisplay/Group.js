@@ -53,7 +53,7 @@ const Group = () => {
         
     }
         getData().then(r => console.log(r))
-    },[])
+    })
 
     
 

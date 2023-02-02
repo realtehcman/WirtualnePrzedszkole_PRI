@@ -1,6 +1,6 @@
 import React, { useEffect, useState }from 'react'
 import ChildrenService from "./ChildrenService";
-import {useParams, useNavigate} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -28,7 +28,7 @@ const EditChild = () => {
         });
     }
         getData()
-    },[])
+    })
 
     const updateData = async (e) => {
         e.preventDefault()

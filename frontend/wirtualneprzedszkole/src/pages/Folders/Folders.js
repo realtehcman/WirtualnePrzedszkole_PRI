@@ -29,7 +29,7 @@ const Folders = (props) => {
         })
         }
         getFolder().then(r => console.log(r))
-    },[])
+    })
 
 
     const deleteFolder = async(folderId) => {

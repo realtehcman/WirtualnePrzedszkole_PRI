@@ -27,7 +27,7 @@ const ReadMessage = () => {
         });
     };
         getData().then(r => console.log(r));
-    }, []);
+    });
 
     
 

@@ -27,7 +27,7 @@ const ViewMessage = () => {
         });
     }
         getData().then(r => console.log(r));
-    }, []);
+    });
 
     
 

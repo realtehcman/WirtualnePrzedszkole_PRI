@@ -1,7 +1,6 @@
 import FileService from "./FileService";
 import React, {useState} from 'react'
 import "../gallery/KnowledgeEdit.scss"
-import Knowledge from "./Knowledge"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

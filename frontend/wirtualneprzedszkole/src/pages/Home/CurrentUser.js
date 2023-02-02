@@ -32,22 +32,6 @@ const CurrentUser = () => {
         profilePicture: ''
     });
 
-    const [] = useState({
-        id:'',
-        name: '',
-        description:'',
-        children: [{
-            id: '',
-            name: '',
-            lastName: ''
-        }],
-        teachers: [{
-            id: '',
-            name: '',
-            lastName: ''
-        }]
-    });
-
     let {id} = useParams()
 
     useEffect(() => {
@@ -61,21 +45,7 @@ const CurrentUser = () => {
 
     }
         getData()
-    },[])
-
-    
-
-    // const getData = async () => {
-    //
-    //     let className = await GroupService.getGroup(id).then(response => {
-    //         //console.log('Response from main API: ',response)
-    //         let groupData = response.data;
-    //         let children = groupData.children.map(it => {return {id: it.id, name: it.name, lastName: it.lastName}})
-    //         let teachers = groupData.teachers.map(it => {return {id: it.id, name: it.name, lastName: it.lastName}})
-    //         setGroup({id: groupData.id, name: groupData.name, description: groupData.description, children:  children, teachers: teachers})
-    //         return groupData.name
-    //     });
-
+    })
 
     const[buttonPopup, setButtonPopup] = useState(false);
 
@@ -97,7 +67,7 @@ const CurrentUser = () => {
 
                     <div className="img-container">
                         {/*<img src={current_user.profilePicture} alt="zdjęcie profilowe" className="profile-img"/>*/}
-                        <img
+                        <img alt="cute-cat"
                             className="rounded-circle mt-5"
                             width="150px"
                             src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"

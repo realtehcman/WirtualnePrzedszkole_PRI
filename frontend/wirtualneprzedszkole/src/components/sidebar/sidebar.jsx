@@ -20,18 +20,12 @@ import CurrentUserService from "../../pages/Home/CurrentUserService";
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 const Sidebar = () => {
-  const { height, width } = useWindowDimensions();
-
-  const phoneMaxWidth = 480;
-  // const screenSize = width;
-  // const  = width;
-
-  const navigate = useNavigate();
+  useWindowDimensions();
+  useNavigate();
 
   var [sidebar, setSidebar] = useState(true);
-  //const showSidebar = () => setSidebar(!sidebar);
 
-  const screenSize = useEffect(() => {
+  useEffect(() => {
     window.addEventListener("resize", () => {
       const myWidth = window.innerWidth;
       console.log("my width :::", myWidth);
@@ -51,22 +45,20 @@ const Sidebar = () => {
     role: '',
   });
 
-  let {isLoggedIn} = current_user.role;
-
-
   let {id} = useParams()
 
   useEffect(() => {
-    getData()
-  },[])
-
-  const getData = async () => {
+    const getData = async () => {
     CurrentUserService.getCurrentUser(id).then(response => {
       console.log('Response from main API: ',response)
       let current_userData = response.data;
       setCurrent_User({id: current_userData.id, role: current_userData.role})
     });
   }
+    getData()
+  },[])
+
+  
 
   const MenuView = () => {
     if (current_user.role=== "PARENT" ){
@@ -196,9 +188,6 @@ const Sidebar = () => {
     }
   }
 
-
-  const[buttonPopup, setButtonPopup] = useState(false);
-
   return (
       <>
         <div className="sidebar">
@@ -232,13 +221,6 @@ const Sidebar = () => {
         </div>
       </>
   );
-};
-
-const SidebarPhone = () => {
-  if (isMobile) {
-    return <div> This content is available only on mobile</div>;
-  }
-  return <div> content... </div>;
 };
 
 export default Sidebar;

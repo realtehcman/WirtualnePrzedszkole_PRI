@@ -1,6 +1,5 @@
 import FileService from "../gallery/FileService";
 import "../gallery/Knowledge.scss";
-import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from 'react'
 import saveAs from 'file-saver'
 import EditFile from "./EditFile";
