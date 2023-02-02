@@ -1,0 +1,40 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
+
+build:
+  stage: build
+  script:
+    - cd frontend
+    - npm install
+    - npm run build
+    - docker build -t frontend:latest .
+    - docker push frontend:latest
+    - cd ../backend
+    - mvn clean install
+    - docker build -t backend:latest .
+    - docker push backend:latest
+
+test:
+  stage: test
+  script:
+    - cd frontend
+    - npm run test
+    - cd ../backend
+    - mvn test
+
+deploy:
+  stage: deploy
+  only:
+    - master
+  script:
+    - echo Hi
