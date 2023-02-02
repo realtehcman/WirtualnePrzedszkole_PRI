@@ -14,7 +14,6 @@ import "./sidebar.scss";
 import * as FaIcons from "react-icons/fa";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 // import MediaQuery from "react-responsive";
-import { isMobile } from "react-device-detect";
 import useWindowDimensions from "./useWindowDimensions.js";
 import CurrentUserService from "../../pages/Home/CurrentUserService";
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
@@ -30,6 +29,7 @@ const Sidebar = () => {
       const myWidth = window.innerWidth;
       console.log("my width :::", myWidth);
     });
+     // eslint-disable-next-line
   }, [window]);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const Sidebar = () => {
     });
   }
     getData()
-  },[])
+  })
 
   
 

@@ -80,6 +80,7 @@ const Knowledge = () => {
             } else {
                 responseFiles.sort((a, b) => a.id - b.id);
             }
+             // eslint-disable-next-line
             responseFiles.map((file) => {
                 if (file.dateAdded != null)
                     file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
@@ -113,6 +114,7 @@ const Knowledge = () => {
             if (response.status === 200) {
                 console.log(response.data[0])
                 let responseFiles = response.data
+                 // eslint-disable-next-line
                 responseFiles.map((file) => {
                     if (file.dateAdded != null)
                         file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]

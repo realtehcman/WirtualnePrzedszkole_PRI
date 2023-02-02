@@ -26,6 +26,7 @@ const FolderOther = (props) => {
             responseFiles.sort(function(a, b) {
                 return a.id - b.id;
             });
+             // eslint-disable-next-line
             responseFiles.map((file) => {
                 if (file.dateAdded != null) 
                     file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
@@ -35,6 +36,7 @@ const FolderOther = (props) => {
             console.log(`axios request failed: ${reason}`);
         })    
     }
+         // eslint-disable-next-line
         getFiles().then(r => console.log(r))
     },[])
 
@@ -57,6 +59,7 @@ const FolderOther = (props) => {
             if (response.status !== 200) throw new Error(response.status);
             else {
                 let responseFiles = response.data
+                 // eslint-disable-next-line
                 responseFiles.map((file) => {
                     if (file.dateAdded != null) 
                         file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]

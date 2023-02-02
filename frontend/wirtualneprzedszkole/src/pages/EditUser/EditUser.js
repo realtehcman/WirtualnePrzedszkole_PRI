@@ -39,10 +39,7 @@ const EditUser = () => {
         });
     }
         getData()
-    },[])
-
-
-    
+    })
 
     const updateData = (e) => {
         e.preventDefault()
