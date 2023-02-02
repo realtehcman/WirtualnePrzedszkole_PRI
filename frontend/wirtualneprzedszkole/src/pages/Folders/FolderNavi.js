@@ -2,12 +2,11 @@ import React from "react";
 import "../User/Users.scss";
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar";
-import { useNavigate, useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import Folders from "./Folders"
 
 
 const FolderNavi = () => {
-  const navigate = useNavigate();
 
   let folderId = useParams() 
   
@@ -16,7 +15,7 @@ const FolderNavi = () => {
       <Sidebar />
       <div className="usersContainer">
         <Navbar />
-        <Folders value={folderId}/>
+        <Folders value={folderId} data-testid="folders"/>
       </div>
     </div>
   );

@@ -1,11 +1,9 @@
-import React from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
 import messageService from "./MessageService";
 import "../User/Table.scss";
 
-const ViewMsg = () => {
-    const navigate = useNavigate();
+const ViewMessage = () => {
     const [message, setMessage] = useState({
         id: "",
         author: "",
@@ -16,14 +14,11 @@ const ViewMsg = () => {
     let { id } = useParams();
 
     useEffect(() => {
-        getData();
+        getData().then(r => console.log(r));
     }, []);
 
     const getData = async () => {
-        // const response = UserService.getUser(id)
-        // setUser((await response).data)
         messageService.ViewMessage(id).then((response) => {
-            console.log("Response from main API: ", response);
             let msgData = response.data;
 
             setMessage({
@@ -36,14 +31,11 @@ const ViewMsg = () => {
     };
 
     return (
-
-
-        <div >
-
-            <table class="table table-responsive">
+        <div data-testid="view-message" >
+            <table className="table table-responsive">
                 <thead>
                 <tr className="table-head">
-                    <td class="text-center">Treść</td>
+                    <td className="text-center">Treść</td>
                 </tr>
                 </thead>
                 <tbody className="body">
@@ -52,7 +44,6 @@ const ViewMsg = () => {
                     {/*Idk czy to zostawic ponieważ może to być niby ryzykowane jak się stosuje dangerouslySetInnerHTML cza o tym troche poczytać */}
                     <td className="" dangerouslySetInnerHTML={{__html: message.content}}/>
                 </tr>
-
                 </tbody>
             </table>
 
@@ -60,4 +51,4 @@ const ViewMsg = () => {
     );
 
 }
-export default ViewMsg
+export default ViewMessage
