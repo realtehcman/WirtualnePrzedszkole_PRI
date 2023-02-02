@@ -21,7 +21,7 @@ import { IconContext } from "react-icons";
 import { isMobile } from "react-device-detect";
 import { BrowserView, MobileView } from "react-device-detect";
 import useWindowDimensions from "./useWindowDimensions.js";
-import current_UserService from "../../pages/Home/Current_UserService";
+import CurrentUserService from "../../pages/Home/CurrentUserService";
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 const Sidebar = () => {
@@ -66,7 +66,7 @@ const Sidebar = () => {
   },[])
 
   const getData = async () => {
-    current_UserService.getCurrent_User(id).then(response => {
+    CurrentUserService.getCurrentUser(id).then(response => {
       console.log('Response from main API: ',response)
       let current_userData = response.data;
       setCurrent_User({id: current_userData.id, role: current_userData.role})

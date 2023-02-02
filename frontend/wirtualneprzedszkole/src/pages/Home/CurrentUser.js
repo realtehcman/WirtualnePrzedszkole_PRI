@@ -1,12 +1,12 @@
 import React, { useEffect, useState }from 'react'
-import "./Home.scss"
+import "./CurrentUser.scss"
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar"
 import Popup from "../GroupDisplay/Popup";
 import "../GroupDisplay/abc.css"
 import {useNavigate, useParams} from "react-router-dom";
-import current_UserService from "./Current_UserService";
-import EditCurrent_User from "./EditCurrent_User";
+import CurrentUserService from "./CurrentUserService";
+import EditCurrentUser from "./EditCurrentUser";
 import "../User/UserInfo.scss";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +16,7 @@ import UserService from '../User/UserService';
 import ChildrenService from '../Children/ChildrenService';
 import GroupService from "../GroupDisplay/GroupService";
 
-const Current_User = () => {
+const CurrentUser = () => {
     const navigate = useNavigate();
 
     const [current_user, setCurrent_User] = useState({
@@ -59,7 +59,7 @@ const Current_User = () => {
     },[])
 
     const getData = async () => {
-        current_UserService.getCurrent_User(id).then(response => {
+        CurrentUserService.getCurrentUser(id).then(response => {
             console.log('Response from main API: ',response)
             let current_userData = response.data;
             let children = current_userData.children.map(it => {return {id: it.id, name: it.name, classId: it.classId}})
@@ -126,7 +126,7 @@ const Current_User = () => {
 
                     <div className="v"> <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
 
-                        <EditCurrent_User  {...current_user}/>
+                        <EditCurrentUser  {...current_user}/>
 
                     </Popup></div>
 
@@ -203,4 +203,4 @@ const Current_User = () => {
 //     )
 // }
 
-export default Current_User;
+export default CurrentUser;

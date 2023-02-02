@@ -22,19 +22,10 @@ public class MessageService {
 
     public Message sendMessage(Message message, List<User> users) {
         Message msg = messageRepo.save(message);
-<<<<<<< HEAD
-//        String subject = msg.getSubject();
-////        //Wysyłanie powiadomienia narazie zakomentowane bo wysypuje sie,
-////        //gdy adres mail nieistnieje
-//        users.forEach(e -> emailSenderService.sendEmail(e.getEmail(), subject,
-//               "Sprawdź nową wiadomość na twoim koncie "));
-=======
         String subject = msg.getSubject();
-//        //Wysyłanie powiadomienia narazie zakomentowane bo wysypuje sie,
-//        //gdy adres mail nieistnieje
         users.forEach(e -> emailSenderService.sendEmail(e.getEmail(), subject,
                "Sprawdź nową wiadomość na twoim koncie "));
->>>>>>> master
+
         return msg;
     }
 

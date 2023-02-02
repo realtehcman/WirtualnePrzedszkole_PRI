@@ -1,10 +1,10 @@
 import React, { useEffect, useState }from 'react'
 import { useNavigate } from 'react-router-dom'
-import Current_UserService from "./Current_UserService";
+import CurrentUserService from "./CurrentUserService";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-const EditCurrent_User = (props) => {
+const EditCurrentUser = (props) => {
     const current_user = {
         id: props.id,
         email: props.email,
@@ -32,7 +32,7 @@ const EditCurrent_User = (props) => {
         if (userEdit.address === "") userEdit.address = current_user.address
         if (userEdit.opis === "") userEdit.opis = current_user.opis
         console.log(userEdit)
-        Current_UserService.EditCurrent_User(userEdit)
+        CurrentUserService.editCurrentUser(userEdit)
             .then((response) => {
                 if (response.status === 200) {
                     toast.success("Dane zostały zmienione poprawnie");
@@ -63,4 +63,4 @@ const EditCurrent_User = (props) => {
     )
 }
 
-export default EditCurrent_User
+export default EditCurrentUser
