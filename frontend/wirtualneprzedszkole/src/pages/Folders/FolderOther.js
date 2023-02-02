@@ -38,7 +38,7 @@ const FolderOther = (props) => {
     }
          // eslint-disable-next-line
         getFiles().then(r => console.log(r))
-    },[])
+    })
 
     const printFiles = async (file) => {
         FileService.getFile(folderId, file.hash).then((response) => {
