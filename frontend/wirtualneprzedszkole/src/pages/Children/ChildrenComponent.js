@@ -2,7 +2,6 @@ import React from "react";
 import ChildrenService from "./ChildrenService";
 import "../User/Table.scss";
 import { useNavigate } from "react-router-dom";
-import UserService from "../User/UserService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,24 +9,24 @@ import 'react-toastify/dist/ReactToastify.css';
 const Navi = (props) => {
   const navigate = useNavigate();
   return (
-    <button
-      onClick={() => navigate("/child/" + props.value)}
-      className="btn btn-info"
-    >
-      Zobacz
-    </button>
+      <button
+          onClick={() => navigate("/child/" + props.value)}
+          className="btn btn-info"
+      >
+        Zobacz
+      </button>
   );
 };
 
 const Navi2 = (props) => {
   const navigate = useNavigate();
   return (
-    <button
-      onClick={() => navigate("/EditChild/" + props.value)}
-      className="btn btn-info"
-    >
-      edytuj
-    </button>
+      <button
+          onClick={() => navigate("/EditChild/" + props.value)}
+          className="btn btn-info"
+      >
+        edytuj
+      </button>
   );
 };
 
@@ -85,17 +84,17 @@ class ChildrenComponent extends React.Component {
 
 
     return (
-      <div>  <ToastContainer position="top-center" />
-        <div className="abc">
-          <input
-              type="text"
-              placeholder="Wyszukaj.."
-              onChange={this.handleSearch}
-          />
+        <div data-testid="children-component">  <ToastContainer position="top-center" />
+          <div className="abc">
+            <input
+                type="text"
+                placeholder="Wyszukaj.."
+                onChange={this.handleSearch}
+            />
 
-        </div>
-        <table className="content-table">
-          <thead>
+          </div>
+          <table className="content-table">
+            <thead>
             <tr className="table-head">
               <td>Id</td>
               <td>Imię</td>
@@ -103,36 +102,36 @@ class ChildrenComponent extends React.Component {
               <td>Grupa</td>
               <td>Akcje</td>
             </tr>
-          </thead>
-          <tbody className="body">
-          {filteredchildren.map((child) =>(
-              <tr key={child.id}>
-                <td>{child.id}</td>
-                <td>{child.name}</td>
-                <td>{child.lastName}</td>
-                <td id="td--children">{child.classId}</td>
-                <td>
-                  <Navi value={child.id} />
+            </thead>
+            <tbody className="body">
+            {filteredchildren.map((child) =>(
+                <tr key={child.id}>
+                  <td>{child.id}</td>
+                  <td>{child.name}</td>
+                  <td>{child.lastName}</td>
+                  <td id="td--children">{child.classId}</td>
+                  <td>
+                    <Navi value={child.id} />
 
 
 
-                  <Navi2 value={child.id} />
+                    <Navi2 value={child.id} />
 
-                  <button
-                    onClick={() => this.deleteChild(child.id)}
-                    className="btn btn-danger"
-                  >
-                    Usuń
-                  </button>
+                    <button
+                        onClick={() => this.deleteChild(child.id)}
+                        className="btn btn-danger"
+                    >
+                      Usuń
+                    </button>
 
 
 
-                </td>
-              </tr>
+                  </td>
+                </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
     );
   }
 }

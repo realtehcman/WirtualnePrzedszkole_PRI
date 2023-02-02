@@ -1,11 +1,9 @@
-import React from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
 import messageService from "./MessageService";
 import "../User/Table.scss";
 
-    const ReadMsg = () => {
-    const navigate = useNavigate();
+const ReadMessage = () => {
     const [message, setMessage] = useState({
         id: "",
         author: "",
@@ -13,17 +11,14 @@ import "../User/Table.scss";
         content: "",
     });
 
-    let { id } = useParams();
+    let {id} = useParams();
 
     useEffect(() => {
-        getData();
+        getData().then(r => console.log(r));
     }, []);
 
     const getData = async () => {
-        // const response = UserService.getUser(id)
-        // setUser((await response).data)
         messageService.getMessage(id).then((response) => {
-            console.log("Response from main API: ", response);
             let msgData = response.data;
 
             setMessage({
@@ -35,10 +30,10 @@ import "../User/Table.scss";
         });
     };
 
-        return (
+    return (
 
 
-<div >
+        <div>
 
        <table class="table table-responsive">
                     <thead>
@@ -53,11 +48,11 @@ import "../User/Table.scss";
                             <td className="" dangerouslySetInnerHTML={{__html: message.content}}/>
                         </tr>
 
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
 
-</div>
-        );
+        </div>
+    );
 
 }
-export default ReadMsg
+export default ReadMessage

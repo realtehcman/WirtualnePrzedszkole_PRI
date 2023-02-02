@@ -4,12 +4,12 @@ import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar";
 import "./ChildrenComponent";
 import ChildrenComponent from "./ChildrenComponent";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const ChildrenNavi = () => {
   const navigate = useNavigate();
   return (
-    <div className="users">
+    <div data-testid="children-navi" className="users">
       <Sidebar />
       <div className="usersContainer">
         <Navbar />
@@ -17,6 +17,7 @@ const ChildrenNavi = () => {
           <ChildrenComponent />
         </div>
         <button
+            data-testid="add-child-button"
           className="button"
           onClick={() => navigate("/add-child")}
         >
