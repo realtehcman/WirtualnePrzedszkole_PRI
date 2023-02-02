@@ -1,7 +1,6 @@
 import UserService from "../User/UserService";
-import {useParams, useNavigate} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import React, { useEffect, useState }from 'react'
-import User from "../User/User";
 
 
 const EditUser = () => {
@@ -28,11 +27,7 @@ const EditUser = () => {
     let {id} = useParams()
     
     useEffect(() => {
-        getData()
-    },[])
-
-
-    const getData = async () => {
+        const getData = async () => {
         // const response = UserService.getUser(id)
         // setUser((await response).data)
         UserService.getUser(id).then(response => {
@@ -43,6 +38,11 @@ const EditUser = () => {
             })
         });
     }
+        getData()
+    },[])
+
+
+    
 
     const updateData = (e) => {
         e.preventDefault()

@@ -20,18 +20,17 @@ const Child = () => {
     let {id} = useParams()
 
     useEffect(() => {
-        getData().then(() => console.log('Data is loaded'))
-    },[id])
-
-    const getData = async () => {
-
+        const getData = async () => {
         ChildrenService.getChild(id).then(response => {
             let ChildData = response.data;
             let parents = ChildData.parents.map(it => {return {id: it.id, name: it.name, lastName: it.lastName, email: it.email}})
             setChild({id: ChildData.id, name: ChildData.name, lastName: ChildData.lastName, parents:  parents})
         });
-
     }
+        getData().then(() => console.log('Data is loaded'))
+    },[id])
+
+    
 
     return (
         <div data-testid="child">

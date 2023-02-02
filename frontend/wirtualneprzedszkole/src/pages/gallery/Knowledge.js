@@ -10,7 +10,6 @@ import HeightIcon from '@mui/icons-material/Height';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import currentUserService from "../Home/CurrentUserService";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Knowledge = () => {
 
@@ -33,8 +32,6 @@ const Knowledge = () => {
         role: '',
     });
 
-    let {isLoggedIn} = currentUser.role;
-
     useEffect(() => {
         getData().then(r => console.log(r))
     },[])
@@ -46,8 +43,6 @@ const Knowledge = () => {
             setCurrentUser({id: currentUserData.id, role: currentUserData.role})
         });
     }
-
-    let {id} = useParams()
 
     const [sortBy, setSortBy] = useState("id");
 
@@ -64,12 +59,7 @@ const Knowledge = () => {
     }
 
     useEffect(() => {
-        getKnowledge();
-    }, [sortBy, sortOrder]);
-
-
-
-    const getKnowledge = async () => {
+        const getKnowledge = async () => {
         FileService.getKnowledge().then((response) => {
             let responseFiles = response.data;
             if (sortBy === "name") {
@@ -100,6 +90,8 @@ const Knowledge = () => {
             console.log(`axios request failed: ${reason}`);
         });
     };
+        getKnowledge();
+    }, [sortBy, sortOrder]);
 
 
     const printFiles = async (file) => {

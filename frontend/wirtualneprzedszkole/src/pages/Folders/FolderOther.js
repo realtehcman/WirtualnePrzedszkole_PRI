@@ -20,10 +20,7 @@ const FolderOther = (props) => {
     
    let {folderId} = props.value
     useEffect(() => {
-        getFiles().then(r => console.log(r))
-    },[])
-
-    const getFiles = async () => {
+        const getFiles = async () => {
         FolderService.getFolder(folderId).then((response) => {
             let responseFiles = response.data.fileDataList
             responseFiles.sort(function(a, b) {
@@ -38,7 +35,8 @@ const FolderOther = (props) => {
             console.log(`axios request failed: ${reason}`);
         })    
     }
-
+        getFiles().then(r => console.log(r))
+    },[])
 
     const printFiles = async (file) => {
         FileService.getFile(folderId, file.hash).then((response) => {

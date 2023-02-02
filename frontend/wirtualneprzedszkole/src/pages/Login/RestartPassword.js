@@ -4,7 +4,6 @@ import "./login.scss"
 import CurrentUserService from '../Home/CurrentUserService';
 
 const RestartPassword = () => {    
-    const [email, setEmail] = useState('');
     const [reset, setReset] = useState({
         
         email: '',

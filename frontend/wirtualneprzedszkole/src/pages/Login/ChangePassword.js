@@ -16,7 +16,7 @@ const ChangePassword = () => {
     const changePassword = async (e) => {
         e.preventDefault();
         if (change.password === newPassword) {
-            let restart = await CurrentUserService.changePassword(change)
+            await CurrentUserService.changePassword(change)
         }
         navigate("/")
     }

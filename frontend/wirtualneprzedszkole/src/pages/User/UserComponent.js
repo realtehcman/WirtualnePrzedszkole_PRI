@@ -62,7 +62,7 @@ class UserComponent extends React.Component {
     let userName = this.state.users.find(user => user.id === id).name;
     let userlastName = this.state.users.find(user => user.id === id).lastName;
     let emaail = this.state.users.find(user => user.id === id).email;
-    if(window.confirm("Czy na pewno chcesz usunąć użytkownika: "  + userName +" " + userlastName + " "+ "("+emaail+")" + " ?")) {
+    if(window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${userName} ${userlastName} (${emaail}) ?`)) {
       UserService.deleteUser(id).then((response) => {
         this.setState({
           users: this.state.users.filter((user) => user.id !== id),

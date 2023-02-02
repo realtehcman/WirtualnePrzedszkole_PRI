@@ -25,10 +25,7 @@ const User = () => {
   let { id } = useParams();
 
   useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = async () => {
+    const getData = async () => {
     // const response = UserService.getUser(id)
     // setUser((await response).data)
     UserService.getUser(id).then((response) => {
@@ -49,14 +46,18 @@ const User = () => {
         children: children,
       });
     });
-  };
+  }
+    getData();
+  }, []);
+
+  
 
   return (
     <div className="container rounded bg-white mt-5 mb-5">
       <div className="row">
         <div className="col-md-3 border-right">
           <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-            <img
+            <img alt="cute-cat"
               className="rounded-circle mt-5"
               width="150px"
               src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"

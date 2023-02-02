@@ -1,4 +1,4 @@
-import React, { useEffect, useState }from 'react'
+import React, { useState }from 'react'
 import { useNavigate } from 'react-router-dom'
 import CurrentUserService from "./CurrentUserService";
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,7 +14,6 @@ const EditCurrentUser = (props) => {
         address: props.address,
         opis: props.opis
     };
-    const navigate = useNavigate()
     const [userEdit, setUserEdit] = useState({
         id: current_user.id,
         email: current_user.email,

@@ -8,13 +8,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import CurrentUserService from "./CurrentUserService";
 import EditCurrentUser from "./EditCurrentUser";
 import "../User/UserInfo.scss";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-import FolderService from '../Folders/FolderService';
-import UserService from '../User/UserService';
-import ChildrenService from '../Children/ChildrenService';
-import GroupService from "../GroupDisplay/GroupService";
 
 const CurrentUser = () => {
     const navigate = useNavigate();
@@ -36,7 +32,7 @@ const CurrentUser = () => {
         profilePicture: ''
     });
 
-    const [group, setGroup] = useState({
+    const [] = useState({
         id:'',
         name: '',
         description:'',
@@ -55,10 +51,7 @@ const CurrentUser = () => {
     let {id} = useParams()
 
     useEffect(() => {
-        getData()
-    },[])
-
-    const getData = async () => {
+        const getData = async () => {
         CurrentUserService.getCurrentUser(id).then(response => {
             console.log('Response from main API: ',response)
             let current_userData = response.data;
@@ -67,6 +60,10 @@ const CurrentUser = () => {
         });
 
     }
+        getData()
+    },[])
+
+    
 
     // const getData = async () => {
     //
@@ -82,7 +79,7 @@ const CurrentUser = () => {
 
     const[buttonPopup, setButtonPopup] = useState(false);
 
-    const handleFileUpload = async (e) => {
+    const handleFileUpload = async () => {
         // profilówka ///////
     }
 

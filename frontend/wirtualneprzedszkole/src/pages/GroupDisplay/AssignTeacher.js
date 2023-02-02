@@ -1,7 +1,7 @@
 import "./AssignTeacher.scss"
 import UserService from "../User/UserService"
 import React, { useEffect, useState } from 'react'
-import {useParams, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const AssignTeacher = (props) => {
 

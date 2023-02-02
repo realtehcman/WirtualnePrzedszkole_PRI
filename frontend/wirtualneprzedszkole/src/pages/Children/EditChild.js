@@ -15,14 +15,9 @@ const EditChild = () => {
         lastName: '',
         classId: []
     });
-    const navigate = useNavigate();
     let {id} = useParams()
     useEffect(() => {
-        getData()
-    },[])
-
-
-    const getData = async () => {
+        const getData = async () => {
         ChildrenService.getChild(id).then(response => {
             console.log('Response from main API: ',response)
             let childData = response.data;
@@ -32,6 +27,8 @@ const EditChild = () => {
             })
         });
     }
+        getData()
+    },[])
 
     const updateData = async (e) => {
         e.preventDefault()
