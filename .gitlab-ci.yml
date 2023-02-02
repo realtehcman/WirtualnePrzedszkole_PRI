@@ -1,4 +1,4 @@
-image: docker:latest
+image: openjdk:14-jdk-alpine
 
 services:
   - docker:dind
@@ -14,7 +14,7 @@ before_script:
 build:
   stage: build
   script:
-    - apt-get update -y && apt-get install -y maven nodejs npm
+    - apt-get update -y && apt-get install -y nodejs npm
     - cd frontend
     - npm install
     - npm run build
