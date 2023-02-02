@@ -22,9 +22,7 @@ const ViewGallery = () => {
         });
     };
         getData().then(r => console.log(r));
-    }, []);
-
-    
+    });
 
     return (
 
