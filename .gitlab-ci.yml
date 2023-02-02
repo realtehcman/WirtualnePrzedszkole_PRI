@@ -16,7 +16,9 @@ build:
   script:
     - apk add --update nodejs npm maven
     - cd frontend/wirtualneprzedszkole
-    - npm install
+    - npm i --save @fortawesome/fontawesome-svg-core
+    - npm i --save @fortawesome/free-solid-svg-icons
+    - npm install -f
     - npm run build
     - docker build -t frontend:latest .
     - docker push frontend:latest
