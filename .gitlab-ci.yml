@@ -14,7 +14,35 @@ before_script:
 build:
   stage: build
   script:
+    - apk add --update nodejs npm maven openjdk11
+    - cd frontend/wirtualneprzedszkole
+    - npm i --save @fortawesome/fontawesome-svg-core
+    - npm i --save @fortawesome/free-solid-svg-icons
+    - npm install -f
+    - npm run build
+    - cd ../../backend
+    - mvn clean install
+
+# test:
+#   stage: test
+#   script:
+#     - apk add --update nodejs npm maven openjdk11
+#     - cd frontend/wirtualneprzedszkole
+#     - npm i --save @fortawesome/fontawesome-svg-core
+#     - npm i --save @fortawesome/free-solid-svg-icons
+#     - cd frontend/wirtualneprzedszkole
+#     - npm run test
+#     - cd ../../backend
+#     - mvn test
+
+
+deploy:
+  stage: deploy
+  only:
+    - master
+  script:
     - apk add --update openvpn openssh-client sshpass
     - openvpn --config vpn-users.ovpn --auth-user-pass auth-users.txt & 
-    - sleep 10
-    - sshpass -p "kapusta421" scp -o StrictHostKeyChecking=no -r backend wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
+    - sleep 15
+    - pwd=$(pwd)
+    - sshpass -p "kapusta421" scp -o StrictHostKeyChecking=no -r $pwd wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
