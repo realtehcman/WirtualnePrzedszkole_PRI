@@ -20,5 +20,4 @@ class SentMessageService {
 
 }
 
-// eslint-disable-next-line
 export default new SentMessageService();

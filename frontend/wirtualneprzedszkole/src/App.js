@@ -35,7 +35,6 @@ import ChangePassword from './pages/Login/ChangePassword';
 import AddFolderNavi from './pages/Folders/AddFolderNavi';
 import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
 import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
-import Navbar from "./components/navbar/navbar";
 
 
 function App() {
@@ -44,7 +43,7 @@ function App() {
   return (
     <div data-testid="app" className="App">
       <BrowserRouter>
-        <Navbar visible={navVisible} show={showNavbar} />
+        <navbar visible={navVisible} show={showNavbar} />
         <Routes>
           <Route path="/home" element={<Navigate to="/home" />} />
           <Route

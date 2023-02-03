@@ -45,5 +45,5 @@ class UserService {
         return axios.patch(USERS_REST_API_URL + "/deleteTeacherFromClass/" + teacherId + "/" + classId)
     }
 }
-// eslint-disable-next-line
+
 export default new UserService();

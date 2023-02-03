@@ -25,5 +25,5 @@ class FolderService {
     }
 
 }
-// eslint-disable-next-line
+
 export default new FolderService();

@@ -34,5 +34,5 @@ class ChildrenService {
         return axios.patch(CHILDREN_REST_API_URL + "/deleteChildFromClass/" + childId)
     }
 }
-// eslint-disable-next-line
+
 export default new ChildrenService();

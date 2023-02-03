@@ -11,7 +11,7 @@ describe('EditCurrentUser', () => {
                 <EditCurrentUser/>
             </MemoryRouter>
         );
-        expect(getByTestId('edit-current-user')).toBeTruthy();
+        expect(getByTestId('edit-user')).toBeTruthy();
     });
 });
 

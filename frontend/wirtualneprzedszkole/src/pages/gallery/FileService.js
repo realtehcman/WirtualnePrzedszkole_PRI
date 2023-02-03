@@ -39,5 +39,5 @@ class FileService {
     }
 
 }
-// eslint-disable-next-line
+
 export default new FileService();

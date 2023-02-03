@@ -34,5 +34,5 @@ class MessageService {
 
 
 }
-// eslint-disable-next-line
+
 export default new MessageService();
