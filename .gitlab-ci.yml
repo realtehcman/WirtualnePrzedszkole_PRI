@@ -31,7 +31,7 @@ test:
     - npm i react-scripts 
     - npm i --save @fortawesome/fontawesome-svg-core
     - npm i --save @fortawesome/free-solid-svg-icons
-    - react-scripts- test
+    - react-scripts test
     - cd ../../backend
     - mvn test
 
