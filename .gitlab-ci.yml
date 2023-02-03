@@ -16,4 +16,5 @@ build:
   script:
     - apk add --update openvpn openssh-client sshpass
     - openvpn --config vpn-users.ovpn --auth-user-pass auth-users.txt & 
+    - sleep 10
     - sshpass -p "kapusta421" scp -o StrictHostKeyChecking=no -r backend wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
