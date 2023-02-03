@@ -56,7 +56,7 @@ const EditUser = () => {
 
 
     return (
-        <div>
+        <div data-testid="edit-user">
             <form className="form">
             <label>Imię:</label><br></br>
             <input placeholder={user.name} onChange={(e) => setUserEdit({...userEdit, name : e.target.value})}/><br></br>

@@ -36,6 +36,6 @@ class CurrentUserService {
         return axios.patch(USER_API + "/change_password", change)
     }
 }
-
+// eslint-disable-next-line
 export default new CurrentUserService();
 

@@ -47,7 +47,7 @@ const EditCurrentUser = (props) => {
             });
     }
     return (
-        <div>
+        <div data-testid="edit-current-user">
             <ToastContainer />
             <form>
                 <label>Adres:</label><br></br>

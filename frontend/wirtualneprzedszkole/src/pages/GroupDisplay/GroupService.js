@@ -25,5 +25,5 @@ class GroupService {
         return axios.get(GROUP_REST_API_URL + '/' + id)
     }
 }
-
+// eslint-disable-next-line
 export default new GroupService();

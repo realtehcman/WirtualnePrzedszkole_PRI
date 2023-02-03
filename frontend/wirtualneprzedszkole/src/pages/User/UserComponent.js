@@ -95,7 +95,7 @@ class UserComponent extends React.Component {
 
 
     return (
-        <div className="scrollable-div">
+        <div data-testid="user-component" className="scrollable-div">
           <ToastContainer />
           <div className="abc">
             <input

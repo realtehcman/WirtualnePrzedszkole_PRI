@@ -6,7 +6,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import SchoolIcon from "@mui/icons-material/School";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
-import {useNavigate, Link, useParams} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import RateReviewIcon from "@mui/icons-material/RateReview";
@@ -45,11 +45,9 @@ const Sidebar = () => {
     role: '',
   });
 
-  let {id} = useParams()
-
   useEffect(() => {
     const getData = async () => {
-    CurrentUserService.getCurrentUser(id).then(response => {
+    CurrentUserService.getCurrentUser().then(response => {
       console.log('Response from main API: ',response)
       let current_userData = response.data;
       setCurrent_User({id: current_userData.id, role: current_userData.role})
@@ -58,12 +56,10 @@ const Sidebar = () => {
     getData()
   })
 
-  
-
   const MenuView = () => {
     if (current_user.role=== "PARENT" ){
       return(
-        <div>
+        <div data-testid="sidebar">
           <li>
             <Link to={"/home"}>
               <AccountBoxIcon className="icon" />
@@ -101,8 +97,7 @@ const Sidebar = () => {
     else
     {
       return(
-        <div>
-
+        <div data-testid="sidebar">
           <li>
             <Link to={"/home"}>
               <AccountBoxIcon className="icon" />
