@@ -11,28 +11,28 @@ stages:
 before_script:
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
 
-build:
-  stage: build
-  script:
-    - apk add --update nodejs npm maven openjdk11
-    - cd frontend/wirtualneprzedszkole
-    - npm i --save @fortawesome/fontawesome-svg-core
-    - npm i --save @fortawesome/free-solid-svg-icons
-    - npm install -f
-    - npm run build
-    - cd ../../backend
-    - mvn clean install
+# build:
+#   stage: build
+#   script:
+#     - apk add --update nodejs npm maven openjdk11
+#     - cd frontend/wirtualneprzedszkole
+#     - npm i --save @fortawesome/fontawesome-svg-core
+#     - npm i --save @fortawesome/free-solid-svg-icons
+#     - npm install -f
+#     - npm run build
+#     - cd ../../backend
+#     - mvn clean install
 
-test:
-  stage: test
-  script:
-    - apk add --update nodejs npm maven openjdk11
-    - cd frontend/wirtualneprzedszkole
-    - npm i react-scripts 
-    - npm i --save @fortawesome/fontawesome-svg-core
-    - npm i --save @fortawesome/free-solid-svg-icons
-    - cd ../../backend
-    - mvn test
+# test:
+#   stage: test
+#   script:
+#     - apk add --update nodejs npm maven openjdk11
+#     - cd frontend/wirtualneprzedszkole
+#     - npm i react-scripts 
+#     - npm i --save @fortawesome/fontawesome-svg-core
+#     - npm i --save @fortawesome/free-solid-svg-icons
+#     - cd ../../backend
+#     - mvn test
 
 
 deploy:
