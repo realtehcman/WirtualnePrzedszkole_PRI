@@ -23,17 +23,18 @@ build:
     - cd ../../backend
     - mvn clean install
 
-# test:
-#   stage: test
-#   script:
-#     - apk add --update nodejs npm maven openjdk11
-#     - cd frontend/wirtualneprzedszkole
-#     - npm i --save @fortawesome/fontawesome-svg-core
-#     - npm i --save @fortawesome/free-solid-svg-icons
-#     - cd frontend/wirtualneprzedszkole
-#     - npm run test
-#     - cd ../../backend
-#     - mvn test
+test:
+  stage: test
+  script:
+    - apk add --update nodejs npm maven openjdk11
+    - cd frontend/wirtualneprzedszkole
+    - npm i react-scripts 
+    - npm i --save @fortawesome/fontawesome-svg-core
+    - npm i --save @fortawesome/free-solid-svg-icons
+    - cd frontend/wirtualneprzedszkole
+    - react-scripts- test
+    - cd ../../backend
+    - mvn test
 
 
 deploy:
