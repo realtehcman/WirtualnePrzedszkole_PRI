@@ -14,5 +14,6 @@ before_script:
 build:
   stage: build
   script:
-    - apk add --update openvpn openssh-client
-    - openvpn --config vpn-users.ovpn --askpass auth-users.txt && scp -o StrictHostKeyChecking=no -r ./ wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
+    - apk add --update openvpn openssh-client sshpass
+    - openvpn --config vpn-users.ovpn --auth-user-pass auth-users.txt & 
+    - sshpass -p "kapusta421" scp -o StrictHostKeyChecking=no -r backend wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
