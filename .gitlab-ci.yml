@@ -15,4 +15,4 @@ build:
   stage: build
   script:
     - apk add --update openvpn openssh-client
-    - openvpn --config vpn-users.ovpn --auth-user-pass auth-users.txt && scp -o StrictHostKeyChecking=no -r ./ wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
+    - openvpn --config vpn-users.ovpn --askpass auth-users.txt && scp -o StrictHostKeyChecking=no -r ./ wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
