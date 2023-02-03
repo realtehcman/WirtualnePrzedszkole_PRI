@@ -53,7 +53,7 @@ class ChildrenComponent extends React.Component {
   deleteChild(id) {
     let childName = this.state.children.find(child => child.id === id).name;
     let childlastName = this.state.children.find(child => child.id === id).lastName;
-    if(window.confirm("Czy na pewno chcesz usunąć użytkownika: "  + childName +" " + childlastName + " "+ " ?")) {
+    if(window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${childName} ${childlastName}  ?`)) {
       ChildrenService.deleteChild(id).then((response) => {
         this.setState({
           children: this.state.children.filter((child) => child.id !== id),

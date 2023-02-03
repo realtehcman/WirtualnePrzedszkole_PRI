@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../GroupDisplay/Popup.css";
 import "../User/Table.scss";
 import SentMessageService from "./SentMessageService";

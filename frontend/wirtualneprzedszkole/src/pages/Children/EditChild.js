@@ -1,6 +1,6 @@
 import React, { useEffect, useState }from 'react'
 import ChildrenService from "./ChildrenService";
-import {useParams, useNavigate} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,14 +15,9 @@ const EditChild = () => {
         lastName: '',
         classId: []
     });
-    const navigate = useNavigate();
     let {id} = useParams()
     useEffect(() => {
-        getData()
-    },[])
-
-
-    const getData = async () => {
+        const getData = async () => {
         ChildrenService.getChild(id).then(response => {
             console.log('Response from main API: ',response)
             let childData = response.data;
@@ -32,6 +27,8 @@ const EditChild = () => {
             })
         });
     }
+        getData()
+    })
 
     const updateData = async (e) => {
         e.preventDefault()

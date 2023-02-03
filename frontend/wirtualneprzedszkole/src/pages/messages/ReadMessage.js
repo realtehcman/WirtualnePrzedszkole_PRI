@@ -14,10 +14,7 @@ const ReadMessage = () => {
     let {id} = useParams();
 
     useEffect(() => {
-        getData().then(r => console.log(r));
-    }, []);
-
-    const getData = async () => {
+        const getData = async () => {
         messageService.getMessage(id).then((response) => {
             let msgData = response.data;
 
@@ -29,6 +26,10 @@ const ReadMessage = () => {
             });
         });
     };
+        getData().then(r => console.log(r));
+    });
+
+    
 
     return (
 

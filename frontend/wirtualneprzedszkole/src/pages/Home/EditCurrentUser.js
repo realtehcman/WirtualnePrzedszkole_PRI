@@ -1,5 +1,4 @@
-import React, { useEffect, useState }from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState }from 'react'
 import CurrentUserService from "./CurrentUserService";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -14,7 +13,6 @@ const EditCurrentUser = (props) => {
         address: props.address,
         opis: props.opis
     };
-    const navigate = useNavigate()
     const [userEdit, setUserEdit] = useState({
         id: current_user.id,
         email: current_user.email,
@@ -49,7 +47,7 @@ const EditCurrentUser = (props) => {
             });
     }
     return (
-        <div>
+        <div data-testid="edit-current-user">
             <ToastContainer />
             <form>
                 <label>Adres:</label><br></br>

@@ -58,7 +58,7 @@
   .navbar {
     height: 80px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
   }
 
@@ -118,7 +118,7 @@
           padding-left: 0px;
 
           flex-direction: left;
-          justify-content: start;
+          justify-content: flex-start;
           align-items: flex-start;
 
           font-size: 25px;

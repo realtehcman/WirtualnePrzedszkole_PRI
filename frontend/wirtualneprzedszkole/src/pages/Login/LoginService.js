@@ -27,5 +27,5 @@ class LoginService {
         return window.localStorage.getItem("authorization") !== null
     }
 }
-
+// eslint-disable-next-line
 export default new LoginService();

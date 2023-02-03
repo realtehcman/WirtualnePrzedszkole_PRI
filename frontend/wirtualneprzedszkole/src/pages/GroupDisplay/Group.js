@@ -39,10 +39,7 @@ const Group = () => {
     let {id} = useParams()
 
     useEffect(() => {
-        getData().then(r => console.log(r))
-    },[])
-
-    const getData = async () => {
+        const getData = async () => {
         
         let className = await GroupService.getGroup(id).then(response => {
             let groupData = response.data;
@@ -55,6 +52,10 @@ const Group = () => {
         getFolders(className)
         
     }
+        getData().then(r => console.log(r))
+    })
+
+    
 
     const getFolders = async (className) => {
         FolderService.getClassSubFolders(className).then(response => {

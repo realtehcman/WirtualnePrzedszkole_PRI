@@ -3,7 +3,7 @@ import "../User/Users.scss";
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar";
 import EditChild from "./EditChild";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 const EditChildNavi = () => {
     let {id} = useParams()
