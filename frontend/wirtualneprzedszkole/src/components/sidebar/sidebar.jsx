@@ -44,6 +44,7 @@ const Sidebar = () => {
   const [current_user, setCurrent_User] = useState({
     role: '',
   });
+  
 
   useEffect(() => {
     const getData = async () => {
@@ -53,8 +54,9 @@ const Sidebar = () => {
       setCurrent_User({id: current_userData.id, role: current_userData.role})
     });
   }
+
     getData()
-  })
+  }, [])
 
   const MenuView = () => {
     if (current_user.role=== "PARENT" ){

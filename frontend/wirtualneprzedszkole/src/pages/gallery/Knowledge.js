@@ -33,6 +33,7 @@ const Knowledge = () => {
 
     useEffect(() => {
         getData().then(r => console.log(r))
+    // eslint-disable-next-line
     },[])
 
 

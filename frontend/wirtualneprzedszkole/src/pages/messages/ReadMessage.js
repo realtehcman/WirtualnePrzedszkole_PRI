@@ -27,7 +27,8 @@ const ReadMessage = () => {
         });
     };
         getData().then(r => console.log(r));
-    });
+     // eslint-disable-next-line
+    }, []);
 
     
 
@@ -36,10 +37,10 @@ const ReadMessage = () => {
 
         <div>
 
-       <table class="table table-responsive">
+       <table className="table table-responsive">
                     <thead>
                     <tr className="table-head">
-                        <td class="text-center">Treść</td>
+                        <td className="text-center">Treść</td>
                     </tr>
                     </thead>
                     <tbody className="body">

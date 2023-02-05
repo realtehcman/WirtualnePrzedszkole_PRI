@@ -45,7 +45,8 @@ const CurrentUser = () => {
 
     }
         getData()
-    })
+    // eslint-disable-next-line
+    }, [])
 
     const[buttonPopup, setButtonPopup] = useState(false);
 

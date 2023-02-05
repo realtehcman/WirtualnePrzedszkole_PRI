@@ -87,12 +87,12 @@ class Gallery extends React.Component {
                                 <Navi2 value={all_folders.id} />
 
                             </td>
-                            <td>  <button2
+                            <td>  <button
                                 onClick={() => this.deleteFolder(all_folders.id)}
-                                className="btn btn-danger"
+                                className="btn button2 btn-danger"
                             >
                                 Usuń
-                            </button2>  </td>
+                            </button>  </td>
                         </tr>
                     ))}
                     </tbody>

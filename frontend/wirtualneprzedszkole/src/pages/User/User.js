@@ -48,7 +48,8 @@ const User = () => {
     });
   }
     getData();
-  });
+     // eslint-disable-next-line
+  }, []);
 
   
 

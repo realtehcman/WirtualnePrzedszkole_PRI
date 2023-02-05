@@ -22,7 +22,8 @@ const ViewGallery = () => {
         });
     };
         getData().then(r => console.log(r));
-    });
+    // eslint-disable-next-line
+    },[]);
 
     return (
 
