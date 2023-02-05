@@ -34,7 +34,7 @@ const FolderOther = (props) => {
             setFilesInfo(responseFiles)     
         }).then({}).catch((reason) => {
             console.log(`axios request failed: ${reason}`);
-        })    
+        })  
     }
          // eslint-disable-next-line
         getFiles().then(r => console.log(r))

@@ -39,7 +39,8 @@ const EditUser = () => {
         });
     }
         getData()
-    })
+    // eslint-disable-next-line
+    }, [])
 
     const updateData = (e) => {
         e.preventDefault()

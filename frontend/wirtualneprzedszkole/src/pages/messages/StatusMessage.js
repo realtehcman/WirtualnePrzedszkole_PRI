@@ -31,7 +31,8 @@ const StatusMsg = () => {
         });
     };
         getData();
-    });
+        // eslint-disable-next-line
+    }, []);
 
     
 

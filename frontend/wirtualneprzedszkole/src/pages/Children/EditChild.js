@@ -28,7 +28,8 @@ const EditChild = () => {
         });
     }
         getData()
-    })
+     // eslint-disable-next-line
+    }, [])
 
     const updateData = async (e) => {
         e.preventDefault()

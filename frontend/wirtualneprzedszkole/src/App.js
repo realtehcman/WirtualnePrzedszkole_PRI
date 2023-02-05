@@ -35,16 +35,14 @@ import ChangePassword from './pages/Login/ChangePassword';
 import AddFolderNavi from './pages/Folders/AddFolderNavi';
 import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
 import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
-import Navbar from "./components/navbar/navbar";
 
 
 function App() {
-  const [navVisible, showNavbar] = useState(false);
+  const [navVisible] = useState(false);
 
   return (
     <div data-testid="app" className="App">
       <BrowserRouter>
-        <Navbar visible={navVisible} show={showNavbar} />
         <Routes>
           <Route path="/home" element={<Navigate to="/home" />} />
           <Route
