@@ -29,7 +29,8 @@ const Folders = (props) => {
         })
         }
         getFolder().then(r => console.log(r))
-    })
+    // eslint-disable-next-line 
+    }, [])
 
 
     const deleteFolder = async(folderId) => {
