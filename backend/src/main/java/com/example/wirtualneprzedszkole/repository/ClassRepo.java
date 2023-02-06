@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ClassRepo extends JpaRepository<Class, Long> {
     @Query("Select c From Class c")
     List<Class> findAllClass();
+
+    Optional<Class> findByName(String className);
 }

@@ -44,6 +44,10 @@ class UserService {
     deleteTeacherFromClass(teacherId, classId) {
         return axios.patch(USERS_REST_API_URL + "/deleteTeacherFromClass/" + teacherId + "/" + classId)
     }
+
+    addChildrenToUser(userId, children) {
+        return axios.put(USERS_REST_API_URL + "/addChildrenToUser/" + userId, children)
+    }
 }
 
 export default new UserService();

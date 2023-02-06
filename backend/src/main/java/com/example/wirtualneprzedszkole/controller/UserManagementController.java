@@ -1,8 +1,10 @@
 package com.example.wirtualneprzedszkole.controller;
 
+import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 import com.example.wirtualneprzedszkole.mapper.UserMapper;
 import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.User;
+import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import com.example.wirtualneprzedszkole.service.UserManagementService;
 import lombok.RequiredArgsConstructor;
@@ -94,5 +96,11 @@ public class UserManagementController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/addChildrenToUser/{userId}")
+    public UserDto addChildrenToUser(@PathVariable Long userId, @RequestBody List<ChildDto> children) {
+        return UserMapper.mapToUserDto(userManagementService.addChildrenToUser(userId, ChildMapper.mapToChildDao(children)));
     }
 }
