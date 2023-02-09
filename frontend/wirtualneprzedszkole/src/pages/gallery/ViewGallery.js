@@ -12,10 +12,7 @@ const ViewGallery = () => {
     let { id } = useParams();
 
     useEffect(() => {
-        getData().then(r => console.log(r));
-    }, []);
-
-    const getData = async () => {
+        const getData = async () => {
         GalleryService.ViewFolder(id).then((response) => {
             let galleryData = response.data;
 
@@ -24,6 +21,9 @@ const ViewGallery = () => {
             });
         });
     };
+        getData().then(r => console.log(r));
+    // eslint-disable-next-line
+    },[]);
 
     return (
 

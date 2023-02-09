@@ -16,10 +16,7 @@ const StatusMsg = () => {
     });
     let { id } = useParams();
     useEffect(() => {
-        getData();
-    }, []);
-
-    const getData = async () => {
+        const getData = async () => {
         messageService.getSentMessage(id).then((response) => {
             let msgData = response.data;
 
@@ -33,6 +30,11 @@ const StatusMsg = () => {
             });
         });
     };
+        getData();
+        // eslint-disable-next-line
+    }, []);
+
+    
 
     return (
         <div data-testid="status-message-navi" className="scrollable-div">

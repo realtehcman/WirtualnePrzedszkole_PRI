@@ -1,7 +1,6 @@
 import UserService from "../User/UserService";
-import {useParams, useNavigate} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import React, { useEffect, useState }from 'react'
-import User from "../User/User";
 
 
 const EditUser = () => {
@@ -28,11 +27,7 @@ const EditUser = () => {
     let {id} = useParams()
     
     useEffect(() => {
-        getData()
-    },[])
-
-
-    const getData = async () => {
+        const getData = async () => {
         // const response = UserService.getUser(id)
         // setUser((await response).data)
         UserService.getUser(id).then(response => {
@@ -43,6 +38,9 @@ const EditUser = () => {
             })
         });
     }
+        getData()
+    // eslint-disable-next-line
+    }, [])
 
     const updateData = (e) => {
         e.preventDefault()
@@ -59,7 +57,7 @@ const EditUser = () => {
 
 
     return (
-        <div>
+        <div data-testid="edit-user">
             <form className="form">
             <label>Imię:</label><br></br>
             <input placeholder={user.name} onChange={(e) => setUserEdit({...userEdit, name : e.target.value})}/><br></br>

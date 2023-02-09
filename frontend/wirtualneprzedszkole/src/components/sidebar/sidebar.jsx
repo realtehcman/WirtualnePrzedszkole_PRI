@@ -3,44 +3,33 @@ import "./sidebar.scss";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import GroupsIcon from "@mui/icons-material/Groups";
 import MessageIcon from "@mui/icons-material/Message";
-import FeedIcon from "@mui/icons-material/Feed";
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import SchoolIcon from "@mui/icons-material/School";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
-import {useNavigate, Link, useParams} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import "./sidebar.scss";
 import * as FaIcons from "react-icons/fa";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import * as AiIcons from "react-icons/ai";
-import { IconContext } from "react-icons";
 // import MediaQuery from "react-responsive";
-import { isMobile } from "react-device-detect";
-import { BrowserView, MobileView } from "react-device-detect";
 import useWindowDimensions from "./useWindowDimensions.js";
 import CurrentUserService from "../../pages/Home/CurrentUserService";
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 const Sidebar = () => {
-  const { height, width } = useWindowDimensions();
-
-  const phoneMaxWidth = 480;
-  // const screenSize = width;
-  // const  = width;
-
-  const navigate = useNavigate();
+  useWindowDimensions();
+  useNavigate();
 
   var [sidebar, setSidebar] = useState(true);
-  //const showSidebar = () => setSidebar(!sidebar);
 
-  const screenSize = useEffect(() => {
+  useEffect(() => {
     window.addEventListener("resize", () => {
       const myWidth = window.innerWidth;
       console.log("my width :::", myWidth);
     });
+     // eslint-disable-next-line
   }, [window]);
 
   useEffect(() => {
@@ -55,28 +44,24 @@ const Sidebar = () => {
   const [current_user, setCurrent_User] = useState({
     role: '',
   });
-
-  let {isLoggedIn} = current_user.role;
-
-
-  let {id} = useParams()
+  
 
   useEffect(() => {
-    getData()
-  },[])
-
-  const getData = async () => {
-    CurrentUserService.getCurrentUser(id).then(response => {
+    const getData = async () => {
+    CurrentUserService.getCurrentUser().then(response => {
       console.log('Response from main API: ',response)
       let current_userData = response.data;
       setCurrent_User({id: current_userData.id, role: current_userData.role})
     });
   }
 
+    getData()
+  }, [])
+
   const MenuView = () => {
     if (current_user.role=== "PARENT" ){
       return(
-        <div>
+        <div data-testid="sidebar">
           <li>
             <Link to={"/home"}>
               <AccountBoxIcon className="icon" />
@@ -114,8 +99,7 @@ const Sidebar = () => {
     else
     {
       return(
-        <div>
-
+        <div data-testid="sidebar">
           <li>
             <Link to={"/home"}>
               <AccountBoxIcon className="icon" />
@@ -201,9 +185,6 @@ const Sidebar = () => {
     }
   }
 
-
-  const[buttonPopup, setButtonPopup] = useState(false);
-
   return (
       <>
         <div className="sidebar">
@@ -237,13 +218,6 @@ const Sidebar = () => {
         </div>
       </>
   );
-};
-
-const SidebarPhone = () => {
-  if (isMobile) {
-    return <div> This content is available only on mobile</div>;
-  }
-  return <div> content... </div>;
 };
 
 export default Sidebar;

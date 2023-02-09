@@ -1,6 +1,5 @@
 import FileService from "../gallery/FileService";
 import "../gallery/Knowledge.scss";
-import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from 'react'
 import saveAs from 'file-saver'
 import EditFile from "./EditFile";
@@ -10,7 +9,6 @@ import HeightIcon from '@mui/icons-material/Height';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import currentUserService from "../Home/CurrentUserService";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Knowledge = () => {
 
@@ -33,10 +31,9 @@ const Knowledge = () => {
         role: '',
     });
 
-    let {isLoggedIn} = currentUser.role;
-
     useEffect(() => {
         getData().then(r => console.log(r))
+    // eslint-disable-next-line
     },[])
 
 
@@ -46,8 +43,6 @@ const Knowledge = () => {
             setCurrentUser({id: currentUserData.id, role: currentUserData.role})
         });
     }
-
-    let {id} = useParams()
 
     const [sortBy, setSortBy] = useState("id");
 
@@ -64,12 +59,7 @@ const Knowledge = () => {
     }
 
     useEffect(() => {
-        getKnowledge();
-    }, [sortBy, sortOrder]);
-
-
-
-    const getKnowledge = async () => {
+        const getKnowledge = async () => {
         FileService.getKnowledge().then((response) => {
             let responseFiles = response.data;
             if (sortBy === "name") {
@@ -91,6 +81,7 @@ const Knowledge = () => {
             } else {
                 responseFiles.sort((a, b) => a.id - b.id);
             }
+             // eslint-disable-next-line
             responseFiles.map((file) => {
                 if (file.dateAdded != null)
                     file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
@@ -100,6 +91,8 @@ const Knowledge = () => {
             console.log(`axios request failed: ${reason}`);
         });
     };
+        getKnowledge();
+    }, [sortBy, sortOrder]);
 
 
     const printFiles = async (file) => {
@@ -122,6 +115,7 @@ const Knowledge = () => {
             if (response.status === 200) {
                 console.log(response.data[0])
                 let responseFiles = response.data
+                 // eslint-disable-next-line
                 responseFiles.map((file) => {
                     if (file.dateAdded != null)
                         file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]

@@ -14,10 +14,7 @@ const ReadMessage = () => {
     let {id} = useParams();
 
     useEffect(() => {
-        getData().then(r => console.log(r));
-    }, []);
-
-    const getData = async () => {
+        const getData = async () => {
         messageService.getMessage(id).then((response) => {
             let msgData = response.data;
 
@@ -29,16 +26,21 @@ const ReadMessage = () => {
             });
         });
     };
+        getData().then(r => console.log(r));
+     // eslint-disable-next-line
+    }, []);
+
+    
 
     return (
 
 
         <div>
 
-       <table class="table table-responsive">
+       <table className="table table-responsive">
                     <thead>
                     <tr className="table-head">
-                        <td class="text-center">Treść</td>
+                        <td className="text-center">Treść</td>
                     </tr>
                     </thead>
                     <tbody className="body">

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../GroupDisplay/Popup.css";
 import "../User/Table.scss";
 import SentMessageService from "./SentMessageService";
@@ -82,12 +82,12 @@ class SentMessage extends React.Component {
                   <Navi2 value={sent_messages.id} />
                 </td>
                 <td className="foobar">
-                  <button2
+                  <button
                     onClick={() => this.deleteSentMessages(sent_messages.id)}
                     className="btn btn-danger"
                   >
                     Usuń
-                  </button2>
+                  </button>
                 </td>
               </tr>
             ))}

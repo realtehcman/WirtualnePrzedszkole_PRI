@@ -1,22 +1,9 @@
 import React from "react";
 import UserService from "../User/UserService";
 import "./Kadra.css";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Navi = (props) => {
-    const navigate = useNavigate();
-
-    return (
-        <button
-            onClick={() => navigate("/user/" + props.value)}
-            className="btn btn-info"
-        >
-            Zobacz
-        </button>
-    );
-};
 
 class Kadra extends React.Component {
     constructor(props) {
@@ -69,7 +56,7 @@ class Kadra extends React.Component {
                     {filteredusers.map((user) => (
                         <tr key={user.id}>
                             <td id="td--message32">
-                                <img
+                                <img alt="cute-cat"
                                     className="rounded-circle mt-5"
                                     width="150px"
                                     src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"

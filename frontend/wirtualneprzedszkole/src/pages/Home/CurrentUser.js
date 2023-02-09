@@ -8,13 +8,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import CurrentUserService from "./CurrentUserService";
 import EditCurrentUser from "./EditCurrentUser";
 import "../User/UserInfo.scss";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-import FolderService from '../Folders/FolderService';
-import UserService from '../User/UserService';
-import ChildrenService from '../Children/ChildrenService';
-import GroupService from "../GroupDisplay/GroupService";
 
 const CurrentUser = () => {
     const navigate = useNavigate();
@@ -36,29 +32,10 @@ const CurrentUser = () => {
         profilePicture: ''
     });
 
-    const [group, setGroup] = useState({
-        id:'',
-        name: '',
-        description:'',
-        children: [{
-            id: '',
-            name: '',
-            lastName: ''
-        }],
-        teachers: [{
-            id: '',
-            name: '',
-            lastName: ''
-        }]
-    });
-
     let {id} = useParams()
 
     useEffect(() => {
-        getData()
-    },[])
-
-    const getData = async () => {
+        const getData = async () => {
         CurrentUserService.getCurrentUser(id).then(response => {
             console.log('Response from main API: ',response)
             let current_userData = response.data;
@@ -67,22 +44,13 @@ const CurrentUser = () => {
         });
 
     }
-
-    // const getData = async () => {
-    //
-    //     let className = await GroupService.getGroup(id).then(response => {
-    //         //console.log('Response from main API: ',response)
-    //         let groupData = response.data;
-    //         let children = groupData.children.map(it => {return {id: it.id, name: it.name, lastName: it.lastName}})
-    //         let teachers = groupData.teachers.map(it => {return {id: it.id, name: it.name, lastName: it.lastName}})
-    //         setGroup({id: groupData.id, name: groupData.name, description: groupData.description, children:  children, teachers: teachers})
-    //         return groupData.name
-    //     });
-
+        getData()
+    // eslint-disable-next-line
+    }, [])
 
     const[buttonPopup, setButtonPopup] = useState(false);
 
-    const handleFileUpload = async (e) => {
+    const handleFileUpload = async () => {
         // profilówka ///////
     }
 
@@ -100,7 +68,7 @@ const CurrentUser = () => {
 
                     <div className="img-container">
                         {/*<img src={current_user.profilePicture} alt="zdjęcie profilowe" className="profile-img"/>*/}
-                        <img
+                        <img alt="cute-cat"
                             className="rounded-circle mt-5"
                             width="150px"
                             src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"

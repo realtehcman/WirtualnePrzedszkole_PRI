@@ -49,5 +49,5 @@ class UserService {
         return axios.put(USERS_REST_API_URL + "/addChildrenToUser/" + userId, children)
     }
 }
-
+// eslint-disable-next-line
 export default new UserService();

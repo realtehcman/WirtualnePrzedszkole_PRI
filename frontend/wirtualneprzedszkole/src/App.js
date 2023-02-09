@@ -38,12 +38,11 @@ import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
 
 
 function App() {
-  const [navVisible, showNavbar] = useState(false);
+  const [navVisible] = useState(false);
 
   return (
     <div data-testid="app" className="App">
       <BrowserRouter>
-        <navbar visible={navVisible} show={showNavbar} />
         <Routes>
           <Route path="/home" element={<Navigate to="/home" />} />
           <Route

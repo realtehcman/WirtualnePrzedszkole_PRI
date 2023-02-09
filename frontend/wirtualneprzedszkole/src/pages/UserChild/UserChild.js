@@ -33,6 +33,7 @@ const UserChild = () => {
 
     useEffect(() => {
         getData();
+    // eslint-disable-next-line
     }, []);
 
     const putUser = async (id, child) => {

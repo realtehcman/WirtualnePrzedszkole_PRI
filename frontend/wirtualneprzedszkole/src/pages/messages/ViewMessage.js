@@ -14,10 +14,7 @@ const ViewMessage = () => {
     let { id } = useParams();
 
     useEffect(() => {
-        getData().then(r => console.log(r));
-    }, []);
-
-    const getData = async () => {
+        const getData = async () => {
         messageService.ViewMessage(id).then((response) => {
             let msgData = response.data;
 
@@ -28,7 +25,12 @@ const ViewMessage = () => {
                 content: msgData.content,
             });
         });
-    };
+    }
+        getData().then(r => console.log(r));
+     // eslint-disable-next-line
+    }, []);
+
+    
 
     return (
         <div data-testid="view-message" >

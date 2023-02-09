@@ -23,14 +23,15 @@ const Folders = (props) => {
     const {id} = props.value
 
     useEffect(() => {
-        getFolder().then(r => console.log(r))
-    },[])
-
-    const getFolder = async() => {
+        const getFolder = async() => {
         FolderService.getFolder(id).then(response => {
             setFolder(response.data)
         })
-    }
+        }
+        getFolder().then(r => console.log(r))
+    // eslint-disable-next-line 
+    }, [])
+
 
     const deleteFolder = async(folderId) => {
         FolderService.deleteFolder(folderId).then((response) => {
