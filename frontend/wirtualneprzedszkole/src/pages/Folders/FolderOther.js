@@ -36,8 +36,8 @@ const FolderOther = (props) => {
             console.log(`axios request failed: ${reason}`);
         })  
     }
-         // eslint-disable-next-line
         getFiles().then(r => console.log(r))
+        // eslint-disable-next-line
     }, [])
 
     const printFiles = async (file) => {
