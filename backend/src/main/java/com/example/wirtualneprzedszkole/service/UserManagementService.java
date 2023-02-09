@@ -29,6 +29,7 @@ public class UserManagementService {
     private final EmailSenderServiceImpl emailSenderService;
     private final ChildService childService;
     private final ClassService classService;
+    private final UserService userService;
 
     public User getUser(Long id) {
         return userRepo.findById(id).orElseThrow();
@@ -57,13 +58,16 @@ public class UserManagementService {
     @Transactional
     public User updateUser(User user) {
         User userEdited = userRepo.findById(user.getId()).orElseThrow();
-        userEdited.setEmail(user.getEmail());
+        if (userService.getCurrentUser().getRole().getAuthority().equals("ADMIN")) {
+            userEdited.setEmail(user.getEmail());
+            userEdited.setLastName(user.getLastName());
+            userEdited.setName(user.getName());
+        }
         userEdited.setAddress(user.getAddress());
         userEdited.setPhoneNumber(user.getPhoneNumber());
         userEdited.setPicture(user.getPicture());
-        userEdited.setLastName(user.getLastName());
-        userEdited.setName(user.getName());
         userEdited.setOpis(user.getOpis());
+
         return userEdited;
     }
 
