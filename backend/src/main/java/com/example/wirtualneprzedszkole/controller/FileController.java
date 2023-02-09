@@ -128,13 +128,6 @@ public class FileController {
                         zipOutputStream.write(bytes, 0, length);
                     }
                     inputStream.close();
-
-                    /*System.out.println(resource);
-                    ZipEntry zipEntry = new ZipEntry(Objects.requireNonNull(resource.getFilename()));
-                    zipEntry.setSize(resource.contentLength());
-                    zipOutputStream.putNextEntry(zipEntry);
-                    StreamUtils.copy(resource.getInputStream(), zipOutputStream);
-                    zipOutputStream.closeEntry();*/
                 }
                 zipOutputStream.close();
             } catch (IOException exception) {
@@ -142,9 +135,6 @@ public class FileController {
             } finally {
                 zipOutputStream.close();
             }
-
-            /*zipOutputStream.finish();
-            zipOutputStream.close();*/
         };
 
         response.setContentType("application/zip");
@@ -157,11 +147,9 @@ public class FileController {
     public ResponseEntity<List<FileData>> downloadKnowledge() {
         Long knowledgeId = 0L;
         List<Resource> resources = storageService.loadAsResources(knowledgeId);
-        //List<String> filesNames = new ArrayList<>();
-        //Map<String, FileData> filesInfo = new HashMap<>();
         List<FileData> filesInfo = new ArrayList<>();
+
         for (Resource resource : resources) {
-            //filesNames.add(resource.getFilename());
             try {
                 filesInfo.add(fileDataService.getFile(resource.getFile().getAbsolutePath()));
             } catch (IOException exception) {
