@@ -150,6 +150,7 @@ public class UserManagementServiceTest {
 
     @Test
     void updateUser_validInput_userIsUpdated() {
+        User currentUserAdmin = User.builder().id(1L).name("Mr").lastName("Admin").email("MrAdmin@email.com").password("AgmesPaS5w0rd!").role(UserRole.ADMIN).build();
         User user = User.builder().id(1L).name("John").lastName("Doe").email("johndoe@email.com").password("AgmedPaS5w0rd!").role(UserRole.PARENT).build();
         User updatedUser = User.builder().id(1L).name("Jane").lastName("Doe").email("johndoe@email.com").password("AgmedPaS5w0rd!").role(UserRole.PARENT).build();
         updatedUser.setAddress("123 Main St");
@@ -157,6 +158,8 @@ public class UserManagementServiceTest {
         updatedUser.setPicture("picture.jpg");
 
         when(userRepo.findById(user.getId())).thenReturn(Optional.of(user));
+        when(userService.getCurrentUser()).thenReturn(currentUserAdmin);
+
         addChildToUserUserAlreadyExistExceptionTest();
         User result = userManagementService.updateUser(updatedUser);
 

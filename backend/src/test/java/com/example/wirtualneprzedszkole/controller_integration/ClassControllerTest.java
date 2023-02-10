@@ -1,11 +1,14 @@
 package com.example.wirtualneprzedszkole.controller_integration;
 
 import com.example.wirtualneprzedszkole.mapper.ClassMapper;
+import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.Folder;
+import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dto.ClassDto;
 import com.example.wirtualneprzedszkole.service.ClassService;
 import com.example.wirtualneprzedszkole.service.FolderService;
+import com.example.wirtualneprzedszkole.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,9 @@ class ClassControllerTest {
     @MockBean
     FolderService folderService;
 
+    @MockBean
+    UserService userService;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,14 +51,16 @@ class ClassControllerTest {
     public void getClass_ShouldReturnClassDto_WhenClassExist() throws Exception {
         //Arrange
         ClassDto classDto = ClassDto.builder().name("1").children(emptyList()).build();
+        User user = User.builder().id(1L).name("John").lastName("Doe").password("password").email("johndoe@gmail.com").role(UserRole.ADMIN).build();
         when(classService.getClass(1L)).thenReturn(ClassMapper.mapToGroupDao(classDto));
-
+        when(userService.getCurrentUser()).thenReturn(user);
         //Act and Assert
         mockMvc.perform(get("/api/class/1")
                         .with(user("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("1"));
+                .andExpect(jsonPath("$.name").value("1"))
+                .andReturn().getResponse().getContentAsString();;
 
         verify(classService, times(1)).getClass(1L);
     }
@@ -60,10 +68,12 @@ class ClassControllerTest {
     @Test
     public void getAllClass_ShouldReturnListOfClassDto_WhenClassesExist() throws Exception {
         //Arrange
+        User user = User.builder().id(1L).name("John").lastName("Doe").password("password").email("johndoe@gmail.com").role(UserRole.ADMIN).build();
         List<ClassDto> classDtoList = Arrays.asList(
                 ClassDto.builder().name("class1").build(),
                 ClassDto.builder().name("class2").build());
         when(classService.getAllClass()).thenReturn(classDtoList.stream().map(ClassMapper::mapToGroupDao).collect(Collectors.toList()));
+        when(userService.getCurrentUser()).thenReturn(user);
 
         //Act and Assert
         mockMvc.perform(get("/api/class")
