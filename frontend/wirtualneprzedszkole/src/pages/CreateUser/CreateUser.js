@@ -162,21 +162,16 @@ class CreateUser extends Component {
       ChildrenService.addChild(child).then((response) => {
         console.log(response)
         this.state.children.push(response.data)
-        let childrenHelper = this.state.children
-        let i = childrenHelper.length * 2
+
+
         this.state.users.forEach((parent) => {
-          childrenHelper.forEach((child_) => {
-            UserService.addChildToUser(parent.id, child_).then((response) => {
+            UserService.addChildrenToUser(parent.id, this.state.children).then((response) => {
               console.log(response)
               if (response.status !== 200) throw new Error(response.status);
             })
-            i--
-          })
         })
-        i--
-        if (i === -1)
-          setTimeout(() => {window.open("users","_self");}, 3000);
       })
+
     }
     };
 

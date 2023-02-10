@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
@@ -43,6 +44,7 @@ public class FileController {
     private final StorageService storageService;
     private final FileDataService fileDataService;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @PostMapping("/uploadFile/{folderId}")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @PathVariable Long folderId/*, @Nullable @RequestPart("folder") String folder*/) {
         FileData fileData = storageService.store(file, folderId /*folder*/);
@@ -56,6 +58,7 @@ public class FileController {
         return new UploadFileResponse(fileData.getId(), fileData.getName(), fileData.getHash(), fileData.getDateAdded(), fileData.getDescription());
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @PostMapping("/uploadMultiFiles/{folderId}")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("file") MultipartFile[] files, @PathVariable Long folderId/*, @RequestPart("folder") String folder*/) {
         return Arrays.asList(files)
@@ -64,6 +67,7 @@ public class FileController {
                 .collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @DeleteMapping("/deleteFile/{folderId}/{fileName:.+}")
     public void deleteFile(@PathVariable String fileName, @PathVariable Long folderId) {
         if (storageService.delete(fileName, folderId)) {
@@ -71,6 +75,7 @@ public class FileController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @DeleteMapping("/deleteAllFiles/{folderId}")
     public void deleteAllRecursively(@PathVariable Long folderId) {
         if (storageService.deleteAllService(folderId)) {
@@ -123,13 +128,6 @@ public class FileController {
                         zipOutputStream.write(bytes, 0, length);
                     }
                     inputStream.close();
-
-                    /*System.out.println(resource);
-                    ZipEntry zipEntry = new ZipEntry(Objects.requireNonNull(resource.getFilename()));
-                    zipEntry.setSize(resource.contentLength());
-                    zipOutputStream.putNextEntry(zipEntry);
-                    StreamUtils.copy(resource.getInputStream(), zipOutputStream);
-                    zipOutputStream.closeEntry();*/
                 }
                 zipOutputStream.close();
             } catch (IOException exception) {
@@ -137,9 +135,6 @@ public class FileController {
             } finally {
                 zipOutputStream.close();
             }
-
-            /*zipOutputStream.finish();
-            zipOutputStream.close();*/
         };
 
         response.setContentType("application/zip");
@@ -152,11 +147,9 @@ public class FileController {
     public ResponseEntity<List<FileData>> downloadKnowledge() {
         Long knowledgeId = 0L;
         List<Resource> resources = storageService.loadAsResources(knowledgeId);
-        //List<String> filesNames = new ArrayList<>();
-        //Map<String, FileData> filesInfo = new HashMap<>();
         List<FileData> filesInfo = new ArrayList<>();
+
         for (Resource resource : resources) {
-            //filesNames.add(resource.getFilename());
             try {
                 filesInfo.add(fileDataService.getFile(resource.getFile().getAbsolutePath()));
             } catch (IOException exception) {
@@ -167,6 +160,7 @@ public class FileController {
         return ResponseEntity.ok(filesInfo);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @PatchMapping("/patchFile/{fileId}")
     public ResponseEntity<FileData> addFileDescription(@PathVariable Long fileId, @RequestBody AddDescriptionDto addDescriptionDto) {
         try {

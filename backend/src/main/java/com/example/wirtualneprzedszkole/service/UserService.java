@@ -1,5 +1,7 @@
 package com.example.wirtualneprzedszkole.service;
 
+import com.example.wirtualneprzedszkole.model.dao.Child;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.PasswordResetToken;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.repository.UserRepo;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,6 +23,7 @@ public class UserService {
     private final EmailSenderServiceImpl emailSenderService;
     private final PasswordEncoder passwordEncoder;
     private final PasswordResetTokenService passwordResetTokenService;
+    private final ClassService classService;
 
 
     public void restartPassword(String email) {

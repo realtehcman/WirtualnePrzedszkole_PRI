@@ -57,4 +57,7 @@ public class ClassService {
         classRepo.deleteById(id);
     }
 
+    public Class getClassByName(String className) {
+        return classRepo.findByName(className).orElseThrow();
+    }
 }

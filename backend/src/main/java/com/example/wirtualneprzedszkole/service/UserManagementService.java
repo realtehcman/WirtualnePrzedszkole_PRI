@@ -29,6 +29,7 @@ public class UserManagementService {
     private final EmailSenderServiceImpl emailSenderService;
     private final ChildService childService;
     private final ClassService classService;
+    private final UserService userService;
 
     public User getUser(Long id) {
         return userRepo.findById(id).orElseThrow();
@@ -57,13 +58,16 @@ public class UserManagementService {
     @Transactional
     public User updateUser(User user) {
         User userEdited = userRepo.findById(user.getId()).orElseThrow();
-        userEdited.setEmail(user.getEmail());
+        if (userService.getCurrentUser().getRole().getAuthority().equals("ADMIN")) {
+            userEdited.setEmail(user.getEmail());
+            userEdited.setLastName(user.getLastName());
+            userEdited.setName(user.getName());
+        }
         userEdited.setAddress(user.getAddress());
         userEdited.setPhoneNumber(user.getPhoneNumber());
         userEdited.setPicture(user.getPicture());
-        userEdited.setLastName(user.getLastName());
-        userEdited.setName(user.getName());
         userEdited.setOpis(user.getOpis());
+
         return userEdited;
     }
 
@@ -74,9 +78,7 @@ public class UserManagementService {
         //avoiding null pointer exception. if null, return the empty list
         if (Optional.ofNullable(child.getParents()).orElse(Collections.emptyList()).contains(userEdited)) {
             throw new UserAlreadyExistException("Ten rodzic jest już przipsany do tego dziecka");
-        } /*else if (Optional.ofNullable(child.getParents()).orElse(Collections.emptyList()).size() > 1) {
-            throw new TooManyUsersAssignedException("Już przipsano dwa rodzica do tego dziecka");
-        }*/
+        }
         List<Child> childList = new java.util.ArrayList<>(Optional.ofNullable(userEdited.getChildren()).orElse(Collections.emptyList()));
         childList.add(child);
         userEdited.setChildren(childList);
@@ -123,5 +125,21 @@ public class UserManagementService {
         Class aClass = classService.getClass(classId);
         user.getClasses().remove(aClass);
         return user;
+    }
+
+    @Transactional
+    public User addChildrenToUser(Long userId, List<Child> children) {
+        User userEdited = userRepo.findById(userId).orElseThrow();
+        List<Child> childList = new java.util.ArrayList<>(Optional.ofNullable(userEdited.getChildren()).orElse(Collections.emptyList()));
+        for (Child child : children) {
+            Child child_ = childService.getChild(child.getId());
+            //avoiding null pointer exception. if null, return the empty list
+            if (Optional.ofNullable(child_.getParents()).orElse(Collections.emptyList()).contains(userEdited)) {
+                throw new UserAlreadyExistException("Ten rodzic jest już przipsany do tego dziecka");
+            }
+            childList.add(child_);
+        }
+        userEdited.setChildren(childList);
+        return userEdited;
     }
 }

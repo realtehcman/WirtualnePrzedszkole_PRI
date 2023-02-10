@@ -32,9 +32,12 @@ const FolderOther = (props) => {
                     file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
             })
             setFilesInfo(responseFiles)     
-        })
-        }
-        getFiles().then(r => console.log(r)) 
+        }).then({}).catch((reason) => {
+            console.log(`axios request failed: ${reason}`);
+        })  
+    }
+        getFiles().then(r => console.log(r))
+        // eslint-disable-next-line
     }, [])
 
     const printFiles = async (file) => {
