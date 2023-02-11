@@ -15,12 +15,6 @@ build:
   stage: build
   script:
     - apk add --update nodejs npm maven openjdk11
-    - cd WirtualnePrzedszkole_PRI/backend/src/main/java/com/example/wirtualneprzedszkole/service/message/
-    - find . -iname "*.js" -exec sed -i "s/http:\/\/localhost:8080/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
-    - cd
-    - cd  WirtualnePrzedszkole_PRI/frontend/wirtualneprzedszkole/src/pages/
-    - find . -iname "*.js" -exec sed -i "s/http:\/\/localhost:8080/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
-    - cd
     - cd frontend/wirtualneprzedszkole
     - npm i --save @fortawesome/fontawesome-svg-core
     - npm i --save @fortawesome/free-solid-svg-icons
@@ -51,3 +45,8 @@ deploy:
     - sleep 15
     - pwd=$(pwd)
     - sshpass -p "kapusta421" scp -o StrictHostKeyChecking=no -r $pwd wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
+    - cd backend/src/main/java/com/example/wirtualneprzedszkole/service/message/
+    - find . -iname "*.js" -exec sed -i "s/http:\/\/localhost:8080/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
+    - cd ../../../../../../../../../frontend/wirtualneprzedszkole/src/pages/
+    - find . -iname "*.js" -exec sed -i "s/http:\/\/localhost:8080/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
+    - cd
