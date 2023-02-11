@@ -51,6 +51,7 @@ public class MessageMapper {
                 .author(message.getAuthor().getName() + " " + message.getAuthor().getLastName()
                         + " (" + message.getAuthor().getEmail() + ")")
                 .subject(message.getSubject())
+                .sentDate(message.getSentDate())
                 .build();
     }
 
@@ -67,6 +68,7 @@ public class MessageMapper {
                 .author(message.getAuthor().getName() + " " + message.getAuthor().getLastName()
                         + " (" + message.getAuthor().getEmail() + ")")
                 .subject(message.getSubject())
+                .sentDate(message.getSentDate())
                 .build();
     }
 
