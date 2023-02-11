@@ -57,7 +57,7 @@ class MessageControllerTest {
                 Message.builder().author(u).build(),
                 Message.builder().author(u).build());
         List<MessageDto> expected = MessageMapper.mapMessagesToMessagesDto(messages);
-        when(messageService.getAllSentMessages()).thenReturn(messages);
+        when(messageService.getAllSentMessages(u.getId())).thenReturn(messages);
 
         mockMvc.perform(get("/api/message/").with(user("admin").roles("ADMIN")))
                 .andExpect(status().isOk())
@@ -148,7 +148,7 @@ class MessageControllerTest {
 
         msg.setId(msgId);
         user.setId(userId);
-        UserMessage userMessage = new UserMessage(user, msg, false);
+        UserMessage userMessage = new UserMessage(user, msg, false, false);
         when(authentication.getName()).thenReturn("test@test.com");
         when(userService.getCurrentUser(any())).thenReturn(user);
         when(messageService.readMsg(msgId, userId)).thenReturn(msg);

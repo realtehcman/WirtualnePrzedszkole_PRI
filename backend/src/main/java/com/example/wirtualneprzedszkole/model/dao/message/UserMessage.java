@@ -26,4 +26,6 @@ public class UserMessage {
 
     //@Column(name = "isRead", nullable = false)
     private boolean isRead;
+
+    private boolean isDelete;
 }

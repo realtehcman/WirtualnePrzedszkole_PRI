@@ -35,7 +35,7 @@ public class UserManagementController {
         return UserMapper.mapToDto(userManagementService.getUserByLastName(lastName, pageNumber));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping
     public List<UserDto> getAllUser(@RequestParam(required = false) Integer page) {
         int pageNumber = page != null && page >= 0 ? page : 0;

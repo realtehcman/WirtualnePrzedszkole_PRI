@@ -36,8 +36,8 @@ class MessageMapperTest {
         User user1 = User.builder().id(1L).name("user1").build();
         User user2 = User.builder().id(2L).name("user2").build();
 
-        UserMessage userMessage1 = new UserMessage(user1, Message.builder().content("message1").build(), true);
-        UserMessage userMessage2 = new UserMessage(user2, Message.builder().content("message2").build(), true);
+        UserMessage userMessage1 = new UserMessage(user1, Message.builder().content("message1").build(), true, false);
+        UserMessage userMessage2 = new UserMessage(user2, Message.builder().content("message2").build(), true, false);
         List<UserMessage> userMessageList = Arrays.asList(userMessage1, userMessage2);
 
         List<UserDto> expectedUserDtoList = Arrays.asList(
