@@ -41,13 +41,18 @@ class Message extends React.Component {
     });
   }
 
+  dateConvertToNormalFormat(responseDate) {
+    const date = new Date(responseDate)
+    return date.toLocaleString()
+  }
+
   render() {
     return (
       <div data-testid="message" className="scrollable-div">
         <table className="content-table">
           <thead>
             <tr className="table-head">
-              <td>Id</td>
+              <td>Data</td>
               <td>Od:</td>
               <td>Temat:</td>
               <td>Treść</td>
@@ -60,7 +65,7 @@ class Message extends React.Component {
                 .sort((a, b) => b.id - a.id)
                 .map((received_messages) => (
                     <tr key={received_messages.id}>
-                      <td>{received_messages.id}</td>
+                      <td>{this.dateConvertToNormalFormat(received_messages.sentDate)}</td>
                       <td id="td--message">{received_messages.author}</td>
                       <td id="td--message">{received_messages.subject}</td>
                       <td id="td--message">
