@@ -64,6 +64,15 @@ const User = () => {
      // eslint-disable-next-line
   }, []);
 
+
+  const deleteAvatar = async(deletePictureUser) => {
+    UserService.deleteAvatar(deletePictureUser).then(response => {
+        if (response.status !== 200) throw new Error(response.status);
+        else {
+            setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+        }
+    })
+  }
   
 
   return (
@@ -77,6 +86,7 @@ const User = () => {
               width="150px"
               /* src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif" */
             />
+            <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>Usuń Profilowe</button>
             <span className="font-weight-bold">
               {user.name} {user.lastName}
             </span>

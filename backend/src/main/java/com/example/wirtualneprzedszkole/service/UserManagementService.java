@@ -142,4 +142,11 @@ public class UserManagementService {
         userEdited.setChildren(childList);
         return userEdited;
     }
+
+    @Transactional
+    public User deleteAvatar(User user) {
+        User userEdited = userRepo.findById(user.getId()).orElseThrow();
+        userEdited.setPicture(null);
+        return userEdited;
+    }
 }

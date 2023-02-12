@@ -103,4 +103,10 @@ public class UserManagementController {
     public UserDto addChildrenToUser(@PathVariable Long userId, @RequestBody List<ChildDto> children) {
         return UserMapper.mapToUserDto(userManagementService.addChildrenToUser(userId, ChildMapper.mapToChildDao(children)));
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/delete_avatar")
+    public UserDto deleteAvatar(@RequestBody UserDto userDto) {
+        return UserMapper.mapToUserDto(userManagementService.deleteAvatar(UserMapper.mapToDao(userDto)));
+    }
 }

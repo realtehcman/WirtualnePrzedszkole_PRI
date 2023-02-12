@@ -60,9 +60,32 @@ const CurrentUser = () => {
 
     const[buttonPopup, setButtonPopup] = useState(false);
 
-    /* const handleFileUpload = async () => {
-        // profilówka ///////
-    } */
+    const addAvatar = async(event) => {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget);
+        const file = event.currentTarget;
+        formData.append('file', file);
+        CurrentUserService.addAvatar(formData).then(response => {
+            if (response.status !== 200) throw new Error(response.status);
+            else 
+            {
+                FileService.getFile(-1, response.data.picture).then(response => {
+                    let urlCreator = window.URL || window.webkitURL;
+                    setUserAvatar(urlCreator.createObjectURL(response.data))
+                })
+            }
+        })
+
+    }
+
+    const deleteAvatar = async() => {
+        CurrentUserService.deleteAvatar().then(response => {
+            if (response.status !== 200) throw new Error(response.status);
+            else {
+                setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+            }
+        })
+    }
 
     return (
 
@@ -85,9 +108,16 @@ const CurrentUser = () => {
                         /> */}
                     </div>     <div><p></p></div>
 
-                    {/* <div className="button-container">
-                        <button className="btn btn-info" onClick={handleFileUpload}>Załaduj zdjęcie</button>
-                    </div> */}
+                    <div className="button-container">
+                        <div className="uploadAvatar">
+                            <form onSubmit={addAvatar} encType='multipart/form-data'>
+                                <div className="input23">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
+                                <button type="submit" className="btn btn-primary">Zmień Profilowe</button>
+                                <p></p>
+                            </form>
+                        </div>
+                        <button className="btn btn-danger" onClick={() => deleteAvatar()}>Usuń Profilowe</button>
+                    </div>
                     <div><p></p></div>
 
 

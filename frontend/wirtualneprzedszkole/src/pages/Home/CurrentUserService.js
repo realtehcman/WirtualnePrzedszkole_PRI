@@ -35,6 +35,14 @@ class CurrentUserService {
     changePassword(change) {
         return axios.patch(USER_API + "/change_password", change)
     }
+
+    addAvatar(file) {
+        return axios.patch(USER_API + "/add_avatar", file)
+    }
+
+    deleteAvatar() {
+        return axios.patch(USER_API + "/delete_avatar")
+    }
 }
 // eslint-disable-next-line
 export default new CurrentUserService();

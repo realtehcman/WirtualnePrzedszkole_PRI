@@ -48,6 +48,10 @@ class UserService {
     addChildrenToUser(userId, children) {
         return axios.put(USERS_REST_API_URL + "/addChildrenToUser/" + userId, children)
     }
+
+    deleteAvatar(user) {
+        return axios.patch(USERS_REST_API_URL + "/delete_avatar", user)
+    }
 }
 // eslint-disable-next-line
 export default new UserService();

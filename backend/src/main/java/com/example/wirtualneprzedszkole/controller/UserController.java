@@ -54,4 +54,11 @@ public class UserController {
         String avatarName = storageService.addAvatar(file, currentUser.getEmail());
         return UserMapper.mapToUserDto(userService.addAvatar(currentUser, avatarName));
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER', 'ROLE_PARENT')")
+    @PatchMapping("/delete_avatar")
+    public UserDto deleteAvatar() {
+        User currentUser = userService.getCurrentUser();
+        return UserMapper.mapToUserDto(userManagementService.deleteAvatar(currentUser));
+    }
 }
