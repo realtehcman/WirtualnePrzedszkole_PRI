@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,6 +31,7 @@ import java.util.stream.Stream;
 //@RequiredArgsConstructor
 public class StorageServiceImpl implements StorageService {
     private Path fileStorageLocation;
+    private Path avatarStorageLocation;
     private final FileStorageProperties fileStorageProperties;
     private final FileDataRepo fileDataRepo;
     private final FolderService folderService;
@@ -43,9 +45,11 @@ public class StorageServiceImpl implements StorageService {
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/Knowledge")
                 .toAbsolutePath().normalize();
         this.filePaths = filePaths;
+        this.avatarStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/Avatars");
 
         try {
             Files.createDirectories(this.fileStorageLocation);
+            Files.createDirectories(this.avatarStorageLocation);
         } catch (Exception exception) {
             throw new StorageException("Could not create the directory where the uploaded files will be stored.", exception);
         }
@@ -165,9 +169,11 @@ public class StorageServiceImpl implements StorageService {
     //method for a get request
     public Resource loadAsResource(String fileName, Long folderId) {
         try {
-            if (folderId != 0)
+            if (folderId > 0)
                 fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
                         .toAbsolutePath().normalize();
+            else if (folderId.equals(-1L))
+                fileStorageLocation = avatarStorageLocation.toAbsolutePath().normalize();
             else
                 fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/Knowledge")
                         .toAbsolutePath().normalize();
@@ -218,6 +224,35 @@ public class StorageServiceImpl implements StorageService {
             System.out.println("File: " + file.getAbsolutePath());
             Path pathToFile = file.toPath();
             filePaths.add(pathToFile);
+        }
+    }
+
+    public String addAvatar(MultipartFile file, String mail) {
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+
+        Optional<String> fileExtension = Optional.of(fileName)
+                .filter(f -> f.contains("."))
+                .map(f -> f.substring(fileName.lastIndexOf(".") + 1));
+        this.avatarStorageLocation = this.avatarStorageLocation.toAbsolutePath().normalize();
+        if (Files.notExists(this.avatarStorageLocation)) {
+            try {
+                throw new ApiRequestNotFoundException("Folder does not exist. Create it first");
+            } catch (ApiRequestNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        try {
+            if (fileName.contains("..")) {
+                throw new StorageException("Sorry! Filename contains invalid path sequence " + fileName);
+            }
+            Path targetLocation;
+            String hashedMailIsNewFileName = DigestUtils.md5DigestAsHex(mail.getBytes(StandardCharsets.UTF_8)) + "." + fileExtension.get();
+            targetLocation = this.avatarStorageLocation.resolve(hashedMailIsNewFileName);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            return hashedMailIsNewFileName;
+        } catch (IOException exception) {
+            throw new StorageException("Could not store file " + fileName + ". Please try again!", exception);
         }
     }
 }

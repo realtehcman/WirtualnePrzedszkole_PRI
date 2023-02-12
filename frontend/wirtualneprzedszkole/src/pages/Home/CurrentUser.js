@@ -10,6 +10,7 @@ import EditCurrentUser from "./EditCurrentUser";
 import "../User/UserInfo.scss";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import FileService from "../gallery/FileService"
 
 
 const CurrentUser = () => {
@@ -29,8 +30,9 @@ const CurrentUser = () => {
             name: '',
             classId: ''
         }],
-        profilePicture: ''
     });
+
+    const [userAvatar, setUserAvatar] = useState()
 
     let {id} = useParams()
 
@@ -40,9 +42,17 @@ const CurrentUser = () => {
             console.log('Response from main API: ',response)
             let current_userData = response.data;
             let children = current_userData.children.map(it => {return {id: it.id, name: it.name, classId: it.classId}})
-            setCurrent_User({id: current_userData.id, email: current_userData.email, name: current_userData.name, lastName: current_userData.lastName, phoneNumber: current_userData.phoneNumber, address:current_userData.address, role: current_userData.role, children:  children, profilePicture: current_userData.profilePicture,opis: current_userData.opis})
+            setCurrent_User({id: current_userData.id, email: current_userData.email, name: current_userData.name, lastName: current_userData.lastName, phoneNumber: current_userData.phoneNumber, address:current_userData.address, role: current_userData.role, children:  children, opis: current_userData.opis})
+            
+            if (current_userData.picture !== undefined) {
+                FileService.getFile(-1, current_userData.picture).then(response => {
+                  let urlCreator = window.URL || window.webkitURL;
+                  setUserAvatar(urlCreator.createObjectURL(response.data))
+                })
+            } else {
+                setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+            }
         });
-
     }
         getData()
     // eslint-disable-next-line
@@ -50,9 +60,9 @@ const CurrentUser = () => {
 
     const[buttonPopup, setButtonPopup] = useState(false);
 
-    const handleFileUpload = async () => {
+    /* const handleFileUpload = async () => {
         // profilówka ///////
-    }
+    } */
 
     return (
 
@@ -67,17 +77,17 @@ const CurrentUser = () => {
                     <h1>Dane użytkownika: </h1>
 
                     <div className="img-container">
-                        {/*<img src={current_user.profilePicture} alt="zdjęcie profilowe" className="profile-img"/>*/}
-                        <img alt="cute-cat"
+                        {<img src={userAvatar} alt="zdjęcie profilowe" className="rounded-circle mt-5" width="150px"/>}
+                        {/* <img alt="cute-cat"
                             className="rounded-circle mt-5"
                             width="150px"
                             src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"
-                        />
+                        /> */}
                     </div>     <div><p></p></div>
 
-                    <div className="button-container">
+                    {/* <div className="button-container">
                         <button className="btn btn-info" onClick={handleFileUpload}>Załaduj zdjęcie</button>
-                    </div>
+                    </div> */}
                     <div><p></p></div>
 
 
