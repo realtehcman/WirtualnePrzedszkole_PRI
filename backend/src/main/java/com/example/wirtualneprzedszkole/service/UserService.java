@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -61,5 +62,12 @@ public class UserService {
 
     public User getCurrentUser() {
         return userRepo.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();
+    }
+
+    @Transactional
+    public User addAvatar(User user, String avatarName) {
+        User userEdited = userRepo.findById(user.getId()).orElseThrow();
+        userEdited.setPicture(avatarName);
+        return userEdited;
     }
 }

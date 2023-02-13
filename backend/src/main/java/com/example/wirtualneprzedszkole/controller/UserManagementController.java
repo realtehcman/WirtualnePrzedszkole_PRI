@@ -35,7 +35,7 @@ public class UserManagementController {
         return UserMapper.mapToDto(userManagementService.getUserByLastName(lastName, pageNumber));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping
     public List<UserDto> getAllUser(@RequestParam(required = false) Integer page) {
         int pageNumber = page != null && page >= 0 ? page : 0;
@@ -102,5 +102,11 @@ public class UserManagementController {
     @PutMapping("/addChildrenToUser/{userId}")
     public UserDto addChildrenToUser(@PathVariable Long userId, @RequestBody List<ChildDto> children) {
         return UserMapper.mapToUserDto(userManagementService.addChildrenToUser(userId, ChildMapper.mapToChildDao(children)));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/delete_avatar")
+    public UserDto deleteAvatar(@RequestBody UserDto userDto) {
+        return UserMapper.mapToUserDto(userManagementService.deleteAvatar(UserMapper.mapToDao(userDto)));
     }
 }

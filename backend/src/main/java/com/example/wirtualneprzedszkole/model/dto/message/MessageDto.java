@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
@@ -16,4 +17,5 @@ public class MessageDto {
     private List<UserDto> to;
     private String subject;
     private String content;
+    private Timestamp sentDate;
 }

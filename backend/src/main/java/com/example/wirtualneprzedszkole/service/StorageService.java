@@ -23,6 +23,8 @@ public interface StorageService {
 
     List<Resource> loadAsResources(Long folderId);
 
+    String addAvatar(MultipartFile file, String mail);
+
     //void deleteAll();
 
 }

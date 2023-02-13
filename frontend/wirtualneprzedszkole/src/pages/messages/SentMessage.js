@@ -58,13 +58,18 @@ class SentMessage extends React.Component {
     });
   }
 
+  dateConvertToNormalFormat(responseDate) {
+    const date = new Date(responseDate)
+    return date.toLocaleString()
+  }
+
   render() {
     return (
       <div data-testid="sent-message" className="scrollable-div">
         <table className="content-table">
           <thead>
             <tr className="table-head">
-              <td>Id</td>
+              <td>Data</td>
               <td>Autor</td>
               <td>Temat</td>
               <td>Treść</td>
@@ -74,7 +79,7 @@ class SentMessage extends React.Component {
           <tbody>
             {this.state.sent_messages.map((sent_messages) => (
               <tr key={sent_messages.id}>
-                <td id="td--message">{sent_messages.id}</td>
+                <td id="td--message">{this.dateConvertToNormalFormat(sent_messages.sentDate)}</td>
                 <td id="td--message">{sent_messages.author}</td>
                 <td id="td--message">{sent_messages.subject}</td>
                 <td id="td--message">

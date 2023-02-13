@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import UserService from "../User/UserService";
 import "./UserInfo.scss";
 import { useParams, useNavigate } from "react-router-dom";
+import FileService from "../gallery/FileService"
 
 const User = () => {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ const User = () => {
       },
     ],
   });
+
+  const [userAvatar, setUserAvatar] = useState()
   let { id } = useParams();
 
   useEffect(() => {
@@ -45,12 +48,31 @@ const User = () => {
         opis: userData.opis,
         children: children,
       });
+
+      if (userData.picture !== undefined) {
+        FileService.getFile(-1, userData.picture).then(response => {
+          let urlCreator = window.URL || window.webkitURL;
+          setUserAvatar(urlCreator.createObjectURL(response.data))
+        })
+      } else {
+          setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+      }
     });
+    
   }
     getData();
      // eslint-disable-next-line
   }, []);
 
+
+  const deleteAvatar = async(deletePictureUser) => {
+    UserService.deleteAvatar(deletePictureUser).then(response => {
+        if (response.status !== 200) throw new Error(response.status);
+        else {
+            setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+        }
+    })
+  }
   
 
   return (
@@ -58,11 +80,13 @@ const User = () => {
       <div className="row">
         <div className="col-md-3 border-right">
           <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-            <img alt="cute-cat"
+            <img src= {userAvatar}
+              alt="zdjęcie profilowe"
               className="rounded-circle mt-5"
               width="150px"
-              src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"
+              /* src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif" */
             />
+            <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>Usuń Profilowe</button>
             <span className="font-weight-bold">
               {user.name} {user.lastName}
             </span>

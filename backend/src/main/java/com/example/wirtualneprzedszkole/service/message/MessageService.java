@@ -16,8 +16,8 @@ public class MessageService {
     private final MessageRepo messageRepo;
     private final EmailSenderServiceImpl emailSenderService;
 
-    public List<Message> getAllSentMessages() {
-        return messageRepo.findAllMessage();
+    public List<Message> getAllSentMessages(Long userId) {
+        return messageRepo.findAllMessage(userId);
     }
 
     public Message sendMessage(Message message, List<User> users) {
@@ -60,4 +60,8 @@ public class MessageService {
         messageRepo.deleteById(id);
     }
 
+    @Transactional
+    public void deleteReceivedMsg(Long msgId, Long userId) {
+        messageRepo.deleteReceivedMsg(msgId, userId, true);
+    }
 }

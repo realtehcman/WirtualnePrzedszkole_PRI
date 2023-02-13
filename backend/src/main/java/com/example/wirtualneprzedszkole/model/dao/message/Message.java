@@ -3,8 +3,10 @@ package com.example.wirtualneprzedszkole.model.dao.message;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 ;
@@ -39,4 +41,7 @@ public class Message {
 
     @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
     private List<UserMessage> userMessageList;
+
+    @CreationTimestamp
+    private Timestamp sentDate;
 }

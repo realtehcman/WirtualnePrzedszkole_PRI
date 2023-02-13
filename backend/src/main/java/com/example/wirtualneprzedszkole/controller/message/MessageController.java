@@ -13,6 +13,8 @@ import com.example.wirtualneprzedszkole.service.UserManagementService;
 import com.example.wirtualneprzedszkole.service.UserService;
 import com.example.wirtualneprzedszkole.service.message.MessageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -29,24 +31,29 @@ public class MessageController {
     private final UserManagementService userManagementService;
     private final ChildService childService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping
     public List<MessageDto> getAllSentMessages() {
-        return MessageMapper.mapMessagesToMessagesDto(messageService.getAllSentMessages());
+        Long userId = userService.getCurrentUser().getId();
+        return MessageMapper.mapMessagesToMessagesDto(messageService.getAllSentMessages(userId));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @PostMapping
-    public MessageDto sendMessage(Authentication authentication, @RequestBody SendMessageDto sendMessageDto) {
+    public ResponseEntity<MessageDto> sendMessage(Authentication authentication, @RequestBody SendMessageDto sendMessageDto) {
 
         sendMessageDto.setAuthor(getCurrentUser(authentication));
         List<User> users = userManagementService.getAllUserByName(sendMessageDto.getTo());
 
-        return MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
-                .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users));
+        if (users.size() > 0) {
+            return new ResponseEntity<>(MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
+                    .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users)), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @PostMapping("to_parents")
     public MessageDto sendMessageToAllParents(Authentication authentication, @RequestBody SendMessageDto sendMessageDto) {
 
@@ -56,7 +63,7 @@ public class MessageController {
                 .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @PostMapping("to_class/{classId}")
     public MessageDto sendMessageToClass(Authentication authentication,@PathVariable Long classId, @RequestBody SendMessageDto sendMessageDto) {
 
@@ -68,6 +75,7 @@ public class MessageController {
                 .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users));
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("read_msg/{msgId}")
     public MessageToRecipientDto readMsg(Authentication authentication, @PathVariable Long msgId) {
         Long userId = getCurrentUser(authentication).getId();
@@ -76,20 +84,21 @@ public class MessageController {
         return messageDto;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("received_messages")
     public List<MessageToRecipientDto> getReceivedMessages(Authentication authentication) {
         Long userId = getCurrentUser(authentication).getId();
         return MessageMapper.mapMessagesToMessageToRecipientsDto(messageService.getReceivedMessages(userId));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping("sent_msg/{msgId}")
     public MessageDtoWithFieldIsRead getSentMsg(@PathVariable Long msgId) {
         Message message = messageService.getSentMsg(msgId);
         return MessageMapper.messageMapToMsgDtoWithFieldIsRead(message);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping("{msgId}/to/{userId}")
     public boolean checkMessageIsRead(@PathVariable Long msgId, @PathVariable Long userId) {
         return messageService.checkMessageIsRead(msgId, userId);
@@ -97,7 +106,7 @@ public class MessageController {
 
     private Message assignUserMessageToMsg(Message msg, List<User> users) {
         List<UserMessage> userMessageList = new ArrayList<>();
-        users.forEach(user -> userMessageList.add(new UserMessage(user, msg, false)));
+        users.forEach(user -> userMessageList.add(new UserMessage(user, msg, false, false)));
         msg.setUserMessageList(userMessageList);
         messageService.editMessage(msg);
         return msg;
@@ -110,7 +119,13 @@ public class MessageController {
 
 
     @DeleteMapping("{id}")
-    public void deleteClass(@PathVariable Long id) {messageService.deleteMessage(id);
+    public void deleteClass(@PathVariable Long id) {
+        messageService.deleteMessage(id);
+    }
+
+    @PatchMapping("/deleteReceivedMsg/{msgId}")
+    public void deleteReceivedMsg(@PathVariable Long msgId) {
+        messageService.deleteReceivedMsg(msgId, userService.getCurrentUser().getId());
     }
 
 }

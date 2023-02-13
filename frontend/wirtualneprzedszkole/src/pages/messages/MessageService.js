@@ -29,7 +29,7 @@ class MessageService {
     }
 
     deleteReceivedMessages(id) {
-        return axios.delete(`http://localhost:8080/api/message/${id}`)
+        return axios.patch(`http://localhost:8080/api/message/deleteReceivedMsg/${id}`)
     }
 
 
