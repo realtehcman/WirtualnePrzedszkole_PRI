@@ -20,6 +20,8 @@ build:
     - find . -iname "UserService.java" -exec sed -i "s/http:\/\/localhost:3000/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
     - cd ../../../../../../../../frontend/wirtualneprzedszkole/src/pages
     - find . -iname "*.js" -exec sed -i "s/http:\/\/localhost:8080/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
+    - cd Folders
+    - echo "$(cat FolderService.js)"
 #    - apk add --update nodejs npm maven openjdk11
 #    - cd frontend/wirtualneprzedszkole
 #    - npm i --save @fortawesome/fontawesome-svg-core
