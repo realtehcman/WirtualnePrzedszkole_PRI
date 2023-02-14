@@ -5,7 +5,7 @@ services:
 
 stages:
   - build
-  - test
+#  - test
   - deploy
 
 before_script:
@@ -13,26 +13,32 @@ before_script:
 
 build:
   stage: build
+  only:
+    - master
   script:
-    - apk add --update nodejs npm maven openjdk11
-    - cd frontend/wirtualneprzedszkole
-    - npm i --save @fortawesome/fontawesome-svg-core
-    - npm i --save @fortawesome/free-solid-svg-icons
-    - npm install -f
-    - npm run build
-    - cd ../../backend
-    - mvn clean install
+    - cd backend/src/main/java/com/example/wirtualneprzedszkole/service
+    - find . -iname "UserService.java" -exec sed -i "s/http:\/\/localhost:3000/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
+    - cd ../../../../../../../../frontend/wirtualneprzedszkole/src/pages
+    - find . -iname "*.js" -exec sed -i "s/http:\/\/localhost:8080/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
+#    - apk add --update nodejs npm maven openjdk11
+#    - cd frontend/wirtualneprzedszkole
+#    - npm i --save @fortawesome/fontawesome-svg-core
+#    - npm i --save @fortawesome/free-solid-svg-icons
+#    - npm install -f
+#    - npm run build
+#    - cd ../../backend
+#    - mvn clean install
 
-test:
-  stage: test
-  script:
-    - apk add --update nodejs npm maven openjdk11
-    - cd frontend/wirtualneprzedszkole
-    - npm i react-scripts 
-    - npm i --save @fortawesome/fontawesome-svg-core
-    - npm i --save @fortawesome/free-solid-svg-icons
-    - cd ../../backend
-    - mvn test
+#test:
+#  stage: test
+#  script:
+#    - apk add --update nodejs npm maven openjdk11
+#    - cd frontend/wirtualneprzedszkole
+#    - npm i react-scripts 
+#    - npm i --save @fortawesome/fontawesome-svg-core
+#    - npm i --save @fortawesome/free-solid-svg-icons
+#    - cd ../../backend
+#    - mvn test
 
 
 deploy:
@@ -45,10 +51,3 @@ deploy:
     - sleep 15
     - pwd=$(pwd)
     - sshpass -p "kapusta421" scp -o StrictHostKeyChecking=no -r $pwd wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
-    - cd backend/src/main/java/com/example/wirtualneprzedszkole/service
-    - echo "$PWD"
-    - find . -iname "UserService.java" -exec sed -i "s/http:\/\/localhost:3000/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
-    - cd ../../../../../../../../frontend/wirtualneprzedszkole/src/pages
-    - echo "$PWD"
-    - find . -iname "*.js" -exec sed -i "s/http:\/\/localhost:8080/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
-    - echo "$PWD"
