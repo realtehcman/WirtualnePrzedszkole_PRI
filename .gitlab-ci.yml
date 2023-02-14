@@ -46,6 +46,9 @@ deploy:
     - pwd=$(pwd)
     - sshpass -p "kapusta421" scp -o StrictHostKeyChecking=no -r $pwd wpadmin@przedszkole.projektstudencki.pl:/home/wpadmin
     - cd backend/src/main/java/com/example/wirtualneprzedszkole/service
+    - echo "$PWD"
     - find . -iname "UserService.java" -exec sed -i "s/http:\/\/localhost:3000/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
     - cd ../../../../../../../../frontend/wirtualneprzedszkole/src/pages
+    - echo "$PWD"
     - find . -iname "*.js" -exec sed -i "s/http:\/\/localhost:8080/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
+    - echo "$PWD"
