@@ -5,7 +5,7 @@ services:
 
 stages:
   - build
-#  - test
+  - test
   - deploy
 
 before_script:
@@ -22,25 +22,25 @@ build:
     - find . -iname "*.js" -exec sed -i "s/http:\/\/localhost:8080/https:\/\/przedszkole.projektstudencki.pl/g" {} \;
     - cd Folders
     - echo "$(cat FolderService.js)"
-#    - apk add --update nodejs npm maven openjdk11
-#    - cd frontend/wirtualneprzedszkole
-#    - npm i --save @fortawesome/fontawesome-svg-core
-#    - npm i --save @fortawesome/free-solid-svg-icons
-#    - npm install -f
-#    - npm run build
-#    - cd ../../backend
-#    - mvn clean install
+    - apk add --update nodejs npm maven openjdk11
+    - cd frontend/wirtualneprzedszkole
+    - npm i --save @fortawesome/fontawesome-svg-core
+    - npm i --save @fortawesome/free-solid-svg-icons
+    - npm install -f
+    - npm run build
+    - cd ../../backend
+    - mvn clean install
 
-#test:
-#  stage: test
-#  script:
-#    - apk add --update nodejs npm maven openjdk11
-#    - cd frontend/wirtualneprzedszkole
-#    - npm i react-scripts 
-#    - npm i --save @fortawesome/fontawesome-svg-core
-#    - npm i --save @fortawesome/free-solid-svg-icons
-#    - cd ../../backend
-#    - mvn test
+test:
+  stage: test
+  script:
+    - apk add --update nodejs npm maven openjdk11
+    - cd frontend/wirtualneprzedszkole
+    - npm i react-scripts 
+    - npm i --save @fortawesome/fontawesome-svg-core
+    - npm i --save @fortawesome/free-solid-svg-icons
+    - cd ../../backend
+    - mvn test
 
 
 deploy:
