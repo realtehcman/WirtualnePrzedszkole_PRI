@@ -7,88 +7,59 @@ import ClearIcon from '@mui/icons-material/Clear';
 import '../../../src/Styles.scss';
 import Popup from '../GroupDisplay/Popup';
 import CreateGallery from './CreateGallery';
-
-
-const photoGallery = [
-    {
-        src: 'https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://images.pexels.com/photos/7505201/pexels-photo-7505201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 1,
-        height: 1
-    },
-    {
-        src: 'https://images.pexels.com/photos/12880492/pexels-photo-12880492.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://images.pexels.com/photos/15293662/pexels-photo-15293662.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://images.pexels.com/photos/15386484/pexels-photo-15386484.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://images.pexels.com/photos/3585088/pexels-photo-3585088.jpeg?auto=compress&cs=tinysrgb&w=600',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 1,
-        height: 1
-    },
-    {
-        src: 'https://images.pexels.com/photos/12880492/pexels-photo-12880492.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://images.pexels.com/photos/15293662/pexels-photo-15293662.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://images.pexels.com/photos/15452120/pexels-photo-15452120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://images.pexels.com/photos/15386484/pexels-photo-15386484.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        width: 4,
-        height: 3
-    },
-];
+import FolderService from '../Folders/FolderService';
+import FileService from './FileService';
 
 const ViewGallery = () => {
     const [photos, setPhotos] = useState({
         id: "",
-
     });
+
+    const [allPhotos, setAllPhotos] = useState([]);
+
     const [deletePhotoPopup, setDeletePhotoPopup] = useState(false);
     const [addPhotoPopup, setAddPhotoPopup] = useState(false);
     const [selectPhotos, setSelectedPhotos] = useState([]);
 
+    const [newFile, setNewFile] = useState(
+        {
+            name: "",
+            path: "",
+            className: "",
+            fileDataList: [{}],
+        }
+    )
+
+    const [folder, setFolder] = useState(
+        {
+            id: "",
+            name: "",
+            path: "",
+            className: "",
+            fileDataList: [{}],
+            childrenFolder: [{}],
+            parent: {}
+        }
+    )
+
     let { id } = useParams();
+
+    useEffect(() => {
+        const getFolder = async() => {
+            FolderService.getFolder(id).then(response => {
+                setFolder(response.data)
+            })
+        }
+        getFolder().then(r => console.log(r))
+    }, [])
 
     useEffect(() => {
         const getData = async () => {
             GalleryService.ViewFolder(id).then((response) => {
-                let galleryData = response.data;
-                console.log(galleryData);
+                // let galleryData = response.data;
+                let galleryData = response.data.fileDataList;
 
+                setAllPhotos(galleryData);
                 setPhotos({
                     id: galleryData.id,
                 });
@@ -98,20 +69,19 @@ const ViewGallery = () => {
         // eslint-disable-next-line
     }, []);
 
-    let formData = new FormData();
+    const addFiles = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
 
-    const onSelected = (e) => {
-       setSelectedPhotos(e.target.files);
-      
-    }
+        const files = event.currentTarget;
+        for (let i = 1; i < files.length; i++) {
+            formData.append('file', files[i]);
+        }
 
-    const addFiles = () => {
-        debugger
-        formData.append('files', [selectPhotos[0]]);
-        console.log(formData);
-        GalleryService.AddMultiFiles(id, formData).then((res) => {
-            debugger
-            console.log(res, "response after post the data in Gallery");
+        GalleryService.AddFile(folder.id, formData).then((res) => {
+            if (res.status !== 200){
+                console.log(res + "Successfully uploaded");
+            }
         })
         setAddPhotoPopup(false);
     }
@@ -134,12 +104,12 @@ const ViewGallery = () => {
                     className="my-masonry-grid"
                     columnClassName="my-masonry-grid_column"
                 >
-                    {photoGallery.map((photo) => (
+                    {allPhotos.map((photo) => (
                         <div className='gallery_img position-relative'>
                             <button type="button" className='btn btn-info del_gallery_img mx-1 my-1 px-0 py-0' onClick={() => setDeletePhotoPopup(true)}>
                                 <ClearIcon className="icon mx-0" />
                             </button>
-                            <img src={photo.src} width="100%" />
+                            <img src={photo.path} width="100%" />
                         </div>
                     )
                     )}
@@ -160,12 +130,18 @@ const ViewGallery = () => {
             <div className="add_photo_popup">
                 <Popup trigger={addPhotoPopup} setTrigger={setAddPhotoPopup}>
                     <h3 className='text-center mb-2'>Dodaj zdjęcie</h3>
-                    <div className='my-4'>
-                        <input onChange={onSelected} type="file" class="form-control" name="image" accept="image/png, image/gif, image/jpeg" multiple />
-                    </div>
-                    <div className='d-flex justify-content-between'>
-                        <button className='btn btn-primary' onClick={() => addFiles()}>Dodać</button>
-                    </div>
+                    <form onSubmit={addFiles} encType='multipart/form-data'>
+                    <div className='form-group'>
+                                <input placeholder='Nazwa Folderu' name="Nazwa Folderu" className='"form-control' 
+                                onChange={e => setNewFile({name: e.target.value})}/>
+                            </div>
+                            <div className="uploadDiv2">
+                                    <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
+                            </div>
+                            <div className="form-but">
+                                    <button className="button">Zapisz</button>
+                            </div>
+                    </form>
                 </Popup>
             </div>
         </div>

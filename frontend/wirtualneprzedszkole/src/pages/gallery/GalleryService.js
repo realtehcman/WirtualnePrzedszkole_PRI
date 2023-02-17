@@ -17,12 +17,16 @@ class GalleryService {
         return axios.get(FILE_REST_API_URL + "/folder/" + id)
     }
 
+    AddFile(folderId, fromData) {
+        return axios.post(FILE_REST_API_URL + "/file/uploadFile/" + folderId, fromData)
+    }
+
     // AddMultiFiles() {
     //     return axios.get(FILE_REST_API_URL + "file/uploadMultiFiles/")
     // }
 
     AddMultiFiles(folderId,formData) {
-        return axios.post(FILE_REST_API_URL + "/file/uploadMultiFiles/" + folderId,  formData,{  headers: { 'content-type': 'multipart/form-data' }})
+        return axios.post(FILE_REST_API_URL + "/file/uploadMultiFiles/" + folderId,  formData)
     }
 
     deleteFolder(id){
