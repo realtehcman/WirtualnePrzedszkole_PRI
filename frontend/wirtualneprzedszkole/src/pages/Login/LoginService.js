@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { config } from '../../AxiosUrlConfig'
 
 
-const LOGIN_REST_API_URL = 'http://localhost:8080/api/login'
+const LOGIN_REST_API_URL = config.SERVER_URI + '/api/login'
 
 class LoginService {
     
