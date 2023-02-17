@@ -10,11 +10,13 @@ import EditCurrentUser from "./EditCurrentUser";
 import "../User/UserInfo.scss";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import FileService from "../gallery/FileService"
+import FileService from "../gallery/FileService";
+import { useTranslation } from 'react-i18next';
 
 
 const CurrentUser = () => {
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     const [current_user, setCurrent_User] = useState({
         id:'',
@@ -93,7 +95,7 @@ const CurrentUser = () => {
             <Sidebar/>
             <div className="homeContainer">
 
-                <Navbar/>
+                <Navbar />
                 <div>
                     <ToastContainer />
 
@@ -146,7 +148,7 @@ const CurrentUser = () => {
                                 <thead>
                                 <tr>
                                     <th>Imię</th>
-                                    <th>classId</th>
+                                    <th>Nazwa Clasy</th>
                                 </tr>
                                 </thead>
 

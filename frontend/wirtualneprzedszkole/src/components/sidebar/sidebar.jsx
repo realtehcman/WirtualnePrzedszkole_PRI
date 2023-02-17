@@ -17,10 +17,12 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import useWindowDimensions from "./useWindowDimensions.js";
 import CurrentUserService from "../../pages/Home/CurrentUserService";
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   useWindowDimensions();
   useNavigate();
+  const {t} = useTranslation();
 
   var [sidebar, setSidebar] = useState(true);
 
@@ -65,32 +67,32 @@ const Sidebar = () => {
           <li>
             <Link to={"/home"}>
               <AccountBoxIcon className="icon" />
-              <span>Profil</span>
+              <span>{t('profile')}</span>
             </Link>
           </li>
           <li>
             <Link to={"/Message"}>
               <MessageIcon className="icon" />
-              <span>Wiadomości</span>
+              <span>{t('theNews')}</span>
             </Link>
           </li>
 
           <li>
             <Link to={"/Knowledge"}>
               <LocalLibraryIcon className="icon" />
-              <span>Baza wiedzy</span>
+              <span>{t('knowledgeBase')}</span>
             </Link>
           </li>
           <li>
             <Link to={"/Galeria"}>
               <CollectionsIcon className="icon" />
-              <span>Galeria</span>
+              <span>{t('gallery')}</span>
             </Link>
           </li>
             <li>
                 <Link to={"/Kadra"}>
                     <SchoolIcon className="icon" />
-                    <span>Kadra</span>
+                    <span>{t('cadre')}</span>
                 </Link>
             </li>
         </div>
@@ -103,50 +105,50 @@ const Sidebar = () => {
           <li>
             <Link to={"/home"}>
               <AccountBoxIcon className="icon" />
-              <span>Profil</span>
+              <span>{t('profile')}</span>
             </Link>
           </li>
           <li>
             <Link to={"/users"}>
               <FamilyRestroomIcon className="icon" />
-              <span>Użytkownicy </span>
+              <span>{t('users')}</span>
             </Link>
           </li>
           <li>
             <Link to={"/groups"}>
               <GroupsIcon className="icon" />
-              <span>Grupy</span>
+              <span>{t('groups')}</span>
             </Link>
           </li>
           <li>
             <Link to={"/children"}>
               <ChildCareIcon className="icon" />
-              <span>Dzieci</span>
+              <span>{t('kids')}</span>
             </Link>
           </li>
             <li>
                 <Link to={"/Kadra"}>
                     <SchoolIcon className="icon" />
-                    <span>Kadra</span>
+                    <span>{t('cadre')}</span>
                 </Link>
             </li>
           <li>
             <Link to={"/Message"}>
               <MessageIcon className="icon" />
-              <span>Wiadomości</span>
+              <span>{t('theNews')}</span>
             </Link>
           </li>
           <li>
             <Link to={"/SendMessage"}>
               <RateReviewIcon className="icon" />
-              <span>Utwórz</span>
+              <span>{t('create')}</span>
             </Link>
           </li>
 
           <li>
             <Link to={"/SentMessage"}>
               <MarkChatReadIcon className="icon" />
-              <span>Wysłane</span>
+              <span>{t('sent')}</span>
             </Link>
           </li>
 
@@ -166,19 +168,19 @@ const Sidebar = () => {
           <li>
             <Link to={"/Knowledge"}>
               <LocalLibraryIcon className="icon" />
-              <span>Baza wiedzy</span>
+              <span>{t('knowledgeBase')}</span>
             </Link>
           </li>
           <li>
             <Link to={"/Gallery"}>
               <CollectionsIcon className="icon" />
-              <span>Galeria</span>
+              <span>{t('gallery')}</span>
             </Link>
           </li>
           <li>
             <Link to={"/AddGallery"}>
               <AddPhotoAlternateIcon className="icon" />
-              <span>Dodaj pliki</span>
+              <span>{t('addFiles')}</span>
             </Link>
           </li> </div>
       );

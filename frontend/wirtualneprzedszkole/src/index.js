@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
+import './i18n';
 
 axios.interceptors.request.use(
   config => {

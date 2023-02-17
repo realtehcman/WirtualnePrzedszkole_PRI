@@ -35,35 +35,36 @@ const Child = () => {
     return (
         <div data-testid="child">
             <h1>Rodzice: {child.name} {child.lastName}</h1>
-            <table className='content-table'>
-                <thead>
+            <div className='table_outer'>
+                <table className='content-table mx-0 my-0'>
+                    <thead>
 
-                <tr className='table-head'>
+                    <tr className='table-head'>
 
-                    <td>Imię</td>
-                    <td>Nazwisko</td>
-                    <td>Email</td>
-                    <td>Akcje</td>
-                </tr>
-                </thead>
-                <tbody className='body table-body'>
-                {
-                    child.parents.map(
-                        parent =>
-                            <tr key = {parent.id}>
-                                <td>{parent.name}</td>
-                                <td>{parent.lastName}</td>
-                                <td>{parent.email}</td>
-                                <td>
+                        <td>Imię</td>
+                        <td>Nazwisko</td>
+                        <td>Email</td>
+                        <td>Akcje</td>
+                    </tr>
+                    </thead>
+                    <tbody className='body table-body'>
+                    {
+                        child.parents.map(
+                            parent =>
+                                <tr key = {parent.id}>
+                                    <td>{parent.name}</td>
+                                    <td>{parent.lastName}</td>
+                                    <td>{parent.email}</td>
+                                    <td>
 
-                                    <button onClick={() => navigate("/user/" + parent.id)} className='btn btn-info'>Zobacz</button>
-                                </td>
-                            </tr>
-                    )
-                }
-                </tbody>
-            </table>
-
+                                        <button onClick={() => navigate("/user/" + parent.id)} className='btn btn-info'>Zobacz</button>
+                                    </td>
+                                </tr>
+                        )
+                    }
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

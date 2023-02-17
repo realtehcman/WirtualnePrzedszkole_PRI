@@ -75,8 +75,17 @@ const EditChild = () => {
                 <input placeholder={child.name} onChange={(e) => setChildEdit({...childEdit, name : e.target.value})}/><br></br>
                 <label>Nazwisko:</label><br></br>
                 <input placeholder={child.lastName}  onChange={(e) => setChildEdit({...childEdit, lastName : e.target.value})}/><br></br>
-                <label>id klasy:</label><br></br>
-                <input placeholder={child.classId} onChange={(e) => setChildEdit({...childEdit, classId : e.target.value})}/><br></br>
+                {/* <label>id klasy:</label><br></br>
+                <input placeholder={child.classId} onChange={(e) => setChildEdit({...childEdit, classId : e.target.value})}/><br></br> */}
+                
+                {/* <input placeholder={child.classId} onChange={(e) => setChildEdit({...childEdit, classId : e.target.value})}/><br></br> */}
+                <label>Wybierz Klasę:</label><br></br>
+                <select className='d-block'>
+                    <option>option1</option>
+                    <option>option2</option>
+                    <option>option3</option>
+                </select>
+                <br></br>
                 <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
             </form>
         </div>

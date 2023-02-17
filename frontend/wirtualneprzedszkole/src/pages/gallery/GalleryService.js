@@ -13,11 +13,16 @@ class GalleryService {
     }
 
     ViewFolder(id) {
-        return axios.get(FILE_REST_API_URL + "/downloadFolder/" + id)
+        // return axios.get(FILE_REST_API_URL + "/downloadFolder/" + id)
+        return axios.get(FILE_REST_API_URL + "/folder/" + id)
     }
 
-    AddMultiFiles() {
-        return axios.get(FILE_REST_API_URL + "file/uploadMultiFiles/")
+    // AddMultiFiles() {
+    //     return axios.get(FILE_REST_API_URL + "file/uploadMultiFiles/")
+    // }
+
+    AddMultiFiles(folderId,formData) {
+        return axios.post(FILE_REST_API_URL + "/file/uploadMultiFiles/" + folderId,  formData,{  headers: { 'content-type': 'multipart/form-data' }})
     }
 
     deleteFolder(id){
