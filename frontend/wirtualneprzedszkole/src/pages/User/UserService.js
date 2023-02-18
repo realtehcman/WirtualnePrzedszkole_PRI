@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { config } from '../../AxiosUrlConfig';
 
 
-const USERS_REST_API_URL = 'http://localhost:8080/api/users'
+const USERS_REST_API_URL = config.SERVER_URI + "/api/users"
 
 class UserService {
     

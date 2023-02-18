@@ -1,5 +1,6 @@
 import axios from 'axios';
 import FolderService from './FolderService';
+import { config } from '../../AxiosUrlConfig';
 
 jest.mock('axios');
 
@@ -15,7 +16,7 @@ describe('FolderService', () => {
         axios.get.mockResolvedValue(mockResponse);
 
         const result = await FolderService.getFolder(folderId);
-        expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/api/folder/' + folderId);
+        expect(axios.get).toHaveBeenCalledWith(config.SERVER_URI + '/api/folder/' + folderId);
         expect(result).toEqual(mockResponse);
     });
 
@@ -25,7 +26,7 @@ describe('FolderService', () => {
         axios.get.mockResolvedValue(mockResponse);
 
         const result = await FolderService.getClassFolders(className);
-        expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/api/folder/className/' + className);
+        expect(axios.get).toHaveBeenCalledWith(config.SERVER_URI + '/api/folder/className/' + className);
         expect(result).toEqual(mockResponse);
     });
 
@@ -35,7 +36,7 @@ describe('FolderService', () => {
         axios.get.mockResolvedValue(mockResponse);
 
         const result = await FolderService.getClassSubFolders(className);
-        expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/api/folder/getSubFolders/' + className);
+        expect(axios.get).toHaveBeenCalledWith(config.SERVER_URI + '/api/folder/getSubFolders/' + className);
         expect(result).toEqual(mockResponse);
     });
 
@@ -45,7 +46,7 @@ describe('FolderService', () => {
         axios.post.mockResolvedValue(mockResponse);
 
         const result = await FolderService.addNewFolder(newFolder);
-        expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/api/folder', newFolder);
+        expect(axios.post).toHaveBeenCalledWith(config.SERVER_URI + '/api/folder', newFolder);
         expect(result).toEqual(mockResponse);
     });
 
@@ -55,7 +56,7 @@ describe('FolderService', () => {
         axios.delete.mockResolvedValue(mockResponse);
 
         const result = await FolderService.deleteFolder(folderId);
-        expect(axios.delete).toHaveBeenCalledWith('http://localhost:8080/api/folder/' + folderId);
+        expect(axios.delete).toHaveBeenCalledWith(config.SERVER_URI + '/api/folder/' + folderId);
         expect(result).toEqual(mockResponse);
     });
 });

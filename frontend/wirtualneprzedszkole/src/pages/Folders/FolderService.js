@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { config } from '../../AxiosUrlConfig';
 
-const FOLDER_REST_API_URL = 'http://localhost:8080/api/folder'
+const FOLDER_REST_API_URL = config.SERVER_URI + '/api/folder'
 
 class FolderService {
 

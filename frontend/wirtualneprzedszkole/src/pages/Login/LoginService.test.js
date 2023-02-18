@@ -1,5 +1,6 @@
 import axios from 'axios'
 import LoginService from './LoginService'
+import { config } from '../../AxiosUrlConfig'
 
 jest.mock('axios')
 
@@ -12,7 +13,7 @@ describe('LoginService', () => {
         it('should make a post request to the correct API URL with the email and password', async () => {
             axios.post.mockResolvedValue({headers: {'authorization': 'abc'}})
             await LoginService.login('email', 'password')
-            expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/api/login', JSON.stringify({ email: 'email', password: 'password' }))
+            expect(axios.post).toHaveBeenCalledWith(config.SERVER_URI + '/api/login', JSON.stringify({ email: 'email', password: 'password' }))
         })
 
         it('should set the authorization token in local storage', async () => {

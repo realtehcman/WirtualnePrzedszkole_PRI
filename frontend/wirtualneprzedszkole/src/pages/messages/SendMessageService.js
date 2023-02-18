@@ -1,7 +1,7 @@
 import axios from 'axios'
+import { config } from '../../AxiosUrlConfig'
 
-
-const SENDMESSAGE_REST_API_URL = 'http://localhost:8080/api/message/'
+const SENDMESSAGE_REST_API_URL = config.SERVER_URI + '/api/message/'
 
 class SendMessageService {
 

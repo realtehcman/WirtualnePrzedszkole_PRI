@@ -1,8 +1,9 @@
 import axios from 'axios'
 import GroupService from './GroupService'
+import { config } from '../../AxiosUrlConfig';
 
 jest.mock('axios');
-const GROUP_REST_API_URL = 'http://localhost:8080/api/class'
+const GROUP_REST_API_URL =  config.SERVER_URI + '/api/class'
 
 describe('GroupService', () => {
 

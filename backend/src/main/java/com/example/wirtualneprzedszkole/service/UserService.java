@@ -27,17 +27,19 @@ public class UserService {
     private final ClassService classService;
 
 
-    public void restartPassword(String email) {
+    public void restartPassword(String email, String requestUrl) {
         User user = userRepo.findByEmail(email).orElseThrow();
 
         String token = UUID.randomUUID().toString();
         PasswordResetToken passwordResetToken = new PasswordResetToken(token, user, LocalDateTime.now(),
                  LocalDateTime.now().plusMinutes(15));
         passwordResetTokenService.saveToken(passwordResetToken);
-       /* emailSenderService.sendEmail(user.getEmail(), "Wirtualne przedszkole - Reset hasła",
-                "Kliknij w podany link aby dokonać zmiany hasła. http://localhost:8080/api/user/restart?token=" + token);*/
-        emailSenderService.sendEmail(user.getEmail(), "Wirtualne przedszkole - Reset hasła",
-                "Kliknij w podany link aby dokonać zmiany hasła. http://localhost:3000/change/" + passwordResetToken.getToken());
+        if (requestUrl.contains("przedszkole.projektstudencki.pl"))
+            emailSenderService.sendEmail(user.getEmail(), "Wirtualne przedszkole - Reset hasła",
+                "Kliknij w podany link aby dokonać zmiany hasła. https://przedszkole.projektstudencki.pl/change/" + passwordResetToken.getToken());
+        else if (requestUrl.contains("localhost"))
+            emailSenderService.sendEmail(user.getEmail(), "Wirtualne przedszkole - Reset hasła",
+                    "Kliknij w podany link aby dokonać zmiany hasła. http://localhost:3000/change/" + passwordResetToken.getToken());
     }
 
     @Transactional

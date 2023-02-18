@@ -1,7 +1,8 @@
 import axios from 'axios'
 import ChildrenService from './ChildrenService';
+import { config } from '../../AxiosUrlConfig';
 
-const CHILDREN_REST_API_URL = 'http://localhost:8080/api/child'
+const CHILDREN_REST_API_URL = config.SERVER_URI + '/api/child'
 
 jest.mock('axios');
 
