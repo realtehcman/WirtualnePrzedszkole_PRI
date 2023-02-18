@@ -11,9 +11,7 @@ import FolderService from '../Folders/FolderService';
 import FileService from './FileService';
 
 const ViewGallery = () => {
-    const [photos, setPhotos] = useState({
-        id: "",
-    });
+    const [photos, setPhotos] = useState([]);
 
     const [allPhotos, setAllPhotos] = useState([]);
 
@@ -30,44 +28,32 @@ const ViewGallery = () => {
         }
     )
 
-    const [folder, setFolder] = useState(
-        {
-            id: "",
-            name: "",
-            path: "",
-            className: "",
-            fileDataList: [{}],
-            childrenFolder: [{}],
-            parent: {}
-        }
-    )
-
     let { id } = useParams();
 
     useEffect(() => {
-        const getFolder = async() => {
-            FolderService.getFolder(id).then(response => {
-                setFolder(response.data)
-            })
-        }
-        getFolder().then(r => console.log(r))
-    }, [])
-
-    useEffect(() => {
         const getData = async () => {
-            GalleryService.ViewFolder(id).then((response) => {
+            FolderService.getFolder(id).then((response) => {
                 // let galleryData = response.data;
                 let galleryData = response.data.fileDataList;
 
                 setAllPhotos(galleryData);
-                setPhotos({
-                    id: galleryData.id,
-                });
+                Promise.all(galleryData.map(el => getPhoto(el))).then(result => {
+                    setPhotos(result)
+                })
+               
             });
         };
         getData().then(r => console.log(r));
         // eslint-disable-next-line
     }, []);
+
+    const getPhoto = async (element) => {
+        let x = await FileService.getFile(id, element.hash).then(res => {
+            let urlCreator = window.URL || window.webkitURL;
+            return urlCreator.createObjectURL(res.data)
+        })
+        return [x, element]
+    }
 
     const addFiles = (event) => {
         event.preventDefault();
@@ -78,11 +64,11 @@ const ViewGallery = () => {
             formData.append('file', files[i]);
         }
 
-        GalleryService.AddFile(folder.id, formData).then((res) => {
+        /* GalleryService.AddFile(folder.id, formData).then((res) => {
             if (res.status !== 200){
                 console.log(res + "Successfully uploaded");
             }
-        })
+        }) */
         setAddPhotoPopup(false);
     }
 
@@ -104,12 +90,13 @@ const ViewGallery = () => {
                     className="my-masonry-grid"
                     columnClassName="my-masonry-grid_column"
                 >
-                    {allPhotos.map((photo) => (
-                        <div className='gallery_img position-relative'>
+                    {photos.map((photo) => (
+                        <div className='gallery_img position-relative' key={photo[1].id}>
                             <button type="button" className='btn btn-info del_gallery_img mx-1 my-1 px-0 py-0' onClick={() => setDeletePhotoPopup(true)}>
                                 <ClearIcon className="icon mx-0" />
                             </button>
-                            <img src={photo.path} width="100%" />
+                        
+                            <img src={photo[0]} width="100px" alt={photo[1].name}/>
                         </div>
                     )
                     )}
@@ -131,10 +118,6 @@ const ViewGallery = () => {
                 <Popup trigger={addPhotoPopup} setTrigger={setAddPhotoPopup}>
                     <h3 className='text-center mb-2'>Dodaj zdjęcie</h3>
                     <form onSubmit={addFiles} encType='multipart/form-data'>
-                    <div className='form-group'>
-                                <input placeholder='Nazwa Folderu' name="Nazwa Folderu" className='"form-control' 
-                                onChange={e => setNewFile({name: e.target.value})}/>
-                            </div>
                             <div className="uploadDiv2">
                                     <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                             </div>
