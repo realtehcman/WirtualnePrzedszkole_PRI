@@ -1,5 +1,6 @@
 import SendMessageService from './SendMessageService';
 import axios from 'axios';
+import { config } from '../../AxiosUrlConfig'
 
 jest.mock('axios');
 
@@ -12,7 +13,7 @@ describe('SendMessageService', () => {
         it('should make a GET request to the correct endpoint', async () => {
             axios.get.mockResolvedValue({});
             await SendMessageService.getMessage();
-            expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/api/message/');
+            expect(axios.get).toHaveBeenCalledWith(config.SERVER_URI + '/api/message/');
         });
     });
 
@@ -21,7 +22,7 @@ describe('SendMessageService', () => {
             const message = { text: 'Hello' };
             axios.post.mockResolvedValue({});
             await SendMessageService.SendMessage(message);
-            expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/api/message/', message, {
+            expect(axios.post).toHaveBeenCalledWith(config.SERVER_URI + '0/api/message/', message, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -34,7 +35,7 @@ describe('SendMessageService', () => {
             const message = { text: 'Hello' };
             axios.post.mockResolvedValue({});
             await SendMessageService.SendMessageParents(message);
-            expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/api/message/to_parents', message, {
+            expect(axios.post).toHaveBeenCalledWith(config.SERVER_URI + '/api/message/to_parents', message, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -46,7 +47,7 @@ describe('SendMessageService', () => {
         it('should make a POST request to the correct endpoint', async () => {
             axios.post.mockResolvedValue({});
             await SendMessageService.d();
-            expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/api/message/');
+            expect(axios.post).toHaveBeenCalledWith(config.SERVER_URI + '/api/message/');
         });
     });
 

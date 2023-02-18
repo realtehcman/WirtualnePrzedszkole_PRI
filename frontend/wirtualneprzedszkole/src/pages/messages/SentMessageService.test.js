@@ -1,9 +1,10 @@
 import axios from 'axios'
 import SentMessageService from './SentMessageService'
 import {mocked} from 'ts-jest/utils'
+import { config } from '../../AxiosUrlConfig'
 
 jest.mock("axios")
-const SENT_MESSAGES_REST_API_URL = 'http://localhost:8080/api/message/'
+const SENT_MESSAGES_REST_API_URL = config.SERVER_URI + '/api/message/'
 
 describe('SentMessageService', () => {
     it('getSentMessages', async () => {

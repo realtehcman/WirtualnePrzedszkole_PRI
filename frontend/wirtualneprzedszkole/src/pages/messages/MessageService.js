@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { config } from '../../AxiosUrlConfig'
 
-const MESSAGES_REST_API_URL = 'http://localhost:8080/api/message/received_messages'
+const MESSAGES_REST_API_URL = config.SERVER_URI + '/api/message/received_messages'
 
 class MessageService {
 
@@ -9,27 +10,27 @@ class MessageService {
     }
 
     getMessage(id) {
-        return axios.get(`http://localhost:8080/api/message/read_msg/${id}`)
+        return axios.get(config.SERVER_URI + `/api/message/read_msg/${id}`)
     }
 
     ViewMessage(id) {
-        return axios.get(`http://localhost:8080/api/message/sent_msg/${id}`)
+        return axios.get(config.SERVER_URI + `/api/message/sent_msg/${id}`)
     }
 
     getSentMessage(id) {
-        return axios.get(`http://localhost:8080/api/message/sent_msg/${id}`)
+        return axios.get(config.SERVER_URI + `/api/message/sent_msg/${id}`)
     }
 
     getSentMesage() {
-        return axios.get("http://localhost:8080/api/message/sent_msg")
+        return axios.get(config.SERVER_URI + "/api/message/sent_msg")
     }
 
     getMessag() {
-        return axios.get("http://localhost:8080/api/message/read_msg")
+        return axios.get(config.SERVER_URI + "/api/message/read_msg")
     }
 
     deleteReceivedMessages(id) {
-        return axios.patch(`http://localhost:8080/api/message/deleteReceivedMsg/${id}`)
+        return axios.patch(config.SERVER_URI + `/api/message/deleteReceivedMsg/${id}`)
     }
 
 

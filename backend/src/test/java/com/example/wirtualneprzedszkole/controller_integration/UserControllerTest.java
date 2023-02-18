@@ -18,6 +18,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
@@ -52,6 +54,7 @@ class UserControllerTest {
         // Arrange
         RestartPasswordDto restartPasswordDto = new RestartPasswordDto("test@test.com", "password", "token");
         String json = objectMapper.writeValueAsString(restartPasswordDto);
+        String request = "http://localhost:8080/api/user/restart";
 
         // Act
         mockMvc.perform(patch("/api/user/restart")
@@ -60,7 +63,7 @@ class UserControllerTest {
                 .andExpect(status().isOk());
 
         // Assert
-        verify(userService, times(1)).restartPassword("test@test.com");
+        verify(userService, times(1)).restartPassword("test@test.com", request);
     }
 
     @Test
@@ -108,13 +111,13 @@ class UserControllerTest {
     @Test
     void restartPassword_ShouldRestartPassword_WhenRestartPasswordDtoIsValid() throws Exception {
         RestartPasswordDto restartPasswordDto = new RestartPasswordDto("test@test.com", "password", "token");
-
+        String request = "http://localhost:8080/api/user/restart";
         mockMvc.perform(patch("/api/user/restart")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(restartPasswordDto)))
                 .andExpect(status().isOk());
 
-        verify(userService, times(1)).restartPassword("test@test.com");
+        verify(userService, times(1)).restartPassword("test@test.com", request);
     }
 
     @Test
