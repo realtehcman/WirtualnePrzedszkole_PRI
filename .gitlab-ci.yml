@@ -22,15 +22,9 @@ build:
     - npm i --save @fortawesome/free-solid-svg-icons
     - npm install -f
     - npm run build
-    - cp -r /home/wpadmin/WirtualnePrzedszkole_PRI/frontend/wirtualneprzedszkole/build/. /var/www/html
     - cd ../../backend
-    - service WirtualnePrzedszkole stop #dodalem
     - mvn clean install
-    - cd target #dodalem
-    - java -jar WirtualnePrzedszkole-0.0.1-SNAPSHOT.jar #dodalem
-    - chown wpadmin:wpadmin WirtualnePrzedszkole-0.0.1-SNAPSHOT.jar #dodalem
-    - chmod 755 WirtualnePrzedszkole-0.0.1-SNAPSHOT.jar #dodalem
-    - service WirtualnePrzedszkole start #dodalem
+
 
 test:
   stage: test
