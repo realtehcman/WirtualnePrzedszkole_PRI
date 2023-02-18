@@ -27,6 +27,7 @@ public class UserController {
 
     @PatchMapping("/restart")
     public void restartPassword(@RequestBody RestartPasswordDto restartPasswordDto, HttpServletRequest request) {
+        System.out.println(request.getRequestURL());
         userService.restartPassword(restartPasswordDto.getEmail(), request.getRequestURL().toString());
     }
 

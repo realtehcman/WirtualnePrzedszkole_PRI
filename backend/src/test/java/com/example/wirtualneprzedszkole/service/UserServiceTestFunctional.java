@@ -38,7 +38,7 @@ public class UserServiceTestFunctional {
     @Test
     public void restartPassword_ShouldSendEmailWithLinkToChangePassword() {
         String email = "test@test.com";
-        String requestUrl = "http://localhost:8080/api/user/restart";;
+        String requestUrl = "http://localhost/api/user/restart";;
         User user = new User();
         user.setEmail(email);
         when(userRepo.findByEmail(email)).thenReturn(Optional.of(user));

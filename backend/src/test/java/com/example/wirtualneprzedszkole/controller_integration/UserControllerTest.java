@@ -54,7 +54,7 @@ class UserControllerTest {
         // Arrange
         RestartPasswordDto restartPasswordDto = new RestartPasswordDto("test@test.com", "password", "token");
         String json = objectMapper.writeValueAsString(restartPasswordDto);
-        String request = "http://localhost:8080/api/user/restart";
+        String request = "http://localhost/api/user/restart";
 
         // Act
         mockMvc.perform(patch("/api/user/restart")
@@ -111,7 +111,7 @@ class UserControllerTest {
     @Test
     void restartPassword_ShouldRestartPassword_WhenRestartPasswordDtoIsValid() throws Exception {
         RestartPasswordDto restartPasswordDto = new RestartPasswordDto("test@test.com", "password", "token");
-        String request = "http://localhost:8080/api/user/restart";
+        String request = "http://localhost/api/user/restart";
         mockMvc.perform(patch("/api/user/restart")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(restartPasswordDto)))
