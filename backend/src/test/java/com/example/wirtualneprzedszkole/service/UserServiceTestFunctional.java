@@ -38,7 +38,6 @@ public class UserServiceTestFunctional {
     @Test
     public void restartPassword_ShouldSendEmailWithLinkToChangePassword() {
         String email = "test@test.com";
-        String requestUrl = "http://localhost/api/user/restart";;
         User user = new User();
         user.setEmail(email);
         when(userRepo.findByEmail(email)).thenReturn(Optional.of(user));
@@ -49,7 +48,7 @@ public class UserServiceTestFunctional {
         passwordResetToken.setUser(user);
         when(passwordResetTokenService.saveToken(any())).thenReturn(passwordResetToken);
 
-        userService.restartPassword(email, requestUrl);
+        userService.restartPassword(email);
 
         verify(emailSenderService, times(1))
                 .sendEmail(eq(user.getEmail()), eq("Wirtualne przedszkole - Reset hasła"), contains("Kliknij w podany link aby dokonać zmiany hasła. http://localhost:3000/change/"));

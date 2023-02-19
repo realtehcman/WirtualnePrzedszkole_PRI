@@ -3,6 +3,9 @@ import {useNavigate} from "react-router-dom";
 import MessageService from "./MessageService";
 import "../GroupDisplay/Popup.css";
 import "../User/Table.scss";
+import SentMessageService from "./SentMessageService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Navi = (props) => {
   const navigate = useNavigate();
@@ -25,14 +28,25 @@ class Message extends React.Component {
     this.deleteReceivedMessages = this.deleteReceivedMessages.bind(this);
   }
 
+
   deleteReceivedMessages(id) {
-    MessageService.deleteReceivedMessages(id).then((response) => {
-      this.setState({
-        received_messages: this.state.received_messages.filter(
-          (received_messages) => received_messages.id !== id
-        ),
-      });
-    });
+    let groupName = this.state.received_messages.find(sent_messages => sent_messages.id === id);
+    if(window.confirm("Czy na pewno chcesz usunąć tą wiadomość ?")) {
+      MessageService.deleteReceivedMessages(id)
+          .then((response) => {
+            this.setState({
+              received_messages: this.state.received_messages.filter((received_messages) => received_messages.id !== id),
+            });
+            toast.success("Wiadomość została usunięta", {
+              position: toast.POSITION.TOP_RIGHT
+            });
+          })
+          .catch(error => {
+            toast.error("Wystąpił błąd podczas usuwania grupy" + groupName + ".", {
+              position: toast.POSITION.TOP_RIGHT
+            });
+          });
+    }
   }
 
   componentDidMount() {
@@ -49,6 +63,7 @@ class Message extends React.Component {
   render() {
     return (
       <div data-testid="message" className="scrollable-div">
+        <ToastContainer />
         <table className="content-table">
           <thead>
             <tr className="table-head">

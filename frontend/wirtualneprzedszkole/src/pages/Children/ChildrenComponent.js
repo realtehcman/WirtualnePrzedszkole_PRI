@@ -84,7 +84,8 @@ class ChildrenComponent extends React.Component {
 
 
     return (
-        <div data-testid="children-component">  <ToastContainer position="top-center" />
+        <div data-testid="children-component" className="scrollable-div1">
+
           <div className="abc">
             <input
                 type="text"
@@ -93,10 +94,13 @@ class ChildrenComponent extends React.Component {
             />
 
           </div>
+          <div className="table-container">
+          <ToastContainer position="top-center" />
+
           <table className="content-table">
             <thead>
             <tr className="table-head">
-              <td>Id</td>
+
               <td>Imię</td>
               <td>Nazwisko</td>
               <td>Grupa</td>
@@ -106,7 +110,7 @@ class ChildrenComponent extends React.Component {
             <tbody className="body">
             {filteredchildren.map((child) =>(
                 <tr key={child.id}>
-                  <td>{child.id}</td>
+
                   <td>{child.name}</td>
                   <td>{child.lastName}</td>
                   <td id="td--children">{child.classId}</td>
@@ -131,6 +135,7 @@ class ChildrenComponent extends React.Component {
             ))}
             </tbody>
           </table>
+        </div>
         </div>
     );
   }

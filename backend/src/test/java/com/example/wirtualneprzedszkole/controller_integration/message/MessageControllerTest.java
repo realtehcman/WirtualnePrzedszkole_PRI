@@ -53,7 +53,6 @@ class MessageControllerTest {
     public void testGetAllSentMessages() throws Exception {
         User u = User.builder().id(1L).name("John").lastName("Doe").password("password").email("johndoe@gmail.com").role(UserRole.ADMIN).build();
 
-        when(userService.getCurrentUser()).thenReturn(u);
         List<Message> messages = Arrays.asList(
                 Message.builder().author(u).build(),
                 Message.builder().author(u).build());

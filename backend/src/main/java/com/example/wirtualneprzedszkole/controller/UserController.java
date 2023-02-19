@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -26,9 +25,8 @@ public class UserController {
     private final StorageServiceImpl storageService;
 
     @PatchMapping("/restart")
-    public void restartPassword(@RequestBody RestartPasswordDto restartPasswordDto, HttpServletRequest request) {
-        System.out.println(request.getRequestURL());
-        userService.restartPassword(restartPasswordDto.getEmail(), request.getRequestURL().toString());
+    public void restartPassword(@RequestBody RestartPasswordDto restartPasswordDto) {
+        userService.restartPassword(restartPasswordDto.getEmail());
     }
 
     @PatchMapping("/change_password")

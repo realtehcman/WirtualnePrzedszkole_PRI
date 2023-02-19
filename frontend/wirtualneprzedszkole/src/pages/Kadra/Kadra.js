@@ -1,68 +1,103 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import UserService from "../User/UserService";
 import "./Kadra.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FileService from "../gallery/FileService";
+import { useParams } from "react-router-dom";
 
+function Kadra() {
+    const [users, setUsers] = useState([]);
+    const [userAvatars, setUserAvatars] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    let { id } = useParams();
 
-class Kadra extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            users: [],
-            searchTerm: "",
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await UserService.getUsers();
+                const users = response.data;
+                const filteredUsers = users.filter((user) => user.role === "TEACHER");
+                setUsers(filteredUsers);
+
+                const avatars = await Promise.all(filteredUsers.map(async (user) => {
+                    const avatarr = await getUserAvatar(user.id, user.picture);
+                    return avatarr;
+                }));
+                setUserAvatars(avatars);
+                setFilteredUsers(filteredUsers);
+            } catch (error) {
+                console.error("Error while fetching users:", error);
+            }
         };
+        fetchData();
+    }, []);
 
-        this.handleSearch = this.handleSearch.bind(this);
-    }
-    handleSearch(e) {
-        this.setState({ searchTerm: e.target.value });
-    }
-    loger() {
-        console.log(this.state);
-    }
 
-    componentDidMount() {
-        UserService.getUsers().then((response) => {
-            this.setState({ users: response.data });
-            this.loger();
-        });
-    }
+    useEffect(() => {
+        const fetchAvatars = async () => {
+            const avatars = await Promise.all(filteredUsers.map(async (user) => {
+                const avatarr = await getUserAvatar(user.id, user.picture);
+                return avatarr;
+            }));
+            setUserAvatars(avatars);
+        };
+        fetchAvatars();
+    }, [filteredUsers]);
 
-    render() {
-        let filteredusers = this.state.users.filter(
+    const getUserAvatar = async (userId, picture) => {
+        if (picture !== undefined) {
+            let response = await FileService.getFile(-1, picture);
+            let urlCreator = window.URL || window.webkitURL;
+            return urlCreator.createObjectURL(response.data);
+        } else {
+            return "https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif";
+        }
+    };
+
+    useEffect(() => {
+        const filteredUsers = users.filter(
             (user) =>
-                user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
-                user.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
-                (user.email && user.email.toLowerCase().includes(this.state.searchTerm.toLowerCase())) ||
-                (user.name.toLowerCase() + " " + user.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
+                user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (user.email &&
+                    user.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (user.name.toLowerCase() + " " + user.lastName.toLowerCase()).includes(
+                    searchTerm.toLowerCase()
+                )
         );
+        setFilteredUsers(filteredUsers);
+    }, [users, searchTerm]);
 
-        filteredusers = filteredusers.filter((user) => user.role === "TEACHER");
-
-        return (
-            <div className="scrollable-div">
+    return (
+        <div className="scrollable-div">
             <div className="table-body32">
                 <ToastContainer />
                 <div className="abc">
                     <input
                         type="text"
                         placeholder="Wyszukaj.."
-                        onChange={this.handleSearch}
+                        onChange={handleSearch}
                     />
                 </div>
                 <table className="content-table32">
                     <tbody>
-                    {filteredusers.map((user) => (
+                    {filteredUsers.map((user, index) => (
                         <tr key={user.id}>
                             <td id="td--message32">
-                                <img alt="cute-cat"
+                                <img
+                                    src={userAvatars[index]}
+                                    alt=""
                                     className="rounded-circle mt-5"
                                     width="150px"
-                                    src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"
                                 />
                                 <br /> <br />
-                                {user.name}  {user.lastName}  <br /> <br /> ({user.email})
+                                {user.name} {user.lastName} <br /> <br /> ({user.email})
                                 <br /> <br />
                                 Nr telefonu: {user.phoneNumber}
                                 <br /> <br />
@@ -74,9 +109,9 @@ class Kadra extends React.Component {
                     ))}
                     </tbody>
                 </table>
-            </div></div>
-        );
-    }
+            </div>
+        </div>
+    );
 }
 
 export default Kadra;

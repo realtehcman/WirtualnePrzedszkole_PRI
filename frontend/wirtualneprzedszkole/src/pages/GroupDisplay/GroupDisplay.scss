@@ -1,33 +1,27 @@
-@import "/src/utilities/_variables";
+body {
+  height: auto;
+}
 
-.scrollable-div {
+.scrollable-div1 {
   height: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
-  width: 100%;
-  //makes table wider
-  min-width: 100%;
+  overflow-y: hidden;
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+  scrollbar-width: none; /* Firefox */
 }
+
+.scrollable-div::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 .content-table {
   max-height: 100%;
   border-collapse: collapse;
   font-size: 20px;
-  min-width: 100%;
+  min-width: 90%;
   margin: 5px 5%;
   border-radius: 5px 5px 5px 5px;
-  // overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-
-  /*
-  border-radius: 5px;
-  font-size: 20px;
-  box-shadow: black;
-  gap: normal;
-  line-height: 30px;
-  margin: 5px, 19.5px;
-  padding: 0px, 40px, 0px, 0px;
-  text-align: right;
-*/
 }
 
 .content-table td {
@@ -50,139 +44,50 @@
   margin-right: 15px;
 }
 
-@media (max-width: $phoneMaxWidth) {
-  div.logout {
-    display: block;
-    padding-left: 30%;
-  }
-
-  .users {
-    display: flex;
-
-    //tweak this to make tables to load more content
-    .usersContainer {
-      flex: 6;
-    }
-  }
-  /* Force table to not be like tables anymore */
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  
-  
-  //moves whole table row content
-  tr {
-    display: block;
-    // padding-right: 10%;
-    text-align: right;
-    text-decoration: solid;
-    // top:84.9333px; --left:19.5125px; --position:absolute; --width:346.587px; --height:6995.96px;
-  }
-
-  /* Hide table headers (but not display: none;, for accessibility) */
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  tr {
-    border: 1px solid #ccc;
-  }
-
-  td {
-    /* Behave  like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-    height: 100%;
-
-    //does not do anything
-    #text {
-      position: absolute;
-      text-align: right;
-      background-color: black;
-      left: 1000px;
-    }
-  }
-
-  //moves the "columns"
-  td:before {
-    /* Now like a table header */
-    display: block;
-    position: absolute;
-    /* Top/left values mimic padding */
-    top: 1px;
-    text-align: left;
-    left: 1%;
-    width: 45%;
-    padding-right: 40px;
-    padding-bottom: 100px;
-    font-weight: bold;
-    height: 100%;
-
-    // padding-left: 100px;
-
-    white-space: nowrap;
-  }
-
-  /*
-	Label the data
-	*/
-  td:nth-of-type(1):before {
-    content: "Id";
-  }
-  td:nth-of-type(2):before {
-    content: "Imię";
-  }
-  td:nth-of-type(3):before {
-    content: "Nazwisko";
-  }
-  td:nth-of-type(4):before {
-    content: "Email";
-  }
-  td:nth-of-type(5):before {
-    content: "Akcje";
-  }
-
-  #td--groups:nth-of-type(1):before {
-    content: "Id" !important;
-  }
-  #td--groups:nth-of-type(2):before {
-    content: "Nazwa" !important;
-  }
-  #td--groups:nth-of-type(3):before {
-    content: "Opis" !important;
-  }
-  #td--groups:nth-of-type(4):before {
-    content: "Akcje" !important;
-  }
-
-  #td--children:nth-of-type(4)::before {
-    content: "Grupa" !important;
-  }
-
-  #td--message:nth-of-type(2)::before {
-    content: "Autor" !important;
-  }
-  #td--message:nth-of-type(3)::before {
-    content: "Temat" !important;
-  }
-  #td--message:nth-of-type(4)::before {
-    content: "Treść" !important;
-  }
-}
-.abc{
-  display: flex;
+.abc {
+  position: sticky;
+  top: 0px;
+  z-index: 2;
+  background-color: #fff;
   align-items: center;
-  margin-left: 5%;
-  margin-right: 60%;
+  width: 20%;
 
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
+
 .abc-button {
   margin-left: auto;
+}
 
+.table-head {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 0;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.table-container {
+  max-height: calc(100% - 125px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  position: relative;
+  top: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  @media (max-width: 768px) {
+    max-height: calc(100% - 70px);
+  }
+}
+
+.table-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }

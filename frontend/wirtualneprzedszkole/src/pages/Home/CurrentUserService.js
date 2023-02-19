@@ -1,9 +1,8 @@
 import axios from 'axios'
-import { config } from '../../AxiosUrlConfig';
 
 
-const CurrentUserService_REST_API_URL = config.SERVER_URI + '/api/user/current_user'
-const USER_API = config.SERVER_URI + '/api/user'
+const CurrentUserService_REST_API_URL = 'http://localhost:8080/api/user/current_user'
+const USER_API = 'http://localhost:8080/api/user'
 
 class CurrentUserService {
 

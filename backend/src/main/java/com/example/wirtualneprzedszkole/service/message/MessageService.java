@@ -22,9 +22,9 @@ public class MessageService {
 
     public Message sendMessage(Message message, List<User> users) {
         Message msg = messageRepo.save(message);
-        String subject = msg.getSubject();
-        users.forEach(e -> emailSenderService.sendEmail(e.getEmail(), subject,
-               "Sprawdź nową wiadomość na twoim koncie "));
+//        String subject = msg.getSubject();
+//        users.forEach(e -> emailSenderService.sendEmail(e.getEmail(), subject,
+//               "Sprawdź nową wiadomość na twoim koncie "));
 
         return msg;
     }
