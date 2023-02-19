@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./navbar.scss"
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useNavigate} from "react-router-dom";
-import LoginService from "../../pages/Login/LoginService.js"
+import LoginService from "../../pages/Login/LoginService.js";
+import i18next from 'i18next';
 
 
 const Navbar = () => {
+
+    useEffect(() =>{
+        i18next.changeLanguage('po');
+    })
     const navigate = useNavigate();
 
     const logout = async (e) => {

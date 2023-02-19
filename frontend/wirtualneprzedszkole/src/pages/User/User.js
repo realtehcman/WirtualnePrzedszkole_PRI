@@ -142,7 +142,8 @@ const User = () => {
                     <tr>
                       <th>Imię</th>
                       <th>nazwisko</th>
-                      <th>classId</th>
+                      {/* <th>classId</th> */}
+                      <th>Nazwa klasy</th>
 
                     </tr>
                   </thead>

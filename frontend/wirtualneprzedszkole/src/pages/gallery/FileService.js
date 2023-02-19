@@ -39,6 +39,12 @@ class FileService {
         return axios.patch(FILE_REST_API_URL + "/patchFile/" + fileId, description)
     }
 
+    downloadFolder(id) {
+        return axios.get(FILE_REST_API_URL + "/downloadFolder/" + id, {
+            responseType: 'blob'
+        })
+    }
+
 }
 // eslint-disable-next-line
 export default new FileService();

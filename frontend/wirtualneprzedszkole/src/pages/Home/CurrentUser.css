@@ -16,6 +16,9 @@
 
 h1 {
   margin-right: 80%;
+  font-size: 32px;
+  font-weight: 600;
+  color: #000;
 }
 
 .container {
