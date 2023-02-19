@@ -9,6 +9,7 @@ import Popup from '../GroupDisplay/Popup';
 import CreateGallery from './CreateGallery';
 import FolderService from '../Folders/FolderService';
 import FileService from './FileService';
+import saveAs from 'file-saver'
 
 const ViewGallery = () => {
     const [photos, setPhotos] = useState([]);
@@ -30,6 +31,12 @@ const ViewGallery = () => {
             fileDataList: [{}],
         }
     )
+    const [folderName, setFolderName] = useState()
+    const [openPhotoPopup, setOpenPhotoPopup] = useState({
+        isPop: false,
+        img: {},
+        name: ""
+    })
 
     let { id } = useParams();
 
@@ -37,6 +44,7 @@ const ViewGallery = () => {
         const getData = async () => {
             FolderService.getFolder(id).then((response) => {
                 // let galleryData = response.data;
+                setFolderName(response.data.name)
                 let galleryData = response.data.fileDataList;
 
                 setAllPhotos(galleryData);
@@ -96,10 +104,32 @@ const ViewGallery = () => {
         setDeletePhotoPopup({isPop: false, img: {}});
     }
 
+    const downloadPhoto = (photo, name) => {
+        saveAs(photo, name)
+        setOpenPhotoPopup({isPop: false, img: {}, name: ""})
+    }
+
+    const downloadFolder = (folderName) => {
+        FileService.downloadFolder(id).then(response => {
+            const href = URL.createObjectURL(response.data);
+
+            // create "a" HTML element with href to file & click
+            const link = document.createElement('a');
+            link.href = href;
+            link.setAttribute('download', folderName + '.zip'); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+
+            // clean up "a" element & remove ObjectURL
+            document.body.removeChild(link);
+            URL.revokeObjectURL(href);
+        })
+    }
+
     return (
         <div>
             {/* {photos} */}
-
+            <h1>{folderName}</h1>
             <div className='gallery_container px-4 py-4'>
                 <Masonry
                     breakpointCols={3}
@@ -112,7 +142,7 @@ const ViewGallery = () => {
                                 <ClearIcon className="icon mx-0" />
                             </button>
                         
-                            <img src={photo[0]} alt={photo[1].name}/>
+                            <img src={photo[0]} alt={photo[1].name} onClick={() => setOpenPhotoPopup({isPop: true, img: photo[0], name: photo[1].name})}/>
                         </div>
                         
                     )
@@ -144,12 +174,32 @@ const ViewGallery = () => {
                     </form>
                 </Popup>
             </div>
+
+
+            <div className="open_photo_popup">
+                <Popup trigger={openPhotoPopup.isPop} setTrigger={setOpenPhotoPopup}>
+                <img src={openPhotoPopup.img} alt={openPhotoPopup.name}/>
+                <div className='d-flex justify-content-between'>
+                    <button className='btn btn-primary' onClick={() => downloadPhoto(openPhotoPopup.img, openPhotoPopup.name)}>Pobierz</button>
+                </div>
+                </Popup>
+            </div>            
+
+
             <div className='d-flex align-items-center justify-content-end'>
                 <button
                     onClick={() => setAddPhotoPopup(true)}
                     className="btn btn-info"
                 >
                     Dodaj zdjęcie
+                </button>
+            </div>
+            <div className='d-flex align-items-center justify-content-end'>
+                <button
+                    onClick={() => downloadFolder(folderName)}
+                    className="btn btn-info"
+                >
+                    Pobierz wszystkie
                 </button>
             </div>
         </div>
