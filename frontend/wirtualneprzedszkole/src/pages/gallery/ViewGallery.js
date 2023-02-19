@@ -15,7 +15,10 @@ const ViewGallery = () => {
 
     const [allPhotos, setAllPhotos] = useState([]);
 
-    const [deletePhotoPopup, setDeletePhotoPopup] = useState(false);
+    const [deletePhotoPopup, setDeletePhotoPopup] = useState({
+        isPop: false,
+        img: {}
+    });
     const [addPhotoPopup, setAddPhotoPopup] = useState(false);
     const [selectPhotos, setSelectedPhotos] = useState([]);
 
@@ -64,25 +67,38 @@ const ViewGallery = () => {
             formData.append('file', files[i]);
         }
 
-        /* GalleryService.AddFile(folder.id, formData).then((res) => {
+        FileService.addFiles(id, formData).then((res) => {
             if (res.status !== 200){
-                console.log(res + "Successfully uploaded");
+                console.log(res + "Unsuccessfully uploaded");
             }
-        }) */
+            else {
+                Promise.all(res.data.map(el => getPhoto(el))).then(result => {
+                    console.log(result)
+                    setPhotos(photos => [...photos, ...result])
+                })
+                
+            }
+        })
         setAddPhotoPopup(false);
+    }
+
+    const deleteFile = (e) => {
+        console.log(e)
+        FileService.deleteFile(id, e.hash)
+        .then((res) => {
+            if (res.status !== 200){
+                console.log(res + "Unsuccessfully delete");
+            }
+            else {
+                setPhotos(photos.filter((refreshFile) => e.id !== refreshFile[1].id));     
+            }
+        })
+        setDeletePhotoPopup({isPop: false, img: {}});
     }
 
     return (
         <div>
             {/* {photos} */}
-            <div className='d-flex align-items-center justify-content-end'>
-                <button
-                    onClick={() => setAddPhotoPopup(true)}
-                    className="btn btn-info"
-                >
-                    dodać obraz
-                </button>
-            </div>
 
             <div className='gallery_container px-4 py-4'>
                 <Masonry
@@ -91,25 +107,26 @@ const ViewGallery = () => {
                     columnClassName="my-masonry-grid_column"
                 >
                     {photos.map((photo) => (
-                        <div className='gallery_img position-relative' key={photo[1].id}>
-                            <button type="button" className='btn btn-info del_gallery_img mx-1 my-1 px-0 py-0' onClick={() => setDeletePhotoPopup(true)}>
+                        <div className='gallery_img position-relative'  key={photo[1].id}>
+                            <button type="button" className='btn btn-info del_gallery_img mx-1 my-1 px-0 py-0' onClick={() => setDeletePhotoPopup({isPop: true, img: photo[1]})}>
                                 <ClearIcon className="icon mx-0" />
                             </button>
                         
-                            <img src={photo[0]} width="100px" alt={photo[1].name}/>
+                            <img src={photo[0]} alt={photo[1].name}/>
                         </div>
+                        
                     )
                     )}
                 </Masonry>
             </div>
 
             <div className="delete_photo_popup">
-                <Popup trigger={deletePhotoPopup} setTrigger={setDeletePhotoPopup}>
-                    <h3 className='text-center mb-2'>Usuń Obrazy</h3>
+                <Popup trigger={deletePhotoPopup.isPop} setTrigger={setDeletePhotoPopup}>
+                    <h3 className='text-center mb-2'>Usuń Obraz</h3>
                     <p className='text-center py-3'>Czy na pewno chcesz usunąć ten obraz?</p>
                     <div className='d-flex justify-content-between'>
-                        <button className='btn btn-primary' onClick={() => setDeletePhotoPopup(false)}>Anulować</button>
-                        <button className='btn btn-danger' onClick={() => setDeletePhotoPopup(false)}>Usuwać</button>
+                        <button className='btn btn-primary' onClick={() => setDeletePhotoPopup({isPop: false, img: {}})}>Anuluj</button>
+                        <button className='btn btn-danger' onClick={() => deleteFile(deletePhotoPopup.img)}>Usuń</button>
                     </div>
                 </Popup>
             </div>
@@ -126,6 +143,14 @@ const ViewGallery = () => {
                             </div>
                     </form>
                 </Popup>
+            </div>
+            <div className='d-flex align-items-center justify-content-end'>
+                <button
+                    onClick={() => setAddPhotoPopup(true)}
+                    className="btn btn-info"
+                >
+                    Dodaj zdjęcie
+                </button>
             </div>
         </div>
     );

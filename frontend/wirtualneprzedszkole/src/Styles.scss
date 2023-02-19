@@ -44,7 +44,8 @@ html{
 }
 
 .my-masonry-grid{
-    column-count: 3;
+    width: 100%;
+    column-count: 10;
     column-gap: 20px;
 }
 .my-masonry-grid_column{
@@ -52,7 +53,7 @@ html{
     img{
         max-width: 100%;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 5%;
     }
 }
 
