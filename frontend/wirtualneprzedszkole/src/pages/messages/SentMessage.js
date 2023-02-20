@@ -65,39 +65,42 @@ class SentMessage extends React.Component {
 
   render() {
     return (
-      <div data-testid="sent-message" className="scrollable-div">
-        <table className="content-table">
-          <thead>
-            <tr className="table-head">
-              <td>Data</td>
-              <td>Autor</td>
-              <td>Temat</td>
-              <td>Treść</td>
-              <td>Akcje</td>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.sent_messages.map((sent_messages) => (
-              <tr key={sent_messages.id}>
-                <td id="td--message">{this.dateConvertToNormalFormat(sent_messages.sentDate)}</td>
-                <td id="td--message">{sent_messages.author}</td>
-                <td id="td--message">{sent_messages.subject}</td>
-                <td id="td--message">
-                  <Navi value={sent_messages.id} />
-                  <Navi2 value={sent_messages.id} />
-                </td>
-                <td className="foobar">
-                  <button
-                    onClick={() => this.deleteSentMessages(sent_messages.id)}
-                    className="btn btn-danger"
-                  >
-                    Usuń
-                  </button>
-                </td>
+      <div data-testid="sent-message" className="App_card">
+        <div className="scrollable-div">
+          <table className="content-table w-100">
+            <thead>
+              <tr className="table-head">
+                <td>Data</td>
+                <td>Autor</td>
+                <td>Temat</td>
+                <td>Treść</td>
+                <td>Akcje</td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {this.state.sent_messages.map((sent_messages) => (
+                <tr key={sent_messages.id}>
+                  <td id="td--message">{this.dateConvertToNormalFormat(sent_messages.sentDate)}</td>
+                  <td id="td--message">{sent_messages.author}</td>
+                  <td id="td--message">{sent_messages.subject}</td>
+                  <td id="td--message">
+                    <Navi value={sent_messages.id} />
+                    <Navi2 value={sent_messages.id} />
+                  </td>
+                  <td className="foobar">
+                    <button
+                      onClick={() => this.deleteSentMessages(sent_messages.id)}
+                      className="btn btn-danger"
+                    >
+                      Usuń
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
       </div>
     );
   }

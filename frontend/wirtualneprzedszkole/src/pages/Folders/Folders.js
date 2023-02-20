@@ -57,7 +57,7 @@ const Folders = (props) => {
     return (
         <div data-testid="folders">
         <div className="scrollable-div">
-            <table className="content-table">
+            <table className="content-table w-100">
                 <thead>
                     <tr className="table-head">
                         <td>Folder</td>
@@ -78,12 +78,14 @@ const Folders = (props) => {
             <br />
 
         </div>
+        <div className='text-center'>
         <button
-            className="button"
+            className="button btn"
             onClick={() => navigate("/addFolder", {state: {folder}})}
         >
             Dodaj Folder
         </button>
+        </div>
         </div>
     )
 }

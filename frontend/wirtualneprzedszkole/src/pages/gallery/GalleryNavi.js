@@ -10,7 +10,9 @@ const GalleryNavi = () => {
             <Sidebar />
             <div className="usersContainer">
                 <Navbar />
+                <div className="App_card">
                 <Gallery />
+                </div>
             </div>
         </div>
     );

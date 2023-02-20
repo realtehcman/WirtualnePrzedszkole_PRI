@@ -2,7 +2,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../User/Table.scss";
 import SendMessageService from "./SendMessageService";
-import React, {Component} from "react";
+import React, { Component } from "react";
 import "../CreateUser/CreateUser.scss";
 import UserService from "../User/UserService";
 import "./Message.scss";
@@ -22,7 +22,7 @@ class SendMessage extends Component {
             error: false,
             users: [
                 {
-                    email:"",
+                    email: "",
                     name: "",
                     id: "",
                 },
@@ -45,13 +45,13 @@ class SendMessage extends Component {
 
     componentDidMount() {
         UserService.getUsers().then((response) => {
-            this.setState({users: response.data});
+            this.setState({ users: response.data });
         });
     }
 
 
     GetRecieverHandler = (event) => {
-        this.setState({to: event.target.value});
+        this.setState({ to: event.target.value });
     };
 
 
@@ -69,7 +69,7 @@ class SendMessage extends Component {
                 toast.success("wiadomość została wysłana pomyślnie", {
                     position: toast.POSITION.TOP_CENTER,
                 });
-            }else {
+            } else {
                 toast.error("Wystąpił błąd podczas wysyłania wiadomości ", {
                     position: toast.POSITION.TOP_CENTER,
                 });
@@ -86,11 +86,11 @@ class SendMessage extends Component {
 
 
     changeNameHandler = (event) => {
-        this.setState({subject: event.target.value});
+        this.setState({ subject: event.target.value });
     };
 
     changeDescriptionHandler = (value) => {
-        this.setState({content: value});
+        this.setState({ content: value });
     };
 
     onUserSelect = (user) => {
@@ -112,7 +112,7 @@ class SendMessage extends Component {
                 toast.success("wiadomość została wysłana pomyślnie do wszystkich użytkowników", {
                     position: toast.POSITION.TOP_CENTER,
                 });
-            }else {
+            } else {
                 toast.error("Wystąpił błąd podczas wysyłania wiadomości", {
                     position: toast.POSITION.TOP_CENTER,
                 });
@@ -134,7 +134,7 @@ class SendMessage extends Component {
                 return false;
             }
             const names = to.split(',').map((name) => name.trim());
-            const [firstName, lastName] = names[names.length-1].split(' ');
+            const [firstName, lastName] = names[names.length - 1].split(' ');
             return (
                 (firstName && user.name.startsWith(firstName)) ||
                 ((firstName && user.name.startsWith(firstName)) &&
@@ -144,19 +144,24 @@ class SendMessage extends Component {
 
 
         return (
-            <div className="container mt-5">
+            <div>
+
                 <ToastContainer />
-                <h2 className="mb-3">Utwórz wiadomość</h2>
-                <form onSubmit={(e) =>{
+                <div className="App_card">
+                    <h1>Utwórz wiadomość</h1>
+                </div>
+
+
+                <form className="App_card" onSubmit={(e) => {
                     this.saveMessage(e);
 
-                } }>
+                }}>
                     <div className="mb-3">
-                        <label className="form-label" htmlFor="name">
+                        <label className="form-label font16" htmlFor="name">
                             Do :
                         </label>
 
-                        <input className="form-control" type="PrettyPrintJson" autoComplete="off"  id="name" value={to} onChange={this.GetRecieverHandler} />
+                        <input className="form-control" type="PrettyPrintJson" autoComplete="off" id="name" value={to} onChange={this.GetRecieverHandler} />
                         {to.length > 0 && filteredUsers.length > 0 && (
                             <div className="autocomplete-options">
                                 {filteredUsers.map((user, index) => (
@@ -165,7 +170,7 @@ class SendMessage extends Component {
                                         className={`autocomplete-option ${index === this.state.selectedOptionIndex ? 'selected' : ''}`}
                                         onClick={() => {
                                             const names = to.split(',').map((name) => name.trim());
-                                            names[names.length-1] = user.name + ' ' + user.lastName;
+                                            names[names.length - 1] = user.name + ' ' + user.lastName;
                                             this.setState({ to: names.join(',') });
                                         }}
                                     >
@@ -179,24 +184,24 @@ class SendMessage extends Component {
 
                     </div>
                     <div className="mb-3">
-                        <label className="form-label" htmlFor="email">
+                        <label className="form-label font16" htmlFor="email">
                             Temat
                         </label>
                         <input className="form-control" type="PrettyPrintJson" id="" value={this.state.subject}
-                               onChange={this.changeNameHandler}/>
+                            onChange={this.changeNameHandler} />
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">
+                        <label className="form-label font16">
                             Treść
                         </label>
                         <div className="q1-editor"><ReactQuill value={this.state.content} onChange={this.changeDescriptionHandler} /></div>
                     </div>
-                    <div className="form-but">
+                    <div className="form-but d-md-flex align-items-center justify-content-center">
 
-                        <button className="button">Wyślij</button>
-                        <button className="button" onClick={(e) =>{
+                        <button className="button btn w-auto me-3">Wyślij</button>
+                        <button className="button btn w-auto" onClick={(e) => {
                             this.saveMessage2(e);
-                        } }>Wyślij do wszystkich użytkowników</button>
+                        }}>Wyślij do wszystkich użytkowników</button>
                     </div>
 
                 </form>

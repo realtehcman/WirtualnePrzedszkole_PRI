@@ -12,7 +12,9 @@ const KnowledgeNavi = () => {
       <Sidebar />
       <div className="usersContainer">
         <Navbar />
-        <Knowledge />
+       <div className="App_card">
+       <Knowledge />
+       </div>
       </div>
     </div>
   );

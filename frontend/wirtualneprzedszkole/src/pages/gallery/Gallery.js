@@ -62,7 +62,7 @@ class Gallery extends React.Component {
 
         return (
             <div data-testid = 'gallery' className="scrollable-div">
-                <table className="content-table">
+                <table className="content-table w-100">
                     <thead>
                     <tr className="table-head">
                         <td>Id</td>

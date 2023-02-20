@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import ChildrenService from "../Children/ChildrenService";
 import "../CreateUser/CreateUser.scss";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import GroupService from "../GroupDisplay/GroupService";
 
 class CreateChild extends Component {
@@ -26,7 +26,7 @@ class CreateChild extends Component {
     GroupService.getGroups().then((response) => {
       const res = response.data
       this.setState(
-        {classes: ["", ...res ]}
+        { classes: ["", ...res] }
       )
     });
   }
@@ -34,7 +34,7 @@ class CreateChild extends Component {
   saveChild = (e) => {
     e.preventDefault();
     let child
-    if(this.state.className !== "") {
+    if (this.state.className !== "") {
       const aClass = this.state.classes.find(element => element.name === this.state.className)
       child = JSON.stringify({
         name: this.state.name,
@@ -55,17 +55,17 @@ class CreateChild extends Component {
         toast.success("Dziecko zostało dodane poprawnie", {
           position: toast.POSITION.TOP_CENTER,
         });
-      }else {
+      } else {
         toast.error("Wystąpił błąd, dziecko nie zostało dodane", {
           position: toast.POSITION.TOP_CENTER,
         });
       }
     })
-        .catch((error) => {
-          toast.error("Wystąpił błąd", {
-            position: toast.POSITION.TOP_CENTER,
-          });
+      .catch((error) => {
+        toast.error("Wystąpił błąd", {
+          position: toast.POSITION.TOP_CENTER,
         });
+      });
   };
 
   changeNameHandler = (event) => {
@@ -85,56 +85,63 @@ class CreateChild extends Component {
   render() {
     return (
 
-      <div className="formContainer">
+      <div className="App_card">
         <ToastContainer />
+        <div className="form-body">
+          <form onSubmit={(e) => {
+            this.saveChild(e);
 
-        <div className="row">
-          <div className="card col-md-6 offset-md-3 offset-md-3">
-            <div className="form-body">
-              <form onSubmit={(e) =>{
-                this.saveChild(e);
-
-              } }>
+          }}>
+            <div className="row">
+              <div className="col-md-6 col-12">
                 <div className="form-group">
                   <input
-                      placeholder="Imię"
-                      name="Imię"
-                      required
-                      className='"form-control'
-                      value={this.state.name}
-                      onChange={this.changeNameHandler}
+                    placeholder="Imię"
+                    name="Imię"
+                    required
+                    className='form-control'
+                    value={this.state.name}
+                    onChange={this.changeNameHandler}
                   />
-
                 </div>
+              </div>
+              <div className="col-md-6 col-12">
                 <div className="form-group">
                   <input
                     placeholder="Nazwisko"
                     name="Nazwisko"
                     required
-                    className='"form-control'
+                    className='form-control'
                     value={this.state.lastName}
                     onChange={this.changeLastNameHandler}
                   />
                 </div>
+              </div>
+            </div>
 
+            <div className="row">
+              <div className="col-12">
                 <div className="form-group">
-                  <select value={this.state.className} onChange={this.changeClassNameHandler}>
+                  <select value={this.state.className} className="form-select" onChange={this.changeClassNameHandler}>
                     {this.state.classes.map((aClass) => (
                       <option key={aClass.id}> {aClass.name}</option>
                     ))}
                   </select>
                 </div>
-
-                <div className="form-but">
-                  <Link className="button3" to={"/children"}>
-                    Wróć
-                  </Link>
-                </div> <div className="form-but">
-                  <button className="button2">Zapisz</button>
-                </div>
-              </form>
+              </div>
             </div>
-          </div>
+
+
+
+
+
+            <div className="text-center">
+              <Link className="button btn me-3" to={"/children"}>
+                Wróć
+              </Link>
+              <button className="button btn">Zapisz</button>
+            </div> 
+          </form>
         </div>
       </div>
     );

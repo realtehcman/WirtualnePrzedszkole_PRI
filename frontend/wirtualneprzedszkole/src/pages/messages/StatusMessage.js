@@ -38,7 +38,7 @@ const StatusMsg = () => {
 
     return (
         <div data-testid="status-message-navi" className="scrollable-div">
-            <table data-testid="status-message" className="content-table">
+            <table data-testid="status-message" className="content-table w-100">
                 <thead>
                 <tr className="table-head">
                     <td>Imie</td>

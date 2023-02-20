@@ -12,8 +12,12 @@ const GroupNavi = () => {
             <Sidebar/>
             <div className="usersContainer">
                 <Navbar/>
-                <GroupComponent/>
-                <button data-testid ="group-navi-button" className="button" onClick={() => navigate('/add-group')}>Dodaj Grupę</button>
+               <div className="App_card">
+               <GroupComponent/>
+                <div className="text-center mt-4">
+                <button data-testid ="button" className="button btn" onClick={() => navigate('/add-group')}>Dodaj Grupę</button>
+                </div>
+               </div>
             </div>
         </div>
     )

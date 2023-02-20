@@ -12,7 +12,9 @@ const GroupIdNavi = () => {
             <Sidebar/>
             <div className="homeContainer">
                 <Navbar/>
+                <div className="App_card">
                 <Group value={id}/>
+                </div>
             </div>
         </div>
     )

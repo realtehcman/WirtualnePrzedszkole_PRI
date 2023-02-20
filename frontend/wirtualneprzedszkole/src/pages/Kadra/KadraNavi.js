@@ -12,7 +12,9 @@ const KadraNavi = () => {
             <Sidebar/>
             <div className="usersContainer">
                 <Navbar/>
+                <div className="App_card">
                 <Kadra value={id}/>
+                </div>
             </div>
         </div>
     )

@@ -9,24 +9,24 @@ import 'react-toastify/dist/ReactToastify.css';
 const Navi = (props) => {
   const navigate = useNavigate();
   return (
-      <button
-          onClick={() => navigate("/child/" + props.value)}
-          className="btn btn-info"
-      >
-        Zobacz
-      </button>
+    <button
+      onClick={() => navigate("/child/" + props.value)}
+      className="btn btn-info"
+    >
+      Zobacz
+    </button>
   );
 };
 
 const Navi2 = (props) => {
   const navigate = useNavigate();
   return (
-      <button
-          onClick={() => navigate("/EditChild/" + props.value)}
-          className="btn btn-info"
-      >
-        edytuj
-      </button>
+    <button
+      onClick={() => navigate("/EditChild/" + props.value)}
+      className="btn btn-info"
+    >
+      edytuj
+    </button>
   );
 };
 
@@ -53,7 +53,7 @@ class ChildrenComponent extends React.Component {
   deleteChild(id) {
     let childName = this.state.children.find(child => child.id === id).name;
     let childlastName = this.state.children.find(child => child.id === id).lastName;
-    if(window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${childName} ${childlastName}  ?`)) {
+    if (window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${childName} ${childlastName}  ?`)) {
       ChildrenService.deleteChild(id).then((response) => {
         this.setState({
           children: this.state.children.filter((child) => child.id !== id),
@@ -76,35 +76,32 @@ class ChildrenComponent extends React.Component {
 
   render() {
     let filteredchildren = this.state.children.filter((child) =>
-        child.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
-        child.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
-        (child.classId && child.classId.toString().includes(this.state.searchTerm.toLowerCase())) ||
-        (child.name.toLowerCase() + " " + child.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
+      child.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+      child.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+      (child.classId && child.classId.toString().includes(this.state.searchTerm.toLowerCase())) ||
+      (child.name.toLowerCase() + " " + child.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
     );
 
 
     return (
-        <div data-testid="children-component">  <ToastContainer position="top-center" />
-          <div className="abc">
-            <input
-                type="text"
-                placeholder="Wyszukaj.."
-                onChange={this.handleSearch}
-            />
+      <div data-testid="children-component">  <ToastContainer position="top-center" />
+        <div className="mb-4">
+          <input type="text" className="form-control border-0" placeholder="Wyszukaj.." onChange={this.handleSearch} />
+        </div>
 
-          </div>
-          <table className="content-table">
+        <div className="scrollable-div maxArea">
+          <table className="content-table w-100">
             <thead>
-            <tr className="table-head">
-              <td>Id</td>
-              <td>Imię</td>
-              <td>Nazwisko</td>
-              <td>Grupa</td>
-              <td>Akcje</td>
-            </tr>
+              <tr className="table-head">
+                <td>Id</td>
+                <td>Imię</td>
+                <td>Nazwisko</td>
+                <td>Grupa</td>
+                <td>Akcje</td>
+              </tr>
             </thead>
             <tbody className="body">
-            {filteredchildren.map((child) =>(
+              {filteredchildren.map((child) => (
                 <tr key={child.id}>
                   <td>{child.id}</td>
                   <td>{child.name}</td>
@@ -113,25 +110,20 @@ class ChildrenComponent extends React.Component {
                   <td>
                     <Navi value={child.id} />
 
-
-
                     <Navi2 value={child.id} />
 
                     <button
-                        onClick={() => this.deleteChild(child.id)}
-                        className="btn btn-danger"
-                    >
+                      onClick={() => this.deleteChild(child.id)}
+                      className="btn btn-danger">
                       Usuń
                     </button>
-
-
-
                   </td>
                 </tr>
-            ))}
+              ))}
             </tbody>
           </table>
         </div>
+      </div>
     );
   }
 }

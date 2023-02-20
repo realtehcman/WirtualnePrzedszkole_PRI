@@ -1,9 +1,8 @@
 
 
 .table-body32 {
-    width: 90%;
     max-width: 100%;
-
+    width: 100%;
 }
 
 .content-table32 {
@@ -21,9 +20,9 @@
     font-weight: bold;
 }
 
-.content-table32 td {
+.content-table32 td,
+.content-table thead tr th {
     padding: 12px 15px;
-    text-align: center;
     vertical-align: middle;
 }
 
@@ -35,11 +34,11 @@
     background-color: rgb(232, 236, 235);
 }
 
-.content-table32 tbody tr:last-of-type {
+/* .content-table32 tbody tr:last-of-type {
 
-    /* border-bottom: 2px solid #4424bb; */
+    border-bottom: 2px solid #4424bb;
     
-}
+} */
 
 
 

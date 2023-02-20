@@ -4,7 +4,7 @@ import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar";
 import "./ChildrenComponent";
 import ChildrenComponent from "./ChildrenComponent";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ChildrenNavi = () => {
   const navigate = useNavigate();
@@ -13,16 +13,15 @@ const ChildrenNavi = () => {
       <Sidebar />
       <div className="usersContainer">
         <Navbar />
-        <div className="scrollable-div">
+        <div className="App_card">
           <ChildrenComponent />
+          <div className="text-center mt-4">
+            <button data-testid="add-child-button" className="button btn" onClick={() => navigate("/add-child")}>
+              Dodaj Dziecko
+            </button>
+          </div>
         </div>
-        <button
-            data-testid="add-child-button"
-          className="button"
-          onClick={() => navigate("/add-child")}
-        >
-          Dodaj Dziecko
-        </button>
+
       </div>
     </div>
   );

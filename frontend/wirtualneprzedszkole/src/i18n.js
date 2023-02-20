@@ -17,6 +17,7 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
+    lan: 'en',    //default language
     debug: true,
     whiteList: availableLanguages,
     detection: option,

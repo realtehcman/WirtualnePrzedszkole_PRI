@@ -9,5 +9,24 @@
     "sent" : "Sent",
     "knowledgeBase" : "Knowledge Base",
     "gallery" : "Gallery",
-    "addFiles" : "Add Files"
+    "addFiles" : "Add Files",
+
+    "user_data": "User data",
+    "change_profile": "Change Profile",
+    "delete_profile" : "Delete Profile",
+    "name": "Name",
+    "last_name": "Last name",
+    "email": "Email",
+    "telephone": "Telephone",
+    "address": "Address",
+    "role": "Role",
+    "description": "Description",
+    "edit_data": "Edit Data",
+    "change_password": "Change Password",
+    "class_name" : "Class Name",
+    "save": "Save",
+    "add_user": "Add user",
+    "look": "Look",
+    "actions": "Actions",
+    "delete": "Delete"
 }

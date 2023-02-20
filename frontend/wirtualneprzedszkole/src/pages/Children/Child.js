@@ -34,9 +34,9 @@ const Child = () => {
 
     return (
         <div data-testid="child">
-            <h1>Rodzice: {child.name} {child.lastName}</h1>
-            <div className='table_outer'>
-                <table className='content-table mx-0 my-0'>
+            <h1 className='mb-3'>Rodzice: {child.name} {child.lastName}</h1>
+            <div>
+                <table className='content-table w-100'>
                     <thead>
 
                     <tr className='table-head'>
@@ -57,7 +57,7 @@ const Child = () => {
                                     <td>{parent.email}</td>
                                     <td>
 
-                                        <button onClick={() => navigate("/user/" + parent.id)} className='btn btn-info'>Zobacz</button>
+                                        <button onClick={() => navigate("/user/" + parent.id)} className='btn btn-info text-capitalize'>Zobacz</button>
                                     </td>
                                 </tr>
                         )

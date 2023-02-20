@@ -10,7 +10,9 @@ const ChildNavi = () => {
       <Sidebar />
       <div data-testid="usersContainer" className="usersContainer">
         <Navbar />
+        <div className="App_card">
         <Child />
+        </div>
       </div>
     </div>
   );

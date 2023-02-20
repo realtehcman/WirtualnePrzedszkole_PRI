@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import GroupService from "./GroupService";
 import "./GroupDisplay.scss";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -35,21 +35,21 @@ class GroupComponent extends Component {
 
   deleteGroup(id) {
     let groupName = this.state.groups.find(group => group.id === id).name;
-    if(window.confirm("Czy na pewno chcesz usunąć grupę " + groupName + " ?")) {
+    if (window.confirm("Czy na pewno chcesz usunąć grupę " + groupName + " ?")) {
       GroupService.deleteGroup(id)
-          .then((response) => {
-            this.setState({
-              groups: this.state.groups.filter((group) => group.id !== id),
-            });
-            toast.success("Group " + groupName + " Grupa została usunięta poprawnie", {
-              position: toast.POSITION.TOP_RIGHT
-            });
-          })
-          .catch(error => {
-            toast.error("Wystąpił błąd podczas usuwania grupy" + groupName + ".", {
-              position: toast.POSITION.TOP_RIGHT
-            });
+        .then((response) => {
+          this.setState({
+            groups: this.state.groups.filter((group) => group.id !== id),
           });
+          toast.success("Group " + groupName + " Grupa została usunięta poprawnie", {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        })
+        .catch(error => {
+          toast.error("Wystąpił błąd podczas usuwania grupy" + groupName + ".", {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        });
     }
   }
 
@@ -61,24 +61,25 @@ class GroupComponent extends Component {
 
   render() {
     let filteredGroups = this.state.groups.filter((group) =>
-        group.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+      group.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
     );
     return (
 
-        <div data-testid="group-component" className="scrollable-div">
-          <ToastContainer />
-          <div className="abc">
-            <input
-                type="text"
-                placeholder="Wyszukaj grupę po nazwie"
-                onChange={this.handleSearch}
-            />
+      <div data-testid="group-component">
+        <ToastContainer />
+        <div className="mb-4">
+          <input
+            type="text"
+            className="form-control border-0"
+            placeholder="Wyszukaj grupę po nazwie "
+            onChange={this.handleSearch}
+          />
 
-          </div>
-          <div>
+        </div>
+        <div className="scrollable-div maxArea">
 
-            <table className="content-table">
-              <thead>
+          <table className="content-table w-100">
+            <thead>
               <tr className="table-head table-head--groups">
                 <td>Id</td>
                 <td>Nazwa</td>
@@ -89,7 +90,7 @@ class GroupComponent extends Component {
             </thead>
 
             <tbody className="body table-body">
-            {filteredGroups.map((group) => (
+              {filteredGroups.map((group) => (
                 <tr key={group.id}>
                   <td id="td--groups">{group.id}</td>
                   <td id="td--groups">{group.name}</td>
@@ -97,19 +98,19 @@ class GroupComponent extends Component {
                   <td id="td--groups">
                     <Navi value={group.id} />
                     <button
-                        onClick={() => this.deleteGroup(group.id)}
-                        className="btn btn-danger"
+                      onClick={() => this.deleteGroup(group.id)}
+                      className="btn btn-danger"
                     >
                       Usuń
                     </button>
                   </td>
                 </tr>
-            ))}
+              ))}
             </tbody>
           </table>
         </div>
-  </div>
-  );
+      </div>
+    );
   }
 }
 

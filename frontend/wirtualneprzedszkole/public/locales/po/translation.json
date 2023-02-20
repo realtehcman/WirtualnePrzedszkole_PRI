@@ -9,6 +9,25 @@
     "sent" : "Wysłane",
     "knowledgeBase" : "Baza wiedzy",
     "gallery" : "Galeria",
-    "addFiles" : "Dodaj pliki"
+    "addFiles" : "Dodaj pliki",
+
+    "user_data": "Dane użytkownika",
+    "change_profile": "Zmień Profilowe",
+    "delete_profile" : "Usuń Profilowe",
+    "name": "Imie",
+    "last_name": "Nazwisko",
+    "email": "Email",
+    "telephone": "Telefon",
+    "address" : "Adres",
+    "role": "Rola",
+    "description": "Opis",
+    "edit_data": "Edytuj Dane",
+    "change_password": "Zmień Hasło",
+    "class_name" : "Nazwa Clasy",
+    "save": "Zapisz",
+    "add_user": "Dodaj użytkownika",
+    "look": "Zobacz",
+    "actions": "Akcje",
+    "delete": "Usuń"
 }
     

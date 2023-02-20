@@ -5,12 +5,13 @@ import Navbar from "../../components/navbar/navbar"
 import CreateUser from "./CreateUser";
 
 const AddUser = () => {
+
     return (
         <div className="addusers">
             <Sidebar/>
             <div className="addusersContainer">
                 <Navbar/>
-                <CreateUser/>
+                <CreateUser />
             </div>
         </div>
     )

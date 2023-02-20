@@ -1,9 +1,12 @@
-import React, { useState }from 'react'
+import React, { useState } from 'react'
 import CurrentUserService from "./CurrentUserService";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from 'react-i18next';
 
 const EditCurrentUser = (props) => {
+    const { t } = useTranslation();
+
     const current_user = {
         id: props.id,
         email: props.email,
@@ -18,9 +21,9 @@ const EditCurrentUser = (props) => {
         email: current_user.email,
         name: current_user.name,
         lastName: current_user.lastName,
-        phoneNumber: '',
-        address: '',
-        opis: ''
+        phoneNumber: current_user.phoneNumber,
+        address: current_user.address,
+        opis: current_user.opis
     });
 
     const updateData = (e) => {
@@ -49,13 +52,36 @@ const EditCurrentUser = (props) => {
     return (
         <div data-testid="edit-current-user">
             <ToastContainer />
-            <form>
-                <label>Adres:</label><br></br>
-                <input placeholder={current_user.address} onChange={(e) => setUserEdit({...userEdit, address : e.target.value})}/><br></br>
-                <label>Telefon:</label><br></br>
-                <input placeholder={current_user.phoneNumber} onChange={(e) => setUserEdit({...userEdit,phoneNumber : e.target.value})}/><br></br>
-                <input placeholder={current_user.opis} onChange={(e) => setUserEdit({...userEdit,opis : e.target.value})}/><br></br>
-                <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
+            <form className='pt-3'>
+                <div className='row mb-3'>
+                    <div className='col-md-3 col-12'>
+                        <label>{t('address')}:</label>
+                    </div>
+                    <div className='col-md-9 col-12'>
+                        <input placeholder={t('address')} value={userEdit.address} className="form-control border-0" onChange={(e) => setUserEdit({ ...userEdit, address: e.target.value })} />
+                    </div>
+                </div>
+
+                <div className='row mb-3'>
+                    <div className='col-md-3 col-12'>
+                        <label>{t('telephone')}:</label>
+                    </div>
+                    <div className='col-md-9 col-12'>
+                        <input placeholder={t('telephone')} value={userEdit.phoneNumber} className="form-control mb-3 border-0" onChange={(e) => setUserEdit({ ...userEdit, phoneNumber: e.target.value })} />
+                        <input placeholder={t('description')} value={userEdit.opis} className="form-control border-0" onChange={(e) => setUserEdit({ ...userEdit, opis: e.target.value })} />
+                    </div>
+                </div>
+
+                <div className='row'>
+                    <div className='col-12 text-center'>
+                    <button onClick={updateData} className='btn btn_global'>{t('save')}</button>
+                    </div>
+                </div>
+
+
+
+
+                
             </form>
         </div>
     )

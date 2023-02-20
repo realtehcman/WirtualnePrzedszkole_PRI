@@ -41,40 +41,61 @@ class Kadra extends React.Component {
         filteredusers = filteredusers.filter((user) => user.role === "TEACHER");
 
         return (
-            <div className="scrollable-div">
-            <div className="table-body32">
-                <ToastContainer />
-                <div className="abc">
-                    <input
-                        type="text"
-                        placeholder="Wyszukaj.."
-                        onChange={this.handleSearch}
-                    />
+            <div>
+                <div className="table-body32">
+                    <ToastContainer />
+                    <div className="mb-4">
+                        <input
+                            type="text"
+                            className="form-control border-0"
+                            placeholder="Wyszukaj.."
+                            onChange={this.handleSearch}
+                        />
+                    </div>
+                    <div className="scrollable-div">
+                        <table className="content-table w-100">
+                            <thead>
+                                <tr className="table-head">
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Phone No.</th>
+                                    <th>About Me</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredusers.map((user) => (
+                                    <tr key={user.id}>
+                                        <td id="td--message32"> 
+                                            <img alt="cute-cat"
+                                                className="rounded-circle" width="75px"
+                                                src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"
+                                            />
+                                            </td>
+                                        <td>
+                                            <p>{user.name}</p>
+                                        </td>
+                                        <td>
+                                            <p>{user.lastName}</p>
+                                        </td>
+                                        <td>
+                                            <p>{user.email}</p>
+                                        </td>
+                                        <td>
+                                            <p>{user.phoneNumber}</p>
+                                        </td>
+                                        <td>
+                                            <p>{user.opis}</p>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
-                <table className="content-table32">
-                    <tbody>
-                    {filteredusers.map((user) => (
-                        <tr key={user.id}>
-                            <td id="td--message32">
-                                <img alt="cute-cat"
-                                    className="rounded-circle mt-5"
-                                    width="150px"
-                                    src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif"
-                                />
-                                <br /> <br />
-                                {user.name}  {user.lastName}  <br /> <br /> ({user.email})
-                                <br /> <br />
-                                Nr telefonu: {user.phoneNumber}
-                                <br /> <br />
-                                o mnie : <br /> <br />
-                                {user.opis}
-                                <br /> <br />
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            </div></div>
+            </div>
         );
     }
 }

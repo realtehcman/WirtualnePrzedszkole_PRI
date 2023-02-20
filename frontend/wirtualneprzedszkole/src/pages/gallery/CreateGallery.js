@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import GalleryService from "../gallery/GalleryService";
 import "../CreateUser/CreateUser.scss";
 
@@ -8,7 +8,7 @@ class CreateGallery extends Component {
         super(props);
 
         this.state = {
-             file: [],
+            file: [],
             folder: "",
         };
         this.changeFolderHandler = this.changeFolderHandler.bind(this);
@@ -19,9 +19,9 @@ class CreateGallery extends Component {
         e.preventDefault();
         let group = ({
 
-                folder: this.state.folder,
-                file: this.state.file,
-            }
+            folder: this.state.folder,
+            file: this.state.file,
+        }
         );
         GalleryService.UploadMultiFiles(group).then((response) => {
             if (response.data != null) {
@@ -43,40 +43,35 @@ class CreateGallery extends Component {
 
     render() {
         return (
-            <div className="formContainer">
-                <div className="row">
-                    <div className="card col-md-6 offset-md-3 offset-md-3">
-                        <div className="form-body">
-                            <form onSubmit={(e) =>{
-                                this.saveGroup(e);
-                            } }>
-                                <div className="form-group">
-                                    <input
-                                        placeholder="Grupa"
-                                        name="Opis"
-                                        required
-                                        type="text"
-                                        value={this.state.folder}
-                                        onChange={this.changeFolderHandler}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <input
-                                        type="file"
-                                        value={this.state.file}
-                                        onChange={(e) => this.changeFileHandler(e.target.files)}
-                                    />
-                                </div>
-                                <div className="form-but">
-
-                                </div>
-                                <div className="form-but">
-                                    <button className="button2">Zapisz</button>
-                                </div>
-                            </form>
+            <div className="App_card">
+                <div className="form-body">
+                    <form onSubmit={(e) => {
+                        this.saveGroup(e);
+                    }}>
+                        <div className="form-group">
+                            <input
+                                placeholder="Grupa"
+                                name="Opis"
+                                required
+                                type="text"
+                                className="form-control border-0"
+                                value={this.state.folder}
+                                onChange={this.changeFolderHandler}
+                            />
                         </div>
-                    </div>
+
+                        <div className="form-group">
+                            <input
+                                type="file"
+                                className="form-control border-0"
+                                value={this.state.file}
+                                onChange={(e) => this.changeFileHandler(e.target.files)}
+                            />
+                        </div>
+                        <div className="form-but mt-4 text-center">
+                            <button className="button btn w-auto">Zapisz</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         );

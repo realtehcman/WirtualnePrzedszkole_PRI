@@ -9,6 +9,7 @@ import Popup from '../GroupDisplay/Popup';
 import CreateGallery from './CreateGallery';
 import FolderService from '../Folders/FolderService';
 import FileService from './FileService';
+import Vid1 from '../../images/vid1.mp4'
 
 const ViewGallery = () => {
     const [photos, setPhotos] = useState({
@@ -45,7 +46,7 @@ const ViewGallery = () => {
     let { id } = useParams();
 
     useEffect(() => {
-        const getFolder = async() => {
+        const getFolder = async () => {
             FolderService.getFolder(id).then(response => {
                 setFolder(response.data)
             })
@@ -79,7 +80,7 @@ const ViewGallery = () => {
         }
 
         GalleryService.AddFile(folder.id, formData).then((res) => {
-            if (res.status !== 200){
+            if (res.status !== 200) {
                 console.log(res + "Successfully uploaded");
             }
         })
@@ -89,13 +90,14 @@ const ViewGallery = () => {
     return (
         <div>
             {/* {photos} */}
-            <div className='d-flex align-items-center justify-content-end'>
-                <button
-                    onClick={() => setAddPhotoPopup(true)}
-                    className="btn btn-info"
-                >
-                    dodać obraz
-                </button>
+            <div className='App_card'>
+                <div className='d-flex align-items-center justify-content-end'>
+                    <button
+                        onClick={() => setAddPhotoPopup(true)}
+                        className="btn btn_global">
+                        dodać obraz
+                    </button>
+                </div>
             </div>
 
             <div className='gallery_container px-4 py-4'>
@@ -110,6 +112,7 @@ const ViewGallery = () => {
                                 <ClearIcon className="icon mx-0" />
                             </button>
                             <img src={photo.path} width="100%" />
+                            {/* <video src={Vid1} controls={true} ></video> */}
                         </div>
                     )
                     )}
@@ -131,16 +134,16 @@ const ViewGallery = () => {
                 <Popup trigger={addPhotoPopup} setTrigger={setAddPhotoPopup}>
                     <h3 className='text-center mb-2'>Dodaj zdjęcie</h3>
                     <form onSubmit={addFiles} encType='multipart/form-data'>
-                    <div className='form-group'>
-                                <input placeholder='Nazwa Folderu' name="Nazwa Folderu" className='"form-control' 
-                                onChange={e => setNewFile({name: e.target.value})}/>
-                            </div>
-                            <div className="uploadDiv2">
-                                    <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
-                            </div>
-                            <div className="form-but">
-                                    <button className="button">Zapisz</button>
-                            </div>
+                        <div className='form-group'>
+                            <input placeholder='Nazwa Folderu' name="Nazwa Folderu" className='form-control'
+                                onChange={e => setNewFile({ name: e.target.value })} />
+                        </div>
+                        <div>
+                            <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple /></div>
+                        </div>
+                        <div className="form-but mt-3">
+                            <button className="button btn  w-auto">Zapisz</button>
+                        </div>
                     </form>
                 </Popup>
             </div>

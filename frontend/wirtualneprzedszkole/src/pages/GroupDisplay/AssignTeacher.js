@@ -35,7 +35,7 @@ const AssignTeacher = (props) => {
 
     return (
         <div className="scrollable-div">
-          <table className="content-table">
+          <table className="content-table w-100">
             <thead>
               <tr className="table-head">
                 <td>Imię</td>

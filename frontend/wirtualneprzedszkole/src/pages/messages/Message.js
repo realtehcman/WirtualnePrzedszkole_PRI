@@ -1,5 +1,5 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MessageService from "./MessageService";
 import "../GroupDisplay/Popup.css";
 import "../User/Table.scss";
@@ -48,22 +48,23 @@ class Message extends React.Component {
 
   render() {
     return (
-      <div data-testid="message" className="scrollable-div">
-        <table className="content-table">
-          <thead>
-            <tr className="table-head">
-              <td>Data</td>
-              <td>Od:</td>
-              <td>Temat:</td>
-              <td>Treść</td>
-              <td>Akcje</td>
-            </tr>
-          </thead>
-          <tbody>
-          {
-            this.state.received_messages
-                .sort((a, b) => b.id - a.id)
-                .map((received_messages) => (
+      <div data-testid="message" className="App_card">
+        <div className="scrollable-div">
+          <table className="content-table w-100">
+            <thead>
+              <tr className="table-head">
+                <td>Data</td>
+                <td>Od:</td>
+                <td>Temat:</td>
+                <td>Treść</td>
+                <td>Akcje</td>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.state.received_messages
+                  .sort((a, b) => b.id - a.id)
+                  .map((received_messages) => (
                     <tr key={received_messages.id}>
                       <td>{this.dateConvertToNormalFormat(received_messages.sentDate)}</td>
                       <td id="td--message">{received_messages.author}</td>
@@ -74,19 +75,21 @@ class Message extends React.Component {
                       </td>
                       <td className="foobar">
                         <button
-                            onClick={() =>
-                                this.deleteReceivedMessages(received_messages.id)
-                            }
-                            className="btn btn-danger"
+                          onClick={() =>
+                            this.deleteReceivedMessages(received_messages.id)
+                          }
+                          className="btn btn-danger"
                         >
                           Usuń
                         </button>
                       </td>
                     </tr>
-                ))
-          }
-          </tbody>
-        </table>
+                  ))
+              }
+            </tbody>
+          </table>
+        </div>
+
       </div>
     );
   }

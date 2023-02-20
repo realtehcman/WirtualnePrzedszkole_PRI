@@ -62,7 +62,7 @@ class UserComponent extends React.Component {
     let userName = this.state.users.find(user => user.id === id).name;
     let userlastName = this.state.users.find(user => user.id === id).lastName;
     let emaail = this.state.users.find(user => user.id === id).email;
-    if(window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${userName} ${userlastName} (${emaail}) ?`)) {
+    if (window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${userName} ${userlastName} (${emaail}) ?`)) {
       UserService.deleteUser(id).then((response) => {
         this.setState({
           users: this.state.users.filter((user) => user.id !== id),
@@ -84,62 +84,67 @@ class UserComponent extends React.Component {
   render() {
 
     let filteredusers = this.state.users.filter((user) =>
-        user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
-        user.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
-        (user.role === "PARENT" && "rodzic".includes(this.state.searchTerm.toLowerCase())) ||
-        (user.role === "TEACHER" && "nauczyciel".includes(this.state.searchTerm.toLowerCase())) ||
-        (user.role === "ADMIN" && "admin".includes(this.state.searchTerm.toLowerCase())) ||
-        (user.email && user.email.toLowerCase().includes(this.state.searchTerm.toLowerCase())) ||
-        (user.name.toLowerCase() + " " + user.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
+      user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+      user.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
+      (user.role === "PARENT" && "rodzic".includes(this.state.searchTerm.toLowerCase())) ||
+      (user.role === "TEACHER" && "nauczyciel".includes(this.state.searchTerm.toLowerCase())) ||
+      (user.role === "ADMIN" && "admin".includes(this.state.searchTerm.toLowerCase())) ||
+      (user.email && user.email.toLowerCase().includes(this.state.searchTerm.toLowerCase())) ||
+      (user.name.toLowerCase() + " " + user.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
     );
 
 
     return (
-        <div data-testid="user-component" className="scrollable-div">
-          <ToastContainer />
-          <div className="abc">
+      <div data-testid="user-component">
+        <ToastContainer />
+          <div className="mb-4">
             <input
-                type="text"
-                placeholder="Wyszukaj.."
-                onChange={this.handleSearch}
+              type="text"
+              className="form-control border-0"
+              placeholder="Wyszukaj.."
+              onChange={this.handleSearch}
             />
-
           </div>
-          <table className="content-table">
-            <thead>
-            <tr className="table-head">
-              <td>Rola <SortIcon className="icon" onClick={this.sortUsersByRole}/></td>
-              <td>Imię</td>
-              <td>Nazwisko</td>
-              <td>Email</td>
-              <td>Akcje</td>
-            </tr>
-            </thead>
-            <tbody className="body table-body">
-            {filteredusers.map((user) =>(
-                <tr key={user.id}>
-                  <td>
-                    {user.role === "TEACHER" ? "nauczyciel" : user.role === "ADMIN" ? "admin" : "rodzic"}
-                  </td>
 
-                  <td>{user.name}</td>
-                  <td>{user.lastName}</td>
-                  <td>{user.email}</td>
-                  <td className="foobar">
-                    <Navi value={user.id} />
-                    {/* <button onClick={() => this.props.navigation.navigate("/home//")} className='btn btn-info'>Zobacz</button> */}
-                    <button
+          <div className="scrollable-div maxArea">
+            <table className="content-table w-100">
+              <thead>
+                <tr className="table-head">
+                  <td>Rola <SortIcon className="icon" onClick={this.sortUsersByRole} /></td>
+                  <td>Imię</td>
+                  <td>Nazwisko</td>
+                  <td>Email</td>
+                  <td>Akcje</td>
+                </tr>
+              </thead>
+              <tbody className="body table-body">
+                {filteredusers.map((user) => (
+                  <tr key={user.id}>
+                    <td>
+                      {user.role === "TEACHER" ? "nauczyciel" : user.role === "ADMIN" ? "admin" : "rodzic"}
+                    </td>
+
+                    <td>{user.name}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.email}</td>
+                    <td className="foobar">
+                      <Navi value={user.id} />
+                      {/* <button onClick={() => this.props.navigation.navigate("/home//")} className='btn btn-info'>Zobacz</button> */}
+                      <button
                         onClick={() => this.deleteUser(user.id)}
                         className="btn btn-danger"
-                    >
-                      Usuń
-                    </button>
-                  </td>
-                </tr>
-            ))}
-            </tbody>
-          </table>
-        </div>
+                      >
+                        Usuń
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+
+      </div>
     );
   }
 }

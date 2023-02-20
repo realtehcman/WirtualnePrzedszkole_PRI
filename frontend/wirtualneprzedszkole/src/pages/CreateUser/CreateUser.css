@@ -29,10 +29,7 @@ input {
 
 .form-but {
   display: block;
-  padding: 15px;
-  width: 50%;
   text-align: center;
-  margin-left: 22.5%;
 }
 
 .button {

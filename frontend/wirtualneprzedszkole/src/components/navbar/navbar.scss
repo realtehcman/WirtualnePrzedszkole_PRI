@@ -1,6 +1,5 @@
 @import "/src/utilities/_variables.scss";
 .navbar {
-  height: 75 px;
   display: flex;
   align-items: center;
   font-size: 20px;
@@ -8,16 +7,18 @@
 
   .wrapper {
     width: 100%;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: right;
+    // padding: 20px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
 
     .logout {
-      display: flex;
-      align-items: center;
-      // margin-left: 90%;
       cursor: pointer;
+      background: #4424bb;
+      display: inline-block;
+      padding: 4px 24px;
+      color: #fff;
       &:hover {
         background-color: #e8e3f8;
       }
