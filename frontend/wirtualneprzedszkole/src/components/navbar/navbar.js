@@ -4,9 +4,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {useNavigate} from "react-router-dom";
 import LoginService from "../../pages/Login/LoginService.js";
 import i18next from 'i18next';
+import { useTranslation } from "react-i18next";
 
 
 const Navbar = () => {
+    const {t} = useTranslation();
 
     // useEffect(() =>{
     //     i18next.changeLanguage('po');
@@ -35,7 +37,7 @@ const Navbar = () => {
                 </div>
                 <div className="logout btn">
                     <LogoutIcon/>
-                    <span onClick={logout}> Wyloguj się</span>
+                    <span onClick={logout}>{t('log_out')}</span>
                 </div>
             </div>
             </div>

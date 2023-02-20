@@ -2,9 +2,11 @@ import React, {useEffect, useState} from 'react'
 import ChildrenService from './ChildrenService'
 import {useNavigate, useParams} from "react-router-dom";
 import "../User/Table.scss"
+import { useTranslation } from "react-i18next";
 
 const Child = () => {
     const navigate = useNavigate()
+    const {t} = useTranslation();
     const [child, setChild] = useState({
         id:'',
         name: '',
@@ -34,17 +36,17 @@ const Child = () => {
 
     return (
         <div data-testid="child">
-            <h1 className='mb-3'>Rodzice: {child.name} {child.lastName}</h1>
+            <h1 className='mb-3'>{t('parents')}: {child.name} {child.lastName}</h1>
             <div>
                 <table className='content-table w-100'>
                     <thead>
 
                     <tr className='table-head'>
 
-                        <td>Imię</td>
-                        <td>Nazwisko</td>
-                        <td>Email</td>
-                        <td>Akcje</td>
+                        <td>{t('name')}</td>
+                        <td>{t('last_name')}</td>
+                        <td>{t('email')}</td>
+                        <td>{t('actions')}</td>
                     </tr>
                     </thead>
                     <tbody className='body table-body'>
@@ -57,7 +59,7 @@ const Child = () => {
                                     <td>{parent.email}</td>
                                     <td>
 
-                                        <button onClick={() => navigate("/user/" + parent.id)} className='btn btn-info text-capitalize'>Zobacz</button>
+                                        <button onClick={() => navigate("/user/" + parent.id)} className='btn btn-info text-capitalize'>{t('look')}</button>
                                     </td>
                                 </tr>
                         )

@@ -222,6 +222,7 @@ class CreateUser extends Component {
   }
 
   render() {
+    const {t} = this.props
     const display = this.state.display
     if (display === 1) {
       if (this.state.role === "PARENT") {
@@ -238,7 +239,7 @@ class CreateUser extends Component {
                     <div className="col-md-6 col-12">
                       <div className="form-group">
                         <MDBInput
-                          placeholder="Imię"
+                          placeholder={t('name')}
                           type="text"
                           required="required"
                           name="Imię"
@@ -251,7 +252,7 @@ class CreateUser extends Component {
                     <div className="col-md-6 col-12">
                       <div className="form-group">
                         <MDBInput
-                          placeholder="Nazwisko"
+                          placeholder={t('last_name')}
                           type="text"
                           required
                           name="Nazwisko"
@@ -267,7 +268,7 @@ class CreateUser extends Component {
                     <div className="col-md-6 col-12">
                       <div className="form-group">
                         <MDBInput
-                          placeholder="Email"
+                          placeholder={t('email')}
                           type="email"
                           required
                           name="Email"
@@ -280,7 +281,7 @@ class CreateUser extends Component {
                     <div className="col-md-6 col-12">
                       <div className="form-group">
                         <MDBInput
-                          placeholder="Adres"
+                          placeholder={t('address')}
                           required
                           name="Adres"
                           className='"form-control'
@@ -295,7 +296,7 @@ class CreateUser extends Component {
                     <div className="col-md-6 col-12">
                       <div className="form-group">
                         <MDBInput
-                          placeholder="Numer Telefonu"
+                          placeholder={t('phone_no')}
                           type="tel"
                           pattern="[0-9]{3}[0-9]{3}[0-9]{3}"
 
@@ -315,18 +316,18 @@ class CreateUser extends Component {
                           value={this.state.role}
                           onChange={this.changeRoleHandler}
                         >
-                          <option value="PARENT">Rodzic</option>
-                          <option value="TEACHER">Nauczyciel</option>
-                          <option value="ADMIN">Administrator</option>
+                          <option value="PARENT">{t('parent')}</option>
+                          <option value="TEACHER">{t('teacher')}</option>
+                          <option value="ADMIN">{t('administrator')}</option>
                         </select>
                       </div>
                     </div>
                   </div>
 
                   <div className="Form_btns">
-                    <button className="button btn my-0" name="save-user">Zapisz</button>
-                    <button className="button btn my-0" name="next-parent">Zapisz i dodaj następnego opiekuna</button>
-                    <button className="button btn my-0" name="add-child">Zapisz i dodaj dziecko</button>
+                    <button className="button btn my-0" name="save-user">{t('save')}</button>
+                    <button className="button btn my-0" name="next-parent">{t('save_and_add_another_guardian')}</button>
+                    <button className="button btn my-0" name="add-child">{t('save_and_add_a_child')}</button>
                   </div>
                 </form>
               </div>

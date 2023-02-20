@@ -2,8 +2,10 @@ import React, {useState} from 'react'
 
 import "./login.scss"
 import CurrentUserService from '../Home/CurrentUserService';
+import { useTranslation } from "react-i18next";
 
-const RestartPassword = () => {    
+const RestartPassword = () => { 
+    const {t} = useTranslation();   
     const [reset, setReset] = useState({
         
         email: '',
@@ -19,7 +21,7 @@ const RestartPassword = () => {
     return (
         
         <div data-testid="restart-password" className='formContainer'>
-                <span className="logo-login">Przedszkole nr 25</span>
+                <span className="logo-login">{t('kindergarten_no_25')}</span>
                 <div className='row'>
                     <div className='card col-md-6 offset-md-3 offset-md-3'>
                         <div className='form-body'>
@@ -29,7 +31,7 @@ const RestartPassword = () => {
                                     onChange={e => setReset({email: e.target.value})}/>
                                 </div>
                                 <div className="form-but">
-                                    <button className="button">Wyślij</button>
+                                    <button className="button">{t('send')}</button>
                                 </div>
                             </form>
                         </div>

@@ -1,9 +1,11 @@
 import UserService from "../User/UserService";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from "react-i18next";
 
 
 const EditUser = () => {
+    const {t} = useTranslation();
     const [user, setUser] = useState({
         id: '',
         email: '',
@@ -64,7 +66,7 @@ const EditUser = () => {
                     <div className="col-md-6 col-12 mb-3">
                         <div className="row">
                             <div className="col-md-3 col-12">
-                                <label>Imię:</label>
+                                <label>{t('name')}:</label>
                             </div>
                             <div className="col-md-9 col-12">
                                 <input placeholder={user.name} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, name: e.target.value })} />
@@ -75,7 +77,7 @@ const EditUser = () => {
                     <div className="col-md-6 col-12 mb-3">
                         <div className="row">
                             <div className="col-md-3 col-12">
-                                <label>Nazwisko:</label>
+                                <label>{t('last_name')}:</label>
                             </div>
                             <div className="col-md-9 col-12">
                                 <input placeholder={user.lastName} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, lastName: e.target.value })} />
@@ -88,7 +90,7 @@ const EditUser = () => {
                     <div className="col-md-6 col-12 mb-3">
                         <div className="row">
                             <div className="col-md-3 col-12">
-                                <label>Email:</label>
+                                <label>{t('email')}:</label>
                             </div>
                             <div className="col-md-9 col-12">
                                 <input placeholder={user.email} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, email: e.target.value })} />
@@ -98,7 +100,7 @@ const EditUser = () => {
                     <div className="col-md-6 col-12 mb-3">
                         <div className="row">
                             <div className="col-md-3 col-12">
-                                <label>Adres:</label>
+                                <label>{t('address')}:</label>
                             </div>
                             <div className="col-md-9 col-12">
                                 <input placeholder={user.address} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, address: e.target.value })} />
@@ -111,7 +113,7 @@ const EditUser = () => {
                     <div className="col-md-6 col-12">
                         <div className="row">
                             <div className="col-md-3 col-12">
-                                <label>Telefon:</label>
+                                <label>{t('telephone')}:</label>
                             </div>
                             <div className="col-md-9 col-12">
                                 <input placeholder={user.phoneNumber} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, phoneNumber: e.target.value })} />
@@ -121,7 +123,7 @@ const EditUser = () => {
                     <div className="col-md-6 col-12">
                         <div className="row">
                             <div className="col-md-3 col-12">
-                                <label>Opis :</label>
+                                <label>{t('description')}:</label>
                             </div>
                             <div className="col-md-9 col-12">
                                 <input placeholder={user.opis} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, opis: e.target.value })} />
@@ -132,7 +134,7 @@ const EditUser = () => {
 
                 <div className="row">
                     <div className="col-12 text-center mt-5">
-                    <button onClick={updateData} className='btn btn_global'>Zapisz</button>
+                    <button onClick={updateData} className='btn btn_global'>{t('save')}</button>
                     </div>
                 </div>
 

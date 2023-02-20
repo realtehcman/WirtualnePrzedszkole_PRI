@@ -16,7 +16,7 @@ const Users = () => {
       <div data-testid="usersContainer" className="usersContainer">
         <Navbar />
         <div className="App_card">
-          <UserComponent />
+          <UserComponent t={t} />
          <div className="text-center mt-4">
          <button className="button btn" onClick={() => navigate("/add-user")}>{t('add_user')}
           </button>
