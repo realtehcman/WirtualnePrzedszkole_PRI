@@ -6,10 +6,8 @@ import FolderService from '../Folders/FolderService';
 import UserService from '../User/UserService';
 import ChildrenService from '../Children/ChildrenService';
 import { ToastContainer, toast } from "react-toastify";
-import { useTranslation } from "react-i18next";
 
 const Group = () => {
-    const {t} = useTranslation();
     const navigate = useNavigate()
     const [group, setGroup] = useState({
         id:'',
@@ -118,30 +116,30 @@ const Group = () => {
                 <thead>
                     <tr className='table-head'>
                         <td>{group.name}</td>
-                        <td>{t('name')}</td>
-                        <td>{t('last_name')}</td>
-                        <td>{t('remove_from_group')}</td>
+                        <td>Imię</td>
+                        <td>Nazwisko</td>
+                        <td>Usuń z grupy</td>
                     </tr>
                 </thead>
                 <tbody className='body'>
                     {group.teachers.map(teacher => (
                     <tr className="teacher" key={teacher.id}>
-                        <td>{t('teacher')}</td>
+                        <td>Nauczyciel</td>
                         <td>{teacher.name}</td>
                         <td>{teacher.lastName}</td>
                         <td>
-                            <button onClick={() => deleteTeacherFromGroup(teacher)}  className="btn btn-danger">{t('delete')}</button>
+                            <button onClick={() => deleteTeacherFromGroup(teacher)}  className="btn btn-danger">Usuń</button>
                         </td>
                     </tr>
                     ))
                     }
                     {group.children.map(child => (
                     <tr key={child.id}>
-                        <td>{t('kid')}</td>
+                        <td>Dziecko</td>
                         <td>{child.name}</td>
                         <td>{child.lastName}</td>
                         <td>
-                            <button onClick={() => deleteChildFromGroup(child)}  className="btn btn-danger">{t('delete')}</button>
+                            <button onClick={() => deleteChildFromGroup(child)}  className="btn btn-danger">Usuń</button>
                         </td>
                     </tr>
                     ))
@@ -150,11 +148,11 @@ const Group = () => {
             </table>
             <div className="row mt-4">
                 <div className="col-md-6 col-12">
-                    <button type="button" class="btn btn-success" onClick={() => NaviToFolder("Galeria")}>{t('galleries')}</button>
-                    <button type="button" class="btn btn-warning" onClick={() => NaviToFolder("Inne")}>{t('other_files')}</button>
+                    <button type="button" class="btn btn-success" onClick={() => NaviToFolder("Galeria")}>Galerie</button>
+                    <button type="button" class="btn btn-warning" onClick={() => NaviToFolder("Inne")}>Inne Pliki</button>
                 </div>
                 <div className="col-md-6 col-12 text-end">
-                    <button type="button" class="btn btn-primary" onClick={() => navigate("/Assign-teacher/" + id)}>{t('assign_a_tutor')}</button>
+                    <button type="button" class="btn btn-primary" onClick={() => navigate("/Assign-teacher/" + id)}>Przypisz Nauczyciela</button>
                 </div>
             </div>
     </div>

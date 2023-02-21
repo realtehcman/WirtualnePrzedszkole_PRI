@@ -2,10 +2,8 @@ import "./AssignTeacher.scss"
 import UserService from "../User/UserService"
 import React, { useEffect, useState } from 'react'
 import {useNavigate} from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 const AssignTeacher = (props) => {
-  const {t} = useTranslation();
 
     const [teachers, setTeachers] = useState([
         {
@@ -40,10 +38,10 @@ const AssignTeacher = (props) => {
           <table className="content-table w-100">
             <thead>
               <tr className="table-head">
-                <td>{t('name')}</td>
-                <td>{t('last_name')}</td>
-                <td>{t('email')}</td>
-                <td>{t('assign')}</td>
+                <td>Imię</td>
+                <td>Nazwisko</td>
+                <td>Email</td>
+                <td>Przypisz</td>
               </tr>
             </thead>
             <tbody className="body table-body">
@@ -57,7 +55,7 @@ const AssignTeacher = (props) => {
                       onClick={() => assignToClass(teacher)}
                       className="btn btn-danger"
                     >
-                      {t('assign')}
+                      Przypisz
                     </button>
 
                   </td>

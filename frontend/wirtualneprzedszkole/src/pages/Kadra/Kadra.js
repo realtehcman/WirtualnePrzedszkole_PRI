@@ -30,7 +30,6 @@ class Kadra extends React.Component {
     }
 
     render() {
-        const {t} = this.props
         let filteredusers = this.state.users.filter(
             (user) =>
                 user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
@@ -49,7 +48,7 @@ class Kadra extends React.Component {
                         <input
                             type="text"
                             className="form-control border-0"
-                            placeholder={t('search')}
+                            placeholder="Wyszukaj.."
                             onChange={this.handleSearch}
                         />
                     </div>
@@ -57,12 +56,12 @@ class Kadra extends React.Component {
                         <table className="content-table w-100">
                             <thead>
                                 <tr className="table-head">
-                                    <th>{t('image')}</th>
-                                    <th>{t('name')}</th>
-                                    <th>{t('last_name')}</th>
-                                    <th>{t('email')}</th>
-                                    <th>{t('phone_no')}.</th>
-                                    <th>{t('about_me')}</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Phone No.</th>
+                                    <th>About Me</th>
                                 </tr>
                             </thead>
                             <tbody>

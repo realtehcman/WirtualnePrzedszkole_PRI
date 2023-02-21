@@ -14,7 +14,7 @@ const Navi = (props) => {
       onClick={() => navigate("/user/" + props.value)}
       className="btn btn-info"
     >
-      {props.t('look')}
+      Zobacz
     </button>
   );
 };
@@ -83,8 +83,6 @@ class UserComponent extends React.Component {
 
   render() {
 
-    const {t} = this.props
-
     let filteredusers = this.state.users.filter((user) =>
       user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
       user.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
@@ -103,7 +101,7 @@ class UserComponent extends React.Component {
             <input
               type="text"
               className="form-control border-0"
-              placeholder={t('search')} 
+              placeholder="Wyszukaj.."
               onChange={this.handleSearch}
             />
           </div>
@@ -112,11 +110,11 @@ class UserComponent extends React.Component {
             <table className="content-table w-100">
               <thead>
                 <tr className="table-head">
-                  <td>{t('role')} <SortIcon className="icon" onClick={this.sortUsersByRole} /></td>
-                  <td>{t('name')}</td>
-                  <td>{t('last_name')}</td>
-                  <td>{t('email')}</td>
-                  <td>{t('actions')}</td>
+                  <td>Rola <SortIcon className="icon" onClick={this.sortUsersByRole} /></td>
+                  <td>Imię</td>
+                  <td>Nazwisko</td>
+                  <td>Email</td>
+                  <td>Akcje</td>
                 </tr>
               </thead>
               <tbody className="body table-body">
@@ -130,13 +128,13 @@ class UserComponent extends React.Component {
                     <td>{user.lastName}</td>
                     <td>{user.email}</td>
                     <td className="foobar">
-                      <Navi value={user.id} t={t}/>
+                      <Navi value={user.id} />
                       {/* <button onClick={() => this.props.navigation.navigate("/home//")} className='btn btn-info'>Zobacz</button> */}
                       <button
                         onClick={() => this.deleteUser(user.id)}
                         className="btn btn-danger"
                       >
-                        {t('delete')}
+                        Usuń
                       </button>
                     </td>
                   </tr>

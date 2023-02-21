@@ -83,7 +83,6 @@ class CreateChild extends Component {
 
 
   render() {
-    const {t} = this.props
     return (
 
       <div className="App_card">
@@ -138,9 +137,9 @@ class CreateChild extends Component {
 
             <div className="text-center">
               <Link className="button btn me-3" to={"/children"}>
-              {t('come_back')}
+                Wróć
               </Link>
-              <button className="button btn">{t('save')}</button>
+              <button className="button btn">Zapisz</button>
             </div> 
           </form>
         </div>
