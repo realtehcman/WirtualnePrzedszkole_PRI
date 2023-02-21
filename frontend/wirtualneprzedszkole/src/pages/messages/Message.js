@@ -11,7 +11,7 @@ const Navi = (props) => {
       onClick={() => navigate("/ReadMessage/" + props.value)}
       className="btn btn-info"
     >
-      {props.t('look')}
+      Zobacz
     </button>
   );
 };
@@ -47,18 +47,17 @@ class Message extends React.Component {
   }
 
   render() {
-    const {t} = this.props
     return (
       <div data-testid="message" className="App_card">
         <div className="scrollable-div">
           <table className="content-table w-100">
             <thead>
               <tr className="table-head">
-                <td>{t('data')}</td>
-                <td>{t('from')}</td>
-                <td>{t('topic')}</td>
-                <td>{t('contents')}</td>
-                <td>{t('actions')}</td>
+                <td>Data</td>
+                <td>Od:</td>
+                <td>Temat:</td>
+                <td>Treść</td>
+                <td>Akcje</td>
               </tr>
             </thead>
             <tbody>
@@ -72,7 +71,7 @@ class Message extends React.Component {
                       <td id="td--message">{received_messages.subject}</td>
                       <td id="td--message">
                         {" "}
-                        <Navi value={received_messages.id} t={t} />
+                        <Navi value={received_messages.id} />
                       </td>
                       <td className="foobar">
                         <button
@@ -81,7 +80,7 @@ class Message extends React.Component {
                           }
                           className="btn btn-danger"
                         >
-                          {t('delete')}
+                          Usuń
                         </button>
                       </td>
                     </tr>

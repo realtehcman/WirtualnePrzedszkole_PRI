@@ -127,8 +127,6 @@ class SendMessage extends Component {
 
     render() {
 
-        const {t} = this.props
-
         const { to, users } = this.state;
 
         const filteredUsers = users.filter((user) => {
@@ -150,7 +148,7 @@ class SendMessage extends Component {
 
                 <ToastContainer />
                 <div className="App_card">
-                    <h1>{t('create_a_message')}</h1>
+                    <h1>Utwórz wiadomość</h1>
                 </div>
 
 
@@ -160,7 +158,7 @@ class SendMessage extends Component {
                 }}>
                     <div className="mb-3">
                         <label className="form-label font16" htmlFor="name">
-                        {t('down')}
+                            Do :
                         </label>
 
                         <input className="form-control" type="PrettyPrintJson" autoComplete="off" id="name" value={to} onChange={this.GetRecieverHandler} />
@@ -187,23 +185,23 @@ class SendMessage extends Component {
                     </div>
                     <div className="mb-3">
                         <label className="form-label font16" htmlFor="email">
-                        {t('topic')}
+                            Temat
                         </label>
                         <input className="form-control" type="PrettyPrintJson" id="" value={this.state.subject}
                             onChange={this.changeNameHandler} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label font16">
-                        {t('contents')}
+                            Treść
                         </label>
                         <div className="q1-editor"><ReactQuill value={this.state.content} onChange={this.changeDescriptionHandler} /></div>
                     </div>
                     <div className="form-but d-md-flex align-items-center justify-content-center">
 
-                        <button className="button btn w-auto me-3">{t('send')}</button>
+                        <button className="button btn w-auto me-3">Wyślij</button>
                         <button className="button btn w-auto" onClick={(e) => {
                             this.saveMessage2(e);
-                        }}>{t('send_to_all_users')}</button>
+                        }}>Wyślij do wszystkich użytkowników</button>
                     </div>
 
                 </form>
