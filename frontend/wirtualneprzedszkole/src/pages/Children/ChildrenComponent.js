@@ -13,7 +13,7 @@ const Navi = (props) => {
       onClick={() => navigate("/child/" + props.value)}
       className="btn btn-info"
     >
-      Zobacz
+      {props.t('look')}
     </button>
   );
 };
@@ -25,7 +25,7 @@ const Navi2 = (props) => {
       onClick={() => navigate("/EditChild/" + props.value)}
       className="btn btn-info"
     >
-      edytuj
+      {props.t('edit')}
     </button>
   );
 };
@@ -75,6 +75,8 @@ class ChildrenComponent extends React.Component {
   }
 
   render() {
+    const {t} = this.props;
+
     let filteredchildren = this.state.children.filter((child) =>
       child.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
       child.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
@@ -86,18 +88,18 @@ class ChildrenComponent extends React.Component {
     return (
       <div data-testid="children-component">  <ToastContainer position="top-center" />
         <div className="mb-4">
-          <input type="text" className="form-control border-0" placeholder="Wyszukaj.." onChange={this.handleSearch} />
+          <input type="text" className="form-control border-0" placeholder={t('search')} onChange={this.handleSearch} />
         </div>
 
         <div className="scrollable-div maxArea">
           <table className="content-table w-100">
             <thead>
               <tr className="table-head">
-                <td>Id</td>
-                <td>Imię</td>
-                <td>Nazwisko</td>
-                <td>Grupa</td>
-                <td>Akcje</td>
+                <td>{t('id')}</td>
+                <td>{t('name')}</td>
+                <td>{t('last_name')}</td>
+                <td>{t('group')}</td>
+                <td>{t('actions')}</td>
               </tr>
             </thead>
             <tbody className="body">
@@ -108,14 +110,14 @@ class ChildrenComponent extends React.Component {
                   <td>{child.lastName}</td>
                   <td id="td--children">{child.classId}</td>
                   <td>
-                    <Navi value={child.id} />
+                    <Navi value={child.id} t={t} />
 
-                    <Navi2 value={child.id} />
+                    <Navi2 value={child.id} t={t} />
 
                     <button
                       onClick={() => this.deleteChild(child.id)}
                       className="btn btn-danger">
-                      Usuń
+                      {t('delete')}
                     </button>
                   </td>
                 </tr>

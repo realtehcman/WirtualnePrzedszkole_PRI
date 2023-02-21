@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import GalleryService from "../gallery/GalleryService";
 import "../CreateUser/CreateUser.scss";
 
+
 class CreateGallery extends Component {
 
     constructor(props) {
@@ -42,6 +43,8 @@ class CreateGallery extends Component {
 
 
     render() {
+        const {t} = this.props
+
         return (
             <div className="App_card">
                 <div className="form-body">
@@ -50,7 +53,7 @@ class CreateGallery extends Component {
                     }}>
                         <div className="form-group">
                             <input
-                                placeholder="Grupa"
+                                placeholder={t('group')}
                                 name="Opis"
                                 required
                                 type="text"
@@ -69,7 +72,7 @@ class CreateGallery extends Component {
                             />
                         </div>
                         <div className="form-but mt-4 text-center">
-                            <button className="button btn w-auto">Zapisz</button>
+                            <button className="button btn w-auto">{t('save')}</button>
                         </div>
                     </form>
                 </div>

@@ -13,7 +13,7 @@ const Navi2 = (props) => {
       }
       className="btn btn-info"
     >
-      Status
+      {props.t('status')}
     </button>
   );
 };
@@ -25,7 +25,7 @@ const Navi = (props) => {
       onClick={() => navigate("/ViewMessage/" + props.value)}
       className="btn btn-info"
     >
-      Wyświetl
+      {props.t('view')}
     </button>
   );
 };
@@ -64,17 +64,19 @@ class SentMessage extends React.Component {
   }
 
   render() {
+    const {t} = this.props
+
     return (
       <div data-testid="sent-message" className="App_card">
         <div className="scrollable-div">
           <table className="content-table w-100">
             <thead>
               <tr className="table-head">
-                <td>Data</td>
-                <td>Autor</td>
-                <td>Temat</td>
-                <td>Treść</td>
-                <td>Akcje</td>
+                <td>{t('data')}</td>
+                <td>{t('author')}</td>
+                <td>{t('topic')}</td>
+                <td>{t('contents')}</td>
+                <td>{t('actions')}</td>
               </tr>
             </thead>
             <tbody>
@@ -84,15 +86,15 @@ class SentMessage extends React.Component {
                   <td id="td--message">{sent_messages.author}</td>
                   <td id="td--message">{sent_messages.subject}</td>
                   <td id="td--message">
-                    <Navi value={sent_messages.id} />
-                    <Navi2 value={sent_messages.id} />
+                    <Navi value={sent_messages.id} t={t} />
+                    <Navi2 value={sent_messages.id} t={t} />
                   </td>
                   <td className="foobar">
                     <button
                       onClick={() => this.deleteSentMessages(sent_messages.id)}
                       className="btn btn-danger"
                     >
-                      Usuń
+                      {t('delete')}
                     </button>
                   </td>
                 </tr>

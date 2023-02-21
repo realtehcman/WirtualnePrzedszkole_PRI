@@ -13,7 +13,7 @@ const Navi = (props) => {
       onClick={() => navigate("/group/" + props.value)}
       className="btn btn-info"
     >
-      Zobacz
+      {props.t('look')}
     </button>
   );
 };
@@ -60,6 +60,7 @@ class GroupComponent extends Component {
   }
 
   render() {
+    const {t} = this.props
     let filteredGroups = this.state.groups.filter((group) =>
       group.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
     );
@@ -71,7 +72,7 @@ class GroupComponent extends Component {
           <input
             type="text"
             className="form-control border-0"
-            placeholder="Wyszukaj grupę po nazwie "
+            placeholder={t('search_for_a_group_by_name')}
             onChange={this.handleSearch}
           />
 
@@ -81,10 +82,10 @@ class GroupComponent extends Component {
           <table className="content-table w-100">
             <thead>
               <tr className="table-head table-head--groups">
-                <td>Id</td>
-                <td>Nazwa</td>
-                <td>Opis</td>
-                <td>Akcje</td>
+                <td>{t('id')}</td>
+                <td>{t('name')}</td>
+                <td>{t('description')}</td>
+                <td>{t('actions')}</td>
 
               </tr>
             </thead>
@@ -96,12 +97,12 @@ class GroupComponent extends Component {
                   <td id="td--groups">{group.name}</td>
                   <td id="td--groups">{group.description}</td>
                   <td id="td--groups">
-                    <Navi value={group.id} />
+                    <Navi value={group.id} t={t} />
                     <button
                       onClick={() => this.deleteGroup(group.id)}
                       className="btn btn-danger"
                     >
-                      Usuń
+                      {t('delete')}
                     </button>
                   </td>
                 </tr>

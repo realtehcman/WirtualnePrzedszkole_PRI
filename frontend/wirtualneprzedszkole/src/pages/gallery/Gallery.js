@@ -11,7 +11,7 @@ const Navi2 = (props) => {
             onClick={() => navigate("/home/" + props.value)}
             className="btn btn-info"
         >
-            Dodaj zdjęcia
+            {props.t('add_photos')}
         </button>
 
     );
@@ -24,7 +24,7 @@ const Navi = (props) => {
             onClick={() => navigate("/ViewGallery/" + props.value)}
             className="btn btn-info"
         >
-            Wyświetl
+            {props.t('view')}
         </button>
 
     );
@@ -58,18 +58,18 @@ class Gallery extends React.Component {
 
 
     render() {
-
+        const {t} = this.props
 
         return (
             <div data-testid = 'gallery' className="scrollable-div">
                 <table className="content-table w-100">
                     <thead>
                     <tr className="table-head">
-                        <td>Id</td>
-                        <td>nazwa:</td>
-                        <td>sciezka:</td>
-                        <td>klasa</td>
-                        <td>Akcje</td>
+                        <td>{t('id')}</td>
+                        <td>{t('name')}</td>
+                        <td>{t('path')}</td>
+                        <td>{t('class')}</td>
+                        <td>{t('actions')}</td>
 
                         <td></td>
                     </tr>
@@ -83,15 +83,15 @@ class Gallery extends React.Component {
                             <td>{all_folders.className}</td>
 
                             <td className="foobar">
-                                <Navi value={all_folders.id} />
-                                <Navi2 value={all_folders.id} />
+                                <Navi value={all_folders.id} t={t} />
+                                <Navi2 value={all_folders.id} t={t} />
 
                             </td>
                             <td>  <button
                                 onClick={() => this.deleteFolder(all_folders.id)}
                                 className="btn button2 btn-danger"
                             >
-                                Usuń
+                                {t('delete')}
                             </button>  </td>
                         </tr>
                     ))}

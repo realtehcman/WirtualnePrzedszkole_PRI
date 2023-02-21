@@ -9,8 +9,10 @@ import HeightIcon from '@mui/icons-material/Height';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import currentUserService from "../Home/CurrentUserService";
+import { useTranslation } from "react-i18next";
 
 const Knowledge = () => {
+    const {t} = useTranslation();
 
     const [filesInfo, setFilesInfo] = useState([
         {
@@ -191,7 +193,7 @@ const Knowledge = () => {
             <ToastContainer />
             <div className="mb-4">
                 <form>
-                    <input type="text" className="form-control border-0" placeholder="szukaj plików po nazwie" onChange={handleSearch} />
+                    <input type="text" className="form-control border-0" placeholder={t('search_for_files_by_name')} onChange={handleSearch} />
                 </form>
             </div>
 
@@ -201,17 +203,17 @@ const Knowledge = () => {
                         <tr className="table-head">
                             <td>
                                 <SortIcon className="icon" onClick={handleSortByName} />
-                                <span className="text">Plik</span>
+                                <span className="text">{t('file')}</span>
                             </td>
 
                             <td className="icon-text">
                                 <HeightIcon className="icon" onClick={handleSortByDate} />
-                                <span className="text">Data</span>
+                                <span className="text">{t('data')}</span>
                             </td>
 
-                            {currentUser.role === "ADMIN" && <td>Opis</td>}
-                            <td>Pobierz</td>
-                            {currentUser.role === "ADMIN" && <td>Usuń</td>}
+                            {currentUser.role === "ADMIN" && <td>{t('description')}</td>}
+                            <td>{t('download')}</td>
+                            {currentUser.role === "ADMIN" && <td>{t('delete')}</td>}
                         </tr>
                     </thead>
                     <tbody className="body table-body">
@@ -220,9 +222,9 @@ const Knowledge = () => {
                             <tr key={file.id}>
                                 <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
                                 <td>{checkDataIsNull(file.dateAdded)}</td>
-                                {currentUser.role === "ADMIN" && <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({ isPop: true, fileId: file.id, description: file.description })}>Edytuj</button></td>}
-                                <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>Pobierz</button></td>
-                                {currentUser.role === "ADMIN" && <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>}
+                                {currentUser.role === "ADMIN" && <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({ isPop: true, fileId: file.id, description: file.description })}>{t('edit')}</button></td>}
+                                <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>{t('download')}</button></td>
+                                {currentUser.role === "ADMIN" && <td><button onClick={() => deleteFile(file)} className="btn btn-danger">{t('delete')}</button></td>}
 
                             </tr>
                         ))}
@@ -242,8 +244,8 @@ const Knowledge = () => {
             </div>}
 
             <div className="d-md-flex align-items-center justify-content-between mt-5">
-                <button type="submit" className="btn btn_global"> Wyślij</button>
-                {currentUser.role === "ADMIN" && <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">Usuń wszystkie pliki</button>}
+                <button type="submit" className="btn btn_global">{t('send')}</button>
+                {currentUser.role === "ADMIN" && <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">{t('delete_all_files')}</button>}
             </div>
 
         </div>

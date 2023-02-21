@@ -3,8 +3,10 @@ import UserService from "../User/UserService";
 import "./UserInfo.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import FileService from "../gallery/FileService"
+import { useTranslation } from "react-i18next";
 
 const User = () => {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const [user, setUser] = useState({
     id: "",
@@ -78,7 +80,7 @@ const User = () => {
   return (
     <>
       <div className="App_card">
-        <h1>Informacje</h1>
+        <h1>{t('information')}</h1>
       </div>
 
       <div className="row">
@@ -92,7 +94,7 @@ const User = () => {
               </div>
               <div className="row mb-2">
                 <div className="col-md-6 col-12">
-                  <label className="text-capitalize fw-bold">User Name:</label>
+                  <label className="text-capitalize fw-bold">{t('user_name')}:</label>
                 </div>
                 <div className="col-md-6 col-12">
                   <p className="mb-0 text_wrap">{user.name}</p>
@@ -100,7 +102,7 @@ const User = () => {
               </div>
               <div className="row mb-2">
                 <div className="col-md-6 col-12">
-                  <label className="text-capitalize fw-bold">User last Name:</label>
+                  <label className="text-capitalize fw-bold">{t('user_last_name')}:</label>
                 </div>
                 <div className="col-md-6 col-12">
                   <p className="mb-0 text_wrap">{user.lastName}</p>
@@ -108,7 +110,7 @@ const User = () => {
               </div>
               <div className="row mb-2">
                 <div className="col-md-6 col-12">
-                  <label className="text-capitalize fw-bold">User email:</label>
+                  <label className="text-capitalize fw-bold">{t('user_email')}:</label>
                 </div>
                 <div className="col-md-6 col-12">
                   <p className="mb-0 text_wrap">{user.email}</p>
@@ -124,9 +126,9 @@ const User = () => {
                   className="btn btn_global"
                   type="button"
                 >
-                  Edytuj
+                  {t('edit')}
                 </button>
-                <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>Usuń Profilowe</button>
+                <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>{t('delete_profile')}</button>
               </div>
             </div>
           </div>
@@ -135,7 +137,7 @@ const User = () => {
           <div className="App_card">
             <div className='row mb-2'>
               <div className='col-md-2 col-12'>
-                <label class="fw-bold">Telefon:</label>
+                <label class="fw-bold">{t('telephone')}:</label>
               </div>
               <div className='col-md-10 col-12'>
                 <p className="labels mb-0">{user.phoneNumber}</p>
@@ -144,7 +146,7 @@ const User = () => {
 
             <div className='row mb-2'>
               <div className='col-md-2 col-12'>
-                <label class="fw-bold">Adres:</label>
+                <label class="fw-bold">{t('address')}:</label>
               </div>
               <div className='col-md-10 col-12'>
                 <p className="labels mb-0">{user.address}</p>
@@ -153,7 +155,7 @@ const User = () => {
 
             <div className='row mb-2'>
               <div className='col-md-2 col-12'>
-                <label class="fw-bold">Rola:</label>
+                <label class="fw-bold">{t('role')}:</label>
               </div>
               <div className='col-md-10 col-12'>
                 <p className="labels mb-0">{user.role}</p>
@@ -162,7 +164,7 @@ const User = () => {
 
             <div className='row mb-2'>
               <div className='col-md-2 col-12'>
-                <label class="fw-bold">O mnie :</label>
+                <label class="fw-bold">{t('about_me')}:</label>
               </div>
               <div className='col-md-10 col-12'>
                 <p className="labels mb-0">{user.opis}</p>
@@ -171,7 +173,7 @@ const User = () => {
 
             <div className="row mt-5 mb-3">
               <div className="col-12">
-                <h1>Dzieci:</h1>
+                <h1>{t('kids')}:</h1>
               </div>
             </div>
 
@@ -180,10 +182,10 @@ const User = () => {
                 <table className="children">
                   <thead>
                     <tr>
-                      <th>Imię</th>
-                      <th>nazwisko</th>
+                      <th>{t('name')}</th>
+                      <th>{t('last_name')}</th>
                       {/* <th>classId</th> */}
-                      <th>Nazwa klasy</th>
+                      <th>{t('class_name')}</th>
 
                     </tr>
                   </thead>
@@ -217,7 +219,7 @@ const User = () => {
                   className="btn btn_global"
                   type="button"
                 >
-                  Dodaj Dziecko
+                  {t('add_child')}
                 </button>
               </div>
             </div>
