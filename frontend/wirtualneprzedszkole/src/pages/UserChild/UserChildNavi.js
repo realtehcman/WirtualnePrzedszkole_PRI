@@ -13,7 +13,9 @@ const UserChildNavi = () => {
             <Sidebar/>
             <div className="usersContainer">
                 <Navbar/>
-                <UserChild value={id}/>
+                <div className="App_card">
+                    <UserChild value={id}/>
+                </div>
             </div>
         </div>
     )
