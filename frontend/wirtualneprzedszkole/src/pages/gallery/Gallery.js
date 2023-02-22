@@ -65,36 +65,35 @@ class Gallery extends React.Component {
                 <table className="content-table">
                     <thead>
                     <tr className="table-head">
-                        <td>Id</td>
-                        <td>nazwa:</td>
-                        <td>sciezka:</td>
-                        <td>klasa</td>
+                        <td>Grupa</td>
+                        <td>Nazwa Galerii</td>
                         <td>Akcje</td>
 
-                        <td></td>
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.all_folders.map((all_folders) => (
-                        <tr key={all_folders.id}>
-                            <td>{all_folders.id}</td>
-                            <td>{all_folders.name}</td>
-                            <td>{all_folders.path}</td>
-                            <td>{all_folders.className}</td>
+                    {this.state.all_folders.filter((folder) => folder.path.includes("Photos"))
 
-                            <td className="foobar">
-                                <Navi value={all_folders.id} />
-                                <Navi2 value={all_folders.id} />
+                        .map((folder) => (
+                            <tr key={folder.id}>
+                                <td>{folder.className}</td>
+                                <td>{folder.path.split("Photos/")[1]}</td>
 
-                            </td>
-                            <td>  <button
-                                onClick={() => this.deleteFolder(all_folders.id)}
-                                className="btn button2 btn-danger"
-                            >
-                                Usuń
-                            </button>  </td>
-                        </tr>
-                    ))}
+                                <td className="foobar">
+                                    <Navi value={folder.id} />
+                                    <Navi2 value={folder.id} />
+
+
+                                    <button
+                                        onClick={() => this.deleteFolder(folder.id)}
+                                        className="btn button2 btn-danger"
+                                    >
+                                        Usuń
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+
                     </tbody>
                 </table>
             </div>

@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { config } from '../../AxiosUrlConfig';
 
-const FILE_REST_API_URL = config.SERVER_URI + '/api'
+const FILE_REST_API_URL = 'http://localhost:8080/api'
 
 class GalleryService {
 
@@ -18,7 +17,7 @@ class GalleryService {
     }
 
     AddMultiFiles() {
-        return axios.get(FILE_REST_API_URL + "/file/uploadMultiFiles/")
+        return axios.get(FILE_REST_API_URL + "file/uploadMultiFiles/")
     }
 
     deleteFolder(id){

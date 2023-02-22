@@ -9,12 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 const Navi = (props) => {
   const navigate = useNavigate();
   return (
-    <button
-      onClick={() => navigate("/group/" + props.value)}
-      className="btn btn-info"
-    >
-      Zobacz
-    </button>
+      <button
+          onClick={() => navigate("/group/" + props.value)}
+          className="btn btn-info"
+      >
+        Zobacz
+      </button>
   );
 };
 
@@ -65,52 +65,50 @@ class GroupComponent extends Component {
     );
     return (
 
-        <div data-testid="group-component" className="scrollable-div">
-          <ToastContainer />
+        <div className="scrollable-div1">
           <div className="abc">
             <input
                 type="text"
                 placeholder="Wyszukaj grupę po nazwie"
                 onChange={this.handleSearch}
             />
-
           </div>
-          <div>
+          <div className="table-container">
 
+            <ToastContainer />
             <table className="content-table">
+
               <thead>
+
               <tr className="table-head table-head--groups">
-                <td>Id</td>
                 <td>Nazwa</td>
                 <td>Opis</td>
                 <td>Akcje</td>
-
               </tr>
-            </thead>
-
-            <tbody className="body table-body">
-            {filteredGroups.map((group) => (
-                <tr key={group.id}>
-                  <td id="td--groups">{group.id}</td>
-                  <td id="td--groups">{group.name}</td>
-                  <td id="td--groups">{group.description}</td>
-                  <td id="td--groups">
-                    <Navi value={group.id} />
-                    <button
-                        onClick={() => this.deleteGroup(group.id)}
-                        className="btn btn-danger"
-                    >
-                      Usuń
-                    </button>
-                  </td>
-                </tr>
-            ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="body table-body">
+              {filteredGroups.map((group) => (
+                  <tr key={group.id}>
+                    <td id="td--groups">{group.name}</td>
+                    <td id="td--groups">{group.description}</td>
+                    <td id="td--groups">
+                      <Navi value={group.id} />
+                      <button
+                          onClick={() => this.deleteGroup(group.id)}
+                          className="btn btn-danger"
+                      >
+                        Usuń
+                      </button>
+                    </td>
+                  </tr>
+              ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-  </div>
-  );
+    );
   }
+
 }
 
 export default GroupComponent;

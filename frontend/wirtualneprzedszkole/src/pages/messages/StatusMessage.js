@@ -14,27 +14,34 @@ const StatusMsg = () => {
             { isRead: ""}
         ]
     });
+    const [error, setError] = useState(false);
     let { id } = useParams();
+
     useEffect(() => {
         const getData = async () => {
-        messageService.getSentMessage(id).then((response) => {
-            let msgData = response.data;
-
-            setMessage({
-                id: msgData.id,
-                author: msgData.author,
-                subject: msgData.subject,
-                content: msgData.content,
-                to: msgData.to,
-
+            messageService.getSentMessage(id).then((response) => {
+                console.log(response.status);
+                if (response.status === 403) {
+                    setError(true);
+                } else {
+                    let msgData = response.data;
+                    setMessage({
+                        id: msgData.id,
+                        author: msgData.author,
+                        subject: msgData.subject,
+                        content: msgData.content,
+                        to: msgData.to,
+                    });
+                }
             });
-        });
-    };
+        };
         getData();
-        // eslint-disable-next-line
     }, []);
 
-    
+    if (error) {
+        window.location.href = '/Message';
+        return null;
+    }
 
     return (
         <div data-testid="status-message-navi" className="scrollable-div">
@@ -45,7 +52,6 @@ const StatusMsg = () => {
                     <td>Nazwisko</td>
                     <td>email</td>
                     <td>Status</td>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -60,8 +66,7 @@ const StatusMsg = () => {
                 </tbody>
             </table>
         </div>
-
-
     );
 }
+
 export default StatusMsg;
