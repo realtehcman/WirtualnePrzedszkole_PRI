@@ -1,11 +1,31 @@
 .home {
   display: flex;
-
   .homeContainer{
     flex: 6;
     margin: 1%;
   }
+  .img-container {
+    position: relative;
+    img {
+      &:hover:after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      &:hover {
+        filter: grayscale(55%);
+        cursor: pointer;
+      }
+    }
+  }
 }
+
 
 .a{
   margin-left: 1%;
@@ -137,3 +157,4 @@ h1 {
 .clickable {
   cursor: pointer;
 }
+

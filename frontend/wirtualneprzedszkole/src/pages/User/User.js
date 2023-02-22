@@ -73,7 +73,7 @@ const User = () => {
         }
     })
   }
-  
+
 
   return (
     <div className="container rounded bg-white mt-5 mb-5">
@@ -86,7 +86,8 @@ const User = () => {
               width="150px"
               /* src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif" */
             />
-            <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>Usuń Profilowe</button>
+            <div className="dlt">            <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>Usuń Profilowe</button>
+            </div>
             <span className="font-weight-bold">
               {user.name} {user.lastName}
             </span>

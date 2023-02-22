@@ -4,6 +4,8 @@ import UserService from "../User/UserService";
 import "./CreateUser.scss";
 import {MDBInput} from 'mdb-react-ui-kit';
 import GroupService from "../GroupDisplay/GroupService";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 class CreateUser extends Component {
@@ -35,7 +37,6 @@ class CreateUser extends Component {
       this.changePhoneHandler = this.changePhoneHandler.bind(this);
       this.changeRoleHandler = this.changeRoleHandler.bind(this);
       this.saveUser = this.saveUser.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
       this.changeChildNameHandler = this.changeChildNameHandler.bind(this);
       this.changeChildLastNameHandler = this.changeChildLastNameHandler.bind(this)
       this.changeClassNameHandler = this.changeClassNameHandler.bind(this)
@@ -70,10 +71,13 @@ class CreateUser extends Component {
         UserService.addUser(user).then((response) => {
           if (response.status !== 200) throw new Error(response.status);
           else {
+            toast.success("Użytkownik dodany pomyślnie", {
+              position: "top-right",
+              autoClose: 2000,
+            });
             window.open("users","_self");
           }
-        })
-
+        });
       }
       else if (e.nativeEvent.submitter.name === "next-parent") {
         let user = JSON.stringify({
@@ -198,16 +202,7 @@ class CreateUser extends Component {
     changeRoleHandler = (event) => {
       this.setState({role: event.target.value});
     };
-    handleSubmit(e) {
-      alert(`Użytkownik został dodany : 
- Imię : ${this.state.name}
- Nazwisko : ${this.state.lastName}
- Email : ${this.state.email}
- Adres : ${this.state.address}
- Numer telefonu : ${this.state.phoneNumber}
- Rola : ${this.state.role}`);
-      e.preventDefault();
-    }
+
 
     changeChildNameHandler = (event) => {
       this.setState({childName: event.target.value})
@@ -227,12 +222,12 @@ class CreateUser extends Component {
         if (this.state.role === "PARENT") {
           return (
           <div data-testid="create-user" className="formContainer">
+            <ToastContainer />
             <div className="row">
               <div className="card col-md-6 offset-md-3 offset-md-3">
                 <div className="form-body">
                   <form onSubmit={(e) =>{
                     this.saveUser(e);
-                    this.handleSubmit(e);
                   } }>
                     <div className="form-group">
                       <MDBInput
@@ -319,12 +314,12 @@ class CreateUser extends Component {
         } else {
           return (
             <div data-testid="create-user" className="formContainer">
+              <ToastContainer />
               <div className="row">
                 <div className="card col-md-6 offset-md-3 offset-md-3">
                   <div className="form-body">
                     <form onSubmit={(e) =>{
                       this.saveUser(e);
-                      this.handleSubmit(e);
                     } }>
                       <div className="form-group">
                         <MDBInput
@@ -406,12 +401,12 @@ class CreateUser extends Component {
     } else {
       return (
         <div className="formContainer">
+          <ToastContainer />
           <div className="row">
             <div className="card col-md-6 offset-md-3 offset-md-3">
               <div className="form-body">
                 <form onSubmit={(e) =>{
                   this.saveUser(e);
-                  //this.handleSubmit(e);
                 } }>
                   <div className="form-group">
                     <MDBInput

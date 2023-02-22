@@ -25,6 +25,7 @@ build:
     - cd ../../backend
     - mvn clean install
 
+
 test:
   stage: test
   script:

@@ -95,16 +95,17 @@ class UserComponent extends React.Component {
 
 
     return (
-        <div data-testid="user-component" className="scrollable-div">
-          <ToastContainer />
+        <div data-testid="user-component" className="scrollable-div1">
+
           <div className="abc">
             <input
                 type="text"
                 placeholder="Wyszukaj.."
                 onChange={this.handleSearch}
             />
-
+            <ToastContainer />
           </div>
+          <div className="table-container">
           <table className="content-table">
             <thead>
             <tr className="table-head">
@@ -139,6 +140,7 @@ class UserComponent extends React.Component {
             ))}
             </tbody>
           </table>
+        </div>
         </div>
     );
   }
