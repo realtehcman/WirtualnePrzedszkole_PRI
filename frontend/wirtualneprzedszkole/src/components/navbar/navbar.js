@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./navbar.scss"
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useNavigate} from "react-router-dom";
@@ -9,10 +9,7 @@ import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
     const {t} = useTranslation();
-
-    // useEffect(() =>{
-    //     i18next.changeLanguage('po');
-    // })
+    const [currentLanguage, setCurrentLanguage] = useState(i18next.language);
     const navigate = useNavigate();
 
     const logout = async (e) => {
@@ -22,6 +19,7 @@ const Navbar = () => {
     }
 
     const onchangeLanguage = (e) => {
+        setCurrentLanguage(e.target.value);
         i18next.changeLanguage(e.target.value);
     }
 
@@ -30,9 +28,9 @@ const Navbar = () => {
             <div className="App_card">
             <div className="wrapper d-flex justify-content-end align-items-center">
                 <div className="me-4">
-                    <select defaultValue='en' className="form-select border-0" onChange={onchangeLanguage}>
+                    <select value={currentLanguage} className="form-select border-0" onChange={(e) => onchangeLanguage(e)}>
+                        <option value="pl">Polish</option>
                         <option value="en">English</option>
-                        <option value="po">Polish</option>
                     </select>
                 </div>
                 <div className="logout btn">

@@ -67,8 +67,9 @@ class SentMessage extends React.Component {
     const {t} = this.props
 
     return (
-      <div data-testid="sent-message" className="App_card">
-        <div className="scrollable-div">
+      <div data-testid="sent-message">
+
+        <div className="scrollable-div maxArea">
           <table className="content-table w-100">
             <thead>
               <tr className="table-head">

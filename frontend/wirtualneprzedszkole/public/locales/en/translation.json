@@ -17,6 +17,7 @@
     "name": "Name",
     "last_name": "Last name",
     "email": "Email",
+    "password": "Password",
     "telephone": "Telephone",
     "address": "Address",
     "role": "Role",

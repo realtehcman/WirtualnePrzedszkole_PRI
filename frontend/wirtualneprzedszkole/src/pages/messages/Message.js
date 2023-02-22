@@ -49,8 +49,8 @@ class Message extends React.Component {
   render() {
     const {t} = this.props
     return (
-      <div data-testid="message" className="App_card">
-        <div className="scrollable-div">
+      <div data-testid="message" className="h-100">
+        <div className="scrollable-div maxArea">
           <table className="content-table w-100">
             <thead>
               <tr className="table-head">

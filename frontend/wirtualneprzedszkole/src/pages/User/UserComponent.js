@@ -97,7 +97,7 @@ class UserComponent extends React.Component {
 
 
     return (
-      <div data-testid="user-component">
+      <div data-testid="user-component" className="h-100">
         <ToastContainer />
           <div className="mb-4">
             <input

@@ -1,11 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-const availableLanguages = ['en', 'po']
-
+const availableLanguages = ['pl', 'en']
 const option = {
     order: ['navigator', 'htmlTag', 'path', 'subdomail'],
     checkWhiteList: true
@@ -16,9 +14,9 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'en',
-    lan: 'en',    //default language
-    debug: true,
+    fallbackLng: 'pl',
+    lan: 'pl',    //default language
+    debug: false,
     whiteList: availableLanguages,
     detection: option,
     interpolation: {

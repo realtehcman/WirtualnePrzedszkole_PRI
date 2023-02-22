@@ -32,17 +32,17 @@ const LoginPage = () => {
 
         <div data-testid="login" className='container-fluid h-100'>
             <div className='row justify-content-center align-items-center h-100'>
-                <div className='col-md-4 col-12'>
+                <div className='col-md-8 col-lg-5 col-12'>
                     <span className="logo-login"> {t('kindergarten_no_25')} </span>
                     <div className='card p-4 box_shadow border-0'>
                         <div className='form-body'>
                             <form onSubmit={login}>
                                 <div className='form-group'>
-                                    <input placeholder='Email' name="Email" className='"form-control'
+                                    <input placeholder={t('email')} name="Email" className='"form-control'
                                         onChange={e => setEmail(e.target.value)} />
                                 </div>
                                 <div className='form-group'>
-                                    <input type="password" placeholder='Password' name="Password" className='"form-control'
+                                    <input type="password" placeholder={t('password')} name="Password" className='"form-control'
                                         onChange={e => setPassword(e.target.value)} />
                                 </div>
                                 {errorMessage && <p className="error-message">{errorMessage}</p>}

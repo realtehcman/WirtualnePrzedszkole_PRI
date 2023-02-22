@@ -64,6 +64,13 @@
     z-index: 1;
 
   }
+  // @media (max-width: $tabletWidth) {
+  //   float: right;
+  //   width: auto;
+  //   border-right: none;
+  //   z-index: 1;
+
+  // }
 
   .top {
     height: 75px;
@@ -117,7 +124,8 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        padding: 10px 0;
+        // padding: 10px 0;
+        padding: 10px;
 
         @media all and (min-width:991px){
           padding: 10px;
@@ -145,11 +153,11 @@
 
         @media (max-width: $phoneMaxWidth) {
           span {
-            font-size: 20px;
+            // font-size: 20px;
             font-weight: 700;
-            padding: 10px;
+            // padding: 10px;
             color: #888;
-            margin-left: 10px;
+            // margin-left: 10px;
           }
         }
       }

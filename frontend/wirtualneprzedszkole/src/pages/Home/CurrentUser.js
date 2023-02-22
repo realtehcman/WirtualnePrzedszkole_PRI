@@ -104,7 +104,7 @@ const CurrentUser = () => {
                     </div>
 
                     <div className='row'>
-                        <div className='col-xl-4 col-md-6 col-12'>
+                        <div className='col-xl-4 col-md-5 col-lg-5 col-12'>
                             <div className='App_card'>
                                 {/* USER IMAGE SECTION BEGINS*/}
                                 <div className="img-container text-center mb-4">
@@ -132,61 +132,61 @@ const CurrentUser = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-xl-8 col-md-6 col-12'>
+                        <div className='col-xl-8 col-md-7 col-lg-7 col-12'>
                             <div className='App_card'>
                                 <div className='row mb-2'>
-                                    <div className='col-md-2 col-12'>
+                                    <div className='col-md-3 col-12'>
                                         <label class="fw-bold">{t('name')}:</label>
                                     </div>
-                                    <div className='col-md-10 col-12'>
+                                    <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.name}</p>
                                     </div>
                                 </div>
                                 <div className='row mb-2'>
-                                    <div className='col-md-2 col-12'>
+                                    <div className='col-md-3 col-12'>
                                         <label class="fw-bold">{t('last_name')}:</label>
                                     </div>
-                                    <div className='col-md-10 col-12'>
+                                    <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.lastName}</p>
                                     </div>
                                 </div>
                                 <div className='row mb-2'>
-                                    <div className='col-md-2 col-12'>
+                                    <div className='col-md-3 col-12'>
                                         <label class="fw-bold">{t('email')}:</label>
                                     </div>
-                                    <div className='col-md-10 col-12'>
+                                    <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.email}</p>
                                     </div>
                                 </div>
                                 <div className='row mb-2'>
-                                    <div className='col-md-2 col-12'>
+                                    <div className='col-md-3 col-12'>
                                         <label class="fw-bold">{t('telephone')}:</label>
                                     </div>
-                                    <div className='col-md-10 col-12'>
+                                    <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.phoneNumber}</p>
                                     </div>
                                 </div>
                                 <div className='row mb-2'>
-                                    <div className='col-md-2 col-12'>
+                                    <div className='col-md-3 col-12'>
                                         <label class="fw-bold">{t('address')}:</label>
                                     </div>
-                                    <div className='col-md-10 col-12'>
+                                    <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.address}</p>
                                     </div>
                                 </div>
                                 <div className='row mb-2'>
-                                    <div className='col-md-2 col-12'>
+                                    <div className='col-md-3 col-12'>
                                         <label class="fw-bold">{t('role')}:</label>
                                     </div>
-                                    <div className='col-md-10 col-12'>
+                                    <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.role}</p>
                                     </div>
                                 </div>
                                 <div className='row mb-2'>
-                                    <div className='col-md-2 col-12'>
+                                    <div className='col-md-3 col-12'>
                                         <label class="fw-bold">{t('description')}</label>
                                     </div>
-                                    <div className='col-md-10 col-12'>
+                                    <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.opis}</p>
                                     </div>
                                 </div>

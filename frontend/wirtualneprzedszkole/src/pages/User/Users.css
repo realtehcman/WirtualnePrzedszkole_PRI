@@ -3,7 +3,9 @@
 }
 .users .usersContainer {
   flex: 6;
-  max-height: 75vh;
+  /* max-height: 75vh; */
+  max-height: 100%;
+  height: 100%;
 }
 .users .button {
   border: none;

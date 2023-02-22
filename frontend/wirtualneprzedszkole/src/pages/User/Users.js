@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 const Users = () => {
   const navigate = useNavigate();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <div data-testid="user" className="users">
       <Sidebar />
@@ -17,10 +17,10 @@ const Users = () => {
         <Navbar />
         <div className="App_card">
           <UserComponent t={t} />
-         <div className="text-center mt-4">
-         <button className="button btn" onClick={() => navigate("/add-user")}>{t('add_user')}
-          </button>
-         </div>
+          <div className="text-center mt-4">
+            <button className="button btn" onClick={() => navigate("/add-user")}>{t('add_user')}
+            </button>
+          </div>
         </div>
       </div>
     </div>

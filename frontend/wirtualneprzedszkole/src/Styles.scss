@@ -7,6 +7,7 @@ body{
 }
 html{
     scroll-behavior: smooth;
+    overflow:auto;
 }
 
 .App_card {
@@ -22,6 +23,7 @@ html{
     width: 100%;
     overflow: hidden;
     word-break: break-word;
+    height: 100%;
 
     h1 {
         text-align: left;
@@ -166,7 +168,7 @@ html{
       height: 100%;
       white-space: nowrap;
       font-size: 16px;
-    min-width: 50%;
+      min-width: 50%;
     }
     .content-table tbody td {
         border-bottom: 1px solid #dddddd;
@@ -187,18 +189,23 @@ html{
     
     td:nth-of-type(1):before {
       content: "Id";
+      float: left;
     }
     td:nth-of-type(2):before {
       content: "Imię";
+      float: left;
     }
     td:nth-of-type(3):before {
       content: "Nazwisko";
+      float: left;
     }
     td:nth-of-type(4):before {
       content: "Email";
+      float: left;
     }
     td:nth-of-type(5):before {
       content: "Akcje";
+      float: left;
     }
   
     #td--groups:nth-of-type(1):before {
@@ -227,10 +234,71 @@ html{
     #td--message:nth-of-type(4)::before {
       content: "Treść" !important;
     }
-  }
+}
 
-  .font16{
-      @media all and (max-width:768px){
-          font-size: 16px;
-      }
+.font16{
+    @media all and (max-width:768px){
+        font-size: 16px;
+    }
+}
+
+
+// GLOBAL BUTTONS
+
+// @media (max-width: 576px) {
+//   .btn, .btn_global {
+//     font-size: 13px;
+//   }
+// }
+
+@media (max-width: 576px) { 
+  .btn, .btn_global {
+    font-size: 13px !important;
   }
+}
+
+@media (min-width: 576px) { 
+  .btn, .btn_global {
+    font-size: 14px !important;
+    width: max-content;
+  }
+}
+
+@media (min-width: 993px) { 
+  .btn, .btn-danger {
+    font-size: 13px !important;
+    margin-right: 0!important;
+    width: max-content;
+  }
+}
+
+
+.usersContainer {
+  // max-height: 100% !important;
+  max-height: 100vh !important;
+  margin: 20px 20px 0 20px !important;
+  height: calc(100% - 52px) !important;
+}
+
+.sidebar {
+  border-right: 0.5px solid rgb(230, 227, 227);
+  /* min-height: 100vh; */
+  width: min-content;
+  background-color: white;
+  transition: 0.8 ease-in;
+  height: 50vh;
+  overflow: hidden;
+}
+
+.sidebar__wrap {
+  width: min-content;
+  height: 100%;
+}
+
+.scrollable-div {
+  height: 100% !important;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  width: 100%;
+  min-width: 100%;
+}
