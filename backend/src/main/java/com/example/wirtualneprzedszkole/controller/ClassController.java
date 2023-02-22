@@ -92,4 +92,9 @@ public class ClassController {
             folderService.deleteFolder(folderId, true);
         classService.deleteClass(id);
     }
+
+    @GetMapping("/getClassName/{id}")
+    public ClassDto getClassName(@PathVariable Long id) {
+        return ClassMapper.mapToDto(classService.getClass(id));
+    }
 }

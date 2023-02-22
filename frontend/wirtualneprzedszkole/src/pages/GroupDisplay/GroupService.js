@@ -25,6 +25,10 @@ class GroupService {
     getGroup(id) {
         return axios.get(GROUP_REST_API_URL + '/' + id)
     }
+
+    getClassName(id) {
+        return axios.get(GROUP_REST_API_URL + '/getClassName/' + id)
+    }
 }
 // eslint-disable-next-line
 export default new GroupService();
