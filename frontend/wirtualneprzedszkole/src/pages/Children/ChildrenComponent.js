@@ -23,7 +23,7 @@ const Navi2 = (props) => {
   return (
     <button
       onClick={() => navigate("/EditChild/" + props.value)}
-      className="btn btn-info"
+      className="btn btn-info mx-2"
     >
       {props.t('edit')}
     </button>

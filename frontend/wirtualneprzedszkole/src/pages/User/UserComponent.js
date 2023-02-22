@@ -12,7 +12,7 @@ const Navi = (props) => {
   return (
     <button
       onClick={() => navigate("/user/" + props.value)}
-      className="btn btn-info"
+      className="btn btn-info me-2 my-lg-2"
     >
       {props.t('look')}
     </button>

@@ -23,7 +23,7 @@ const Navi = (props) => {
   return (
     <button
       onClick={() => navigate("/ViewMessage/" + props.value)}
-      className="btn btn-info"
+      className="btn btn-info me-2 my-lg-2"
     >
       {props.t('view')}
     </button>

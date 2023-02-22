@@ -22,7 +22,7 @@ const Navi = (props) => {
     return (
         <button
             onClick={() => navigate("/ViewGallery/" + props.value)}
-            className="btn btn-info"
+            className="btn btn-info me-2 my-lg-2"
         >
             {props.t('view')}
         </button>
@@ -61,7 +61,7 @@ class Gallery extends React.Component {
         const {t} = this.props
 
         return (
-            <div data-testid = 'gallery' className="scrollable-div">
+            <div data-testid = 'gallery' className="scrollable-div maxArea">
                 <table className="content-table w-100">
                     <thead>
                     <tr className="table-head">
