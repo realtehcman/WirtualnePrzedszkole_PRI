@@ -18,7 +18,7 @@ const CurrentUser = () => {
     const [userAvatar, setUserAvatar] = useState("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg");
     const [file, setFile] = useState();
     const navigate = useNavigate();
-    const {t} = useTranslation();
+    //const {t} = useTranslation();
 
     const [current_user, setCurrent_User] = useState({
         id:'',

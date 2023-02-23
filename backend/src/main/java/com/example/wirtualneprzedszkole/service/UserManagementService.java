@@ -30,6 +30,7 @@ public class UserManagementService {
     private final ChildService childService;
     private final ClassService classService;
     private final UserService userService;
+    private final StorageServiceImpl storageService;
 
     public User getUser(Long id) {
         return userRepo.findById(id).orElseThrow();
@@ -146,6 +147,7 @@ public class UserManagementService {
     @Transactional
     public User deleteAvatar(User user) {
         User userEdited = userRepo.findById(user.getId()).orElseThrow();
+        storageService.delete(userEdited.getPicture(), -1L);
         userEdited.setPicture(null);
         return userEdited;
     }

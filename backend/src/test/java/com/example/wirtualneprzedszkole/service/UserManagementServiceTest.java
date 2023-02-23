@@ -40,12 +40,13 @@ public class UserManagementServiceTest {
     private UserService userService;
 
     private UserManagementService userManagementService;
+    private StorageServiceImpl storageService;
     private User user;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        userManagementService = new UserManagementService(userRepo, passwordEncoder, randomPasswordGenerator, emailSenderService, childService, classService, userService);
+        userManagementService = new UserManagementService(userRepo, passwordEncoder, randomPasswordGenerator, emailSenderService, childService, classService, userService, storageService);
         user = new User();
         user.setId(1L);
         user.setEmail("user@email.com");
