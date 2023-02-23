@@ -37,11 +37,11 @@ test:
     - cd ../../backend
     - mvn test
 
-deploy_job:
-  stage: deploy
-  script:
-    - make deploy
-  when: manual
+#deploy_job:
+ # stage: deploy
+ # script:
+  #  - make deploy
+  #when: manual
 
 deploy:
   stage: deploy
