@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./navbar.scss"
 import LogoutIcon from '@mui/icons-material/Logout';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import LoginService from "../../pages/Login/LoginService.js";
 import i18next from 'i18next';
 import { useTranslation } from "react-i18next";
@@ -26,7 +26,9 @@ const Navbar = () => {
                     <div className="logout btn">
                         <LogoutIcon/>
                         <span onClick={logout}>Wyloguj się</span>
+
                     </div>
+
                 </div>
             </div>
         </div>

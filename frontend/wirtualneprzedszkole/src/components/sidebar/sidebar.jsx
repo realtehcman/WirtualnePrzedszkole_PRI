@@ -150,19 +150,7 @@ const Sidebar = () => {
                         </Link>
                     </li>
 
-                    {/*<li>*/}
-                    {/*  /!* TODO *!/*/}
-                    {/*  <Link to={"#"}>*/}
-                    {/*    <FeedIcon className="icon" />*/}
-                    {/*    <span>Aktualości</span>*/}
-                    {/*  </Link>*/}
-                    {/*</li>*/}
-                    {/*<li>*/}
-                    {/*  <Link to={"#"}>*/}
-                    {/*    <SupervisorAccountIcon className="icon" />*/}
-                    {/*    <span>Portal rodzica</span>*/}
-                    {/*  </Link>*/}
-                    {/*</li>*/}
+
                     <li>
                         <Link to={"/Knowledge"}>
                             <LocalLibraryIcon className="icon" />
@@ -174,13 +162,13 @@ const Sidebar = () => {
                             <CollectionsIcon className="icon" />
                             <span>Galeria</span>
                         </Link>
-                    </li>
-                    <li>
-                        <Link to={"/AddGallery"}>
-                            <AddPhotoAlternateIcon className="icon" />
-                            <span>Dodaj pliki</span>
-                        </Link>
-                    </li> </div>
+                    </li>   <li>
+                    <Link to={"/UserManual"} target="_blank">
+                        <span>Instrukcja</span>
+                    </Link>
+
+                </li>
+                    </div>
             );
         }
     }
@@ -212,6 +200,7 @@ const Sidebar = () => {
                             <div className="top">
                                 <span className="logo">Przedszkole nr 25</span>
                             </div>
+
                         </div>
                     </div>
                 </div>
