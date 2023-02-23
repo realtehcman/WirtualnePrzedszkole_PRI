@@ -40,3 +40,46 @@ html{
     color: #fff!important;
 }
 
+.del_gallery_img{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    background-color: #d51313;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.my-masonry-grid{
+    width: 100%;
+    column-count: 10;
+    column-gap: 20px;
+}
+.my-masonry-grid_column{
+    width: 100%!important;
+    img{
+        max-width: 100%;
+        width: 100%;
+        margin-bottom: 5%;
+    }
+    :hover {
+        z-index: 1000;
+        transform: scale(1.2);
+    }
+}
+
+.delete_photo_popup, .add_photo_popup, .open_photo_popup{
+    .popup{
+        z-index: 9999;
+        .popup-inner{
+            max-width: 500px;
+            width: 100%;
+            img {
+                width: 100%
+            }
+        }
+    }
+}
