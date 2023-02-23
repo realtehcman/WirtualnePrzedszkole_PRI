@@ -10,13 +10,9 @@ import CreateGallery from './CreateGallery';
 import FolderService from '../Folders/FolderService';
 import FileService from './FileService';
 import saveAs from 'file-saver'
-import { useTranslation } from "react-i18next";
 
 const ViewGallery = () => {
-    const {t} = useTranslation();
-
     const [photos, setPhotos] = useState([]);
-    const [folder, setFolder] = useState(null);
 
     const [allPhotos, setAllPhotos] = useState([]);
 
@@ -43,15 +39,6 @@ const ViewGallery = () => {
     })
 
     let { id } = useParams();
-
-    useEffect(() => {
-        const getFolder = async () => {
-            FolderService.getFolder(id).then(response => {
-                setFolder(response.data)
-            })
-        }
-        getFolder().then(r => console.log(r))
-    }, [])
 
     useEffect(() => {
         const getData = async () => {
@@ -100,13 +87,6 @@ const ViewGallery = () => {
                 
             }
         })
-
-        // GalleryService.AddFile(folder.id, formData).then((res) => {
-        //     if (res.status !== 200) {
-        //         console.log(res + "Successfully uploaded");
-        //     }
-        // })
-
         setAddPhotoPopup(false);
     }
 
@@ -149,16 +129,7 @@ const ViewGallery = () => {
     return (
         <div>
             {/* {photos} */}
-            <div className='App_card'>
-                <div className='d-flex align-items-center justify-content-end'>
-                    <button
-                        onClick={() => setAddPhotoPopup(true)}
-                        className="btn btn_global">
-                        {t('add_an_image')}
-                    </button>
-                </div>
-            </div>
-
+            <h1>{folderName}</h1>
             <div className='gallery_container px-4 py-4'>
                 <Masonry
                     breakpointCols={3}
@@ -170,8 +141,8 @@ const ViewGallery = () => {
                             <button type="button" className='btn btn-info del_gallery_img mx-1 my-1 px-0 py-0' onClick={() => setDeletePhotoPopup({isPop: true, img: photo[1]})}>
                                 <ClearIcon className="icon mx-0" />
                             </button>
-                            <img src={photo.path} width="100%" />
-                            {/* <video src={Vid1} controls={true} ></video> */}
+                        
+                            <img src={photo[0]} alt={photo[1].name} onClick={() => setOpenPhotoPopup({isPop: true, img: photo[0], name: photo[1].name})}/>
                         </div>
                         
                     )
@@ -181,29 +152,25 @@ const ViewGallery = () => {
 
             <div className="delete_photo_popup">
                 <Popup trigger={deletePhotoPopup.isPop} setTrigger={setDeletePhotoPopup}>
-                    <h3 className='text-center mb-2'>{t('delete_image')}</h3>
-                    <p className='text-center py-3'>{t('are_you_sure_you_want_to_delete_this_image')}?</p>
+                    <h3 className='text-center mb-2'>Usuń Obraz</h3>
+                    <p className='text-center py-3'>Czy na pewno chcesz usunąć ten obraz?</p>
                     <div className='d-flex justify-content-between'>
-                        <button className='btn btn-primary' onClick={() => setDeletePhotoPopup({isPop: false, img: {}})}>{t('cancel')}</button>
-                        <button className='btn btn-danger' onClick={() => deleteFile(deletePhotoPopup.img)}>{t('delete')}</button>
+                        <button className='btn btn-primary' onClick={() => setDeletePhotoPopup({isPop: false, img: {}})}>Anuluj</button>
+                        <button className='btn btn-danger' onClick={() => deleteFile(deletePhotoPopup.img)}>Usuń</button>
                     </div>
                 </Popup>
             </div>
 
             <div className="add_photo_popup">
                 <Popup trigger={addPhotoPopup} setTrigger={setAddPhotoPopup}>
-                    <h3 className='text-center mb-2'>{t('add_photos')}</h3>
+                    <h3 className='text-center mb-2'>Dodaj zdjęcie</h3>
                     <form onSubmit={addFiles} encType='multipart/form-data'>
-                        <div className='form-group'>
-                            <input placeholder={t('folder_name')} name="Nazwa Folderu" className='form-control'
-                                onChange={e => setNewFile({ name: e.target.value })} />
-                        </div>
-                        <div>
-                            <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple /></div>
-                        </div>
-                        <div className="form-but mt-3">
-                            <button className="button btn  w-auto">{t('save')}</button>
-                        </div>
+                            <div className="uploadDiv2">
+                                    <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
+                            </div>
+                            <div className="form-but">
+                                    <button className="button">Zapisz</button>
+                            </div>
                     </form>
                 </Popup>
             </div>
@@ -213,7 +180,7 @@ const ViewGallery = () => {
                 <Popup trigger={openPhotoPopup.isPop} setTrigger={setOpenPhotoPopup}>
                 <img src={openPhotoPopup.img} alt={openPhotoPopup.name}/>
                 <div className='d-flex justify-content-between'>
-                    <button className='btn btn-primary' onClick={() => downloadPhoto(openPhotoPopup.img, openPhotoPopup.name)}>{t('download')}</button>
+                    <button className='btn btn-primary' onClick={() => downloadPhoto(openPhotoPopup.img, openPhotoPopup.name)}>Pobierz</button>
                 </div>
                 </Popup>
             </div>            
@@ -224,7 +191,7 @@ const ViewGallery = () => {
                     onClick={() => setAddPhotoPopup(true)}
                     className="btn btn-info"
                 >
-                    {t('add_photos')}
+                    Dodaj zdjęcie
                 </button>
             </div>
             <div className='d-flex align-items-center justify-content-end'>
@@ -232,7 +199,7 @@ const ViewGallery = () => {
                     onClick={() => downloadFolder(folderName)}
                     className="btn btn-info"
                 >
-                    {t('download_all')}
+                    Pobierz wszystkie
                 </button>
             </div>
         </div>
