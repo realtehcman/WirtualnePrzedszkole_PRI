@@ -145,7 +145,7 @@ const CurrentUser = () => {
                             <div className='App_card'>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">Imię:</label>
+                                        <label className="fw-bold">Imię:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.name}</p>
@@ -153,7 +153,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">Nazwisko:</label>
+                                        <label className="fw-bold">Nazwisko:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.lastName}</p>
@@ -161,7 +161,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">Email:</label>
+                                        <label className="fw-bold">Email:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.email}</p>
@@ -169,7 +169,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">Telefon:</label>
+                                        <label className="fw-bold">Telefon:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.phoneNumber}</p>
@@ -177,7 +177,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">Adres:</label>
+                                        <label className="fw-bold">Adres:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.address}</p>
@@ -185,7 +185,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">Rola:</label>
+                                        <label className="fw-bold">Rola:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.role}</p>
@@ -239,7 +239,7 @@ const CurrentUser = () => {
 
                                     <tbody>
                                     {current_user.children.map((child) => (
-                                        <tr>
+                                        <tr key={child.id}>
 
                                             <td className="clickable"
                                                 onClick={() => navigate("/child/" + child.id)}>{child.name}</td>
