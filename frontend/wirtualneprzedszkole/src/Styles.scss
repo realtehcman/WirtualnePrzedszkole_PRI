@@ -23,7 +23,8 @@ html{
     width: 100%;
     overflow: hidden;
     word-break: break-word;
-    height: 100%;
+    // height: 100%;
+    // height: calc(100% - 100px);
 
     h1 {
         text-align: left;
@@ -273,11 +274,18 @@ html{
 }
 
 
+// .usersContainer {
+//   max-height: 100vh !important;
+//   margin: 20px 20px 0 20px !important;
+//   height: calc(100% - 52px) !important;
+// }
+
 .usersContainer {
-  // max-height: 100% !important;
   max-height: 100vh !important;
   margin: 20px 20px 0 20px !important;
-  height: calc(100% - 52px) !important;
+  height: calc(100vh - 25px) !important;
+  padding: 5px;
+  overflow: hidden;
 }
 
 .sidebar {
@@ -296,9 +304,15 @@ html{
 }
 
 .scrollable-div {
-  height: 100% !important;
+  // height: 100% !important;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto !important;
   width: 100%;
   min-width: 100%;
+}
+
+.sendMsg_container{
+  overflow: unset;
+  margin-bottom: 20px;
 }

@@ -12,7 +12,7 @@ const SendMessageNavi = () => {
     return (
         <div data-testid="send-message-navi" className="users">
             <Sidebar/>
-            <div className="usersContainer">
+            <div className="usersContainer sendMsg_container">
                 <Navbar/>
                 <SendMessage value={id} t={t}/>
             </div>

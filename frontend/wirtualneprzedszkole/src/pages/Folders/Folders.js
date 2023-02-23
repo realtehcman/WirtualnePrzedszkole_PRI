@@ -1,12 +1,16 @@
-import React, {useEffect, useState} from 'react'
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FolderService from './FolderService'
 import "./Folders.scss"
+import { useTranslation } from "react-i18next";
 
 
 const Folders = (props) => {
 
+    const { t } = useTranslation();
     const navigate = useNavigate()
+    const [btnHeight, setBtnHeight] = useState(0);
+    const btnRef = useRef(null);
     const [folder, setFolder] = useState(
         {
             id: "",
@@ -20,34 +24,40 @@ const Folders = (props) => {
     )
 
 
-    const {id} = props.value
+    const { id } = props.value
 
     useEffect(() => {
-        const getFolder = async() => {
-        FolderService.getFolder(id).then(response => {
-            setFolder(response.data)
-        })
+        const getFolder = async () => {
+            FolderService.getFolder(id).then(response => {
+                setFolder(response.data)
+            })
         }
         getFolder().then(r => console.log(r))
-    // eslint-disable-next-line 
+        // eslint-disable-next-line 
     }, [])
 
+    useEffect(() => {
+        setBtnHeight(btnRef.current.clientHeight);
+    }, [btnRef]);
 
-    const deleteFolder = async(folderId) => {
+
+    const deleteFolder = async (folderId) => {
         FolderService.deleteFolder(folderId).then((response) => {
-            setFolder({childrenFolder: folder.childrenFolder.filter((refreshFolder) => folderId !== refreshFolder.id)})
+            setFolder({ childrenFolder: folder.childrenFolder.filter((refreshFolder) => folderId !== refreshFolder.id) })
         })
     }
 
-    const showFolderContent = async(folderId) => {
+    const showFolderContent = async (folderId) => {
         FolderService.getFolder(folderId).then((response) => {
-            let showFolder = ({id: response.data.id,
-            name: response.data.name,
-            path: response.data.path,
-            className: response.data.className,
-            fileDataList: response.data.fileDataList,
-            childrenFolder: response.data.childrenFolder,
-            parent: response.data.parent})
+            let showFolder = ({
+                id: response.data.id,
+                name: response.data.name,
+                path: response.data.path,
+                className: response.data.className,
+                fileDataList: response.data.fileDataList,
+                childrenFolder: response.data.childrenFolder,
+                parent: response.data.parent
+            })
             if (folder.name === "Other") {
                 navigate("/folderOther/" + showFolder.id)
             }
@@ -58,37 +68,37 @@ const Folders = (props) => {
     }
 
     return (
-        <div data-testid="folders">
-        <div className="scrollable-div">
-            <table className="content-table w-100">
-                <thead>
-                    <tr className="table-head">
-                        <td>Folder</td>
-                        <td>Zobacz</td>
-                        <td>Usuń</td>
-                    </tr>
-                </thead>
-                <tbody className="body table-body">
-                    {folder.childrenFolder.map((item) => (
-                        <tr key = {item.id}>
-                            <td>{item.name}</td>
-                            <td><button onClick={() => showFolderContent(item.id)} className="btn btn-info">Zobacz</button></td>
-                            <td><button onClick={() => deleteFolder(item.id)} className="btn btn-danger">Usuń</button></td>
+        <div data-testid="folders" className='h-100'>
+            <div className="scrollable-div maxArea" style={{ height: `calc(100% - ${btnHeight}px)` }}>
+                <table className="content-table w-100">
+                    <thead>
+                        <tr className="table-head">
+                            <td>{t('folder')}</td>
+                            <td>{t('look')}</td>
+                            <td>{t('delete')}</td>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <br />
+                    </thead>
+                    <tbody className="body table-body">
+                        {folder.childrenFolder.map((item) => (
+                            <tr key={item.id}>
+                                <td>{item.name}</td>
+                                <td><button onClick={() => showFolderContent(item.id)} className="btn btn-info">{t('look')}</button></td>
+                                <td><button onClick={() => deleteFolder(item.id)} className="btn btn-danger">{t('delete')}</button></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <br />
 
-        </div>
-        <div className='text-center'>
-        <button
-            className="button btn"
-            onClick={() => navigate("/addFolder", {state: {folder}})}
-        >
-            Dodaj Folder
-        </button>
-        </div>
+            </div>
+            <div className='text-center' ref={btnRef}>
+                <button
+                    className="button btn"
+                    onClick={() => navigate("/addFolder", { state: { folder } })}
+                >
+                    {t('add_folder')}
+                </button>
+            </div>
         </div>
     )
 }

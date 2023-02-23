@@ -24,7 +24,10 @@ class GroupComponent extends Component {
     this.state = {
       groups: [],
       searchTerm: "",
+      inputHeight: 0
     };
+
+    this.myDiv = React.createRef();
     this.deleteGroup = this.deleteGroup.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -54,6 +57,7 @@ class GroupComponent extends Component {
   }
 
   componentDidMount() {
+    this.setState({inputHeight: this.myDiv.current.offsetHeight})
     GroupService.getGroups().then((response) => {
       this.setState({ groups: response.data });
     });
@@ -66,9 +70,9 @@ class GroupComponent extends Component {
     );
     return (
 
-      <div data-testid="group-component">
+      <div data-testid="group-component" className="h-100">
         <ToastContainer />
-        <div className="mb-4">
+        <div ref={this.myDiv} className="pb-4">
           <input
             type="text"
             className="form-control border-0"
@@ -77,7 +81,7 @@ class GroupComponent extends Component {
           />
 
         </div>
-        <div className="scrollable-div maxArea">
+        <div className="scrollable-div maxArea" style={{height: `calc(100% - ${this.state.inputHeight}px)`}}>
 
           <table className="content-table w-100">
             <thead>

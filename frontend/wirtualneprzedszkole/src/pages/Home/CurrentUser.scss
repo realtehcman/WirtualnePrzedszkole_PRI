@@ -3,7 +3,12 @@
 
   .homeContainer{
     flex: 6;
-    margin: 20px;
+    // margin: 20px;
+    max-height: 100vh !important;
+    margin: 20px 20px 0 20px !important;
+    height: calc(100vh - 25px) !important;
+    padding: 5px;
+    // overflow: hidden;
   }
 }
 

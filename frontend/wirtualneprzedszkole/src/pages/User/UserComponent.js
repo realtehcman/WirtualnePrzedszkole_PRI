@@ -27,8 +27,10 @@ class UserComponent extends React.Component {
       users: [],
       searchTerm: "",
       sortAsc: true,
+      inputHeight: 0
     };
 
+    this.myDiv = React.createRef();
     this.deleteUser = this.deleteUser.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -75,6 +77,7 @@ class UserComponent extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({inputHeight: this.myDiv.current.offsetHeight})
     UserService.getUsers().then((response) => {
       this.setState({ users: response.data });
       this.loger();
@@ -99,8 +102,8 @@ class UserComponent extends React.Component {
     return (
       <div data-testid="user-component" className="h-100">
         <ToastContainer />
-          <div className="mb-4">
-            <input
+          <div ref={this.myDiv} className="pb-4">
+            <input 
               type="text"
               className="form-control border-0"
               placeholder={t('search')} 
@@ -108,7 +111,7 @@ class UserComponent extends React.Component {
             />
           </div>
 
-          <div className="scrollable-div maxArea">
+          <div className="scrollable-div maxArea" style={{height: `calc(100% - ${this.state.inputHeight}px)`}}>
             <table className="content-table w-100">
               <thead>
                 <tr className="table-head">

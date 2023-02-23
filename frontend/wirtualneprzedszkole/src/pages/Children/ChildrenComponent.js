@@ -36,7 +36,9 @@ class ChildrenComponent extends React.Component {
     this.state = {
       children: [],
       searchTerm: "",
+      inputHeight: 0
     };
+    this.myDiv = React.createRef();
     this.deleteChild = this.deleteChild.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
 
@@ -68,6 +70,7 @@ class ChildrenComponent extends React.Component {
 
 
   componentDidMount() {
+    this.setState({inputHeight: this.myDiv.current.offsetHeight})
     ChildrenService.getChildren().then((response) => {
       this.setState({ children: response.data });
       this.loger();
@@ -86,12 +89,12 @@ class ChildrenComponent extends React.Component {
 
 
     return (
-      <div data-testid="children-component">  <ToastContainer position="top-center" />
-        <div className="mb-4">
+      <div data-testid="children-component" className="h-100">  <ToastContainer position="top-center" />
+        <div ref={this.myDiv} className="pb-4">
           <input type="text" className="form-control border-0" placeholder={t('search')} onChange={this.handleSearch} />
         </div>
 
-        <div className="scrollable-div maxArea">
+        <div className="scrollable-div maxArea" style={{height: `calc(100% - ${this.state.inputHeight}px)`}}>
           <table className="content-table w-100">
             <thead>
               <tr className="table-head">
