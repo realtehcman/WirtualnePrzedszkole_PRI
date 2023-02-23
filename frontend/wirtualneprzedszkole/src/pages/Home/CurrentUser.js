@@ -130,16 +130,13 @@ const CurrentUser = () => {
                                 </div>
                                 <div className="button-container">
                                     <div className="uploadAvatar">
-                                        <form onSubmit={addAvatar} encType='multipart/form-data'>
-                                            <div>
-                                            </div>
+
                                             <div className='d-flex justify-content-between align-items-center mt-4 gap10'>
 
                                                 <button className="btn btn-danger" onClick={() => deleteAvatar()}>Usuń Profilowe</button>
                                             </div>
 
 
-                                        </form>
                                     </div>
                                 </div>
                             </div>
