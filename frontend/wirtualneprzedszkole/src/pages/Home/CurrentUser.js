@@ -18,15 +18,7 @@ const CurrentUser = () => {
     const [userAvatar, setUserAvatar] = useState("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg");
     const [file, setFile] = useState();
     const navigate = useNavigate();
-<<<<<<< Updated upstream
-    //const {t} = useTranslation();
-=======
-<<<<<<< HEAD
 
-=======
-    //const {t} = useTranslation();
->>>>>>> bc97696689a96412f2e342bb860948df5390e7a8
->>>>>>> Stashed changes
 
     const [current_user, setCurrent_User] = useState({
         id: '',
