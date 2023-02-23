@@ -211,7 +211,7 @@ const Sidebar = () => {
               <div className="center">
                 <ul>{MenuView()}</ul>
 
-                <div className="top">
+                <div className="top d-md-none">
                   <span className="logo">Przedszkole nr 25</span>
                 </div>
               </div>

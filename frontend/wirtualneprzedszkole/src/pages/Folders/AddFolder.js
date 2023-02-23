@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {useNavigate} from "react-router-dom";
+import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import FolderService from './FolderService'
 import '../CreateUser/CreateUser.scss'
 import './AddFolder.scss'
@@ -15,14 +15,14 @@ const AddFolder = (props) => {
             fileDataList: [{}],
         }
     )
-    
-    let {folder} = props
+
+    let { folder } = props
 
 
-    const addFolder = async(event) => {
+    const addFolder = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        
+
         const files = event.currentTarget;
         for (let i = 1; i < files.length; i++) {
             formData.append('file', files[i]);
@@ -35,9 +35,9 @@ const AddFolder = (props) => {
             else {
                 if (temp > 0)
                     FileService.addFiles(response.data.id, formData).then((res) => {
-                    if (res.status !== 200) throw new Error(res.status);
+                        if (res.status !== 200) throw new Error(res.status);
 
-                })
+                    })
                 navigate(-1)
             }
         })
@@ -45,25 +45,31 @@ const AddFolder = (props) => {
     }
 
     return (
-        <div data-testid="add-folder" className='formContainer'>
-            <div className='row'>
-                <div className='card col-md-6 offset-md-3 offset-md-3'>
-                    <div className='form-body'>
-                        <form onSubmit={addFolder} encType='multipart/form-data'>
+        <div data-testid="add-folder">
+            <div className='form-body'>
+                <form onSubmit={addFolder} encType='multipart/form-data'>
+                    <div className="row">
+                        <div className="col-md-6 col-12">
                             <div className='form-group'>
-                                <input placeholder='Nazwa Folderu' name="Nazwa Folderu" className='"form-control' 
-                                onChange={e => setNewFolder({name: e.target.value})}/>
+                                <input placeholder='Nazwa Folderu' name="Nazwa Folderu" className='form-control'
+                                    onChange={e => setNewFolder({ name: e.target.value })} />
                             </div>
-                            <div className="uploadDiv2">
-                                    <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
+                        </div>
+                        <div className="col-md-6 col-12">
+                            <div>
+                                <div className="form-group">
+                                    <input type="file" className="form-control" id="customFile" name='file' multiple />
+                                </div>
                             </div>
-                            <div className="form-but">
-                                    <button className="button">Zapisz</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
 
+                    <div className='row'>
+                        <div className='col-12 text-center mt-4'>
+                        <button type="button" className="button btn w-auto">Zapisz</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     )

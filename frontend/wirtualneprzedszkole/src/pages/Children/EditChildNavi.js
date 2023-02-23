@@ -12,7 +12,9 @@ const EditChildNavi = () => {
             <Sidebar />
             <div className="usersContainer">
                 <Navbar />
+                <div className="App_card">
                 <EditChild  value={id}/>
+                </div>
             </div>
         </div>
     );

@@ -1,11 +1,26 @@
 @import "/src/utilities/_variables.scss";
 
-.login {
+
+.login, .reset_password {
   display: flex;
+  height: 100vh;
+}
+
+.login, .reset_password {
+  display: flex;
+  @media all and (min-width:1024px){
+    height: 100vh;
+  }
+
 
   .loginContainer {
     flex: 6;
   }
+}
+
+.box_shadow{
+  -webkit-box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 5%);
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 5%);
 }
 
 input, select {
@@ -20,21 +35,22 @@ input, select {
   padding: 20px;
 }
 .form-group {
-  padding: 15px;
+  padding: 15px 0;
   display: block;
 }
 
 .form-but {
   display: block;
-  padding: 15px;
-  width: 50%;
   text-align: center;
-  margin-left: 22.5%;
+
+  .button, button{
+    width: 100%;
+  }
 }
 
 .button {
-  background-color: #4424bb;
-  color: white;
+  background: #4424bb!important;
+  color: #fff!important;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -63,15 +79,15 @@ body {
 }
 
 .logo-login {
-  margin-left: 36.5%;
+  display: block;
   text-align: center;
   font-size: 25px;
   font-weight: bold;
   color: #4424bb;
+  margin-bottom: 25px;
   @media (max-width: $phoneMaxWidth) {
     margin-left: 0%;
-    margin-bottom: 25px;
-    display: inline-block;
+    // display: inline-block;
     font-size: 25px;
   }
 }

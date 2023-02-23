@@ -3,8 +3,10 @@ import UserService from "../User/UserService";
 import "./UserInfo.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import FileService from "../gallery/FileService"
+import { useTranslation } from "react-i18next";
 
 const User = () => {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const [user, setUser] = useState({
     id: "",
@@ -29,122 +31,161 @@ const User = () => {
 
   useEffect(() => {
     const getData = async () => {
-    // const response = UserService.getUser(id)
-    // setUser((await response).data)
-    UserService.getUser(id).then((response) => {
-      console.log("Response from main API: ", response);
-      let userData = response.data;
-      let children = userData.children.map((it) => {
-        return { id: it.id, name: it.name, lastName: it.lastName, classId: it.classId };
-      });
-      setUser({
-        id: userData.id,
-        email: userData.email,
-        name: userData.name,
-        lastName: userData.lastName,
-        phoneNumber: userData.phoneNumber,
-        address: userData.address,
-        role: userData.role,
-        opis: userData.opis,
-        children: children,
+      // const response = UserService.getUser(id)
+      // setUser((await response).data)
+      UserService.getUser(id).then((response) => {
+        console.log("Response from main API: ", response);
+        let userData = response.data;
+        let children = userData.children.map((it) => {
+          return { id: it.id, name: it.name, lastName: it.lastName, classId: it.classId };
+        });
+        setUser({
+          id: userData.id,
+          email: userData.email,
+          name: userData.name,
+          lastName: userData.lastName,
+          phoneNumber: userData.phoneNumber,
+          address: userData.address,
+          role: userData.role,
+          opis: userData.opis,
+          children: children,
+        });
+
+        if (userData.picture !== undefined) {
+          FileService.getFile(-1, userData.picture).then(response => {
+            let urlCreator = window.URL || window.webkitURL;
+            setUserAvatar(urlCreator.createObjectURL(response.data))
+          })
+        } else {
+          setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+        }
       });
 
-      if (userData.picture !== undefined) {
-        FileService.getFile(-1, userData.picture).then(response => {
-          let urlCreator = window.URL || window.webkitURL;
-          setUserAvatar(urlCreator.createObjectURL(response.data))
-        })
-      } else {
-          setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
-      }
-    });
-    
-  }
+    }
     getData();
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
 
-  const deleteAvatar = async(deletePictureUser) => {
+  const deleteAvatar = async (deletePictureUser) => {
     UserService.deleteAvatar(deletePictureUser).then(response => {
-        if (response.status !== 200) throw new Error(response.status);
-        else {
-            setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
-        }
+      if (response.status !== 200) throw new Error(response.status);
+      else {
+        setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+      }
     })
   }
 
 
   return (
-    <div className="container rounded bg-white mt-5 mb-5">
+    <>
+      <div className="App_card">
+        <h1>{t('information')}</h1>
+      </div>
+
       <div className="row">
-        <div className="col-md-3 border-right">
-          <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-            <img src= {userAvatar}
-              alt="zdjęcie profilowe"
-              className="rounded-circle mt-5"
-              width="150px"
-              /* src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif" */
-            />
-            <div className="dlt">            <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>Usuń Profilowe</button>
-            </div>
-            <span className="font-weight-bold">
-              {user.name} {user.lastName}
-            </span>
-            <span className="text-black-50">{user.email}</span>
-            <span> </span>
-          </div>
-          <div className="mt-5 text-center">
-            <button
-              onClick={() =>
-                navigate("/user/" + user.id + "/edit", { replace: true })
-              }
-              className="btn btn-primary profile-button"
-              type="button"
-            >
-              Edytuj
-            </button>
-          </div>
-        </div>
-        <div className="col-md-5 border-right">
-          <div className="p-3 py-5">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h4 className="text-right">Informacje</h4>
-            </div>
-            <div className="row mt-2">
-              <div className="col-md-6"></div>
-              <div className="col-md-6"></div>
-            </div>
-            <div className="row mt-3">
-              <div className="col-md-12">
-                <label className="labels">Telefon: </label>{" "}
-                <label className="labels">{user.phoneNumber}</label>
+        <div className="col-xl-4 col-md-6 col-12">
+          <div className="App_card">
+            <div>
+              <div className="img-container text-center mb-4">
+                <img src={userAvatar} alt="zdjęcie profilowe" className="rounded-circle user_img"
+                /* src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif" */
+                />
               </div>
-              <div className="col-md-12">
-                <label className="labels">Adres: </label>{" "}
-                <label className="labels">{user.address}</label>
+              <div className="row mb-2">
+                <div className="col-md-6 col-12">
+                  <label className="text-capitalize fw-bold">{t('user_name')}:</label>
+                </div>
+                <div className="col-md-6 col-12">
+                  <p className="mb-0 text_wrap">{user.name}</p>
+                </div>
               </div>
-              <div className="col-md-12">
-                <label className="labels">Rola: </label>{" "}
-                <label className="labels">{user.role}</label>
+              <div className="row mb-2">
+                <div className="col-md-6 col-12">
+                  <label className="text-capitalize fw-bold">{t('user_last_name')}:</label>
+                </div>
+                <div className="col-md-6 col-12">
+                  <p className="mb-0 text_wrap">{user.lastName}</p>
+                </div>
               </div>
-              <div className="col-md-12">
-                <label className="labels">O mnie : </label>
-              </div>
-              <div className="col-md-12">
-                <label className="labels">{user.opis}</label>
+              <div className="row mb-2">
+                <div className="col-md-6 col-12">
+                  <label className="text-capitalize fw-bold">{t('user_email')}:</label>
+                </div>
+                <div className="col-md-6 col-12">
+                  <p className="mb-0 text_wrap">{user.email}</p>
+                </div>
               </div>
 
-              {/* <div class="col-md-12"><label class="labels">Dziecko: </label>  <label class="labels">{user.children.map(item => {item.classId})}</label></div> */}
-              <div className="col-md-12">
-                <h1>Dzieci: </h1>
+
+              <div className="d-flex justify-content-between align-items-center mt-4 gap10">
+                <button
+                  onClick={() =>
+                    navigate("/user/" + user.id + "/edit", { replace: true })
+                  }
+                  className="btn btn_global"
+                  type="button"
+                >
+                  {t('edit')}
+                </button>
+                <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>{t('delete_profile')}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-xl-8 col-md-6 col-12">
+          <div className="App_card">
+            <div className='row mb-2'>
+              <div className='col-md-2 col-12'>
+                <label class="fw-bold">{t('telephone')}:</label>
+              </div>
+              <div className='col-md-10 col-12'>
+                <p className="labels mb-0">{user.phoneNumber}</p>
+              </div>
+            </div>
+
+            <div className='row mb-2'>
+              <div className='col-md-2 col-12'>
+                <label class="fw-bold">{t('address')}:</label>
+              </div>
+              <div className='col-md-10 col-12'>
+                <p className="labels mb-0">{user.address}</p>
+              </div>
+            </div>
+
+            <div className='row mb-2'>
+              <div className='col-md-2 col-12'>
+                <label class="fw-bold">{t('role')}:</label>
+              </div>
+              <div className='col-md-10 col-12'>
+                <p className="labels mb-0">{user.role}</p>
+              </div>
+            </div>
+
+            <div className='row mb-2'>
+              <div className='col-md-2 col-12'>
+                <label class="fw-bold">{t('about_me')}:</label>
+              </div>
+              <div className='col-md-10 col-12'>
+                <p className="labels mb-0">{user.opis}</p>
+              </div>
+            </div>
+
+            <div className="row mt-5 mb-3">
+              <div className="col-12">
+                <h1>{t('kids')}:</h1>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-12">
                 <table className="children">
                   <thead>
                     <tr>
-                      <th>Imię</th>
-                      <th>nazwisko</th>
+                      <th>{t('name')}</th>
+                      <th>{t('last_name')}</th>
                       {/* <th>classId</th> */}
-                      <th>Nazwa klasy</th>
+                      <th>{t('class_name')}</th>
 
                     </tr>
                   </thead>
@@ -166,23 +207,28 @@ const User = () => {
                     ))}
                   </tbody>
                 </table>
-                <div className="mt-5 text-center">
-                  <button
-                    onClick={() =>
-                      navigate("/user/" + user.id + "/child")
-                    }
-                    className="btn btn-primary profile-button"
-                    type="button"
-                  >
-                    Dodaj Dziecko
-                  </button>
-                </div>
+              </div>
+            </div>
+
+            <div className="row mt-4">
+              <div className="col-12 text-center">
+                <button
+                  onClick={() =>
+                    navigate("/user/" + user.id + "/child")
+                  }
+                  className="btn btn_global"
+                  type="button"
+                >
+                  {t('add_child')}
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+    </>
+
   );
 };
 

@@ -12,7 +12,9 @@ const EditUserNavi = () => {
             <Sidebar/>
             <div className="usersContainer">
                 <Navbar/>
+                <div className="App_card">
                 <EditUser value={id}/>
+                </div>
             </div>
         </div>
     )

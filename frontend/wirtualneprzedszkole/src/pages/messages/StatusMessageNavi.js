@@ -11,7 +11,9 @@ const StatusMessageNavi = () => {
             <Sidebar/>
             <div className="usersContainer">
                 <Navbar/>
+                <div className="App_card">
                 <StatusMessage/>
+                </div>
             </div>
         </div>
     )

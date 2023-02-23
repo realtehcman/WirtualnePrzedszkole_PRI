@@ -15,7 +15,9 @@ const FolderNavi = () => {
       <Sidebar />
       <div className="usersContainer">
         <Navbar />
+        <div className="App_card">
         <Folders value={folderId} data-testid="folders"/>
+        </div>
       </div>
     </div>
   );

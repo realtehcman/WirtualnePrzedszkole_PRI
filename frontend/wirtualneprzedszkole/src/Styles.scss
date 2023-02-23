@@ -1,19 +1,30 @@
-/* body{
+@import "/src/utilities/_variables";
+
+body{
     font-family: 'Nunito', sans-serif;
     margin: 0;
     background: #eee!important;
 }
 html{
     scroll-behavior: smooth;
+    overflow:auto;
 }
 
 .App_card {
     background: #fff;
-    padding: 15px;
+    margin-bottom: 20px;
     padding: 20px;
     border-radius: 10px;
     color: #283593;
     text-align: left;
+    -webkit-box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 5%);
+    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 5%);
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    word-break: break-word;
+    // height: 100%;
+    // height: calc(100% - 100px);
 
     h1 {
         text-align: left;
@@ -24,10 +35,15 @@ html{
     }
 }
 
+.btn_global{
+    background: #4424bb!important;
+    color: #fff!important;
+}
+
 .table_outer{
     width: 100%;
     padding: 5px 25px;
-} */
+}
 
 .del_gallery_img{
     position: absolute;
@@ -72,5 +88,231 @@ html{
             }
         }
     }
+}
+
+.text_wrap{
+    white-space: normal;
+    text-overflow: hidden;
+}
+
+
+// GLOBAL TABLES
+
+@media (max-width: $phoneMaxWidth) {
+    div.logout {
+      display: block;
+      padding-left: 30%;
+    }
+  
+    .users {
+      display: flex;
+  
+      //tweak this to make tables to load more content
+      .usersContainer {
+        flex: 6;
+      }
+    }
+    //  Force table to not be like tables anymore
+    table,
+    thead,
+    tbody,
+    th,
+    td,
     
+    
+    //moves whole table row content
+    tr {
+      display: block;
+      // padding-right: 10%;
+      text-align: right;
+      text-decoration: solid;
+      // top:84.9333px; --left:19.5125px; --position:absolute; --width:346.587px; --height:6995.96px;
+    }
+  
+    // Hide table headers (but not display: none;, for accessibility) 
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+  
+    tr {
+      border: 1px solid #ccc;
+    }
+  
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+      height: 100%;
+  
+      //does not do anything
+      #text {
+        position: absolute;
+        text-align: right;
+        background-color: black;
+        left: 1000px;
+      }
+    }
+  
+    //moves the "columns"
+    td:before {
+      // Now like a table header 
+      position: unset;
+      //  Top/left values mimic padding 
+      top: 1px;
+      text-align: left;
+      padding: 0px;
+      font-weight: bold;
+      height: 100%;
+      white-space: nowrap;
+      font-size: 16px;
+      min-width: 50%;
+    }
+    .content-table tbody td {
+        border-bottom: 1px solid #dddddd;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        &.foobar{
+            flex-direction: column;
+            button{
+                margin: 10px 0 0;
+            }
+        }
+      }
+    
+  
+    
+      // Label the data
+    
+    td:nth-of-type(1):before {
+      content: "Id";
+      float: left;
+    }
+    td:nth-of-type(2):before {
+      content: "Imię";
+      float: left;
+    }
+    td:nth-of-type(3):before {
+      content: "Nazwisko";
+      float: left;
+    }
+    td:nth-of-type(4):before {
+      content: "Email";
+      float: left;
+    }
+    td:nth-of-type(5):before {
+      content: "Akcje";
+      float: left;
+    }
+  
+    #td--groups:nth-of-type(1):before {
+      content: "Id" !important;
+    }
+    #td--groups:nth-of-type(2):before {
+      content: "Nazwa" !important;
+    }
+    #td--groups:nth-of-type(3):before {
+      content: "Opis" !important;
+    }
+    #td--groups:nth-of-type(4):before {
+      content: "Akcje" !important;
+    }
+  
+    #td--children:nth-of-type(4)::before {
+      content: "Grupa" !important;
+    }
+  
+    #td--message:nth-of-type(2)::before {
+      content: "Autor" !important;
+    }
+    #td--message:nth-of-type(3)::before {
+      content: "Temat" !important;
+    }
+    #td--message:nth-of-type(4)::before {
+      content: "Treść" !important;
+    }
+}
+
+.font16{
+    @media all and (max-width:768px){
+        font-size: 16px;
+    }
+}
+
+
+// GLOBAL BUTTONS
+
+// @media (max-width: 576px) {
+//   .btn, .btn_global {
+//     font-size: 13px;
+//   }
+// }
+
+@media (max-width: 576px) { 
+  .btn, .btn_global {
+    font-size: 13px !important;
+  }
+}
+
+@media (min-width: 576px) { 
+  .btn, .btn_global {
+    font-size: 14px !important;
+    width: max-content;
+  }
+}
+
+@media (min-width: 993px) { 
+  .btn, .btn-danger {
+    font-size: 13px !important;
+    margin-right: 0!important;
+    width: max-content;
+  }
+}
+
+
+// .usersContainer {
+//   max-height: 100vh !important;
+//   margin: 20px 20px 0 20px !important;
+//   height: calc(100% - 52px) !important;
+// }
+
+.usersContainer {
+  max-height: 100vh !important;
+  margin: 20px 20px 0 20px !important;
+  height: calc(100vh - 25px) !important;
+  padding: 5px;
+  overflow: hidden;
+}
+
+.sidebar {
+  border-right: 0.5px solid rgb(230, 227, 227);
+  /* min-height: 100vh; */
+  width: min-content;
+  background-color: white;
+  transition: 0.8 ease-in;
+  height: 50vh;
+  overflow: hidden;
+}
+
+.sidebar__wrap {
+  width: min-content;
+  height: 100%;
+}
+
+.scrollable-div {
+  // height: 100% !important;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  width: 100%;
+  min-width: 100%;
+}
+
+.sendMsg_container{
+  overflow: unset;
+  margin-bottom: 20px;
 }

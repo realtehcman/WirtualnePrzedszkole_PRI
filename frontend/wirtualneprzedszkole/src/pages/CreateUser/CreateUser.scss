@@ -8,6 +8,7 @@ body {
 
   .addusersContainer {
     flex: 6;
+    margin: 20px;
   }
 }
 
@@ -29,10 +30,7 @@ input {
 
 .form-but {
   display: block;
-  padding: 15px;
-  width: 50%;
   text-align: center;
-  margin-left: 22.5%;
 }
 
 .button {
@@ -51,7 +49,6 @@ input {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  margin-left: 12%;
 }
 
 .button3 {
@@ -93,20 +90,20 @@ body {
  margin-top: 4%;
   display: block;
 }
-.asd124{
-  margin-left: 35%;
-  margin-top: 4%;
-}
-.next-parent-class{
-  margin-left: 10%;
-  margin-top: 4%;
-}
-.add-child-class{
-  margin-left: 24%;
-  margin-top: 4%;
-}
-.next-child-class{
-  margin-left: 14%;
-  margin-top: 4%;
-}
 
+
+.Form_btns{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+  @media all and (max-width:768px){
+    flex-direction: column;
+    width: 100%;
+
+    button{
+      width: 100%;
+    }
+  }
+}

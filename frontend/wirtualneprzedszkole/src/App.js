@@ -35,10 +35,13 @@ import ChangePassword from './pages/Login/ChangePassword';
 import AddFolderNavi from './pages/Folders/AddFolderNavi';
 import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
 import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
+import { useTranslation } from "react-i18next";
 
 
 function App() {
   const [navVisible] = useState(false);
+
+  const {t} = useTranslation();
 
   return (
     <div data-testid="app" className="App">
@@ -49,7 +52,7 @@ function App() {
             path="/home"
             element={
               <div className={!navVisible ? "page" : "page page-with-navbar"}>
-                <h1>Profil</h1>
+                <h1>{t('profile')}</h1>
               </div>
             }
           />

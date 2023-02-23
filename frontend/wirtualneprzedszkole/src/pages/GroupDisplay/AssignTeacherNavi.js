@@ -12,7 +12,9 @@ const AssignTeacherNavi = () => {
             <Sidebar/>
             <div className="homeContainer">
                 <Navbar/>
+                <div className="App_card">
                 <AssignTeacher value={id}/>
+                </div>
             </div>
         </div>
     )
