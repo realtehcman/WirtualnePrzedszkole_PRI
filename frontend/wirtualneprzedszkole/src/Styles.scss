@@ -1,19 +1,30 @@
-/* body{
+@import "/src/utilities/_variables";
+
+body{
     font-family: 'Nunito', sans-serif;
     margin: 0;
-    background: #eee!important;
+    //background: #e7d6d6 !important;
 }
 html{
     scroll-behavior: smooth;
+    overflow:auto;
 }
 
 .App_card {
     background: #fff;
-    padding: 15px;
+    margin-bottom: 20px;
     padding: 20px;
     border-radius: 10px;
     color: #283593;
     text-align: left;
+    -webkit-box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 5%);
+    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 5%);
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    word-break: break-word;
+    // height: 100%;
+    // height: calc(100% - 100px);
 
     h1 {
         text-align: left;
@@ -24,53 +35,8 @@ html{
     }
 }
 
-.table_outer{
-    width: 100%;
-    padding: 5px 25px;
-} */
-
-.del_gallery_img{
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 999;
-    background-color: #d51313;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.btn_global{
+    background: #4424bb!important;
+    color: #fff!important;
 }
 
-.my-masonry-grid{
-    width: 100%;
-    column-count: 10;
-    column-gap: 20px;
-}
-.my-masonry-grid_column{
-    width: 100%!important;
-    img{
-        max-width: 100%;
-        width: 100%;
-        margin-bottom: 5%;
-    }
-    :hover {
-        z-index: 1000;
-        transform: scale(1.2);
-    }    
-}
-
-.delete_photo_popup, .add_photo_popup, .open_photo_popup{
-    .popup{
-        z-index: 9999;
-        .popup-inner{
-            max-width: 500px;
-            width: 100%;
-            img {
-                width: 100%
-            }
-        }
-    }
-    
-}

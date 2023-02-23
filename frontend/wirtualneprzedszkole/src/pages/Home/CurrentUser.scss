@@ -1,8 +1,13 @@
 .home {
   display: flex;
+
   .homeContainer{
     flex: 6;
-    margin: 1%;
+    // margin: 20px;
+    max-height: 100vh !important;
+    margin: 20px 20px 0 20px !important;
+    height: calc(100vh - 25px) !important;
+    padding: 5px;
   }
   .img-container {
     position: relative;
@@ -19,13 +24,12 @@
         cursor: pointer;
       }
       &:hover {
-        filter: grayscale(55%);
+        filter: grayscale(45%);
         cursor: pointer;
       }
     }
   }
 }
-
 
 .a{
   margin-left: 1%;
@@ -33,7 +37,7 @@
 
 }
 .v{
-margin-bottom: 1%;
+  margin-bottom: 1%;
 }
 h1{
   align-content: inherit;
@@ -44,17 +48,17 @@ h1{
   height: 100%;
 }
 
-.row {
-  width: 100%;
-  height: 100%;
-}
+// .row {
+//   width: 100%;
+//   height: 100%;
+// }
 
-.col-md-3 {
-  width: 30%;
-  height: 80%;
-  margin-right: 50px;
-  font-size: 20px;
-}
+// .col-md-3 {
+//   width: 30%;
+//   height: 80%;
+//   margin-right: 50px;
+//   font-size: 20px;
+// }
 
 .text-right {
   font-size: 50px;
@@ -64,16 +68,16 @@ h1{
   margin-right: 20px;
 }
 
-.col-md-5 {
-  margin-left: 40px;
-  height: 80%;
-  width: 60%;
-}
+// .col-md-5 {
+//   margin-left: 40px;
+//   height: 80%;
+//   width: 60%;
+// }
 
-.col-md-4 {
-  height: 80%;
-  width: 20%;
-}
+// .col-md-4 {
+//   height: 80%;
+//   width: 20%;
+// }
 
 .form-control:focus {
   box-shadow: none;
@@ -158,3 +162,17 @@ h1 {
   cursor: pointer;
 }
 
+.user_img{
+  max-width: 130px;
+  max-height: 130px;
+  min-width: 130px;
+  min-height: 130px;
+  background: #eee;
+  background-size: 70px;
+  background-position: center;
+  font-size: 0;
+  object-fit: cover;
+}
+.gap10{
+  gap: 10px;
+}

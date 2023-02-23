@@ -182,11 +182,7 @@ class SendMessage extends Component {
                     <div className="mb-3">
                         <label className="form-label" htmlFor="name">
                             <div>
-                                <select id="message-type" onChange={this.handleMessageTypeChange}>
-                                    <option value="saveMessage">Do :</option>
-                                    <option value="saveMessage">Save Message2</option>
-                                    <option value="saveMessage2">Save Message3</option>
-                                </select>
+                             Do:
                             </div>
 
                         </label>
