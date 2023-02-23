@@ -8,6 +8,7 @@ import UserService from "../User/UserService";
 import "./Message.scss";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import GroupService from "../GroupDisplay/GroupService";
 
 
 class SendMessage extends Component {
@@ -28,7 +29,8 @@ class SendMessage extends Component {
                 },
             ],
             selectedUsers: [],
-            filteredUsers: []
+            filteredUsers: [],
+            classes: []
         };
 
 
@@ -38,6 +40,8 @@ class SendMessage extends Component {
         this.GetRecieverHandler = this.GetRecieverHandler.bind(this);
         this.saveMessage = this.saveMessage.bind(this);
         this.saveMessage2 = this.saveMessage2.bind(this);
+        this.saveMessage3 = this.saveMessage3.bind(this);
+        this.changeClassNameHandler = this.changeClassNameHandler.bind(this);
     }
 
 
@@ -46,6 +50,11 @@ class SendMessage extends Component {
     componentDidMount() {
         UserService.getUsers().then((response) => {
             this.setState({users: response.data});
+
+        });
+        GroupService.getGroups().then((response) => {
+            const res = response.data
+            this.setState({classes: ["", ...res ]})
         });
     }
 
@@ -54,6 +63,9 @@ class SendMessage extends Component {
         this.setState({to: event.target.value});
     };
 
+    changeClassNameHandler = (event) => {
+        this.setState({ className: event.target.value });
+    };
 
     saveMessage = (e) => {
         e.preventDefault();
@@ -83,8 +95,6 @@ class SendMessage extends Component {
     };
 
 
-
-
     changeNameHandler = (event) => {
         this.setState({subject: event.target.value});
     };
@@ -93,19 +103,12 @@ class SendMessage extends Component {
         this.setState({content: value});
     };
 
-    onUserSelect = (user) => {
-        this.setState({
-            to: user.name + ' ' + user.lastName,
-            selectedUsers: [...this.state.selectedUsers, user]
-        });
-    }
 
     saveMessage2 = (e) => {
         e.preventDefault();
         let message = JSON.stringify({
             subject: this.state.subject,
             content: this.state.content
-
         });
         SendMessageService.SendMessageParents(message).then((response) => {
             if (response.data != null) {
@@ -124,6 +127,31 @@ class SendMessage extends Component {
                 });
             });
     };
+
+
+    saveMessage3 = (e) => {
+        e.preventDefault();
+        const classID = this.state.className;
+        const subject = this.state.subject;
+        const content = this.state.content;
+        SendMessageService.SendMessageClasses(classID, subject, content).then((response) => {
+            if (response.data != null) {
+                toast.success("wiadomość została wysłana pomyślnie", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }else {
+                toast.error("Wystąpił błąd podczas wysyłania wiadomości", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }
+        })
+            .catch((error) => {
+                toast.error("Wystąpił błąd podczas wysyłania wiadomości", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            });
+    };
+
 
     render() {
 
@@ -153,7 +181,10 @@ class SendMessage extends Component {
                 } }>
                     <div className="mb-3">
                         <label className="form-label" htmlFor="name">
-                            Do :
+                            <div>
+                             Do:
+                            </div>
+
                         </label>
 
                         <input className="form-control" type="PrettyPrintJson" autoComplete="off"  id="name" value={to} onChange={this.GetRecieverHandler} />
@@ -165,7 +196,7 @@ class SendMessage extends Component {
                                         className={`autocomplete-option ${index === this.state.selectedOptionIndex ? 'selected' : ''}`}
                                         onClick={() => {
                                             const names = to.split(',').map((name) => name.trim());
-                                            names[names.length-1] = user.name + ' ' + user.lastName;
+                                            names[names.length-1] = user.name + ' ' + user.lastName + ',';
                                             this.setState({ to: names.join(',') });
                                         }}
                                     >
@@ -176,6 +207,7 @@ class SendMessage extends Component {
                                 ))}
                             </div>
                         )}
+
 
                     </div>
                     <div className="mb-3">
@@ -197,6 +229,21 @@ class SendMessage extends Component {
                         <button className="button" onClick={(e) =>{
                             this.saveMessage2(e);
                         } }>Wyślij do wszystkich użytkowników</button>
+
+
+                        <div className="form-but">
+                            <button className="button" onClick={(e) =>{
+                                this.saveMessage3(e);
+                            }}>Wyślij do grupy :</button>
+                            <select value={this.state.className} onChange={this.changeClassNameHandler}>
+                                {this.state.classes.map((aClass) => (
+                                    <option key={aClass.id} value={aClass.id}> {aClass.name}</option>
+                                ))}
+                            </select>
+                        </div>
+
+
+
                     </div>
 
                 </form>

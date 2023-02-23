@@ -1,8 +1,7 @@
 import axios from 'axios'
-import { config } from '../../AxiosUrlConfig';
 
 
-const GROUP_REST_API_URL =  config.SERVER_URI + '/api/class'
+const GROUP_REST_API_URL = 'http://localhost:8080/api/class'
 
 class GroupService {
     
@@ -24,6 +23,10 @@ class GroupService {
 
     getGroup(id) {
         return axios.get(GROUP_REST_API_URL + '/' + id)
+    }
+
+    getClassName(id) {
+        return axios.get(GROUP_REST_API_URL + '/getClassName/' + id)
     }
 }
 // eslint-disable-next-line

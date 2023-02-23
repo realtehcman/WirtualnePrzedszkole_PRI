@@ -51,6 +51,9 @@ const Folders = (props) => {
             if (folder.name === "Other") {
                 navigate("/folderOther/" + showFolder.id)
             }
+            else {
+                navigate("/ViewGallery/" + showFolder.id)
+            }
         })
     }
 

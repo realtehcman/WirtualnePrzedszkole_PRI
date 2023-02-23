@@ -18,7 +18,7 @@
 
 }
 .text2{
-margin-top: 3%;
+  margin-top: 3%;
   margin-left:5%;
 }
 .topic{
@@ -35,7 +35,13 @@ margin-top: 3%;
 .submit15{
   margin-top:2%;
 }
-
+.autocomplete-options{
+  max-height: 200px;
+  position: relative;
+  width: 100%;
+  overflow-y: scroll;
+  z-index: 0;
+}
 .autocomplete-options .autocomplete-option {
   background-color: #f9f9f9;
   padding: 12px;

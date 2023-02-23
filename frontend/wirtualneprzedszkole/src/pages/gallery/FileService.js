@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { config } from '../../AxiosUrlConfig';
 
-const FILE_REST_API_URL = config.SERVER_URI + '/api/file'
+const FILE_REST_API_URL = 'http://localhost:8080/api/file'
 
 class FileService {
 
@@ -37,6 +36,12 @@ class FileService {
 
     patchFile(fileId, description) {
         return axios.patch(FILE_REST_API_URL + "/patchFile/" + fileId, description)
+    }
+
+    downloadFolder(id) {
+        return axios.get(FILE_REST_API_URL + "/downloadFolder/" + id, {
+            responseType: 'blob'
+        })
     }
 
 }

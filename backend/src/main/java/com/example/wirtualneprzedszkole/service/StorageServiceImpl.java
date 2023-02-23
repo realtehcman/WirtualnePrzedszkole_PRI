@@ -113,20 +113,25 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public boolean delete(String fileName, Long folderId) {
         try {
-            if (folderId != 0)
+            if (folderId > 0)
                 fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderService.getFolder(folderId).getPath() + "/")
                         .toAbsolutePath().normalize();
-            else
+            else if (folderId == 0)
                 fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/Knowledge")
                         .toAbsolutePath().normalize();
+            else {
+                fileStorageLocation = this.avatarStorageLocation
+                        .toAbsolutePath().normalize();
+            }
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             System.out.println(filePath);
 
             Files.delete(filePath);
 
-            FileData fileData = fileDataRepo.findByPath(filePath.toString());
-            fileDataRepo.delete(fileData);
-
+            if (folderId != -1) {
+                FileData fileData = fileDataRepo.findByPath(filePath.toString());
+                fileDataRepo.delete(fileData);
+            }
             return true;
         } catch (MalformedURLException exception) {
             throw new StorageFileNotFoundException("FileData not found " + fileName, exception);

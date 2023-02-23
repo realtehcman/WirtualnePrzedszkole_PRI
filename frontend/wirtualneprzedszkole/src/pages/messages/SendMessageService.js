@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { config } from '../../AxiosUrlConfig'
 
-const SENDMESSAGE_REST_API_URL = config.SERVER_URI + '/api/message/'
+
+const SENDMESSAGE_REST_API_URL = 'http://localhost:8080/api/message/'
 
 class SendMessageService {
 
@@ -29,7 +29,18 @@ class SendMessageService {
         });
     }
 
+    SendMessageClasses(id, subject, content){
+        return axios.post(SENDMESSAGE_REST_API_URL + 'to_class/' + id, {
+            subject: subject,
+            content: content,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+
 
 }
-// eslint-disable-next-line
+
 export default new SendMessageService();
