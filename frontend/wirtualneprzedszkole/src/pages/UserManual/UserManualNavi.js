@@ -5,8 +5,8 @@ import UserManual from "./UserManual"
 const UserManualNavi = () => {
 
     return (
-        <div className="users">
-            <div className="usersContainer">
+        <div className="">
+            <div className="">
                 <UserManual />
             </div>
         </div>
