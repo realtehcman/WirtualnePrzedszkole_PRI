@@ -35,8 +35,8 @@ const Child = () => {
     return (
         <div data-testid="child">
             <h1>Rodzice: {child.name} {child.lastName}</h1>
-            <div className='table_outer'>
-                <table className='content-table mx-0 my-0'>
+            <div className='table-container'>
+                <table className='content-table'>
                     <thead>
 
                     <tr className='table-head'>
