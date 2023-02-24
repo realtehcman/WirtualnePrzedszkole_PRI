@@ -69,25 +69,48 @@ html{
     img{
         max-width: 100%;
         width: 100%;
-        margin-bottom: 5%;
+        // margin-bottom: 5%;
     }
-    :hover {
-        z-index: 1000;
-        transform: scale(1.2);
-    }    
+    // :hover {
+    //     z-index: 1000;
+    //     transform: scale(1.2);
+    // }    
 }
 
-.delete_photo_popup, .add_photo_popup, .open_photo_popup{
+.delete_photo_popup, .add_photo_popup{
     .popup{
         z-index: 9999;
         .popup-inner{
             max-width: 500px;
             width: 100%;
+           
             img {
-                width: 100%
+                width: 100%;
+               
             }
         }
     }
+}
+
+.open_photo_popup{
+  .popup{
+      z-index: 9999;
+      .popup-inner{
+          max-width: 500px;
+          width: 100%;
+          height: auto;
+          max-height: 90%;
+          // overflow: hidden;
+         
+          img {
+              width: 100%;
+              height: 100%;
+              max-height: 440px;
+              object-fit: cover;
+             
+          }
+      }
+  }
 }
 
 .text_wrap{
@@ -296,6 +319,7 @@ html{
   transition: 0.8 ease-in;
   height: 50vh;
   overflow: hidden;
+  padding-top: 70px;
 }
 
 .sidebar__wrap {
@@ -316,3 +340,28 @@ html{
   overflow: unset;
   margin-bottom: 20px;
 }
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  background: grey;
+  margin-bottom: 30px;
+}
+
+@media all and (max-width:991px){
+  .App{
+    margin-top: 30px;
+  }
+}
+

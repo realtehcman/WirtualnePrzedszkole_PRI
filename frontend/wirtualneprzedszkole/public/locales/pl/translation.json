@@ -89,6 +89,7 @@
     "log_in": "Zaloguj się",
     "do_not_you_remember_the_password": "Nie pamiętasz hasła",
     "folder" : "Teczka",
-    "add_folder": "Dodaj Folder"
+    "add_folder": "Dodaj Folder",
+    "the_entered_data_is_incorrect": "Wprowadzone dane są nieprawidłowe."
 }
     

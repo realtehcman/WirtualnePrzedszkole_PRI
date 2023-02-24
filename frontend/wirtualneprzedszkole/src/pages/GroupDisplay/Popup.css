@@ -22,6 +22,8 @@
 
 .close{
     position: absolute;
-    top: 5%;
-    right: 2%;
+    top: -8px;
+    right: -8px;
+    background: #0dcaf0;
+    border-radius: 5px;
 }

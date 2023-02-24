@@ -8,7 +8,7 @@ const ViewGalleryNavi = () => {
     return (
         <div className="users gallery">
             <Sidebar />
-            <div className="usersContainer">
+            <div className="usersContainer overflow-visible">
                 <Navbar />
                 <ViewGallery />
             </div>

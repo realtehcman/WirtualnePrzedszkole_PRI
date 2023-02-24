@@ -17,7 +17,7 @@ const LoginPage = () => {
         e.preventDefault();
         let loggedIn = await LoginService.login(email, password)
         if (loggedIn === false) {
-            setErrorMessage("Wprowadzone dane są nieprawidłowe.")
+            setErrorMessage(t('the_entered_data_is_incorrect'))
         }
         else {
             navigate("/home")

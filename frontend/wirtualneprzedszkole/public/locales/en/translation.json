@@ -89,5 +89,6 @@
     "log_in": "Log in",
     "do_not_you_remember_the_password": "Do not you remember the password",
     "folder" : "Folder",
-    "add_folder": "Add Folder"
+    "add_folder": "Add Folder",
+    "the_entered_data_is_incorrect": "The entered data is incorrect."
 }
