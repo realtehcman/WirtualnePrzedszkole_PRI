@@ -66,7 +66,7 @@ public class UserManagementService {
         }
         userEdited.setAddress(user.getAddress());
         userEdited.setPhoneNumber(user.getPhoneNumber());
-        userEdited.setPicture(user.getPicture());
+        userEdited.setPicture(userEdited.getPicture());
         userEdited.setOpis(user.getOpis());
 
         return userEdited;
