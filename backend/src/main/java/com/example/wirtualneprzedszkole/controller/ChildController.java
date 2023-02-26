@@ -3,8 +3,11 @@ package com.example.wirtualneprzedszkole.controller;
 //import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 
 import com.example.wirtualneprzedszkole.mapper.ChildMapper;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
+import com.example.wirtualneprzedszkole.model.dto.ChildWithClassNameDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
+import com.example.wirtualneprzedszkole.service.ClassService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 @EnableWebMvc
 @RestController
@@ -20,16 +25,29 @@ import java.util.List;
 @RequestMapping("api/child")
 public class ChildController {
     private final ChildService childService;
+    private final ClassService classService;
 
     @GetMapping("{id}")
-    public ChildDto getChild(@PathVariable Long id) {
-        return ChildMapper.mapToChildDto(childService.getChild(id));
+    public ChildWithClassNameDto getChild(@PathVariable Long id) {
+        ChildDto childDto =  ChildMapper.mapToChildDto(childService.getChild(id));
+        String className = "";
+        if (childDto.getClassId() != null)
+            className = classService.getClass(childDto.getClassId()).getName();
+        return ChildMapper.mapToChildWithClassNameDto(childDto, className);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public List<ChildDto> getChildren() {
-        return ChildMapper.mapToChildDto(childService.getChildren());
+    public List<ChildWithClassNameDto> getChildren() {
+        List<ChildDto> childrenDto = ChildMapper.mapToChildDto(childService.getChildren());
+        HashMap<ChildDto, String> childrenWithClassNames = new HashMap<>();
+        for (ChildDto child : childrenDto) {
+            String className = "";
+            if (child.getClassId() != null)
+                className = classService.getClass(child.getClassId()).getName();
+            childrenWithClassNames.put(child, className);
+        }
+        return ChildMapper.mapToChildrenWithClassName(childrenWithClassNames);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

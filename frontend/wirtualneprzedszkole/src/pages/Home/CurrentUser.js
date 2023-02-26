@@ -32,7 +32,8 @@ const CurrentUser = () => {
         children: [{
             id: '',
             name: '',
-            classId: ''
+            classId: '',
+            className: ''
         }],
     });
 
@@ -41,10 +42,15 @@ const CurrentUser = () => {
 
     useEffect(() => {
         const getData = async () => {
-            CurrentUserService.getCurrentUser(id).then(response => {
+            CurrentUserService.getCurrentUser().then(response => {
                 console.log('Response from main API: ',response)
                 let current_userData = response.data;
-                let children = current_userData.children.map(it => {return {id: it.id, name: it.name, classId: it.classId}})
+                let children;
+                if (current_userData.children !== undefined)
+                    children = current_userData.children.map(it => {return {id: it.id, name: it.name, classId: it.classId, className: it.className}})
+                else {
+                    children = []
+                }
                 setCurrent_User({id: current_userData.id, email: current_userData.email, name: current_userData.name, lastName: current_userData.lastName, phoneNumber: current_userData.phoneNumber, address:current_userData.address, role: current_userData.role, children:  children, opis: current_userData.opis})
 
                 if (current_userData.picture !== undefined) {
@@ -244,7 +250,7 @@ const CurrentUser = () => {
                                             <td className="clickable"
                                                 onClick={() => navigate("/child/" + child.id)}>{child.name}</td>
                                             <td className="clickable"
-                                                onClick={() => navigate("/child/" + child.id)}>{child.classId}</td>
+                                                onClick={() => navigate("/child/" + child.id)}>{child.className}</td>
                                         </tr>
                                     ))}
                                     </tbody>

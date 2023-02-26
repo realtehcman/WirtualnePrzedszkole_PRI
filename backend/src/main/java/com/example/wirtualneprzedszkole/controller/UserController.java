@@ -1,13 +1,12 @@
 package com.example.wirtualneprzedszkole.controller;
 
+import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 import com.example.wirtualneprzedszkole.mapper.UserMapper;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.FileData;
 import com.example.wirtualneprzedszkole.model.dao.User;
-import com.example.wirtualneprzedszkole.model.dto.RestartPasswordDto;
-import com.example.wirtualneprzedszkole.model.dto.UserDto;
-import com.example.wirtualneprzedszkole.service.StorageServiceImpl;
-import com.example.wirtualneprzedszkole.service.UserManagementService;
-import com.example.wirtualneprzedszkole.service.UserService;
+import com.example.wirtualneprzedszkole.model.dto.*;
+import com.example.wirtualneprzedszkole.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -16,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class UserController {
     private final UserService userService;
     private final UserManagementService userManagementService;
     private final StorageServiceImpl storageService;
+    private final ClassService classService;
 
     @PatchMapping("/restart")
     public void restartPassword(@RequestBody RestartPasswordDto restartPasswordDto, HttpServletRequest request) {
@@ -38,9 +40,22 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("/current_user")
-    public UserDto getCurrentUser(Authentication authentication) {
+    public UserWithChildClassNameDto getCurrentUser(Authentication authentication) {
         String email = authentication.getName();
-        return UserMapper.mapToUserDto(userService.getCurrentUser(email));
+        UserDto userDto = UserMapper.mapToUserDto(userService.getCurrentUser(email));
+        List<ChildDto> childrenDto = userDto.getChildren();
+        HashMap<ChildDto, String> childrenWithClassNames = new HashMap<>();
+        for (ChildDto child : childrenDto) {
+            String className = "";
+            if (child.getClassId() != null)
+                className = classService.getClass(child.getClassId()).getName();
+            childrenWithClassNames.put(child, className);
+        }
+        if (childrenDto.size() > 0)
+            return UserMapper.mapToUserDtoWIthClassName(userDto, childrenWithClassNames);
+        else {
+            return UserMapper.mapToUserDtoWIthClassName(userDto);
+        }
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER', 'ROLE_PARENT')")

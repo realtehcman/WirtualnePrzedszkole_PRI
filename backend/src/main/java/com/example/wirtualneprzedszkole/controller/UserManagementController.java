@@ -6,6 +6,8 @@ import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
+import com.example.wirtualneprzedszkole.model.dto.UserWithChildClassNameDto;
+import com.example.wirtualneprzedszkole.service.ClassService;
 import com.example.wirtualneprzedszkole.service.UserManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -21,11 +24,25 @@ import java.util.List;
 @RequestMapping("api/users")
 public class UserManagementController {
     private final UserManagementService userManagementService;
+    private final ClassService classService;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping("{id}")
-    public UserDto getUser(@PathVariable Long id) {
-        return UserMapper.mapToUserDto(userManagementService.getUser(id));
+    public UserWithChildClassNameDto getUser(@PathVariable Long id) {
+        UserDto userDto = UserMapper.mapToUserDto(userManagementService.getUser(id));
+        List<ChildDto> childrenDto = userDto.getChildren();
+        HashMap<ChildDto, String> childrenWithClassNames = new HashMap<>();
+        for (ChildDto child : childrenDto) {
+            String className = "";
+            if (child.getClassId() != null)
+                className = classService.getClass(child.getClassId()).getName();
+            childrenWithClassNames.put(child, className);
+        }
+        if (childrenDto.size() > 0)
+            return UserMapper.mapToUserDtoWIthClassName(userDto, childrenWithClassNames);
+        else {
+            return UserMapper.mapToUserDtoWIthClassName(userDto);
+        }
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
