@@ -37,25 +37,32 @@ public class UserManagementController {
         if (user.getRole().getAuthority().equals("ADMIN"))
             return new ResponseEntity<>(UserMapper.mapToUserDto(userManagementService.getUser(id)), HttpStatus.OK);
         else if (user.getRole().getAuthority().equals("TEACHER")) {
-            Set<User> users = new HashSet<>();
-            user.getClasses().forEach(aClass -> aClass.getChildren().forEach(child -> users.addAll(child.getParents())));
-            users.addAll(userManagementService.getAllByRole(UserRole.TEACHER));
-            users.addAll(userManagementService.getAllByRole(UserRole.ADMIN));
-            if (users.contains(userManagementService.getUser(id))) {
+            Set<User> users = usersAllowedForTeacher(user);
+            if (checkParentIsCurrentUser(id, user, users))
                 return new ResponseEntity<>(UserMapper.mapToUserDto(userManagementService.getUser(id)), HttpStatus.OK);
-            }
         }
         else {
             Set<User> users = new HashSet<>(userManagementService.getAllByRole(UserRole.ADMIN));
             user.getChildren().forEach(child -> users.addAll(classService.getClass(child.getClassId()).getTeachers()));
-            user.getChildren().forEach(child -> child.getParents().forEach(parent -> {
-                if (!parent.equals(user)) users.add(parent);
-            }));
-            if (users.contains(userManagementService.getUser(id))) {
+            if (checkParentIsCurrentUser(id, user, users))
                 return new ResponseEntity<>(UserMapper.mapToUserDto(userManagementService.getUser(id)), HttpStatus.OK);
-            }
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+
+    private boolean checkParentIsCurrentUser(@PathVariable Long id, User user, Set<User> users) {
+        user.getChildren().forEach(child -> child.getParents().forEach(parent -> {
+            if (!parent.equals(user)) users.add(parent);
+        }));
+        return users.contains(userManagementService.getUser(id));
+    }
+
+    private Set<User> usersAllowedForTeacher(User user) {
+        Set<User> users = new HashSet<>();
+        user.getClasses().forEach(aClass -> aClass.getChildren().forEach(child -> users.addAll(child.getParents())));
+        users.addAll(userManagementService.getAllByRole(UserRole.TEACHER));
+        users.addAll(userManagementService.getAllByRole(UserRole.ADMIN));
+        return users;
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
@@ -73,11 +80,7 @@ public class UserManagementController {
         if (user.getRole().getAuthority().equals("ADMIN"))
             return UserMapper.mapToDto(userManagementService.getAllUser(pageNumber));
         else if (user.getRole().getAuthority().equals("TEACHER")) {
-            Set<User> users = new HashSet<>();
-            user.getClasses().forEach(aClass -> aClass.getChildren().forEach(child -> users.addAll(child.getParents())));
-            users.addAll(userManagementService.getAllByRole(UserRole.TEACHER));
-            users.addAll(userManagementService.getAllByRole(UserRole.ADMIN));
-            return UserMapper.mapToDto(new ArrayList<>(users));
+            return UserMapper.mapToDto(new ArrayList<>(usersAllowedForTeacher(user)));
         }
         else {
             Set<User> users = new HashSet<>(userManagementService.getAllByRole(UserRole.ADMIN));
