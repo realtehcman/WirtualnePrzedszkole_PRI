@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +24,10 @@ public class MessageService {
     public Message sendMessage(Message message, List<User> users) {
         Message msg = messageRepo.save(message);
         String subject = msg.getSubject();
-        users.forEach(e -> emailSenderService.sendEmail(e.getEmail(), subject,
-               "Sprawdź nową wiadomość na twoim koncie "));
+        String[] emails = users.stream().map(User::getEmail).toArray(String[]::new);
+        emailSenderService.sendMultipleMail(emails, subject, "Sprawdź nową wiadomość na twoim koncie ");
+//        users.forEach(e -> emailSenderService.sendEmail(e.getEmail(), subject,
+//               "Sprawdź nową wiadomość na twoim koncie "));
 
         return msg;
     }
