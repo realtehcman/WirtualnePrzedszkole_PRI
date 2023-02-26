@@ -10,14 +10,12 @@ const EditChild = () => {
         id: "",
         name:'',
         lastName: '',
-        className: '',
         classId: ''
     });
     const [childEdit, setChildEdit] = useState({
         id: '',
         name: '',
         lastName: '',
-        className: '',
         classId: ''
     });
 
@@ -29,13 +27,8 @@ const EditChild = () => {
         ChildrenService.getChild(id).then(response => {
             console.log('Response from main API: ',response)
             let childData = response.data;
-            if (childData.classId !== undefined) {
-                GroupService.getGroup(childData.classId).then(response => {
-                    setChild({id: childData.id, name: childData.name, lastName: childData.lastName, className: (response.data).name, classId: childData.classId})
-                })
-            } else {
-                setChild({id: childData.id, name: childData.name, lastName: childData.lastName, classId: childData.classId})
-            }
+            setChild({id: childData.id, name: childData.name, lastName: childData.lastName, classId: childData.classId})
+            
         });
 
         GroupService.getGroups().then(response => {
@@ -52,8 +45,10 @@ const EditChild = () => {
         childEdit.id = child.id
         if (childEdit.name === "") childEdit.name = child.name
         if (childEdit.lastName === "") childEdit.lastName = child.lastName
-        if (childEdit.className === "") childEdit.className = child.className
-        if (childEdit.classId === "") childEdit.classId = child.classId
+        if (Object.keys(childEdit.classId).length !== 0) childEdit.classId = JSON.parse(childEdit.classId)
+        else {
+            childEdit.classId = child.classId
+        }
 
         ChildrenService.editChild(childEdit)
             .then(response => {
@@ -70,9 +65,9 @@ const EditChild = () => {
                     });
 
                     // Timer wywal jak Ci się uda zrobic żeby się zedytowane dane wyswietlaly
-                    setTimeout(() => {
+                    /* setTimeout(() => {
                         window.location.reload();
-                    }, 1800);
+                    }, 1800); */
 
                 }
             })
@@ -100,9 +95,9 @@ const EditChild = () => {
                 {/* <input placeholder={child.classId} onChange={(e) => setChildEdit({...childEdit, classId : e.target.value})}/><br></br> */}
                 <label>Wybierz Klasę:</label><br></br>
                 <select className='d-block'  onChange={(e) => setChildEdit({...childEdit, classId : e.target.value})}>
-                    <option>{child.className}</option>
-                    {allGroups.filter(groupFilter => groupFilter.name !== child.className).map((group) => (
-                      <option key={group.id} value={group.id}> {group.name}</option>
+                    <option value={child.classId}>{child.classId.name}</option>
+                    {allGroups.filter(groupFilter => groupFilter.name !== child.classId.name).map((group) => (
+                      <option key={group.id} value={JSON.stringify(group)}> {group.name}</option>
                     ))}
                 </select>
                 <br></br>

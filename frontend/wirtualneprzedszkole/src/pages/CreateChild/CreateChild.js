@@ -39,12 +39,12 @@ class CreateChild extends Component {
       child = JSON.stringify({
         name: this.state.name,
         lastName: this.state.lastName,
-        classId: aClass.id,
+        classId: aClass,
       })
     } else {
       child = JSON.stringify({
         name: this.state.name,
-        lastName: this.state.lastName,
+        lastName: this.state.lastName
       })
     }
 

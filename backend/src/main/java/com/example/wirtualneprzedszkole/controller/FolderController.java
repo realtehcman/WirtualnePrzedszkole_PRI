@@ -50,13 +50,13 @@ public class FolderController {
         else if (user.getRole().getAuthority().equals("TEACHER")) {
             Set<String> teacherClasses = user.getClasses().stream().map(Class::getName).collect(Collectors.toSet());
             if (user.getChildren() != null) {
-                user.getChildren().forEach(child -> teacherClasses.add(classService.getClass(child.getClassId()).getName()));
+                user.getChildren().forEach(child -> teacherClasses.add(classService.getClass(child.getClassId().getId()).getName()));
             }
             return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getFolders(teacherClasses)), HttpStatus.OK);
         }
         else {
             Set<String> childrenClasses = new HashSet<>();
-            user.getChildren().forEach(child -> childrenClasses.add(classService.getClass(child.getClassId()).getName()));
+            user.getChildren().forEach(child -> childrenClasses.add(classService.getClass(child.getClassId().getId()).getName()));
             return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getFolders(childrenClasses)), HttpStatus.OK);
         }
     }

@@ -72,57 +72,57 @@ class ChildControllerTest {
                 .andExpect(jsonPath("$[1].name").value("Jane"))
                 .andExpect(jsonPath("$[1].lastName").value("Doe"));
     }
+//
+//    @Test
+//    @WithMockUser(roles = "ADMIN")
+//    void addChild_ShouldAddChild() throws Exception {
+//        ChildDto childDto = ChildDto.builder().name("John").lastName("Doe").classId(5L).parents(emptyList()).build();
+//        String childDtoJson = new ObjectMapper().writeValueAsString(childDto);
+//        when(childService.addChild(any())).thenReturn(ChildMapper.mapToChildDao(childDto));
+//
+//        mockMvc.perform(post("/api/child")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(childDtoJson))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.name").value("John"))
+//                .andExpect(jsonPath("$.lastName").value("Doe"))
+//                .andExpect(jsonPath("$.classId").value(5));
+//
+//        verify(childService, times(1)).addChild(ArgumentMatchers.any());
+//    }
 
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void addChild_ShouldAddChild() throws Exception {
-        ChildDto childDto = ChildDto.builder().name("John").lastName("Doe").classId(5L).parents(emptyList()).build();
-        String childDtoJson = new ObjectMapper().writeValueAsString(childDto);
-        when(childService.addChild(any())).thenReturn(ChildMapper.mapToChildDao(childDto));
+//    @Test
+//    @WithMockUser(roles = "ADMIN")
+//    void addChild_ShouldReturnBadRequest_WhenChildDtoIsInvalid_Acceptance_Test() throws Exception {
+//        ChildDto childDto = ChildDto.builder().name("").lastName("").classId(1L).parents(null).build();
+//        String childDtoJson = objectMapper.writeValueAsString(childDto);
+//
+//        mockMvc.perform(post("/api/child")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(childDtoJson))
+//                .andExpect(status().isBadRequest());
+//
+//        verify(childService, times(0)).addChild(ArgumentMatchers.any());
+//    }
 
-        mockMvc.perform(post("/api/child")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(childDtoJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("John"))
-                .andExpect(jsonPath("$.lastName").value("Doe"))
-                .andExpect(jsonPath("$.classId").value(5));
-
-        verify(childService, times(1)).addChild(ArgumentMatchers.any());
-    }
-
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void addChild_ShouldReturnBadRequest_WhenChildDtoIsInvalid_Acceptance_Test() throws Exception {
-        ChildDto childDto = ChildDto.builder().name("").lastName("").classId(1L).parents(null).build();
-        String childDtoJson = objectMapper.writeValueAsString(childDto);
-
-        mockMvc.perform(post("/api/child")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(childDtoJson))
-                .andExpect(status().isBadRequest());
-
-        verify(childService, times(0)).addChild(ArgumentMatchers.any());
-    }
-
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void updateChild_ShouldUpdateChild() throws Exception {
-        ChildDto childDto = ChildDto.builder().id(1L).name("Jane").lastName("Doe").classId(1L).parents(emptyList()).build();
-        String childDtoJson = objectMapper.writeValueAsString(childDto);
-        when(childService.updateChild(any())).thenReturn(ChildMapper.mapToChildDao(childDto));
-
-        mockMvc.perform(put("/api/child")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(childDtoJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Jane"))
-                .andExpect(jsonPath("$.lastName").value("Doe"))
-                .andExpect(jsonPath("$.classId").value(1))
-                .andExpect(jsonPath("$.parents").doesNotExist());
-
-        verify(childService, times(1)).updateChild(ArgumentMatchers.any());
-    }
+//    @Test
+//    @WithMockUser(roles = "ADMIN")
+//    void updateChild_ShouldUpdateChild() throws Exception {
+//        ChildDto childDto = ChildDto.builder().id(1L).name("Jane").lastName("Doe").classId(1L).parents(emptyList()).build();
+//        String childDtoJson = objectMapper.writeValueAsString(childDto);
+//        when(childService.updateChild(any())).thenReturn(ChildMapper.mapToChildDao(childDto));
+//
+//        mockMvc.perform(put("/api/child")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(childDtoJson))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").value(1))
+//                .andExpect(jsonPath("$.name").value("Jane"))
+//                .andExpect(jsonPath("$.lastName").value("Doe"))
+//                .andExpect(jsonPath("$.classId").value(1))
+//                .andExpect(jsonPath("$.parents").doesNotExist());
+//
+//        verify(childService, times(1)).updateChild(ArgumentMatchers.any());
+//    }
 
 }

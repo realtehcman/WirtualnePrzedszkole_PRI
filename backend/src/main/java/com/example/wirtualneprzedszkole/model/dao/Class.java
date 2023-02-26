@@ -19,8 +19,9 @@ public class Class {
     private String name;
     private String description;
 
-    @OneToMany
-    @JoinColumn(name = "classId")
+//    @OneToMany
+//    @JoinColumn(name = "classId")
+    @OneToMany(mappedBy="classId")
     private List<Child> children;
 
     @JsonIgnoreProperties(value = {"classes"})

@@ -68,7 +68,7 @@ const CurrentUser = () => {
             if (response.status !== 200) throw new Error(response.status);
             else
             {
-                FileService.getFile(-1, response.data. picture).then(response => {
+                FileService.getFile(-1, response.data.picture).then(response => {
                     let urlCreator = window.URL || window.webkitURL;
                     setUserAvatar(urlCreator.createObjectURL(response.data))
                 })
@@ -244,7 +244,7 @@ const CurrentUser = () => {
                                             <td className="clickable"
                                                 onClick={() => navigate("/child/" + child.id)}>{child.name}</td>
                                             <td className="clickable"
-                                                onClick={() => navigate("/child/" + child.id)}>{child.classId}</td>
+                                                onClick={() => navigate("/child/" + child.id)}>{child.classId.name}</td>
                                         </tr>
                                     ))}
                                     </tbody>

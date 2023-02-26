@@ -14,7 +14,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ChildDto {
     private Long id;
-    private Long classId;
+    private ClassDto classId;
     @NotEmpty(message = "To pole nie może być puste")
     private String name;
     @NotEmpty(message = "To pole nie może być puste")

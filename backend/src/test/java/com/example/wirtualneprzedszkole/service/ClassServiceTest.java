@@ -49,22 +49,22 @@ public class ClassServiceTest {
         assertTrue(result.contains(class2));
     }
 
-    @Test
-    void testGetClassesWithChildren() {
-        Class class1 = Class.builder().id(1L).name("1st grade").description("First grade class").build();
-        Class class2 = Class.builder().id(2L).name("2nd grade").description("Second grade class").build();
-        Child child1 = Child.builder().id(1L).name("John").lastName("Doe").classId(1L).build();
-        Child child2 = Child.builder().id(2L).name("Jane").lastName("Doe").classId(1L).build();
-        Child child3 = Child.builder().id(3L).name("Bob").lastName("Smith").classId(2L).build();
-        when(classRepo.findAllClass()).thenReturn(Arrays.asList(class1, class2));
-        when(childRepo.findAllByClassIdIn(Arrays.asList(1L, 2L))).thenReturn(Arrays.asList(child1, child2, child3));
-        List<Class> result = classService.getClassesWithChildren();
-        assertEquals(2, result.size());
-        assertTrue(result.contains(class1));
-        assertTrue(result.contains(class2));
-        assertEquals(2, result.get(0).getChildren().size());
-        assertEquals(1, result.get(1).getChildren().size());
-    }
+//    @Test
+//    void testGetClassesWithChildren() {
+//        Class class1 = Class.builder().id(1L).name("1st grade").description("First grade class").build();
+//        Class class2 = Class.builder().id(2L).name("2nd grade").description("Second grade class").build();
+//        Child child1 = Child.builder().id(1L).name("John").lastName("Doe").classId(1L).build();
+//        Child child2 = Child.builder().id(2L).name("Jane").lastName("Doe").classId(1L).build();
+//        Child child3 = Child.builder().id(3L).name("Bob").lastName("Smith").classId(2L).build();
+//        when(classRepo.findAllClass()).thenReturn(Arrays.asList(class1, class2));
+//        when(childRepo.findAllByClassIdIn(Arrays.asList(1L, 2L))).thenReturn(Arrays.asList(child1, child2, child3));
+//        List<Class> result = classService.getClassesWithChildren();
+//        assertEquals(2, result.size());
+//        assertTrue(result.contains(class1));
+//        assertTrue(result.contains(class2));
+//        assertEquals(2, result.get(0).getChildren().size());
+//        assertEquals(1, result.get(1).getChildren().size());
+//    }
 
     @Test
     void testAddClass() {

@@ -34,7 +34,7 @@ public class ChildMapper {
     public static ChildDto mapToChildDto(Child child) {
         return ChildDto.builder()
                 .id(child.getId())
-                .classId(child.getClassId())
+                .classId(ClassMapper.mapToDto(child.getClassId()))
                 .name(child.getName())
                 .lastName(child.getLastName())
                 .parents(UserMapper.mapToDto(child.getParents()))
@@ -44,7 +44,7 @@ public class ChildMapper {
     public static ChildDto mapToDto(Child child) {
         return ChildDto.builder()
                 .id(child.getId())
-                .classId(child.getClassId())
+                .classId(ClassMapper.mapToDto(child.getClassId()))
                 .name(child.getName())
                 .lastName(child.getLastName())
                 //.parents(UserMapper.mapToDto(child.getParents()))
@@ -54,7 +54,7 @@ public class ChildMapper {
     public static Child mapToChildDao(ChildDto childDto) {
         return Child.builder()
                 .id(childDto.getId())
-                .classId(childDto.getClassId())
+                .classId(ClassMapper.mapToGroupDao(childDto.getClassId()))
                 .name(childDto.getName())
                 .lastName(childDto.getLastName())
                 .parents(Optional.ofNullable(childDto.getParents()).orElse(Collections.emptyList()).stream().map(UserMapper::mapToDao).collect(Collectors.toList()))
