@@ -53,7 +53,7 @@ public class MessageController {
         }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("to_parents")
     public MessageDto sendMessageToAllParents(Authentication authentication, @RequestBody SendMessageDto sendMessageDto) {
 
@@ -65,14 +65,18 @@ public class MessageController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @PostMapping("to_class/{classId}")
-    public MessageDto sendMessageToClass(Authentication authentication,@PathVariable Long classId, @RequestBody SendMessageDto sendMessageDto) {
-
+    public ResponseEntity<MessageDto> sendMessageToClass(Authentication authentication,@PathVariable Long classId, @RequestBody SendMessageDto sendMessageDto) {
+        User user = userService.getCurrentUser();
         sendMessageDto.setAuthor(getCurrentUser(authentication));
-        List<Long> childrenIds = childService.getChildByClassIn(classId);
-        List<User> users = List.copyOf(userManagementService.getAllParentsFromClass(childrenIds));
-
-        return MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
-                .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users));
+        if (user.getRole().getAuthority().equals("ADMIN")) {
+            return new ResponseEntity<>(send(classId, sendMessageDto), HttpStatus.OK);
+        }
+        else {
+            if (user.getClasses().stream().anyMatch(aClass -> aClass.getId().equals(classId))) {
+                return new ResponseEntity<>(send(classId, sendMessageDto), HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
@@ -128,4 +132,11 @@ public class MessageController {
         messageService.deleteReceivedMsg(msgId, userService.getCurrentUser().getId());
     }
 
+    private MessageDto send(Long classId, SendMessageDto sendMessageDto) {
+        List<Long> childrenIds = childService.getChildByClassIn(classId);
+        List<User> users = List.copyOf(userManagementService.getAllParentsFromClass(childrenIds));
+
+        return MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
+                .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users));
+    }
 }
