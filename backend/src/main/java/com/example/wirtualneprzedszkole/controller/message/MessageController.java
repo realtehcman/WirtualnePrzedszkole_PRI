@@ -31,14 +31,14 @@ public class MessageController {
     private final UserManagementService userManagementService;
     private final ChildService childService;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping
     public List<MessageDto> getAllSentMessages() {
         Long userId = userService.getCurrentUser().getId();
         return MessageMapper.mapMessagesToMessagesDto(messageService.getAllSentMessages(userId));
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @PostMapping
     public ResponseEntity<MessageDto> sendMessage(Authentication authentication, @RequestBody SendMessageDto sendMessageDto) {
 
@@ -91,14 +91,14 @@ public class MessageController {
         return MessageMapper.mapMessagesToMessageToRecipientsDto(messageService.getReceivedMessages(userId));
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("sent_msg/{msgId}")
     public MessageDtoWithFieldIsRead getSentMsg(@PathVariable Long msgId) {
         Message message = messageService.getSentMsg(msgId);
         return MessageMapper.messageMapToMsgDtoWithFieldIsRead(message);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("{msgId}/to/{userId}")
     public boolean checkMessageIsRead(@PathVariable Long msgId, @PathVariable Long userId) {
         return messageService.checkMessageIsRead(msgId, userId);

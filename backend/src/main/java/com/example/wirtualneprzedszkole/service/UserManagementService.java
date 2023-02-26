@@ -14,10 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -150,5 +147,9 @@ public class UserManagementService {
         storageService.delete(userEdited.getPicture(), -1L);
         userEdited.setPicture(null);
         return userEdited;
+    }
+
+    public List<User> getAllByRole(UserRole userRole) {
+        return userRepo.findAllByRole(userRole);
     }
 }
