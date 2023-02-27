@@ -201,7 +201,7 @@ class SendMessage extends Component {
                                         }}
                                     >
                                         <div key={user.id} title={user.email}>
-                                            {user.name + ' ' + user.lastName}
+                                            {user.name + ' ' + user.lastName + ' ' + '(' + user.email + ')'}
                                         </div>
                                     </div>
                                 ))}
