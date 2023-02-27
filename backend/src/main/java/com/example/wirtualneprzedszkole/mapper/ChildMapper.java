@@ -65,6 +65,7 @@ public class ChildMapper {
         for (ChildDto child : childDtos.keySet()) {
             result.add(mapToChildWithClassNameDto(child, childDtos.get(child)));
         }
+        result.sort(Comparator.comparing(ChildWithClassNameDto::getId));
         return result;
     }
 

@@ -31,7 +31,7 @@ public class ClassService {
                 .map(Class::getId)
                 .collect(Collectors.toList());
         List<Child> children = childRepo.findAllByClassIdIn(ids);
-        classes.forEach(aclass -> aclass.setChildren(exctractChildren(children, aclass.getId())));
+        classes.forEach(aClass -> aClass.setChildren(exctractChildren(children, aClass.getId())));
         return classes;
     }
 
