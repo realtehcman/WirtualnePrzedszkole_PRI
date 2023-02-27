@@ -100,9 +100,9 @@ class Gallery extends React.Component {
                     <tbody>
                     {filteredFolders.map((folder) => (
                         <tr key={folder.id}>
-                            <td>{folder.className}</td>
-                            <td>{folder.path.split("Photos/")[1]}</td>
-                            <td className="foobar">
+                            <td id="td--gallery">{folder.className}</td>
+                            <td id="td--gallery">{folder.path.split("Photos/")[1]}</td>
+                            <td id="td--gallery" className="foobar">
                                 <Navi value={folder.id} />
                                 <Navi2 value={folder.id} />
                                 <button

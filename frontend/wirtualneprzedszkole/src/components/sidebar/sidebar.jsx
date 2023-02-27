@@ -74,7 +74,18 @@ const Sidebar = () => {
                             <span>Wiadomości</span>
                         </Link>
                     </li>
-
+                    <li>
+                        <Link to={"/SendMessage"}>
+                            <RateReviewIcon className="icon" />
+                            <span>Utwórz</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={"/SentMessage"}>
+                            <MarkChatReadIcon className="icon" />
+                            <span>Wysłane</span>
+                        </Link>
+                    </li>
                     <li>
                         <Link to={"/Knowledge"}>
                             <LocalLibraryIcon className="icon" />

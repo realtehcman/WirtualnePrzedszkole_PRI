@@ -80,7 +80,7 @@ class Message extends React.Component {
                 .sort((a, b) => b.id - a.id)
                 .map((received_messages) => (
                     <tr key={received_messages.id}>
-                      <td>{this.dateConvertToNormalFormat(received_messages.sentDate)}</td>
+                      <td id="td--message">{this.dateConvertToNormalFormat(received_messages.sentDate)}</td>
                       <td id="td--message">{received_messages.author}</td>
                       <td id="td--message">{received_messages.subject}</td>
                       <td id="td--message">
