@@ -43,7 +43,8 @@ public class UserManagementController {
         }
         else {
             Set<User> users = new HashSet<>(userManagementService.getAllByRole(UserRole.ADMIN));
-            user.getChildren().forEach(child -> users.addAll(classService.getClass(child.getClassId()).getTeachers()));
+            //user.getChildren().forEach(child -> users.addAll(classService.getClass(child.getClassId()).getTeachers()));
+            users.addAll(userManagementService.getAllByRole(UserRole.TEACHER));
             if (checkParentIsCurrentUser(id, user, users))
                 return new ResponseEntity<>(UserMapper.mapToUserDto(userManagementService.getUser(id)), HttpStatus.OK);
         }
@@ -84,7 +85,8 @@ public class UserManagementController {
         }
         else {
             Set<User> users = new HashSet<>(userManagementService.getAllByRole(UserRole.ADMIN));
-            user.getChildren().forEach(child -> users.addAll(classService.getClass(child.getClassId()).getTeachers()));
+            //user.getChildren().forEach(child -> users.addAll(classService.getClass(child.getClassId()).getTeachers()));
+            users.addAll(userManagementService.getAllByRole(UserRole.TEACHER));
             return UserMapper.mapToDto(new ArrayList<>(users));
         }
     }
