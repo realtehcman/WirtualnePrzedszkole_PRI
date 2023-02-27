@@ -1,6 +1,7 @@
 package com.example.wirtualneprzedszkole.controller.message;
 
 import com.example.wirtualneprzedszkole.mapper.message.MessageMapper;
+import com.example.wirtualneprzedszkole.model.UserRole;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dao.message.Message;
 import com.example.wirtualneprzedszkole.model.dao.message.UserMessage;
@@ -20,7 +21,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,8 +50,29 @@ public class MessageController {
         List<User> users = userManagementService.getAllUserByEmail(sendMessageDto.getTo());
 
         if (users.size() > 0) {
-            return new ResponseEntity<>(MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
+            User user = userService.getCurrentUser();
+            if (user.getRole().getAuthority().equals("ADMIN"))
+                return new ResponseEntity<>(MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
                     .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users)), HttpStatus.OK);
+            else if (user.getRole().getAuthority().equals("TEACHER")) {
+                Set<User> usersAllowed = usersAllowedForTeacher(user);
+                List<User> usersAllowedList = new ArrayList<>(usersAllowed);
+                users.retainAll(usersAllowedList);
+                if (users.size() > 0)
+                    return new ResponseEntity<>(MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
+                            .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users)), HttpStatus.OK);
+                else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            else {
+                Set<User> usersAllowed = new HashSet<>(userManagementService.getAllByRole(UserRole.ADMIN));
+                usersAllowed.addAll(userManagementService.getAllByRole(UserRole.TEACHER));
+                List<User> usersAllowedList = new ArrayList<>(usersAllowed);
+                users.retainAll(usersAllowedList);
+                if (users.size() > 0)
+                    return new ResponseEntity<>(MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
+                            .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users)), HttpStatus.OK);
+                else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -139,5 +163,13 @@ public class MessageController {
 
         return MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
                 .sendMessage(MessageMapper.SendMessageDtoMapToMessage(sendMessageDto), users), users));
+    }
+
+    private Set<User> usersAllowedForTeacher(User user) {
+        Set<User> users = new HashSet<>();
+        user.getClasses().forEach(aClass -> aClass.getChildren().forEach(child -> users.addAll(child.getParents())));
+        users.addAll(userManagementService.getAllByRole(UserRole.TEACHER));
+        users.addAll(userManagementService.getAllByRole(UserRole.ADMIN));
+        return users;
     }
 }
