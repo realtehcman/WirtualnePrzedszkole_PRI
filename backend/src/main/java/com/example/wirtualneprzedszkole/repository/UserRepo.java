@@ -30,4 +30,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     @Query("select u from User u where u.role = :userRole")
     List<User> findAllByRole(UserRole userRole);
+
+    @Query("select u from User u where u.email IN :to")
+    List<User> findUsersInEmails(List<String> to);
 }

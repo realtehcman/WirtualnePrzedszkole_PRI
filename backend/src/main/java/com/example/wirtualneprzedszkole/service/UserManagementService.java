@@ -152,4 +152,8 @@ public class UserManagementService {
     public List<User> getAllByRole(UserRole userRole) {
         return userRepo.findAllByRole(userRole);
     }
+
+    public List<User> getAllUserByEmail(List<String> to) {
+        return userRepo.findUsersInEmails(to);
+    }
 }

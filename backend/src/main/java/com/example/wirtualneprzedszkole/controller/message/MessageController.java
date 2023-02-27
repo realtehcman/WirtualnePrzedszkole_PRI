@@ -43,7 +43,8 @@ public class MessageController {
     public ResponseEntity<MessageDto> sendMessage(Authentication authentication, @RequestBody SendMessageDto sendMessageDto) {
 
         sendMessageDto.setAuthor(getCurrentUser(authentication));
-        List<User> users = userManagementService.getAllUserByName(sendMessageDto.getTo());
+        //List<User> users = userManagementService.getAllUserByName(sendMessageDto.getTo());
+        List<User> users = userManagementService.getAllUserByEmail(sendMessageDto.getTo());
 
         if (users.size() > 0) {
             return new ResponseEntity<>(MessageMapper.mapMessageToMessageDto(assignUserMessageToMsg(messageService
