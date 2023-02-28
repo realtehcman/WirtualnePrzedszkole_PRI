@@ -3,8 +3,12 @@ package com.example.wirtualneprzedszkole.controller;
 //import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 
 import com.example.wirtualneprzedszkole.mapper.ChildMapper;
+import com.example.wirtualneprzedszkole.model.dao.Child;
+import com.example.wirtualneprzedszkole.model.dao.Class;
+import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
+import com.example.wirtualneprzedszkole.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,23 +17,55 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @EnableWebMvc
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/child")
 public class ChildController {
     private final ChildService childService;
+    private final UserService userService;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("{id}")
-    public ChildDto getChild(@PathVariable Long id) {
-        return ChildMapper.mapToChildDto(childService.getChild(id));
+    public ResponseEntity<ChildDto> getChild(@PathVariable Long id) {
+        User user = userService.getCurrentUser();
+        if (user.getRole().getAuthority().equals("ADMIN"))
+            return new ResponseEntity<>(ChildMapper.mapToChildDto(childService.getChild(id)), HttpStatus.OK);
+        else if (user.getRole().getAuthority().equals("TEACHER")) {
+            Child child = childService.getChild(id);
+            Set<Child> teachingChildren = new HashSet<>();
+            user.getClasses().forEach(aClass -> teachingChildren.addAll(aClass.getChildren()));
+            teachingChildren.addAll(user.getChildren());
+            if (teachingChildren.contains(child)) {
+                return new ResponseEntity<>(ChildMapper.mapToChildDto(child), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            Child child = childService.getChild(id);
+            if (user.getChildren().contains(child)) {
+                return new ResponseEntity<>(ChildMapper.mapToChildDto(child), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping
-    public List<ChildDto> getChildren() {
-        return ChildMapper.mapToChildDto(childService.getChildren());
+    public ResponseEntity<List<ChildDto>> getChildren() {
+        User user = userService.getCurrentUser();
+        if (user.getRole().getAuthority().equals("ADMIN"))
+            return new ResponseEntity<>(ChildMapper.mapToChildDto(childService.getChildren()), HttpStatus.OK);
+        else {
+            List<Child> teachingChildren = new ArrayList<>();
+            user.getClasses().forEach(aClass -> teachingChildren.addAll(aClass.getChildren()));
+            return new ResponseEntity<>(ChildMapper.mapToChildDto(teachingChildren), HttpStatus.OK);
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
