@@ -7,6 +7,7 @@ import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
+import com.example.wirtualneprzedszkole.model.dto.UserWithChildClassNameDto;
 import com.example.wirtualneprzedszkole.service.ClassService;
 import com.example.wirtualneprzedszkole.service.UserManagementService;
 import com.example.wirtualneprzedszkole.service.UserService;
@@ -17,10 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,21 +30,38 @@ public class UserManagementController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserWithChildClassNameDto> getUser(@PathVariable Long id) {
         User user = userService.getCurrentUser();
-        if (user.getRole().getAuthority().equals("ADMIN"))
-            return new ResponseEntity<>(UserMapper.mapToUserDto(userManagementService.getUser(id)), HttpStatus.OK);
+        UserDto userDto = UserMapper.mapToUserDto(userManagementService.getUser(id));
+        List<ChildDto> childrenDto = userDto.getChildren();
+        if (user.getRole().getAuthority().equals("ADMIN")) {
+            if (childrenDto.size() > 0)
+                return new ResponseEntity<>(UserMapper.mapToUserDtoWIthClassName(userDto, getHashMapChildrenWithClassName(childrenDto)),
+                        HttpStatus.OK);
+            else
+                return new ResponseEntity<>(UserMapper.mapToUserDtoWIthClassName(userDto), HttpStatus.OK);
+        }
         else if (user.getRole().getAuthority().equals("TEACHER")) {
             Set<User> users = usersAllowedForTeacher(user);
-            if (checkParentIsCurrentUser(id, user, users))
-                return new ResponseEntity<>(UserMapper.mapToUserDto(userManagementService.getUser(id)), HttpStatus.OK);
+            if (checkParentIsCurrentUser(id, user, users)) {
+                if (childrenDto.size() > 0)
+                    return new ResponseEntity<>(UserMapper.mapToUserDtoWIthClassName(userDto, getHashMapChildrenWithClassName(childrenDto)),
+                            HttpStatus.OK);
+                else
+                    return new ResponseEntity<>(UserMapper.mapToUserDtoWIthClassName(userDto), HttpStatus.OK);
+            }
         }
         else {
             Set<User> users = new HashSet<>(userManagementService.getAllByRole(UserRole.ADMIN));
             //user.getChildren().forEach(child -> users.addAll(classService.getClass(child.getClassId()).getTeachers()));
             users.addAll(userManagementService.getAllByRole(UserRole.TEACHER));
-            if (checkParentIsCurrentUser(id, user, users))
-                return new ResponseEntity<>(UserMapper.mapToUserDto(userManagementService.getUser(id)), HttpStatus.OK);
+            if (checkParentIsCurrentUser(id, user, users)) {
+                if (childrenDto.size() > 0)
+                    return new ResponseEntity<>(UserMapper.mapToUserDtoWIthClassName(userDto, getHashMapChildrenWithClassName(childrenDto)),
+                            HttpStatus.OK);
+                else
+                    return new ResponseEntity<>(UserMapper.mapToUserDtoWIthClassName(userDto), HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
@@ -157,5 +172,22 @@ public class UserManagementController {
     @PatchMapping("/delete_avatar")
     public UserDto deleteAvatar(@RequestBody UserDto userDto) {
         return UserMapper.mapToUserDto(userManagementService.deleteAvatar(UserMapper.mapToDao(userDto)));
+    }
+
+    public HashMap<ChildDto, String> getHashMapChildrenWithClassName(List<ChildDto> childDtoList) {
+        HashMap<ChildDto, String> childrenWithClassNames = new HashMap<>();
+        childDtoList.forEach(childDto -> {
+            String className = getClassNameForChild(childDto);
+            childrenWithClassNames.put(childDto, className);
+        });
+
+        return childrenWithClassNames;
+    }
+
+    public String getClassNameForChild(ChildDto childDto) {
+        String className = "";
+        if (childDto.getClassId() != null)
+            className = classService.getClass(childDto.getClassId()).getName();
+        return className;
     }
 }
