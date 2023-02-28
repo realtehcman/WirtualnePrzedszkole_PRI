@@ -84,7 +84,7 @@ public class FileController {
         }
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("/downloadFile/{folderId}/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, @PathVariable Long folderId, HttpServletRequest request) {
         Resource resource = storageService.loadAsResource(fileName, folderId);
@@ -108,6 +108,7 @@ public class FileController {
                 .body(resource);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("/downloadFolder/{folderId}")
     public ResponseEntity<StreamingResponseBody> downloadFolder(@PathVariable Long folderId, HttpServletResponse response) throws IOException {
         List<Resource> resources = storageService.loadAsResources(folderId);
@@ -143,6 +144,7 @@ public class FileController {
         return ResponseEntity.ok(streamingResponseBody);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("/downloadKnowledge")
     public ResponseEntity<List<FileData>> downloadKnowledge() {
         Long knowledgeId = 0L;
@@ -168,7 +170,7 @@ public class FileController {
             file.setDescription(addDescriptionDto.getDescription());
 
             //file.setDescription(description);
-            return new ResponseEntity<FileData>(fileDataService.addFileDescription(file)
+            return new ResponseEntity<>(fileDataService.addFileDescription(file)
                     , HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
