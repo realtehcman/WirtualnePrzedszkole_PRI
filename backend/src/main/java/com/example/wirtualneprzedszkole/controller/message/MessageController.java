@@ -122,9 +122,11 @@ public class MessageController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("sent_msg/{msgId}")
-    public MessageDtoWithFieldIsRead getSentMsg(@PathVariable Long msgId) {
+    public ResponseEntity<MessageDtoWithFieldIsRead> getSentMsg(@PathVariable Long msgId) {
         Message message = messageService.getSentMsg(msgId);
-        return MessageMapper.messageMapToMsgDtoWithFieldIsRead(message);
+        if (message.getAuthor().equals(userService.getCurrentUser()))
+            return new ResponseEntity<>(MessageMapper.messageMapToMsgDtoWithFieldIsRead(message), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
@@ -147,11 +149,17 @@ public class MessageController {
     }
 
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @DeleteMapping("{id}")
-    public void deleteClass(@PathVariable Long id) {
-        messageService.deleteMessage(id);
+    public ResponseEntity<Void> deleteClass(@PathVariable Long id) {
+        if (messageService.getSentMsg(id).getAuthor().equals(userService.getCurrentUser())) {
+            messageService.deleteMessage(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @PatchMapping("/deleteReceivedMsg/{msgId}")
     public void deleteReceivedMsg(@PathVariable Long msgId) {
         messageService.deleteReceivedMsg(msgId, userService.getCurrentUser().getId());
