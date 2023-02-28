@@ -1,3 +1,5 @@
+//add localization
+
 import React, { useEffect, useState } from 'react'
 import "./CurrentUser.scss"
 import Sidebar from "../../components/sidebar/sidebar";
