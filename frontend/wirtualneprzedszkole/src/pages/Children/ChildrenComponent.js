@@ -113,7 +113,7 @@ class ChildrenComponent extends React.Component {
 
                   <td id="td--children">{child.name}</td>
                   <td id="td--children">{child.lastName}</td>
-                  <td id="td--children">{child.classId}</td>
+                  <td id="td--children">{child.className}</td>
                   <td id="td--children">
                     <Navi value={child.id} />
 
