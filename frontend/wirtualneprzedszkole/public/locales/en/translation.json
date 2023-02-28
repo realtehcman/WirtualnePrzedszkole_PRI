@@ -29,7 +29,7 @@
     "class_name" : "Class Name",
     "save": "Save",
     "add_user": "Add user",
-    "look": "Look",
+    "look": "View",
     "actions": "Actions",
     "delete": "Delete",
     "add_child": "Add Child",
@@ -92,5 +92,6 @@
     "do_not_you_remember_the_password": "Do not you remember the password",
     "folder" : "Folder",
     "add_folder": "Add Folder",
-    "the_entered_data_is_incorrect": "The entered data is incorrect."
+    "the_entered_data_is_incorrect": "The entered data is incorrect.",
+    "folder_name": "Folder Name"
 }

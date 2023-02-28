@@ -83,6 +83,8 @@ class CreateChild extends Component {
 
 
   render() {
+    const {t} = this.props
+
     return (
 
       <div className="formContainer">
@@ -97,7 +99,7 @@ class CreateChild extends Component {
               } }>
                 <div className="form-group">
                   <input
-                      placeholder="Imię"
+                      placeholder={t('name')}
                       name="Imię"
                       required
                       className='"form-control'
@@ -108,7 +110,7 @@ class CreateChild extends Component {
                 </div>
                 <div className="form-group">
                   <input
-                    placeholder="Nazwisko"
+                    placeholder={t('last_name')}
                     name="Nazwisko"
                     required
                     className='"form-control'
@@ -126,11 +128,12 @@ class CreateChild extends Component {
                 </div>
 
                 <div className="form-but">
-                  <Link className="button3" to={"/children"}>
-                    Wróć
+                  <Link className="button btn me-3" to={"/children"}>
+                                  {t('come_back')}
+
                   </Link>
                 </div> <div className="form-but">
-                  <button className="button2">Zapisz</button>
+                  <button className="button btn">{t('save')}</button>
                 </div>
               </form>
             </div>

@@ -1,3 +1,4 @@
+//TODO add localiztion to this component
 import React from "react";
 import ChildrenService from "./ChildrenService";
 import "../User/Table.scss";
