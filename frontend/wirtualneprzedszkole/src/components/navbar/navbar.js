@@ -29,9 +29,9 @@ const Navbar = () => {
             <div className="wrapper d-flex justify-content-end align-items-center">
                 <div className="me-4">
                     <select value={currentLanguage} className="form-select border-0" onChange={(e) => onchangeLanguage(e)}>
-                        <option value="pl">Polish</option>
+                        <option value="pl">Polski</option>
                         <option value="en">English</option>
-                        <option value="ua">Ukrainian</option>
+                        <option value="ua">Українська</option>
                     </select>
                 </div>
                 <div className="logout btn">
