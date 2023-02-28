@@ -3,10 +3,9 @@ package com.example.wirtualneprzedszkole.mapper;
 
 import com.example.wirtualneprzedszkole.model.dao.Child;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
+import com.example.wirtualneprzedszkole.model.dto.ChildWithClassNameDto;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ChildMapper {
@@ -60,4 +59,25 @@ public class ChildMapper {
                 .parents(Optional.ofNullable(childDto.getParents()).orElse(Collections.emptyList()).stream().map(UserMapper::mapToDao).collect(Collectors.toList()))
                 .build();
     }
+
+    public static List<ChildWithClassNameDto> mapToChildrenWithClassName(HashMap<ChildDto, String> childDtos) {
+        List<ChildWithClassNameDto> result = new ArrayList<>();
+        for (ChildDto child : childDtos.keySet()) {
+            result.add(mapToChildWithClassNameDto(child, childDtos.get(child)));
+        }
+        result.sort(Comparator.comparing(ChildWithClassNameDto::getId));
+        return result;
+    }
+
+    public static ChildWithClassNameDto mapToChildWithClassNameDto(ChildDto childDto, String className) {
+        return ChildWithClassNameDto.builder()
+                .id(childDto.getId())
+                .classId(childDto.getClassId())
+                .name(childDto.getName())
+                .lastName(childDto.getLastName())
+                .className(className)
+                .parents(childDto.getParents())
+                .build();
+    }
+
 }

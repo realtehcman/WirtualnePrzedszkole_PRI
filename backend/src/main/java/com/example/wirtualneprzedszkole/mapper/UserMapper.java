@@ -1,8 +1,11 @@
 package com.example.wirtualneprzedszkole.mapper;
 
 import com.example.wirtualneprzedszkole.model.dao.User;
+import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
+import com.example.wirtualneprzedszkole.model.dto.UserWithChildClassNameDto;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +77,38 @@ public class UserMapper {
                 .opis(userDto.getOpis())
                 .children(ChildMapper.mapToChildDao(userDto.getChildren()))
                 //.classes(ClassMapper.mapToClassDao(userDto.getClasses()))
+                .build();
+    }
+
+    public static UserWithChildClassNameDto mapToUserDtoWIthClassName(UserDto userDto, HashMap<ChildDto, String> children) {
+        return UserWithChildClassNameDto.builder()
+                .id(userDto.getId())
+                .email(userDto.getEmail())
+                .name(userDto.getName())
+                .lastName(userDto.getLastName())
+                .picture(userDto.getPicture())
+                .address(userDto.getAddress())
+                .phoneNumber(userDto.getPhoneNumber())
+                .role(userDto.getRole())
+                .opis(userDto.getOpis())
+                .children(ChildMapper.mapToChildrenWithClassName(children))
+                //.classes(ClassMapper.mapToGroupDto(userDto.getClasses()))
+                .build();
+    }
+
+    public static UserWithChildClassNameDto mapToUserDtoWIthClassName(UserDto userDto) {
+        return UserWithChildClassNameDto.builder()
+                .id(userDto.getId())
+                .email(userDto.getEmail())
+                .name(userDto.getName())
+                .lastName(userDto.getLastName())
+                .picture(userDto.getPicture())
+                .address(userDto.getAddress())
+                .phoneNumber(userDto.getPhoneNumber())
+                .role(userDto.getRole())
+                .opis(userDto.getOpis())
+                .childrenWithoutClassName(userDto.getChildren())
+                //.classes(ClassMapper.mapToGroupDto(userDto.getClasses()))
                 .build();
     }
 }
