@@ -219,7 +219,7 @@ class CreateUser extends Component {
     render() {
       const display = this.state.display
       if (display === 1) {
-        if (this.state.role === "PARENT") {
+        /* if (this.state.role === "PARENT") { */
           return (
           <div data-testid="create-user" className="formContainer">
             <ToastContainer />
@@ -311,7 +311,7 @@ class CreateUser extends Component {
             </div>
           </div>
           );
-        } else {
+        /* } else {
           return (
             <div data-testid="create-user" className="formContainer">
               <ToastContainer />
@@ -397,7 +397,7 @@ class CreateUser extends Component {
               </div>
             </div>
             );
-        }
+        } */
     } else {
       return (
         <div className="formContainer">
