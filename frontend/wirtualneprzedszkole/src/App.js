@@ -29,21 +29,41 @@ import EditChildNavi from './pages/Children/EditChildNavi';
 import KadraNavi from './pages/Kadra/KadraNavi';
 import UserManualNavi from './pages/UserManual/UserManualNavi';
 import React, {useState} from 'react';
-
+import UserContext from './components/sidebar/UserContext';
 import {BrowserRouter, Navigate, Outlet, Route, Routes} from "react-router-dom";
 import ChangePassword from './pages/Login/ChangePassword';
 import AddFolderNavi from './pages/Folders/AddFolderNavi';
 import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
 import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
-
+import {useEffect} from "react";
+import CurrentUserService from "./pages/Home/CurrentUserService";
 
 function App() {
   const [navVisible] = useState(false);
+  const [current_user, setCurrent_User] = useState({
+    role: '',
+  });
+
+  useEffect(() => {
+    const getData = async () => {
+      CurrentUserService.getCurrentUser().then(response => {
+        console.log('Response from main API: ', response)
+        let current_userData = response.data;
+        setCurrent_User({ id: current_userData.id, role: current_userData.role })
+      });
+    }
+
+    getData()
+  }, [])
+
+
 
   return (
+
     <div data-testid="app" className="App">
       <BrowserRouter>
-        <Routes>
+ <UserContext.Provider value={current_user}>
+      <Routes>
           <Route path="/home" element={<Navigate to="/home" />} />
           <Route
             path="/home"
@@ -159,9 +179,11 @@ function App() {
           <Route path="/UserManual" element={<PrivateOutlet />}>
             <Route index element={<UserManualNavi />}></Route>
           </Route>
-        </Routes>
+        </Routes>      </UserContext.Provider>
       </BrowserRouter>
     </div>
+
+
   );
 }
 

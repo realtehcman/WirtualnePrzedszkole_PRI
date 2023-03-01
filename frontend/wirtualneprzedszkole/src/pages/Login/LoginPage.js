@@ -21,6 +21,7 @@ const LoginPage = () => {
         }
         else {
             navigate("/home")
+            window.location.reload();
         }
     }
 

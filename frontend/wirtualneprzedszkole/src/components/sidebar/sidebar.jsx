@@ -18,8 +18,11 @@ import useWindowDimensions from "./useWindowDimensions.js";
 import CurrentUserService from "../../pages/Home/CurrentUserService";
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import { useTranslation } from "react-i18next";
+import UserContext from './UserContext';
+import { useContext } from 'react';
 
 const Sidebar = () => {
+    const current_user = useContext(UserContext);
     useWindowDimensions();
     useNavigate();
     const {t} = useTranslation();
@@ -40,25 +43,7 @@ const Sidebar = () => {
             setSidebar(false);
         }
     }, []);
-
-
-
-    const [current_user, setCurrent_User] = useState({
-        role: '',
-    });
-
-
-    useEffect(() => {
-        const getData = async () => {
-            CurrentUserService.getCurrentUser().then(response => {
-                console.log('Response from main API: ',response)
-                let current_userData = response.data;
-                setCurrent_User({id: current_userData.id, role: current_userData.role})
-            });
-        }
-
-        getData()
-    }, [])
+    
 
     const MenuView = () => {
         if (current_user.role=== "PARENT" ){
