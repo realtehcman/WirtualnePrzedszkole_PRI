@@ -18,8 +18,11 @@ import useWindowDimensions from "./useWindowDimensions.js";
 import CurrentUserService from "../../pages/Home/CurrentUserService";
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import { useTranslation } from "react-i18next";
+import UserContext from './UserContext';
+import { useContext } from 'react';
 
 const Sidebar = () => {
+    const current_user = useContext(UserContext);
     useWindowDimensions();
     useNavigate();
     const {t} = useTranslation();
@@ -40,72 +43,80 @@ const Sidebar = () => {
             setSidebar(false);
         }
     }, []);
-
-
-
-    const [current_user, setCurrent_User] = useState({
-        role: '',
-    });
-
-
-    useEffect(() => {
-        const getData = async () => {
-            CurrentUserService.getCurrentUser().then(response => {
-                console.log('Response from main API: ',response)
-                let current_userData = response.data;
-                setCurrent_User({id: current_userData.id, role: current_userData.role})
-            });
-        }
-
-        getData()
-    }, [])
+    
 
     const MenuView = () => {
-        if (current_user.role=== "PARENT" ){
+        if (current_user.role=== "ADMIN" || current_user.role=== "TEACHER"){
             return(
                 <div data-testid="sidebar">
                     <li>
                         <Link to={"/home"}>
                             <AccountBoxIcon className="icon" />
-                      <span>{t('profile')}</span>
+                            <span>{t('profile')}</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/Message"}>
-                            <MessageIcon className="icon" />
-              <span>{t('theNews')}</span>
+                        <Link to={"/users"}>
+                            <FamilyRestroomIcon className="icon" />
+                            <span>{t('users')}</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/SendMessage"}>
-                            <RateReviewIcon className="icon" />
-              <span>{t('create')}</span>
+                        <Link to={"/groups"}>
+                            <GroupsIcon className="icon" />
+                            <span>{t('groups')}</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/SentMessage"}>
-                            <MarkChatReadIcon className="icon" />
-              <span>{t('sent')}</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={"/Knowledge"}>
-                            <LocalLibraryIcon className="icon" />
-              <span>{t('knowledgeBase')}</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={"/Galeria"}>
-                            <CollectionsIcon className="icon" />
-              <span>{t('gallery')}</span>
+                        <Link to={"/children"}>
+                            <ChildCareIcon className="icon" />
+                            <span>{t('kids')}</span>
                         </Link>
                     </li>
                     <li>
                         <Link to={"/Kadra"}>
                             <SchoolIcon className="icon" />
-                    <span>{t('cadre')}</span>
+                            <span>{t('cadre')}</span>
                         </Link>
                     </li>
+                    <li>
+                        <Link to={"/Message"}>
+                            <MessageIcon className="icon" />
+                            <span>{t('theNews')}</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={"/SendMessage"}>
+                            <RateReviewIcon className="icon" />
+                            <span>{t('create')}</span>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link to={"/SentMessage"}>
+                            <MarkChatReadIcon className="icon" />
+                            <span>{t('sent')}</span>
+                        </Link>
+                    </li>
+
+
+                    <li>
+                        <Link to={"/Knowledge"}>
+                            <LocalLibraryIcon className="icon" />
+                            <span>{t('knowledgeBase')}</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={"/Gallery"}>
+                            <CollectionsIcon className="icon" />
+                            <span>{t('gallery')}</span>
+                        </Link>
+                    </li>   <li>
+                    <Link to={"/UserManual"} target="_blank">
+                        <span>{t('manual')}</span>
+                    </Link>
+
+                </li>
                 </div>
             );
         }
@@ -116,72 +127,46 @@ const Sidebar = () => {
                     <li>
                         <Link to={"/home"}>
                             <AccountBoxIcon className="icon" />
-              <span>{t('profile')}</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={"/users"}>
-                            <FamilyRestroomIcon className="icon" />
-              <span>{t('users')}</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={"/groups"}>
-                            <GroupsIcon className="icon" />
-              <span>{t('groups')}</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={"/children"}>
-                            <ChildCareIcon className="icon" />
-              <span>{t('kids')}</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={"/Kadra"}>
-                            <SchoolIcon className="icon" />
-                    <span>{t('cadre')}</span>
+                            <span>{t('profile')}</span>
                         </Link>
                     </li>
                     <li>
                         <Link to={"/Message"}>
                             <MessageIcon className="icon" />
-              <span>{t('theNews')}</span>
+                            <span>{t('theNews')}</span>
                         </Link>
                     </li>
                     <li>
                         <Link to={"/SendMessage"}>
                             <RateReviewIcon className="icon" />
-              <span>{t('create')}</span>
+                            <span>{t('create')}</span>
                         </Link>
                     </li>
-
                     <li>
                         <Link to={"/SentMessage"}>
                             <MarkChatReadIcon className="icon" />
-              <span>{t('sent')}</span>
+                            <span>{t('sent')}</span>
                         </Link>
                     </li>
-
-
                     <li>
                         <Link to={"/Knowledge"}>
                             <LocalLibraryIcon className="icon" />
-              <span>{t('knowledgeBase')}</span>
+                            <span>{t('knowledgeBase')}</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/Gallery"}>
+                        <Link to={"/Galeria"}>
                             <CollectionsIcon className="icon" />
-              <span>{t('gallery')}</span>
+                            <span>{t('gallery')}</span>
                         </Link>
-                    </li>   <li>
-                    <Link to={"/UserManual"} target="_blank">
-              <span>{t('manual')}</span>
-                    </Link>
-
-                </li>
-                    </div>
+                    </li>
+                    <li>
+                        <Link to={"/Kadra"}>
+                            <SchoolIcon className="icon" />
+                            <span>{t('cadre')}</span>
+                        </Link>
+                    </li>
+                </div>
             );
         }
     }
