@@ -78,6 +78,7 @@ const User = () => {
 
 
   return (
+    <>
     <div className="container rounded bg-white mt-5 mb-5">
       <div className="row">
         <div className="col-md-3 border-right">
@@ -112,7 +113,7 @@ const User = () => {
         <div className="col-md-5 border-right">
           <div className="p-3 py-5">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h4 className="text-right">Informacje</h4>
+              <h1>{t('information')}</h1>
             </div>
             <div className="row mt-2">
               <div className="col-md-6"></div>
@@ -177,7 +178,7 @@ const User = () => {
                     className="btn btn-primary profile-button"
                     type="button"
                   >
-                    Dodaj Dziecko
+                    {t('add_child')}
                   </button>
                 </div>
               </div>
@@ -186,6 +187,8 @@ const User = () => {
         </div>
       </div>
     </div>
+    </>
+
   );
 };
 
