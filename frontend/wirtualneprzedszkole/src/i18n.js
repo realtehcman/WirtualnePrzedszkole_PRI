@@ -10,13 +10,13 @@ const option = {
 }
 
 i18n
-  .use(Backend)
   .use(LanguageDetector)
+  .use(Backend)
   .use(initReactI18next)
   .init({
     fallbackLng: 'pl',
-    lan: 'pl',    //default language
-    debug: false,
+    lng: 'pl',    //default language
+    debug: true,
     whiteList: availableLanguages,
     detection: option,
     interpolation: {

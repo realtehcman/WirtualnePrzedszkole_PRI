@@ -141,8 +141,6 @@ const CurrentUser = () => {
 
                                                 <button className="btn btn-danger" onClick={() => deleteAvatar()}>Usuń Profilowe</button>
                                             </div>
-
-
                                     </div>
                                 </div>
                             </div>
