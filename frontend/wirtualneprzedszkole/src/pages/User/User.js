@@ -135,7 +135,7 @@ const User = () => {
                 <label className="labels">{user.opis}</label>
               </div>
 
-              {/* <div class="col-md-12"><label class="labels">Dziecko: </label>  <label class="labels">{user.children.map(item => {item.classId})}</label></div> */}
+              {/* <div className="col-md-12"><label class="labels">Dziecko: </label>  <label class="labels">{user.children.map(item => {item.classId})}</label></div> */}
               <div className="col-md-12">
                 <h1>Dzieci: </h1>
                 <table className="children">

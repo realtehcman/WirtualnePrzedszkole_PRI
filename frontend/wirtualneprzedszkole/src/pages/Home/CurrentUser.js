@@ -149,7 +149,7 @@ const CurrentUser = () => {
                             <div className='App_card'>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">{t('name')}:</label>
+                                        <label className="fw-bold">{t('name')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.name}</p>
@@ -157,7 +157,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">{t('last_name')}:</label>
+                                        <label className="fw-bold">{t('last_name')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.lastName}</p>
@@ -165,7 +165,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">{t('email')}:</label>
+                                        <label className="fw-bold">{t('email')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.email}</p>
@@ -173,7 +173,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">{t('telephone')}:</label>
+                                        <label className="fw-bold">{t('telephone')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.phoneNumber}</p>
@@ -181,7 +181,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">{t('address')}:</label>
+                                        <label className="fw-bold">{t('address')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.address}</p>
@@ -189,7 +189,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">{t('role')}:</label>
+                                        <label className="fw-bold">{t('role')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.role}</p>
@@ -197,7 +197,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label class="fw-bold">{t('description')}</label>
+                                        <label className="fw-bold">{t('description')}</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.opis}</p>
