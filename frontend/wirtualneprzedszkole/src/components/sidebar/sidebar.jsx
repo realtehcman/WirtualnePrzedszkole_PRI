@@ -46,7 +46,7 @@ const Sidebar = () => {
     
 
     const MenuView = () => {
-        if (current_user.role=== "ADMIN" ){
+        if (current_user.role=== "ADMIN" || current_user.role=== "TEACHER"){
             return(
                 <div data-testid="sidebar">
                     <li>
