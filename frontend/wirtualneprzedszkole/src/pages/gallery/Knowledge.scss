@@ -168,6 +168,9 @@
 .content-table tbody td:hover #hiddenText {
   visibility: visible;
 }
+#hiddenText:empty {
+  display: none;
+}
 
 
 .icon:hover {

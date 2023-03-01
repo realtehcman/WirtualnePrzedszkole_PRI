@@ -55,6 +55,8 @@ class CreateGroup extends Component {
   };
 
   render() {
+    const {t} = this.props
+
     return (
         <div data-testid="createGroup" className="formContainer">
           <ToastContainer />
@@ -66,7 +68,7 @@ class CreateGroup extends Component {
                 } }>
                   <div className="form-group">
                     <input
-                        placeholder="Nazwa"
+                        placeholder={t('name')}
                         name="Nazwa"
                         required
                         type="text"
@@ -77,7 +79,7 @@ class CreateGroup extends Component {
                   </div>
                   <div className="form-group">
                     <input
-                        placeholder="Opis"
+                        placeholder={t('description')}
                         name="Opis"
                         required
                         type="text"
@@ -87,12 +89,13 @@ class CreateGroup extends Component {
                   </div>
 
                   <div className="form-but">
-                    <button className="button2">Zapisz</button>
+                    <button className="button btn me-3">{t('save')}</button>
 
                   </div>
                   <div><div className="form-but">
-                    <Link className="button3" to={"/groups"}>
-                      Wróć
+                    <Link className="button btn" to={"/groups"}>
+                                    {t('come_back')}
+
                     </Link></div></div>
                 </form>
               </div>

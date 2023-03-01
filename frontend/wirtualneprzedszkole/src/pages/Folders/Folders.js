@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react'
 import {useNavigate} from "react-router-dom";
 import FolderService from './FolderService'
 import "./Folders.scss"
+import { useTranslation } from "react-i18next";
 
 
 const Folders = (props) => {
+
+    const { t } = useTranslation();
 
     const navigate = useNavigate()
     const [folder, setFolder] = useState(
@@ -63,17 +66,17 @@ const Folders = (props) => {
             <table className="content-table">
                 <thead>
                     <tr className="table-head">
-                        <td>Folder</td>
-                        <td>Zobacz</td>
-                        <td>Usuń</td>
+                            <td>{t('folder')}</td>
+                            <td>{t('look')}</td>
+                            <td>{t('delete')}</td>
                     </tr>
                 </thead>
                 <tbody className="body table-body">
                     {folder.childrenFolder.map((item) => (
                         <tr key = {item.id}>
                             <td>{item.name}</td>
-                            <td><button onClick={() => showFolderContent(item.id)} className="btn btn-info">Zobacz</button></td>
-                            <td><button onClick={() => deleteFolder(item.id)} className="btn btn-danger">Usuń</button></td>
+                            <td><button onClick={() => showFolderContent(item.id)} className="btn btn-info">{t('look')}</button></td>
+                            <td><button onClick={() => deleteFolder(item.id)} className="btn btn-danger">{t('delete')}</button></td>
                         </tr>
                     ))}
                 </tbody>
@@ -85,7 +88,7 @@ const Folders = (props) => {
             className="button"
             onClick={() => navigate("/addFolder", {state: {folder}})}
         >
-            Dodaj Folder
+                    {t('add_folder')}
         </button>
         </div>
     )

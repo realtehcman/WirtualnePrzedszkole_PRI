@@ -1,9 +1,12 @@
 import UserService from "../User/UserService";
 import {useParams} from "react-router-dom";
 import React, { useEffect, useState }from 'react'
+import { useTranslation } from "react-i18next";
 
 
 const EditUser = () => {
+        const {t} = useTranslation();
+
     const [user, setUser] = useState({
         id:'',
         email: '',
@@ -42,7 +45,7 @@ const EditUser = () => {
     // eslint-disable-next-line
     }, [])
 
-    const updateData = (e) => {
+    const updateData2 = (e) => {
         e.preventDefault()
         userEdit.id = user.id
         if (userEdit.name === "") userEdit.name = user.name
@@ -58,21 +61,82 @@ const EditUser = () => {
 
     return (
         <div data-testid="edit-user">
-            <form className="form">
-            <label>Imię:</label><br></br>
-            <input placeholder={user.name} onChange={(e) => setUserEdit({...userEdit, name : e.target.value})}/><br></br>
-            <label>Nazwisko:</label><br></br>
-            <input  placeholder={user.lastName} onChange={(e) => setUserEdit({...userEdit, lastName : e.target.value})}/><br></br>
-            <label>Email:</label><br></br>
-            <input  placeholder={user.email} onChange={(e) => setUserEdit({...userEdit,email : e.target.value})}/><br></br>
-            <label>Adres:</label><br></br>
-            <input placeholder={user.address} onChange={(e) => setUserEdit({...userEdit, address : e.target.value})}/><br></br>
-            <label>Telefon:</label><br></br>
-            <input placeholder={user.phoneNumber} onChange={(e) => setUserEdit({...userEdit,phoneNumber : e.target.value})}/><br></br>
-            <label>Opis :</label><br></br>
-            <input placeholder={user.opis} onChange={(e) => setUserEdit({...userEdit,opis : e.target.value})}/><br></br>
-            <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
+            <form>
+                <div className="row">
+                    <div className="col-md-6 col-12 mb-3">
+                        <div className="row">
+                            <div className="col-md-3 col-12">
+                                <label>{t('name')}:</label>
+                            </div>
+                            <div className="col-md-9 col-12">
+                                <input placeholder={user.name} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, name: e.target.value })} />
+                            </div>
+                        </div>
 
+                    </div>
+                    <div className="col-md-6 col-12 mb-3">
+                        <div className="row">
+                            <div className="col-md-3 col-12">
+                                <label>{t('last_name')}:</label>
+                            </div>
+                            <div className="col-md-9 col-12">
+                                <input placeholder={user.lastName} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, lastName: e.target.value })} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-6 col-12 mb-3">
+                        <div className="row">
+                            <div className="col-md-3 col-12">
+                                <label>{t('email')}:</label>
+                            </div>
+                            <div className="col-md-9 col-12">
+                                <input placeholder={user.email} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, email: e.target.value })} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-6 col-12 mb-3">
+                        <div className="row">
+                            <div className="col-md-3 col-12">
+                                <label>{t('address')}:</label>
+                            </div>
+                            <div className="col-md-9 col-12">
+                                <input placeholder={user.address} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, address: e.target.value })} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-6 col-12">
+                        <div className="row">
+                            <div className="col-md-3 col-12">
+                                <label>{t('telephone')}:</label>
+                            </div>
+                            <div className="col-md-9 col-12">
+                                <input placeholder={user.phoneNumber} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, phoneNumber: e.target.value })} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-6 col-12">
+                        <div className="row">
+                            <div className="col-md-3 col-12">
+                                <label>{t('description')}:</label>
+                            </div>
+                            <div className="col-md-9 col-12">
+                                <input placeholder={user.opis} className="form-control" onChange={(e) => setUserEdit({ ...userEdit, opis: e.target.value })} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-12 text-center mt-5">
+                    <button onClick={updateData2} className='btn btn_global'>{t('save')}</button>
+                    </div>
+                </div>
             </form>
         </div>
     )

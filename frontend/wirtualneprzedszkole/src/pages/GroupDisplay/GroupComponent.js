@@ -1,3 +1,4 @@
+//add localization
 import React, {Component} from "react";
 import GroupService from "./GroupService";
 import "./GroupDisplay.scss";

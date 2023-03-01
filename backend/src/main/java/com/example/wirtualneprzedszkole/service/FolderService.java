@@ -2,6 +2,7 @@ package com.example.wirtualneprzedszkole.service;
 
 import com.example.wirtualneprzedszkole.filemanagement.FileStorageProperties;
 import com.example.wirtualneprzedszkole.filemanagement.StorageException;
+import com.example.wirtualneprzedszkole.model.dao.Class;
 import com.example.wirtualneprzedszkole.model.dao.Folder;
 import com.example.wirtualneprzedszkole.repository.FolderRepo;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -84,5 +86,9 @@ public class FolderService {
 
     public List<Folder> getClassSubFolders(String className) {
         return folderRepo.findClassSubFolders(className);
+    }
+
+    public List<Folder> getFolders(Set<String> classes) {
+        return folderRepo.findFolderByClasses(classes);
     }
 }

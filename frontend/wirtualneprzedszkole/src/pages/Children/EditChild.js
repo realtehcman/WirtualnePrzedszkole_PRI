@@ -17,7 +17,7 @@ const EditChild = () => {
         id: '',
         name: '',
         lastName: '',
-        className: '',
+        //className: '',
         classId: ''
     });
 
@@ -30,11 +30,9 @@ const EditChild = () => {
             console.log('Response from main API: ',response)
             let childData = response.data;
             if (childData.classId !== undefined) {
-                GroupService.getGroup(childData.classId).then(response => {
-                    setChild({id: childData.id, name: childData.name, lastName: childData.lastName, className: (response.data).name, classId: childData.classId})
-                })
+                setChild({id: childData.id, name: childData.name, lastName: childData.lastName, classId: childData.classId, className: childData.className})
             } else {
-                setChild({id: childData.id, name: childData.name, lastName: childData.lastName, classId: childData.classId})
+                setChild({id: childData.id, name: childData.name, lastName: childData.lastName, className: "", classId: ""})
             }
         });
 
@@ -52,7 +50,7 @@ const EditChild = () => {
         childEdit.id = child.id
         if (childEdit.name === "") childEdit.name = child.name
         if (childEdit.lastName === "") childEdit.lastName = child.lastName
-        if (childEdit.className === "") childEdit.className = child.className
+        //if (childEdit.className === "") childEdit.className = child.className
         if (childEdit.classId === "") childEdit.classId = child.classId
 
         ChildrenService.editChild(childEdit)

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import GalleryService from "../gallery/GalleryService";
-import "../User/Table.scss";
 import Masonry from 'react-masonry-css'
 import ClearIcon from '@mui/icons-material/Clear';
 import '../../../src/Styles.scss';
 import Popup from '../GroupDisplay/Popup';
-import CreateGallery from './CreateGallery';
 import FolderService from '../Folders/FolderService';
 import FileService from './FileService';
 import saveAs from 'file-saver'
@@ -132,9 +129,9 @@ const ViewGallery = () => {
             <h1>{folderName}</h1>
             <div className='gallery_container px-4 py-4'>
                 <Masonry
-                    breakpointCols={3}
-                    className="my-masonry-grid"
-                    columnClassName="my-masonry-grid_column"
+                    breakpointCols={{
+                    }}
+
                 >
                     {photos.map((photo) => (
                         <div className='gallery_img position-relative'  key={photo[1].id}>

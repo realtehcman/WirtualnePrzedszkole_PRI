@@ -3,8 +3,14 @@ package com.example.wirtualneprzedszkole.controller;
 //import com.example.wirtualneprzedszkole.mapper.ChildMapper;
 
 import com.example.wirtualneprzedszkole.mapper.ChildMapper;
+import com.example.wirtualneprzedszkole.model.dao.Child;
+import com.example.wirtualneprzedszkole.model.dao.Class;
+import com.example.wirtualneprzedszkole.model.dao.User;
 import com.example.wirtualneprzedszkole.model.dto.ChildDto;
+import com.example.wirtualneprzedszkole.model.dto.ChildWithClassNameDto;
 import com.example.wirtualneprzedszkole.service.ChildService;
+import com.example.wirtualneprzedszkole.service.ClassService;
+import com.example.wirtualneprzedszkole.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,23 +19,59 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
 @EnableWebMvc
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/child")
 public class ChildController {
     private final ChildService childService;
+    private final UserService userService;
+    private final ClassService classService;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("{id}")
-    public ChildDto getChild(@PathVariable Long id) {
-        return ChildMapper.mapToChildDto(childService.getChild(id));
+    public ResponseEntity<ChildWithClassNameDto> getChild(@PathVariable Long id) {
+        User user = userService.getCurrentUser();
+        Child child = childService.getChild(id);
+        ChildDto childDto =  ChildMapper.mapToChildDto(child);
+
+        if (user.getRole().getAuthority().equals("ADMIN"))
+            return new ResponseEntity<>(ChildMapper.mapToChildWithClassNameDto(childDto, getClassNameForChild(childDto)),
+                    HttpStatus.OK);
+        else if (user.getRole().getAuthority().equals("TEACHER")) {
+            Set<Child> teachingChildren = new HashSet<>();
+            user.getClasses().forEach(aClass -> teachingChildren.addAll(aClass.getChildren()));
+            teachingChildren.addAll(user.getChildren());
+            if (teachingChildren.contains(child)) {
+                return new ResponseEntity<>(ChildMapper.mapToChildWithClassNameDto(childDto, getClassNameForChild(childDto)),
+                        HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            if (user.getChildren().contains(child)) {
+                return new ResponseEntity<>(ChildMapper.mapToChildWithClassNameDto(childDto, getClassNameForChild(childDto)),
+                        HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping
-    public List<ChildDto> getChildren() {
-        return ChildMapper.mapToChildDto(childService.getChildren());
+    public ResponseEntity<List<ChildWithClassNameDto>> getChildren() {
+        User user = userService.getCurrentUser();
+        if (user.getRole().getAuthority().equals("ADMIN"))
+            return new ResponseEntity<>(ChildMapper.mapToChildrenWithClassName(getHashMapChildrenWithClassName(ChildMapper
+                    .mapToChildDto(childService.getChildren()))), HttpStatus.OK);
+        else {
+            List<Child> teachingChildren = new ArrayList<>();
+            user.getClasses().forEach(aClass -> teachingChildren.addAll(aClass.getChildren()));
+            return new ResponseEntity<>(ChildMapper.mapToChildrenWithClassName(getHashMapChildrenWithClassName(ChildMapper
+                    .mapToChildDto(teachingChildren))), HttpStatus.OK);
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -64,6 +106,23 @@ public class ChildController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public HashMap<ChildDto, String> getHashMapChildrenWithClassName(List<ChildDto> childDtoList) {
+        HashMap<ChildDto, String> childrenWithClassNames = new HashMap<>();
+        childDtoList.forEach(childDto -> {
+            String className = getClassNameForChild(childDto);
+            childrenWithClassNames.put(childDto, className);
+        });
+
+        return childrenWithClassNames;
+    }
+
+    public String getClassNameForChild(ChildDto childDto) {
+        String className = "";
+        if (childDto.getClassId() != null)
+            className = classService.getClass(childDto.getClassId()).getName();
+        return className;
     }
 }
 

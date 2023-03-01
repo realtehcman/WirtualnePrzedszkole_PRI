@@ -5,6 +5,7 @@ import "../User/Table.scss";
 import {useNavigate} from "react-router-dom";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FolderService from "../Folders/FolderService"
 
 const Navi2 = (props) => {
     const navigate = useNavigate();
@@ -60,7 +61,7 @@ class Gallery extends React.Component {
 
 
     componentDidMount() {
-        GalleryService.getFolders().then((response) => {
+        FolderService.getFolders().then((response) => {
             this.setState({ all_folders: response.data });
         });
     }
@@ -99,9 +100,9 @@ class Gallery extends React.Component {
                     <tbody>
                     {filteredFolders.map((folder) => (
                         <tr key={folder.id}>
-                            <td>{folder.className}</td>
-                            <td>{folder.path.split("Photos/")[1]}</td>
-                            <td className="foobar">
+                            <td id="td--gallery">{folder.className}</td>
+                            <td id="td--gallery">{folder.path.split("Photos/")[1]}</td>
+                            <td id="td--gallery" className="foobar">
                                 <Navi value={folder.id} />
                                 <Navi2 value={folder.id} />
                                 <button

@@ -1,3 +1,4 @@
+//TODO add localiztion to this component
 import React from "react";
 import ChildrenService from "./ChildrenService";
 import "../User/Table.scss";
@@ -111,10 +112,10 @@ class ChildrenComponent extends React.Component {
             {filteredchildren.map((child) =>(
                 <tr key={child.id}>
 
-                  <td>{child.name}</td>
-                  <td>{child.lastName}</td>
-                  <td id="td--children">{child.classId}</td>
-                  <td>
+                  <td id="td--children">{child.name}</td>
+                  <td id="td--children">{child.lastName}</td>
+                  <td id="td--children">{child.className}</td>
+                  <td id="td--children">
                     <Navi value={child.id} />
 
 

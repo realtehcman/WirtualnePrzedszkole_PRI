@@ -31,6 +31,7 @@ const ViewMessage = () => {
             }).catch(() => setIsForbidden(true));
         }
         getData();
+        // eslint-disable-next-line
     }, [id]);
 
     if (isForbidden) {

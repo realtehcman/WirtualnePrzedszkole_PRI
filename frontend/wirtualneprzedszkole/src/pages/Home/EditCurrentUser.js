@@ -2,8 +2,11 @@ import React, { useState }from 'react'
 import CurrentUserService from "./CurrentUserService";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from 'react-i18next';
 
 const EditCurrentUser = (props) => {
+    const { t } = useTranslation();
+
     const current_user = {
         id: props.id,
         email: props.email,
@@ -36,7 +39,7 @@ const EditCurrentUser = (props) => {
                     toast.success("Dane zostały zmienione poprawnie");
                     setTimeout(() => {
                         window.location.reload();
-                    }, 1700);
+                    }, 10700);
 
                 } else {
                     toast.error("Wystąpił błąd podczas edycji, upewnij się że dane zostały wprowadzone poprawnie");
@@ -50,10 +53,11 @@ const EditCurrentUser = (props) => {
         <div data-testid="edit-current-user">
             <ToastContainer />
             <form>
-                <label>Adres:</label><br></br>
+                <label>{t('address')}:</label><br></br>
                 <input placeholder={current_user.address} onChange={(e) => setUserEdit({...userEdit, address : e.target.value})}/><br></br>
-                <label>Telefon:</label><br></br>
+                <label>{t('telephone')}:</label><br></br>
                 <input placeholder={current_user.phoneNumber} onChange={(e) => setUserEdit({...userEdit,phoneNumber : e.target.value})}/><br></br>
+                <label>{t('description')}:</label><br></br>
                 <input placeholder={current_user.opis} onChange={(e) => setUserEdit({...userEdit,opis : e.target.value})}/><br></br>
                 <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
             </form>

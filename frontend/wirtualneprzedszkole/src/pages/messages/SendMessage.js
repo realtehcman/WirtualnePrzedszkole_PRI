@@ -69,7 +69,7 @@ class SendMessage extends Component {
 
     saveMessage = (e) => {
         e.preventDefault();
-        const to = this.state.to.split(',').map(item => item.trim());
+        const to = this.state.to.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi)
         let message = JSON.stringify({
             to: to,
             subject: this.state.subject,
@@ -196,12 +196,12 @@ class SendMessage extends Component {
                                         className={`autocomplete-option ${index === this.state.selectedOptionIndex ? 'selected' : ''}`}
                                         onClick={() => {
                                             const names = to.split(',').map((name) => name.trim());
-                                            names[names.length-1] = user.name + ' ' + user.lastName + ',';
+                                            names[names.length-1] = user.name + ' ' + user.lastName + ' ' + '(' + user.email + ')' + ',';
                                             this.setState({ to: names.join(',') });
                                         }}
                                     >
                                         <div key={user.id} title={user.email}>
-                                            {user.name + ' ' + user.lastName}
+                                            {user.name + ' ' + user.lastName + ' ' + '(' + user.email + ')'}
                                         </div>
                                     </div>
                                 ))}

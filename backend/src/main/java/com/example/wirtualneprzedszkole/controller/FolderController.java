@@ -15,7 +15,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,10 +41,24 @@ public class FolderController {
         return FolderMapper.FolderMapToDto(folderService.getFolder(id));
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("/all")
-    public List<FolderDto> getAllFolders() {
-        return FolderMapper.FolderMapToDto(folderService.getAllFolders());
+    public ResponseEntity<List<FolderDto>> getAllFolders() {
+        User user = userService.getCurrentUser();
+        if (user.getRole().getAuthority().equals("ADMIN"))
+            return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getAllFolders()), HttpStatus.OK);
+        else if (user.getRole().getAuthority().equals("TEACHER")) {
+            Set<String> teacherClasses = user.getClasses().stream().map(Class::getName).collect(Collectors.toSet());
+            if (user.getChildren() != null) {
+                user.getChildren().forEach(child -> teacherClasses.add(classService.getClass(child.getClassId()).getName()));
+            }
+            return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getFolders(teacherClasses)), HttpStatus.OK);
+        }
+        else {
+            Set<String> childrenClasses = new HashSet<>();
+            user.getChildren().forEach(child -> childrenClasses.add(classService.getClass(child.getClassId()).getName()));
+            return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getFolders(childrenClasses)), HttpStatus.OK);
+        }
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -53,46 +71,30 @@ public class FolderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping("/className/{className}")
     public ResponseEntity<List<FolderDto>> getClassFolders(@PathVariable String className) {
         User user = userService.getCurrentUser();
         if (user.getRole().getAuthority().equals("ADMIN"))
             return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getClassFolders(className)), HttpStatus.OK);
-        else if (user.getRole().getAuthority().equals("TEACHER")) {
+        else {
             List<Class> teacherClasses = user.getClasses();
             if (teacherClasses.stream().anyMatch(teacherClass -> className.equals(teacherClass.getName())))
-                return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getClassFolders(className)), HttpStatus.OK);
-            else
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        else {
-            List<Child> userChildren = user.getChildren();
-            Long childClassId = classService.getClassByName(className).getId();
-            if (userChildren.stream().anyMatch(userChild -> childClassId.equals(userChild.getClassId())))
                 return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getClassFolders(className)), HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @GetMapping("/getSubFolders/{className}")
     public ResponseEntity<List<FolderDto>> getClassSubFolders(@PathVariable String className) {
         User user = userService.getCurrentUser();
         if (user.getRole().getAuthority().equals("ADMIN"))
             return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getClassSubFolders(className)), HttpStatus.OK);
-        else if (user.getRole().getAuthority().equals("TEACHER")) {
+        else {
             List<Class> teacherClasses = user.getClasses();
             if (teacherClasses.stream().anyMatch(teacherClass -> className.equals(teacherClass.getName())))
-                return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getClassSubFolders(className)), HttpStatus.OK);
-            else
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        else {
-            List<Child> userChildren = user.getChildren();
-            Long childClassId = classService.getClassByName(className).getId();
-            if (userChildren.stream().anyMatch(userChild -> childClassId.equals(userChild.getClassId())))
                 return new ResponseEntity<>(FolderMapper.FolderMapToDto(folderService.getClassSubFolders(className)), HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);

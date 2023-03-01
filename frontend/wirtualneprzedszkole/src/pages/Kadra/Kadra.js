@@ -56,7 +56,7 @@ function Kadra() {
             let urlCreator = window.URL || window.webkitURL;
             return urlCreator.createObjectURL(response.data);
         } else {
-            return "https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif";
+            return "https://www.christchurchandstmarys.co.uk/images/nophoto.jpg";
         }
     };
 

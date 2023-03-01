@@ -219,7 +219,7 @@ const Knowledge = () => {
                 {filteredFiles.map((file) => (
 
                     <tr key = {file.id}>
-                            <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
+                            <td id="tooltip">{file.name}</td><td id="hiddenText">{displayHiddentText(file.description)}</td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
                         {currentUser.role === "ADMIN" &&    <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>}
                             <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>Pobierz</button></td>

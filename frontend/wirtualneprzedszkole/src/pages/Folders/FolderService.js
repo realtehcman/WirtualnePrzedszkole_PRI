@@ -24,6 +24,10 @@ class FolderService {
         return axios.delete(FOLDER_REST_API_URL + "/" + folderId)
     }
 
+    getFolders() {
+        return axios.get(FOLDER_REST_API_URL + "/all/")
+    }
+
 }
 // eslint-disable-next-line
 export default new FolderService();

@@ -119,14 +119,14 @@ class UserComponent extends React.Component {
             <tbody className="body table-body">
             {filteredusers.map((user) =>(
                 <tr key={user.id}>
-                  <td>
+                  <td id="td--users">
                     {user.role === "TEACHER" ? "nauczyciel" : user.role === "ADMIN" ? "admin" : "rodzic"}
                   </td>
 
-                  <td>{user.name}</td>
-                  <td>{user.lastName}</td>
-                  <td>{user.email}</td>
-                  <td className="foobar">
+                  <td id="td--users">{user.name}</td>
+                  <td id="td--users">{user.lastName}</td>
+                  <td id="td--users">{user.email}</td>
+                  <td id="td--users" className="foobar">
                     <Navi value={user.id} />
                     {/* <button onClick={() => this.props.navigation.navigate("/home//")} className='btn btn-info'>Zobacz</button> */}
                     <button

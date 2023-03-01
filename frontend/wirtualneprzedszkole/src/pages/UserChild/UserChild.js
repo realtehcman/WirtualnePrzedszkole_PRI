@@ -58,9 +58,9 @@ const UserChild = () => {
                 <tbody className="body">
                 {children.map((child) => (
                     <tr key={child.id}>
-                        <td>{child.name}</td>
-                        <td>{child.lastName}</td>
-                        <td>
+                        <td id="td--addchildren">{child.name}</td>
+                        <td id="td--addchildren">{child.lastName}</td>
+                        <td id="td--addchildren">
                             <button
                                 onClick={() => putUser(id, child)}
                                 className="btn btn-danger"
