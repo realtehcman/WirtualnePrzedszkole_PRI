@@ -3,8 +3,10 @@ import UserService from "../User/UserService";
 import "./UserInfo.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import FileService from "../gallery/FileService"
+import { useTranslation } from "react-i18next";
 
 const User = () => {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const [user, setUser] = useState({
     id: "",
@@ -86,7 +88,7 @@ const User = () => {
               width="150px"
               /* src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif" */
             />
-            <div className="dlt">            <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>Usuń Profilowe</button>
+            <div className="dlt">            <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>{t('delete_profile')}</button>
             </div>
             <span className="font-weight-bold">
               {user.name} {user.lastName}
@@ -102,7 +104,8 @@ const User = () => {
               className="btn btn-primary profile-button"
               type="button"
             >
-              Edytuj
+              {t('edit')}
+
             </button>
           </div>
         </div>
@@ -117,19 +120,19 @@ const User = () => {
             </div>
             <div className="row mt-3">
               <div className="col-md-12">
-                <label className="labels">Telefon: </label>{" "}
-                <label className="labels">{user.phoneNumber}</label>
+                <label className="labels">{t('telephone')}: </label>{" "}<br/>
+                <label className="labels">{user.phoneNumber}</label><br/><br/>
               </div>
               <div className="col-md-12">
-                <label className="labels">Adres: </label>{" "}
-                <label className="labels">{user.address}</label>
+                <label className="labels">{t('address')}: </label>{" "}<br/>
+                <label className="labels">{user.address}</label><br/><br/>
               </div>
               <div className="col-md-12">
-                <label className="labels">Rola: </label>{" "}
-                <label className="labels">{user.role}</label>
+                <label className="labels">{t('role')}: </label>{" "}<br/>
+                <label className="labels">{user.role}</label><br/><br/>
               </div>
               <div className="col-md-12">
-                <label className="labels">O mnie : </label>
+                <label className="labels">{t('about_me')}: </label>
               </div>
               <div className="col-md-12">
                 <label className="labels">{user.opis}</label>
@@ -137,14 +140,14 @@ const User = () => {
 
               {/* <div className="col-md-12"><label class="labels">Dziecko: </label>  <label class="labels">{user.children.map(item => {item.classId})}</label></div> */}
               <div className="col-md-12">
-                <h1>Dzieci: </h1>
+                <h1>{t('kids')}:</h1>
                 <table className="children">
                   <thead>
                     <tr>
-                      <th>Imię</th>
-                      <th>nazwisko</th>
+                      <th>{t('name')}</th>
+                      <th>{t('last_name')}</th>
                       {/* <th>classId</th> */}
-                      <th>Nazwa klasy</th>
+                      <th>{t('class_name')}</th>
 
                     </tr>
                   </thead>

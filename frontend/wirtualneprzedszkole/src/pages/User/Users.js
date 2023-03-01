@@ -5,8 +5,10 @@ import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar";
 import UserComponent from "./UserComponent";
 import {useNavigate} from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Users = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <div data-testid="user" className="users">
@@ -18,7 +20,7 @@ const Users = () => {
           className="button"
           onClick={() => navigate("/add-user")}
         >
-          Dodaj użytkownika
+          {t('add_user')}
         </button>
       </div>
     </div>
