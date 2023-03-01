@@ -3,8 +3,11 @@ import UserService from "../User/UserService";
 import ChildrenService from "../Children/ChildrenService";
 import {useNavigate, useParams} from "react-router-dom";
 import "../User/Table.scss";
+import { useTranslation } from "react-i18next";
 
 const UserChild = () => {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
     let {id} = useParams();
     const [children, setChild] = useState([
@@ -50,9 +53,9 @@ const UserChild = () => {
             <table className="content-table">
                 <thead>
                 <tr className="table-head">
-                    <td>Imię</td>
-                    <td>Nazwisko</td>
-                    <td>Akcje</td>
+                    <td>{t('name')}</td>
+                    <td>{t('last_name')}</td>
+                    <td>{t('actions')}</td>
                 </tr>
                 </thead>
                 <tbody className="body">
@@ -65,7 +68,7 @@ const UserChild = () => {
                                 onClick={() => putUser(id, child)}
                                 className="btn btn-danger"
                             >
-                                Przypisz Dziecko
+                                {t('assign_child')}
                             </button>
                         </td>
                     </tr>

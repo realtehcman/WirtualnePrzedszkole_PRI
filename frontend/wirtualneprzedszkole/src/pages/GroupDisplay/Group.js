@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
 const Group = () => {
-        const { t } = useTranslation();
+    const { t } = useTranslation();
 
     const navigate = useNavigate()
     const [group, setGroup] = useState({
@@ -77,26 +77,26 @@ const Group = () => {
     }
 
     const deleteTeacherFromGroup = async(teacher) => {
-        if(window.confirm("Czy na pewno chcesz usunąć " + teacher.name + " " + teacher.lastName + "z grupy " + group.name )){
+        if(window.confirm(t("confirm_deletion")+ " " + teacher.name + " " + teacher.lastName + t("from_a_group") + " " + group.name )){
             UserService.deleteTeacherFromClass(teacher.id, id).then((response) => {
                 if (response.status !== 200) {
-                    toast.error("Wystąpił błąd podczas usuwania użytkownika")
+                    toast.error(t("error_user_addition"))
                     throw new Error(response.status);
                 }
                 else {
                     setGroup({id: group.id, name: group.name, description: group.description, children: group.children,
                         teachers: group.teachers.filter((refreshTeachers) => teacher.id !== refreshTeachers.id)})
-                    toast.success("Użytkownik " + teacher.name + " "+ teacher.lastName + " został pomyślnie usuniety z grupy")
+                    toast.success(t("general_user") + " " + teacher.name + " "+ teacher.lastName + " " + t("success_user_deletion_from_group"))
                 }
             })
         }
     }
 
     const deleteChildFromGroup = async(child) => {
-        if (window.confirm("Czy na pewno chcesz usunąć " + child.name + " " + child.lastName + "z grupy " + group.name)) {
+        if (window.confirm(t("confirm_deletion")+ " " + child.name + " " + child.lastName + "z grupy " + group.name)) {
             ChildrenService.deleteChildFromClass(child.id).then((response) => {
                 if (response.status !== 200) {
-                    toast.error("Wystąpił błąd podczas usuwania użytkownika")
+                    toast.error(t("error_user_deletion"))
                     throw new Error(response.status);
                 }
                 else {
@@ -105,7 +105,7 @@ const Group = () => {
                         children: group.children.filter((refreshChildren) => child.id !== refreshChildren.id),
                         teachers: group.teachers
                     })
-                    toast.success("Użytkownik " + child.name + " "+ child.lastName + " został pomyślnie usuniety z grupy")
+                    toast.success(t("general_user") + " "  + child.name + " "+ child.lastName + " " + t("success_user_deletion_from_group"))
                 }
             })
         }
@@ -131,7 +131,7 @@ const Group = () => {
                         <td id="td--group">{teacher.name}</td>
                         <td id="td--group">{teacher.lastName}</td>
                         <td id="td--group">
-                            <button onClick={() => deleteTeacherFromGroup(teacher)}  className="btn btn-danger">Usuń</button>
+                            <button onClick={() => deleteTeacherFromGroup(teacher)}  className="btn btn-danger">{t('delete')}</button>
                         </td>
                     </tr>
                 ))
@@ -142,7 +142,7 @@ const Group = () => {
                         <td id="td--group">{child.name}</td>
                         <td id="td--group">{child.lastName}</td>
                         <td id="td--group">
-                            <button onClick={() => deleteChildFromGroup(child)}  className="btn btn-danger">Usuń</button>
+                            <button onClick={() => deleteChildFromGroup(child)}  className="btn btn-danger">{t('delete')}</button>
                         </td>
                     </tr>
                 ))

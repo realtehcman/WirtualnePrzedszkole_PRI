@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import messageService from "./MessageService";
 import "../User/Table.scss";
+import { useTranslation } from "react-i18next";
 
 const StatusMsg = () => {
+    const { t } = useTranslation();
     const [message, setMessage] = useState({
         id: "",
         author: "",
@@ -48,10 +50,11 @@ const StatusMsg = () => {
             <table data-testid="status-message" className="content-table">
                 <thead>
                 <tr className="table-head">
-                    <td>Imie</td>
-                    <td>Nazwisko</td>
-                    <td>email</td>
-                    <td>Status</td>
+                    <td>{t('name')}</td>
+                    <td>{t('last_name')}</td>
+                    <td>{t('email')}</td>
+                    <td>{t('status')}</td>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -60,7 +63,7 @@ const StatusMsg = () => {
                         <td>{aaa.name}</td>
                         <td>{aaa.lastName}</td>
                         <td>{aaa.email}</td>
-                        <td>{aaa.isRead ? "wyświetlone" : "nie wyświetlone"}</td>
+                        <td>{aaa.isRead ? `${t('displayed')}` : `${t('not_displayed')}`}</td>
                     </tr>
                 ))}
                 </tbody>

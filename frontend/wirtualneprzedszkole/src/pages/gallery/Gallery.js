@@ -6,11 +6,12 @@ import {useNavigate} from "react-router-dom";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FolderService from "../Folders/FolderService"
-import { useTranslation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
+const { t } = i18next;
+
 
 const Navi2 = (props) => {
-    const { t } = i18next;
 
     const navigate = useNavigate();
     return (
@@ -25,13 +26,14 @@ const Navi2 = (props) => {
 };
 
 const Navi = (props) => {
+
     const navigate = useNavigate();
     return (
         <button
             onClick={() => navigate("/ViewGallery/" + props.value)}
             className="btn btn-info"
         >
-            Wyświetl
+            {t('view')}
         </button>
 
     );
@@ -56,10 +58,10 @@ class Gallery extends React.Component {
             this.setState({
                 all_folders: this.state.all_folders.filter((all_folders) => all_folders.id !== id),
             });
-            toast.success("Galeria usunięta");
+            toast.success(t("success_gallery_deletion"));
         } catch (error) {
             console.error(error);
-            toast.error("Błąd usuwania galerii");
+            toast.error(t("error_gallery_deletion"));
         }
     }
 
@@ -75,6 +77,8 @@ class Gallery extends React.Component {
     }
 
     render() {
+        const { t } = i18next;
+
         const filteredFolders = this.state.all_folders.filter((folder) => {
             const pathMatch = folder.path.includes("Photos/");
             const searchTerms = this.state.searchTerm.toLowerCase().split(" ");
@@ -88,7 +92,7 @@ class Gallery extends React.Component {
         return (
             <div data-testid="gallery" className="scrollable-div">
                 <div className="abc">
-                    <input type="text" placeholder="Wyszukaj Galerie" onChange={this.handleSearch} />
+                    <input type="text" placeholder={t('search_galleries')} onChange={this.handleSearch} />
 
                 </div>
                 <ToastContainer />
@@ -96,9 +100,9 @@ class Gallery extends React.Component {
                 <table className="content-table">
                     <thead>
                     <tr className="table-head">
-                        <td>Grupa</td>
-                        <td>Nazwa Galerii</td>
-                        <td>Akcje</td>
+                        <td>{t('group')}</td>
+                        <td>{t('gallery_name')}</td>
+                        <td>{t('actions')}</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -111,13 +115,13 @@ class Gallery extends React.Component {
                                 <Navi2 value={folder.id} />
                                 <button
                                     onClick={() => {
-                                        if (window.confirm("Czy na pewno chcesz usunąć tę galerię?")) {
+                                        if (window.confirm(t("confirm_gallery_deletion"))) {
                                             this.deleteFolder(folder.id);
                                         }
                                     }}
                                     className="btn button2 btn-danger"
                                 >
-                                    Usuń
+                                    {t('delete')}
                                 </button>
                             </td>
                         </tr>
@@ -130,4 +134,5 @@ class Gallery extends React.Component {
     }
 
 }
-export default Gallery
+
+export default withTranslation()(Gallery);

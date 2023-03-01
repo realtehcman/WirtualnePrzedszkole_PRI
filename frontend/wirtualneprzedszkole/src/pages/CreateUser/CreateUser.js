@@ -6,7 +6,9 @@ import {MDBInput} from 'mdb-react-ui-kit';
 import GroupService from "../GroupDisplay/GroupService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
+const { t } = i18next;
 
 class CreateUser extends Component {
     constructor(props) {
@@ -71,7 +73,7 @@ class CreateUser extends Component {
         UserService.addUser(user).then((response) => {
           if (response.status !== 200) throw new Error(response.status);
           else {
-            toast.success("Użytkownik dodany pomyślnie", {
+            toast.success(t("success_user_addition"), {
               position: "top-right",
               autoClose: 2000,
             });
@@ -440,10 +442,10 @@ class CreateUser extends Component {
                   </select>
                 </div>
                   <div className="asd124">
-                    <button className="button" name="save-with-child">Zapisz</button>
+                    <button className="button" name="save-with-child">{t('save')}</button>
                   </div>
                   <div className="next-child-class">
-                    <button className="button" name="next-child">Zapisz i dodaj następne dziecko</button>
+                    <button className="button" name="next-child">{t('save_and_add_another_child')}</button>
                   </div>
                 </form>
               </div>
@@ -455,4 +457,4 @@ class CreateUser extends Component {
   }
   }
 
-export default CreateUser;
+export default withTranslation()(CreateUser);

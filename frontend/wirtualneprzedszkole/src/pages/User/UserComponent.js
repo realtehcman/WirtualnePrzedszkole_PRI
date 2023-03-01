@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SortIcon from "@mui/icons-material/Sort";
+import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
-import { useTranslation } from "react-i18next";
+const { t } = i18next;
 
 
 
@@ -67,14 +68,15 @@ class UserComponent extends React.Component {
     let userName = this.state.users.find(user => user.id === id).name;
     let userlastName = this.state.users.find(user => user.id === id).lastName;
     let emaail = this.state.users.find(user => user.id === id).email;
-    if(window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${userName} ${userlastName} (${emaail}) ?`)) {
+    if (window.confirm(t("confirm_user_deletion") +" " + userName + " " + userlastName + " " + emaail + " ?")) {
+
       UserService.deleteUser(id).then((response) => {
         this.setState({
           users: this.state.users.filter((user) => user.id !== id),
         });
-        toast.success(userName + ' ' + userlastName + " został usunięty");
+        toast.success(userName + ' ' + userlastName +" " + t("general_got_removed"));
       }).catch(() => {
-        toast.error("Wystąpił błąd podczas usuwania użytkownika");
+        toast.error(t("error_user_deletion"));
       });
     }
   }
@@ -153,4 +155,4 @@ class UserComponent extends React.Component {
   }
 }
 
-export default UserComponent;
+export default withTranslation()(UserComponent);

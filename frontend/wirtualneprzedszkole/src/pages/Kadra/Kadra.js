@@ -5,8 +5,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FileService from "../gallery/FileService";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Kadra() {
+    const { t } = useTranslation();
+
     const [users, setUsers] = useState([]);
     const [userAvatars, setUserAvatars] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
@@ -81,7 +84,7 @@ function Kadra() {
                 <div className="abc">
                     <input
                         type="text"
-                        placeholder="Wyszukaj.."
+                            placeholder={t('search')}
                         onChange={handleSearch}
                     />
                 </div>
@@ -97,11 +100,11 @@ function Kadra() {
                                     width="150px"
                                 />
                                 <br /> <br />
-                                {user.name} {user.lastName} <br /> <br /> ({user.email})
+                                {t('name')}: {user.name}<br/>{t('last_name')}: {user.lastName} <br /> <br /> {t('email')}: ({user.email})
                                 <br /> <br />
-                                Nr telefonu: {user.phoneNumber}
+                                {t('phone_no')}: {user.phoneNumber}
                                 <br /> <br />
-                                o mnie : <br /> <br />
+                                {t('about_me')}: <br />
                                 {user.opis}
                                 <br /> <br />
                             </td>

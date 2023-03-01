@@ -6,6 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
+const { t } = i18next;
+
 
 const Navi = (props) => {
   const { t } = i18next;
@@ -41,18 +43,18 @@ class GroupComponent extends Component {
 
   deleteGroup(id) {
     let groupName = this.state.groups.find(group => group.id === id).name;
-    if(window.confirm("Czy na pewno chcesz usunąć grupę " + groupName + " ?")) {
+    if(window.confirm(t("confirm_group_deletion")+ " " + groupName + " ?")) {
       GroupService.deleteGroup(id)
           .then((response) => {
             this.setState({
               groups: this.state.groups.filter((group) => group.id !== id),
             });
-            toast.success("Group " + groupName + " Grupa została usunięta poprawnie", {
+            toast.success(t("general_group") + " " + groupName + " " + t("success_deletion"), {
               position: toast.POSITION.TOP_RIGHT
             });
           })
           .catch(error => {
-            toast.error("Wystąpił błąd podczas usuwania grupy" + groupName + ".", {
+            toast.error(t("error_group_deletion") + " "  + groupName + ".", {
               position: toast.POSITION.TOP_RIGHT
             });
           });
