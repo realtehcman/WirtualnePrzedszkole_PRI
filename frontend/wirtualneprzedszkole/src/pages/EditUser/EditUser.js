@@ -45,7 +45,7 @@ const EditUser = () => {
     // eslint-disable-next-line
     }, [])
 
-    const updateData = (e) => {
+    const updateData2 = (e) => {
         e.preventDefault()
         userEdit.id = user.id
         if (userEdit.name === "") userEdit.name = user.name
@@ -134,7 +134,7 @@ const EditUser = () => {
 
                 <div className="row">
                     <div className="col-12 text-center mt-5">
-                    <button onClick={updateData} className='btn btn_global'>{t('save')}</button>
+                    <button onClick={updateData2} className='btn btn_global'>{t('save')}</button>
                     </div>
                 </div>
             </form>

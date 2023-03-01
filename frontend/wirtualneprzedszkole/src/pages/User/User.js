@@ -55,7 +55,7 @@ const User = () => {
           setUserAvatar(urlCreator.createObjectURL(response.data))
         })
       } else {
-          setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+          setUserAvatar("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg")
       }
     });
     
@@ -69,7 +69,7 @@ const User = () => {
     UserService.deleteAvatar(deletePictureUser).then(response => {
         if (response.status !== 200) throw new Error(response.status);
         else {
-            setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+            setUserAvatar("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg")
         }
     })
   }

@@ -57,7 +57,7 @@ const CurrentUser = () => {
                         setUserAvatar(urlCreator.createObjectURL(response.data))
                     })
                 } else {
-                    setUserAvatar("https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif")
+                    setUserAvatar("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg")
                 }
             });
         }
@@ -139,7 +139,7 @@ const CurrentUser = () => {
 
                                             <div className='d-flex justify-content-between align-items-center mt-4 gap10'>
 
-                                                <button className="btn btn-danger" onClick={() => deleteAvatar()}>Usuń Profilowe</button>
+                                                <button className="btn btn-danger" onClick={() => deleteAvatar()}>{t('delete_profile')}</button>
                                             </div>
                                     </div>
                                 </div>
@@ -225,7 +225,7 @@ const CurrentUser = () => {
                     <div className='row'>
                         <div className='col-12'>
                             <div className='App_card'>
-                                <h1>Dzieci</h1>
+                                <h1>{t('kids')}</h1>
                             </div>
                         </div>
                     </div>
@@ -236,8 +236,8 @@ const CurrentUser = () => {
                                 <table className="children">
                                     <thead>
                                     <tr>
-                                        <th>Imię</th>
-                                        <th>Nazwa Klasy</th>
+                                        <th>{t('name')}</th>
+                                        <th>{t('class_name')}</th>
                                     </tr>
                                     </thead>
 
