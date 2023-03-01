@@ -138,8 +138,6 @@ const CurrentUser = () => {
                                         title="Zmień zdjęcie"
                                     />
                                 </div>
-
-                                {/* BUTTONS AFTER USER IMAGE SECTION BEGINS */}
                                 <div className="button-container">
                                     <div className="uploadAvatar">
 
@@ -251,9 +249,9 @@ const CurrentUser = () => {
                                     {current_user.children.map((child) => (
                                         <tr key={child.id}>
 
-                                            <td className="clickable"
+                                            <td id="td--currentuser" className="clickable"
                                                 onClick={() => navigate("/child/" + child.id)}>{child.name}</td>
-                                            <td className="clickable"
+                                            <td id="td--currentuser" className="clickable"
                                                 onClick={() => navigate("/child/" + child.id)}>{child.className}</td>
                                         </tr>
                                     ))}

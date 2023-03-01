@@ -24,16 +24,16 @@ const Child = () => {
 
     useEffect(() => {
         const getData = async () => {
-        ChildrenService.getChild(id).then(response => {
-            let ChildData = response.data;
-            let parents = ChildData.parents.map(it => {return {id: it.id, name: it.name, lastName: it.lastName, email: it.email}})
-            setChild({id: ChildData.id, name: ChildData.name, lastName: ChildData.lastName, parents:  parents})
-        });
-    }
+            ChildrenService.getChild(id).then(response => {
+                let ChildData = response.data;
+                let parents = ChildData.parents.map(it => {return {id: it.id, name: it.name, lastName: it.lastName, email: it.email}})
+                setChild({id: ChildData.id, name: ChildData.name, lastName: ChildData.lastName, parents:  parents})
+            });
+        }
         getData().then(() => console.log('Data is loaded'))
     },[id])
 
-    
+
 
     return (
         <div data-testid="child">
@@ -55,10 +55,10 @@ const Child = () => {
                         child.parents.map(
                             parent =>
                                 <tr key = {parent.id}>
-                                    <td>{parent.name}</td>
-                                    <td>{parent.lastName}</td>
-                                    <td>{parent.email}</td>
-                                    <td>
+                                    <td id="td--child">{parent.name}</td>
+                                    <td id="td--child">{parent.lastName}</td>
+                                    <td id="td--child">{parent.email}</td>
+                                    <td id="td--child">
 
                                         <button onClick={() => navigate("/user/" + parent.id)} className='btn btn-info'>{t('look')}</button>
                                     </td>
