@@ -22,6 +22,7 @@ const User = () => {
         id: "",
         name: "",
         classId: "",
+        className: ''
       },
     ],
   });
@@ -36,9 +37,13 @@ const User = () => {
     UserService.getUser(id).then((response) => {
       console.log("Response from main API: ", response);
       let userData = response.data;
-      let children = userData.children.map((it) => {
-        return { id: it.id, name: it.name, lastName: it.lastName, classId: it.classId };
-      });
+      let children
+      if (userData.children !== undefined)
+        children = userData.children.map(it => {return {id: it.id, name: it.name, lastName: it.lastName, classId: it.classId, className: it.className}})
+      else {
+        children = []
+      }
+
       setUser({
         id: userData.id,
         email: userData.email,
@@ -162,7 +167,7 @@ const User = () => {
                       >
                         <td>{child.name}</td>
                         <td>{child.lastName}</td>
-                        <td>{child.classId}</td>
+                        <td>{child.className}</td>
 
                       </tr>
                       //<div className="col-md-12"><label className="labels">dzieci: </label>  <label className="labels">{child.name}</label></div>

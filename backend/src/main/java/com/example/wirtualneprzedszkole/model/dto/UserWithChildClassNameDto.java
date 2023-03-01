@@ -11,14 +11,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDto {
+public class UserWithChildClassNameDto {
     private Long id;
 
     private String opis;
@@ -39,11 +38,11 @@ public class UserDto {
     @ValidPhoneNumber
     private String phoneNumber;
 
-    /*@NotEmpty(message = "To pole nie może być puste")*/
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    private List<ChildDto> children;
+    private List<ChildWithClassNameDto> children;
+    private List<ChildDto> childrenWithoutClassName;
     private List<ClassDto> classes;
 
 }
