@@ -13,6 +13,7 @@ import "../User/UserInfo.scss";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import FileService from "../gallery/FileService";
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -20,6 +21,7 @@ const CurrentUser = () => {
     const [userAvatar, setUserAvatar] = useState("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg");
     const [file, setFile] = useState();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
 
     const [current_user, setCurrent_User] = useState({
@@ -101,7 +103,7 @@ const CurrentUser = () => {
 
                     {/* PAGE TITLE */}
                     <div className='App_card'>
-                        <h1>Dane użytkownika</h1>
+                        <h1>{t('user_data')}</h1>
                     </div>
 
                     <div className='row'>
@@ -130,6 +132,8 @@ const CurrentUser = () => {
                                         title="Zmień zdjęcie"
                                     />
                                 </div>
+
+                                {/* BUTTONS AFTER USER IMAGE SECTION BEGINS */}
                                 <div className="button-container">
                                     <div className="uploadAvatar">
 
@@ -147,7 +151,7 @@ const CurrentUser = () => {
                             <div className='App_card'>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label className="fw-bold">Imię:</label>
+                                        <label class="fw-bold">{t('name')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.name}</p>
@@ -155,7 +159,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label className="fw-bold">Nazwisko:</label>
+                                        <label class="fw-bold">{t('last_name')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.lastName}</p>
@@ -163,7 +167,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label className="fw-bold">Email:</label>
+                                        <label class="fw-bold">{t('email')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.email}</p>
@@ -171,7 +175,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label className="fw-bold">Telefon:</label>
+                                        <label class="fw-bold">{t('telephone')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.phoneNumber}</p>
@@ -179,7 +183,7 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label className="fw-bold">Adres:</label>
+                                        <label class="fw-bold">{t('address')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.address}</p>
@@ -187,16 +191,15 @@ const CurrentUser = () => {
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label className="fw-bold">Rola:</label>
+                                        <label class="fw-bold">{t('role')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.role}</p>
                                     </div>
-
                                 </div>
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
-                                        <label className="fw-bold">Opis:</label>
+                                        <label class="fw-bold">{t('description')}</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.opis}</p>
@@ -204,12 +207,13 @@ const CurrentUser = () => {
                                 </div>
 
                                 <div className='mt-5 d-flex'>
-                                    <button type="button" className='btn btn_global me-3' onClick={() => setButtonPopup(true)}>Edytuj Dane</button>
-                                    <button type="button" className='btn btn-info' onClick={() => navigate("restart-password")}>Zmień Hasło</button>
+                                    <button type="button" className='btn btn_global me-3' onClick={() => setButtonPopup(true)}>{t('edit_data')}</button>
+                                    <button type="button" className='btn btn-info' onClick={() => navigate("restart-password")}>{t('change_password')}</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
 
                     <div className="v"> <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
