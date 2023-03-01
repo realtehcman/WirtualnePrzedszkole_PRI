@@ -68,8 +68,8 @@ const CurrentUser = () => {
             });
         }
         getData()
-
-    }, [])
+        // eslint-disable-next-line
+    }, [id])
 
     const[buttonPopup, setButtonPopup] = useState(false);
 
@@ -78,7 +78,7 @@ const CurrentUser = () => {
             if (response.status !== 200) throw new Error(response.status);
             else
             {
-                FileService.getFile(-1, response.data. picture).then(response => {
+                FileService.getFile(-1, response.data.picture).then(response => {
                     let urlCreator = window.URL || window.webkitURL;
                     setUserAvatar(urlCreator.createObjectURL(response.data))
                 })

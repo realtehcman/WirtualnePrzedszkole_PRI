@@ -151,11 +151,11 @@ const Group = () => {
             </table>
             <div className="div-buttons">
                 <div className="class-folders">
-                    <button type="button" class="btn btn-success" onClick={() =>  NaviToFolder("Galeria")}>{t('galleries')}</button>
-                    <button type="button" class="btn btn-warning" onClick={() => NaviToFolder("Inne")}>{t('other_files')}</button>
+                    <button type="button" className="btn btn-success" onClick={() =>  NaviToFolder("Galeria")}>{t('galleries')}</button>
+                    <button type="button" className="btn btn-warning" onClick={() => NaviToFolder("Inne")}>{t('other_files')}</button>
                 </div>
                 <div className="add-teacher">
-                    <button type="button" class="btn btn-primary" onClick={() => navigate("/Assign-teacher/" + id)}>{t('assign_a_tutor')}</button>
+                    <button type="button" className="btn btn-primary" onClick={() => navigate("/Assign-teacher/" + id)}>{t('assign_a_tutor')}</button>
                 </div>
             </div>
         </div>

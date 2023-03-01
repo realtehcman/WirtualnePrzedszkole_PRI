@@ -36,7 +36,8 @@ const StatusMsg = () => {
             });
         };
         getData();
-    }, []);
+        // eslint-disable-next-line
+    }, [id]);
 
     if (error) {
         window.location.href = '/Message';

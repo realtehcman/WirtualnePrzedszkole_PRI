@@ -5,6 +5,7 @@ import com.example.wirtualneprzedszkole.model.dto.ChildDto;
 import com.example.wirtualneprzedszkole.model.dto.UserDto;
 import com.example.wirtualneprzedszkole.model.dto.UserWithChildClassNameDto;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ public class UserMapper {
 
     public static List<UserDto> mapToDto(List<User> users) {
         return users.stream()
+                .sorted(Comparator.comparing(User::getId))
                 .map(UserMapper::mapToDto)
                 .collect(Collectors.toList());
     }
