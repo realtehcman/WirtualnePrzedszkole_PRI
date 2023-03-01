@@ -7,8 +7,11 @@ import Popup from '../GroupDisplay/Popup';
 import FolderService from '../Folders/FolderService';
 import FileService from './FileService';
 import saveAs from 'file-saver'
+import { useTranslation } from "react-i18next";
 
 const ViewGallery = () => {
+    const {t} = useTranslation();
+
     const [photos, setPhotos] = useState([]);
 
     const [allPhotos, setAllPhotos] = useState([]);
@@ -188,7 +191,7 @@ const ViewGallery = () => {
                     onClick={() => setAddPhotoPopup(true)}
                     className="btn btn-info"
                 >
-                    Dodaj zdjęcie
+                    {t('add_photos')}
                 </button>
             </div>
             <div className='d-flex align-items-center justify-content-end'>
@@ -196,7 +199,7 @@ const ViewGallery = () => {
                     onClick={() => downloadFolder(folderName)}
                     className="btn btn-info"
                 >
-                    Pobierz wszystkie
+                    {t('download_all')}
                 </button>
             </div>
         </div>

@@ -47,12 +47,12 @@
     "come_back": "Wróć",
     "image": "Obraz",
     "phone_no": "Nr telefonu",
-    "data": "Dane",
+    "date": "Data",
     "from": "Od",
     "topic": "Temat",
     "contents": "Treść",
     "create_a_message": "Utwórz wiadomość",
-    "down": "Do",
+    "to": "Do",
     "send": "Wyślij",
     "send_to_all_users": "Wyślij do wszystkich użytkowników",
     "author": "Autor",
@@ -91,8 +91,13 @@
     "kindergarten_no_25" : "Przedszkole nr 25",
     "log_in": "Zaloguj się",
     "do_not_you_remember_the_password": "Nie pamiętasz hasła",
-    "folder" : "Teczka",
+    "folder" : "Folder",
     "add_folder": "Dodaj Folder",
-    "folder_name": "Nazwa Folderu"
+    "gallery_name": "Nazwa Galerii",
+    "search_galleries": "Wyszukaj Galerie",
+    "assign_a_class": "Przypisz Klasę",
+    "send_to_group": "Wyślij do grupy",
+
+    "are_you_sure_you_want_to_delete_image": "Czy na pewno chcesz usunąć ten obraz?"
 }
     

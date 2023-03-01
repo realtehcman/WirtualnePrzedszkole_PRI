@@ -6,15 +6,19 @@ import {useNavigate} from "react-router-dom";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FolderService from "../Folders/FolderService"
+import { useTranslation } from "react-i18next";
+import i18next from 'i18next';
 
 const Navi2 = (props) => {
+    const { t } = i18next;
+
     const navigate = useNavigate();
     return (
         <button
             onClick={() => navigate("/home/" + props.value)}
             className="btn btn-info"
         >
-            Dodaj zdjęcia
+            {t('add_photos')}
         </button>
 
     );
