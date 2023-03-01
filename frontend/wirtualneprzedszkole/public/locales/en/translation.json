@@ -76,6 +76,7 @@
     "parent": "Parent",
     "teacher": "Teacher",
     "administrator": "Administrator",
+    "admin": "Administrator",
     "save_and_add_another_guardian": "Save and add another guardian",
     "save_and_add_a_child": "Save and add a child",
     "add_group": "Add Group",

@@ -76,6 +76,7 @@
     "parent": "Rodzic",
     "teacher": "Nauczyciel",
     "administrator": "Administrator",
+    "admin": "Admin",
     "save_and_add_another_guardian": "Zapisz i dodaj następnego opiekuna",
     "save_and_add_a_child": "Zapisz i dodaj dziecko",
     "add_group": "Dodaj Grupę",
