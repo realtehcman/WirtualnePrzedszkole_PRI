@@ -153,7 +153,13 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/Galeria"}>
+                        <Link to={"/ClassFolders"}>
+                            <LocalLibraryIcon className="icon" />
+                            <span>{t('knowledgeBase')}</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={"/Gallery"}>
                             <CollectionsIcon className="icon" />
                             <span>{t('gallery')}</span>
                         </Link>
