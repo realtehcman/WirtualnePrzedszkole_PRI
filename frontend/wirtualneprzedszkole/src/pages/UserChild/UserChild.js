@@ -3,12 +3,15 @@ import UserService from "../User/UserService";
 import ChildrenService from "../Children/ChildrenService";
 import {useNavigate, useParams} from "react-router-dom";
 import "../User/Table.scss";
+import {useContext} from "react";
+import UserContext from "../../components/sidebar/UserContext";
 import { useTranslation } from "react-i18next";
 
 const UserChild = () => {
     const { t } = useTranslation();
 
     const navigate = useNavigate();
+
     let {id} = useParams();
     const [children, setChild] = useState([
         {
@@ -18,7 +21,7 @@ const UserChild = () => {
             parents: [],
         },
     ]);
-
+    const current_user = useContext(UserContext);
     const getData = async () => {
         ChildrenService.getChildren().then((response) => {
             let ChildData = response.data;
@@ -33,10 +36,18 @@ const UserChild = () => {
             setChild(childrenData);
         });
     };
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    }
+
+    const filteredchildren = children.filter(child =>
+        (child.name.toLowerCase() + ' ' + child.lastName.toLowerCase()).includes(searchTerm.toLowerCase())
+    );
 
     useEffect(() => {
         getData();
-    // eslint-disable-next-line
     }, []);
 
     const putUser = async (id, child) => {
@@ -47,10 +58,18 @@ const UserChild = () => {
             }
         });
     };
-
+    if (current_user.role === "PARENT") {
+        return <div><h1>Error 403: You don't have permission to access this page.</h1></div>;
+    }
     return (
         <div data-testid="user-child">
+            <div className="abc">
+            <form>
+                <input type="text" placeholder="szukaj" onChange={handleSearch} />
+            </form>
+        </div>
             <table className="content-table">
+
                 <thead>
                 <tr className="table-head">
                     <td>{t('name')}</td>
@@ -59,7 +78,7 @@ const UserChild = () => {
                 </tr>
                 </thead>
                 <tbody className="body">
-                {children.map((child) => (
+                {filteredchildren.map((child) => (
                     <tr key={child.id}>
                         <td id="td--addchildren">{child.name}</td>
                         <td id="td--addchildren">{child.lastName}</td>

@@ -6,9 +6,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
+import {useContext} from "react";
+import UserContext from "../../components/sidebar/UserContext";
+
 const { t } = i18next;
-
-
 
 const Navi = (props) => {
   const { t } = i18next;
@@ -39,6 +40,7 @@ const Navi2 = (props) => {
 };
 
 class ChildrenComponent extends React.Component {
+    static contextType = UserContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -92,7 +94,7 @@ class ChildrenComponent extends React.Component {
         (child.name.toLowerCase() + " " + child.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
     );
 
-
+      const current_user = this.context;
     return (
         <div data-testid="children-component" className="scrollable-div1">
 
@@ -128,16 +130,17 @@ class ChildrenComponent extends React.Component {
                     <Navi value={child.id} />
 
 
+                      {current_user.role === "ADMIN" &&
 
-                    <Navi2 value={child.id} />
+                    <Navi2 value={child.id} />}
 
-                    <button
+                      {current_user.role === "ADMIN" &&    <button
                         onClick={() => this.deleteChild(child.id)}
                         className="btn btn-danger"
                     >
                       {i18next.t('delete')}
 
-                    </button>
+                    </button>}
 
 
 

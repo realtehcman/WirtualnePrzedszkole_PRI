@@ -1,3 +1,4 @@
+//add localization
 import React, {Component} from "react";
 import GroupService from "./GroupService";
 import "./GroupDisplay.scss";
@@ -6,26 +7,24 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
+import UserContext from "../../components/sidebar/UserContext";
 const { t } = i18next;
-
 
 const Navi = (props) => {
   const { t } = i18next;
-  
   const navigate = useNavigate();
   return (
       <button
           onClick={() => navigate("/group/" + props.value)}
           className="btn btn-info"
       >
-      {t('look')}
-
+        {t('look')}
       </button>
   );
 };
 
 class GroupComponent extends Component {
-
+  static contextType = UserContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -69,11 +68,11 @@ class GroupComponent extends Component {
 
   render() {
     const { t } = i18next;
-
     let filteredGroups = this.state.groups.filter((group) =>
         group.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
     );
-    return (
+      const current_user = this.context;
+      return (
 
         <div className="scrollable-div1">
           <div className="abc">
@@ -103,12 +102,12 @@ class GroupComponent extends Component {
                     <td id="td--groups">{group.description}</td>
                     <td id="td--groups">
                       <Navi value={group.id} />
-                      <button
+                        {current_user.role === "ADMIN" &&   <button
                           onClick={() => this.deleteGroup(group.id)}
                           className="btn btn-danger"
                       >
-                      {t('delete')}
-                      </button>
+                          {t('delete')}
+                      </button>}
                     </td>
                   </tr>
               ))}

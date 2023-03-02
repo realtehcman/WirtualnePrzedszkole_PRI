@@ -45,7 +45,7 @@ class UserManagementControllerTest {
         //given
         String lastName = "Smith";
         List<UserDto> usersDto = List.of(new UserDto(), new UserDto());
-        when(userManagementService.getUserByLastName(lastName, 0)).thenReturn(usersDto.stream().map(UserMapper::mapToDao).collect(Collectors.toList()));
+        when(userManagementService.getUserByLastName(lastName)).thenReturn(usersDto.stream().map(UserMapper::mapToDao).collect(Collectors.toList()));
 
         //when
         mockMvc.perform(get("/api/users/search/{lastName}", lastName)
@@ -54,7 +54,7 @@ class UserManagementControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
 
         //then
-        verify(userManagementService, times(1)).getUserByLastName(lastName, 0);
+        verify(userManagementService, times(1)).getUserByLastName(lastName);
     }
 
     @Test
@@ -64,7 +64,7 @@ class UserManagementControllerTest {
         int page = 0;
         UserDto usersDto = new UserDto();
 
-        when(userManagementService.getAllUser(page)).thenReturn(List.of(UserMapper.mapToDao(usersDto)));
+        when(userManagementService.getAllUser()).thenReturn(List.of(UserMapper.mapToDao(usersDto)));
 
         //when
         mockMvc.perform(get("/api/users")
@@ -74,7 +74,7 @@ class UserManagementControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)));
 
         //then
-        verify(userManagementService, times(1)).getAllUser(page);
+        verify(userManagementService, times(1)).getAllUser();
     }
 
     @Test
@@ -101,7 +101,7 @@ class UserManagementControllerTest {
                 User.builder().id(1L).name("John").lastName("Doe").password("password").email("johndoe@gmail.com").role(UserRole.ADMIN).build(),
                 User.builder().id(2L).name("Jane").lastName("Doe").password("password").email("janedoe@gmail.com").role(UserRole.PARENT).build()
         );
-        when(userManagementService.getUserByLastName("Doe", 0)).thenReturn(users);
+        when(userManagementService.getUserByLastName("Doe")).thenReturn(users);
 
         mockMvc.perform(get("/api/users/search/Doe"))
                 .andExpect(status().isOk())
@@ -115,7 +115,7 @@ class UserManagementControllerTest {
                 .andExpect(jsonPath("$[1].email").value("janedoe@gmail.com"))
                 .andExpect(jsonPath("$[1].role").value("PARENT"));
 
-        verify(userManagementService, times(1)).getUserByLastName("Doe", 0);
+        verify(userManagementService, times(1)).getUserByLastName("Doe");
     }
 
     @Test

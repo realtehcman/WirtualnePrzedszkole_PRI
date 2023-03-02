@@ -42,7 +42,7 @@ class UserRepoTest {
         User user2 = User.builder().email("test2@example.com").password("AgMeDPaSsOwd1").build();
         userRepo.save(user2);
         Pageable page = PageRequest.of(0, 10);
-        List<User> users = userRepo.findAllUsers(page);
+        List<User> users = userRepo.findAllUsers();
         assertEquals(2, users.size());
     }
 
@@ -53,7 +53,7 @@ class UserRepoTest {
         User user2 = User.builder().email("test2@example.com").password("AgMeDPaSsOwd1").lastName("Doe").build();
         userRepo.save(user2);
         Pageable page = PageRequest.of(0, 10);
-        List<User> users = userRepo.findAllByLastName("Doe", page);
+        List<User> users = userRepo.findAllByLastName("Doe");
         assertEquals(2, users.size());
     }
 

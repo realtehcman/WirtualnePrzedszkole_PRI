@@ -4,9 +4,12 @@ import "./UserInfo.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import FileService from "../gallery/FileService"
 import { useTranslation } from "react-i18next";
+import {useContext} from "react";
+import UserContext from "../../components/sidebar/UserContext";
 
 const User = () => {
   const {t} = useTranslation();
+  const current_user = useContext(UserContext);
   const navigate = useNavigate();
   const [user, setUser] = useState({
     id: "",
@@ -21,6 +24,8 @@ const User = () => {
       {
         id: "",
         name: "",
+        lastName: "",
+        className: "",
         classId: "",
       },
     ],
@@ -36,9 +41,13 @@ const User = () => {
     UserService.getUser(id).then((response) => {
       console.log("Response from main API: ", response);
       let userData = response.data;
-      let children = userData.children.map((it) => {
-        return { id: it.id, name: it.name, lastName: it.lastName, classId: it.classId };
-      });
+      let children;
+      if (userData.children !== undefined)
+          children = userData.children.map(it => {return {id: it.id, name: it.name, lastName: it.lastName, classId: it.classId, className: it.className}})
+      else {
+          children = []
+      }
+      
       setUser({
         id: userData.id,
         email: userData.email,
@@ -89,15 +98,15 @@ const User = () => {
               width="150px"
               /* src="https://media.tenor.com/N0aZdbie0N8AAAAM/cute-cute-cat.gif" */
             />
-            <div className="dlt">            <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>{t('delete_profile')}</button>
-            </div>
+            {current_user.role === "ADMIN" &&  <div className="dlt">            <button className="btn btn-danger" onClick={() => deleteAvatar(user)}>{t('delete_profile')}</button>
+            </div>}
             <span className="font-weight-bold">
               {user.name} {user.lastName}
             </span>
             <span className="text-black-50">{user.email}</span>
             <span> </span>
           </div>
-          <div className="mt-5 text-center">
+          {current_user.role === "ADMIN" && <div className="mt-5 text-center">
             <button
               onClick={() =>
                 navigate("/user/" + user.id + "/edit", { replace: true })
@@ -108,7 +117,7 @@ const User = () => {
               {t('edit')}
 
             </button>
-          </div>
+          </div>}
         </div>
         <div className="col-md-5 border-right">
           <div className="p-3 py-5">
@@ -163,14 +172,14 @@ const User = () => {
                       >
                         <td>{child.name}</td>
                         <td>{child.lastName}</td>
-                        <td>{child.classId}</td>
+                        <td>{child.className}</td>
 
                       </tr>
                       //<div className="col-md-12"><label className="labels">dzieci: </label>  <label className="labels">{child.name}</label></div>
                     ))}
                   </tbody>
                 </table>
-                <div className="mt-5 text-center">
+                {current_user.role === "ADMIN" &&  <div className="mt-5 text-center">
                   <button
                     onClick={() =>
                       navigate("/user/" + user.id + "/child")
@@ -180,7 +189,7 @@ const User = () => {
                   >
                     {t('add_child')}
                   </button>
-                </div>
+                </div>}
               </div>
             </div>
           </div>

@@ -36,6 +36,7 @@ public class FolderController {
         return FolderMapper.FolderMapToDto(folderService.createFolder(FolderMapper.FolderDtoMapToFolder(folderDto)));
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping("{id}")
     public FolderDto getFolder(@PathVariable Long id) {
         return FolderMapper.FolderMapToDto(folderService.getFolder(id));
@@ -61,7 +62,7 @@ public class FolderController {
         }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_TEACHER')")
     @Transactional
     @DeleteMapping("{folderId}")
     public ResponseEntity<Void> deleteFolder(@PathVariable Long folderId) {

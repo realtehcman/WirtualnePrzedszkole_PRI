@@ -7,10 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 import SortIcon from "@mui/icons-material/Sort";
 import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
+import {useContext} from "react";
+import UserContext from "../../components/sidebar/UserContext";
+
 const { t } = i18next;
-
-
-
 const Navi = (props) => {
   const { t } = i18next;
 
@@ -27,6 +27,7 @@ const Navi = (props) => {
 
 
 class UserComponent extends React.Component {
+  static contextType = UserContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -49,16 +50,18 @@ class UserComponent extends React.Component {
   sortUsersByRole = () => {
     let sortedUsers = [...this.state.users];
     sortedUsers.sort((a, b) => {
-      if (a.role === 'ADMIN' || a.role === 'TEACHER') {
+      if (a.role === 'ADMIN' && b.role !== 'ADMIN') {
         return -1;
       }
-      if (b.role === 'ADMIN' || b.role === 'TEACHER') {
-        return 1;
+      if (a.role === 'TEACHER' && b.role !== 'ADMIN' && b.role !== 'TEACHER') {
+        return -1;
       }
-      return 0;
+      return 1;
     });
     this.setState({ users: sortedUsers });
   };
+
+
 
   loger() {
     console.log(this.state);
@@ -101,6 +104,10 @@ class UserComponent extends React.Component {
         (user.name.toLowerCase() + " " + user.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
     );
 
+    const current_user = this.context;
+    if (current_user.role === "PARENT") {
+      return <div><h1>Error 403: You don't have permission to access this page.</h1></div>;
+    }
 
     return (
         <div data-testid="user-component" className="scrollable-div1">
@@ -138,12 +145,12 @@ class UserComponent extends React.Component {
                   <td id="td--users" className="foobar">
                     <Navi value={user.id} />
                     {/* <button onClick={() => this.props.navigation.navigate("/home//")} className='btn btn-info'>Zobacz</button> */}
-                    <button
+                    {current_user.role === "ADMIN" && <button
                         onClick={() => this.deleteUser(user.id)}
                         className="btn btn-danger"
                     >
                       {i18next.t('delete')}
-                    </button>
+                    </button>}
                   </td>
                 </tr>
             ))}

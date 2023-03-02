@@ -9,6 +9,7 @@
     "sent"  : "Wysłane",
     "knowledgeBase"  : "Baza wiedzy",
     "gallery"  : "Galeria",
+    "otherFiles" : "Inne Pliki",
     "addFiles"  : "Dodaj pliki",
     "manual"  : "Instrukcja",
     "kindergarten"  : "Przedszkole nr 25",
@@ -26,7 +27,7 @@
     "description" : "Opis",
     "edit_data" : "Edytuj Dane",
     "change_password" : "Zmień Hasło",
-    "class_name"  : "Nazwa Clasy",
+    "class_name"  : "Nazwa Klasy",
     "save" : "Zapisz",
     "add_user" : "Dodaj użytkownika",
     "look" : "Zobacz",
@@ -35,7 +36,7 @@
     "add_child" : "Dodaj Dziecko",
     "id" : "Id",
     "group"  : "Grupa",
-    "edit"  : "Edytować",
+    "edit"  : "Edytuj",
     "search" : "Wyszukaj",
     "parents" : "Rodzice",
     "information" : "Informacje",
@@ -64,10 +65,10 @@
     "download" : "Pobierz",
     "delete_all_files" : "Usuń wszystkie pliki",
     "search_for_files_by_name" : "szukaj plików po nazwie",
-    "path" : "Sciezka",
+    "path" : "Ściezka",
     "class" : "Klasa",
     "add_photos" : "Dodaj zdjęcia",
-    "add_an_image" : "Dodać Obraz",
+    "add_an_image" : "Dodaj Obraz",
     "delete_image" : "Usuń Obraz",
     "are_you_sure_you_want_to_delete_this_image" : "Czy na pewno chcesz usunąć ten obraz",
     "cancel" : "Anuluj",
@@ -139,6 +140,7 @@
     "general_got_removed" : "został usunięty",
     "save_and_add_another_child" : "Zapisz i dodaj następne dziecko",
     "update_profile_picture": "Zaktualizuj zdjęcie profilowe",
-    "are_you_sure_you_want_to_delete_image" : "Czy na pewno chcesz usunąć ten obraz?"
+    "are_you_sure_you_want_to_delete_image" : "Czy na pewno chcesz usunąć ten obraz?",
+    "serachFolder": "Wyszukaj folder"
 }
     

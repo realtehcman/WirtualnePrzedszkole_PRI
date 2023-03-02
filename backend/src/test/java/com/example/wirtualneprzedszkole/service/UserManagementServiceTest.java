@@ -69,8 +69,8 @@ public class UserManagementServiceTest {
     public void getUserByLastName_ShouldReturnUserList() {
         List<User> userList = new ArrayList<>();
         userList.add(user);
-        when(userRepo.findAllByLastName("Lastname", PageRequest.of(0, UserManagementService.PAGE_SIZE))).thenReturn(userList);
-        List<User> result = userManagementService.getUserByLastName("Lastname", 0);
+        when(userRepo.findAllByLastName("Lastname")).thenReturn(userList);
+        List<User> result = userManagementService.getUserByLastName("Lastname");
         assertEquals(userList, result);
     }
 
@@ -78,8 +78,8 @@ public class UserManagementServiceTest {
     public void getAllUser_ShouldReturnUserList() {
         List<User> userList = new ArrayList<>();
         userList.add(user);
-        when(userRepo.findAllUsers(PageRequest.of(0, UserManagementService.PAGE_SIZE))).thenReturn(userList);
-        List<User> result = userManagementService.getAllUser(0);
+        when(userRepo.findAllUsers()).thenReturn(userList);
+        List<User> result = userManagementService.getAllUser();
         assertEquals(userList, result);
     }
 

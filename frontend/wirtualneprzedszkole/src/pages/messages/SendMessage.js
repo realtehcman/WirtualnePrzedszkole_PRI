@@ -9,15 +9,14 @@ import "./Message.scss";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import GroupService from "../GroupDisplay/GroupService";
+import {useContext} from "react";
+import UserContext from "../../components/sidebar/UserContext";
 import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
 const { t } = i18next;
 
-
-
-
 class SendMessage extends Component {
-    
+    static contextType = UserContext;
     constructor(props) {
         super(props);
 
@@ -52,16 +51,17 @@ class SendMessage extends Component {
 
 
 
-
     componentDidMount() {
         UserService.getUsers().then((response) => {
-            this.setState({users: response.data});
-
+            this.setState({ users: response.data });
         });
-        GroupService.getGroups().then((response) => {
-            const res = response.data
-            this.setState({classes: ["", ...res ]})
-        });
+        const current_user = this.context;
+        if (current_user.role === "ADMIN" || current_user.role === "TEACHER") {
+            GroupService.getGroups().then((response) => {
+                const res = response.data
+                this.setState({ classes: ["", ...res ] })
+            });
+        }
     }
 
 
@@ -161,9 +161,8 @@ class SendMessage extends Component {
 
     render() {
         const { t } = i18next;
-
         const { to, users } = this.state;
-
+        const current_user = this.context;
         const filteredUsers = users.filter((user) => {
             if (to.includes(user.name + ' ' + user.lastName)) {
                 return false;
@@ -181,7 +180,6 @@ class SendMessage extends Component {
         return (
             <div className="container mt-5">
                 <ToastContainer />
-
                 <h2 className="mb-3">{t('create_a_message')}</h2>
                 <form onSubmit={(e) =>{
                     this.saveMessage(e);
@@ -190,7 +188,7 @@ class SendMessage extends Component {
                     <div className="mb-3">
                         <label className="form-label" htmlFor="name">
                             <div>
-                        {t('to')}
+                                {t('to')}
                             </div>
 
                         </label>
@@ -234,12 +232,12 @@ class SendMessage extends Component {
                     <div className="form-but">
 
                         <button className="group-buttons">{t('send')}</button>
-                        <button className="group-buttons" onClick={(e) =>{
+                        {(current_user.role === "ADMIN") &&  <button className="group-buttons" onClick={(e) =>{
                             this.saveMessage2(e);
-                        } }>{t('send_to_all_users')}</button>
-
+                        } }>{t('send_to_all_users')}</button>}
 
                         <div className="form-but">
+                        {(current_user.role === "ADMIN" || current_user.role === "TEACHER")  &&  <div className="form-but">
                             <button className="group-buttons" onClick={(e) =>{
                                 this.saveMessage3(e);
                             }}>{t('send_to_group')}</button>
@@ -248,9 +246,9 @@ class SendMessage extends Component {
                                     <option key={aClass.id} value={aClass.id}> {aClass.name}</option>
                                 ))}
                             </select>
+                        </div>}
+
                         </div>
-
-
 
                     </div>
 
