@@ -50,16 +50,18 @@ class UserComponent extends React.Component {
   sortUsersByRole = () => {
     let sortedUsers = [...this.state.users];
     sortedUsers.sort((a, b) => {
-      if (a.role === 'ADMIN' || a.role === 'TEACHER') {
+      if (a.role === 'ADMIN' && b.role !== 'ADMIN') {
         return -1;
       }
-      if (b.role === 'ADMIN' || b.role === 'TEACHER') {
-        return 1;
+      if (a.role === 'TEACHER' && b.role !== 'ADMIN' && b.role !== 'TEACHER') {
+        return -1;
       }
-      return 0;
+      return 1;
     });
     this.setState({ users: sortedUsers });
   };
+
+
 
   loger() {
     console.log(this.state);
