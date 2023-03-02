@@ -25,7 +25,7 @@ function Kadra() {
             try {
                 const response = await UserService.getUsers();
                 const users = response.data;
-                const filteredUsers = users.filter((user) => user.role === "TEACHER");
+                const filteredUsers = users
                 setUsers(filteredUsers);
 
                 const avatars = await Promise.all(filteredUsers.map(async (user) => {

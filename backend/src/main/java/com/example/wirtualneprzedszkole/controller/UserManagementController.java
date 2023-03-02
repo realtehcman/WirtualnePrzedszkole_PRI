@@ -83,18 +83,16 @@ public class UserManagementController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER')")
     @GetMapping("/search/{lastName}")
-    public List<UserDto> getUserByLastName(@PathVariable String lastName, @RequestParam(required = false) Integer page) {
-        int pageNumber = page != null && page >= 0 ? page : 0;
-        return UserMapper.mapToDto(userManagementService.getUserByLastName(lastName, pageNumber));
+    public List<UserDto> getUserByLastName(@PathVariable String lastName) {
+        return UserMapper.mapToDto(userManagementService.getUserByLastName(lastName));
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_TEACHER', 'ROLE_PARENT')")
     @GetMapping
-    public List<UserDto> getAllUser(@RequestParam(required = false) Integer page) {
-        int pageNumber = page != null && page >= 0 ? page : 0;
+    public List<UserDto> getAllUser() {
         User user = userService.getCurrentUser();
         if (user.getRole().getAuthority().equals("ADMIN"))
-            return UserMapper.mapToDto(userManagementService.getAllUser(pageNumber));
+            return UserMapper.mapToDto(userManagementService.getAllUser());
         else if (user.getRole().getAuthority().equals("TEACHER")) {
             return UserMapper.mapToDto(new ArrayList<>(usersAllowedForTeacher(user)));
         }
@@ -145,9 +143,8 @@ public class UserManagementController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/teachers")
-    public List<UserDto> getAllTeachers(@RequestParam(required = false) Integer page) {
-        int pageNumber = page != null && page >= 0 ? page : 0;
-        return UserMapper.mapToDto(userManagementService.getAllTeachers(pageNumber));
+    public List<UserDto> getAllTeachers() {
+        return UserMapper.mapToDto(userManagementService.getAllTeachers());
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
