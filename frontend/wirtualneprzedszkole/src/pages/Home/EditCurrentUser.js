@@ -38,6 +38,7 @@ const EditCurrentUser = (props) => {
                 if (response.status === 200) {
                     toast.success(t("success_data_modification"));
                     setTimeout(() => {
+                        console.log('window reload from updateData')
                         window.location.reload();
                     }, 1700);
 

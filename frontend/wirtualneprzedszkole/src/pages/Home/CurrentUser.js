@@ -135,7 +135,7 @@ const CurrentUser = () => {
                                             };
                                             input.click();
                                         }}
-                                        title="Zmień zdjęcie"
+                                        title={t('update_profile_picture')}
                                     />
                                 </div>
                                 <div className="button-container">

@@ -138,5 +138,6 @@
     "success_sending_message_to_all" : "Повідомлення успішно відправлено всім користувачам",
     "general_got_removed" : "було видалено",
     "save_and_add_another_child" : "Зберегти та додати іншу дитину",
+    "update_profile_picture": "Оновити фото профілю",
     "are_you_sure_you_want_to_delete_image" : "Ви впевнені, що хочете видалити це зображення?"
 }

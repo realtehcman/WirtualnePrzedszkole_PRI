@@ -138,5 +138,6 @@
     "success_sending_message_to_all" : "Message was sent to all users",
     "general_got_removed" : "was removed",
     "save_and_add_another_child" : "Save and add another child",
+    "update_profile_picture": "Update profile picture",
     "are_you_sure_you_want_to_delete_image" : "Are you sure you want to delete an image?"
 }
