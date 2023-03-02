@@ -4,6 +4,10 @@ import "../CreateUser/CreateUser.scss";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
+const { t } = i18next;
+
 
 class CreateGroup extends Component {
   constructor(props) {
@@ -30,18 +34,18 @@ class CreateGroup extends Component {
         .then((response) => {
           if (response.data != null) {
             this.setState(this.state);
-            toast.success("Grupa została dodana pomyślnie", {
+            toast.success(t("success_group_addition"), {
               position: toast.POSITION.TOP_CENTER,
             });
           } else {
-            toast.error("Wystąpił błąd podczas dodawania grupy", {
+            toast.error(t("error_group_additon"), {
               position: toast.POSITION.TOP_CENTER,
             });
           }
         })
         .catch((error) => {
-          toast.error("Wystąpił błąd podczas dodawania grupy", {
-            position: toast.POSITION.TOP_CENTER,
+            toast.error(t("error_group_additon"), {
+              position: toast.POSITION.TOP_CENTER,
           });
         });
   };
@@ -106,4 +110,4 @@ class CreateGroup extends Component {
   }
 }
 
-export default CreateGroup;
+export default withTranslation()(CreateGroup);

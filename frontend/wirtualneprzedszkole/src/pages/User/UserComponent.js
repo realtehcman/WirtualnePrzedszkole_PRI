@@ -5,16 +5,22 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SortIcon from "@mui/icons-material/Sort";
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
+const { t } = i18next;
+
 
 
 const Navi = (props) => {
+  const { t } = i18next;
+
   const navigate = useNavigate();
   return (
     <button
       onClick={() => navigate("/user/" + props.value)}
       className="btn btn-info"
     >
-      Zobacz
+    {t('look')}
     </button>
   );
 };
@@ -62,14 +68,15 @@ class UserComponent extends React.Component {
     let userName = this.state.users.find(user => user.id === id).name;
     let userlastName = this.state.users.find(user => user.id === id).lastName;
     let emaail = this.state.users.find(user => user.id === id).email;
-    if(window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${userName} ${userlastName} (${emaail}) ?`)) {
+    if (window.confirm(t("confirm_user_deletion") +" " + userName + " " + userlastName + " " + emaail + " ?")) {
+
       UserService.deleteUser(id).then((response) => {
         this.setState({
           users: this.state.users.filter((user) => user.id !== id),
         });
-        toast.success(userName + ' ' + userlastName + " został usunięty");
+        toast.success(userName + ' ' + userlastName +" " + t("general_got_removed"));
       }).catch(() => {
-        toast.error("Wystąpił błąd podczas usuwania użytkownika");
+        toast.error(t("error_user_deletion"));
       });
     }
   }
@@ -82,6 +89,7 @@ class UserComponent extends React.Component {
   }
 
   render() {
+    const { t } = i18next;
 
     let filteredusers = this.state.users.filter((user) =>
         user.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
@@ -100,7 +108,7 @@ class UserComponent extends React.Component {
           <div className="abc">
             <input
                 type="text"
-                placeholder="Wyszukaj.."
+                placeholder={t('search')}
                 onChange={this.handleSearch}
             />
             <ToastContainer />
@@ -109,11 +117,12 @@ class UserComponent extends React.Component {
           <table className="content-table">
             <thead>
             <tr className="table-head">
-              <td>Rola <SortIcon className="icon" onClick={this.sortUsersByRole}/></td>
-              <td>Imię</td>
-              <td>Nazwisko</td>
-              <td>Email</td>
-              <td>Akcje</td>
+              <td>{t('role')}  <SortIcon className="icon" onClick={this.sortUsersByRole}/></td>
+              <td>{t('name')}</td>
+              <td>{t('last_name')}</td>
+              <td>{t('email')}</td>
+              <td>{t('actions')}</td>
+              
             </tr>
             </thead>
             <tbody className="body table-body">
@@ -133,7 +142,7 @@ class UserComponent extends React.Component {
                         onClick={() => this.deleteUser(user.id)}
                         className="btn btn-danger"
                     >
-                      Usuń
+                      {i18next.t('delete')}
                     </button>
                   </td>
                 </tr>
@@ -146,4 +155,4 @@ class UserComponent extends React.Component {
   }
 }
 
-export default UserComponent;
+export default withTranslation()(UserComponent);

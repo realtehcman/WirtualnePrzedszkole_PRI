@@ -4,6 +4,10 @@ import ChildrenService from "../Children/ChildrenService";
 import "../CreateUser/CreateUser.scss";
 import {Link} from "react-router-dom";
 import GroupService from "../GroupDisplay/GroupService";
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
+const { t } = i18next;
+
 
 class CreateChild extends Component {
   constructor(props) {
@@ -52,17 +56,17 @@ class CreateChild extends Component {
     ChildrenService.addChild(child).then((response) => {
       if (response.data != null) {
         this.setState({ name: '', lastName: '', className: '' });
-        toast.success("Dziecko zostało dodane poprawnie", {
+        toast.success(t("success_child_addition"), {
           position: toast.POSITION.TOP_CENTER,
         });
       }else {
-        toast.error("Wystąpił błąd, dziecko nie zostało dodane", {
+        toast.error(t("error_child_addition"), {
           position: toast.POSITION.TOP_CENTER,
         });
       }
     })
         .catch((error) => {
-          toast.error("Wystąpił błąd", {
+        toast.error(t("error_child_addition"), {
             position: toast.POSITION.TOP_CENTER,
           });
         });

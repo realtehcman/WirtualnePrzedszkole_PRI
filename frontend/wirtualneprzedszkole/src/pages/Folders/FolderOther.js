@@ -5,8 +5,13 @@ import React, {useEffect, useState} from 'react'
 import saveAs from 'file-saver'
 import EditFile from "../gallery/EditFile";
 import FolderService from "./FolderService";
+import { ToastContainer, toast } from "react-toastify";
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
+const { t } = i18next;
 
 const FolderOther = (props) => {
+  const { t } = i18next;
 
     const [filesInfo, setFilesInfo] = useState([
         {
@@ -105,11 +110,11 @@ const FolderOther = (props) => {
             <table className="content-table">
                 <thead>
                     <tr className="table-head">
-                        <td>Plik</td>
-                        <td>Data</td>
-                        <td>Opis</td>
-                        <td>Pobierz</td>
-                        <td>Usuń</td>
+                        <td>{t('file')}</td>
+                        <td>{t('date')}</td>
+                        <td>{t('description')}</td>
+                        <td>{t('download')}</td>
+                        <td>{t('delete')}</td>
                     </tr>
                 </thead>
                 <tbody className="body table-body">
@@ -117,9 +122,9 @@ const FolderOther = (props) => {
                         <tr key = {file.id}>
                             <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
-                            <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>
-                            <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>Pobierz</button></td>
-                            <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>
+                            <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>{t('edit')}</button></td>
+                            <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>{t('download')}</button></td>
+                            <td><button onClick={() => deleteFile(file)} className="btn btn-danger">{t('delete')}</button></td>
                         </tr>
                     ))}
                     <Popup trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup>
@@ -130,16 +135,16 @@ const FolderOther = (props) => {
                 <form onSubmit={handleSubmit} encType='multipart/form-data'>
                  <div className="input23">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                     <p></p>
-                    <button type="submit" className="btn btn-primary"> Wyślij</button>
+                    <button type="submit" className="btn btn-primary"> {t('send')}</button>
                 </form>
             </div>
 
             <div className="deleteAll">
-                <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">Usuń wszystkie pliki</button>
+                <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">{t('delete_all_files')}</button>
             </div>
 
         </div>
     );
 }
 
-export default FolderOther
+export default withTranslation()(FolderOther);

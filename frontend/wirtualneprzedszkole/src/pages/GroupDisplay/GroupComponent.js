@@ -1,30 +1,37 @@
-//add localization
 import React, {Component} from "react";
 import GroupService from "./GroupService";
 import "./GroupDisplay.scss";
 import {useNavigate} from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
+const { t } = i18next;
 
 
 const Navi = (props) => {
+  const { t } = i18next;
+  
   const navigate = useNavigate();
   return (
       <button
           onClick={() => navigate("/group/" + props.value)}
           className="btn btn-info"
       >
-        Zobacz
+      {t('look')}
+
       </button>
   );
 };
 
 class GroupComponent extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       groups: [],
       searchTerm: "",
+      sortAsc: true,
     };
     this.deleteGroup = this.deleteGroup.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -36,18 +43,18 @@ class GroupComponent extends Component {
 
   deleteGroup(id) {
     let groupName = this.state.groups.find(group => group.id === id).name;
-    if(window.confirm("Czy na pewno chcesz usunąć grupę " + groupName + " ?")) {
+    if(window.confirm(t("confirm_group_deletion")+ " " + groupName + " ?")) {
       GroupService.deleteGroup(id)
           .then((response) => {
             this.setState({
               groups: this.state.groups.filter((group) => group.id !== id),
             });
-            toast.success("Group " + groupName + " Grupa została usunięta poprawnie", {
+            toast.success(t("general_group") + " " + groupName + " " + t("success_deletion"), {
               position: toast.POSITION.TOP_RIGHT
             });
           })
           .catch(error => {
-            toast.error("Wystąpił błąd podczas usuwania grupy" + groupName + ".", {
+            toast.error(t("error_group_deletion") + " "  + groupName + ".", {
               position: toast.POSITION.TOP_RIGHT
             });
           });
@@ -61,6 +68,8 @@ class GroupComponent extends Component {
   }
 
   render() {
+    const { t } = i18next;
+
     let filteredGroups = this.state.groups.filter((group) =>
         group.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
     );
@@ -70,7 +79,7 @@ class GroupComponent extends Component {
           <div className="abc">
             <input
                 type="text"
-                placeholder="Wyszukaj grupę po nazwie"
+                placeholder={t('search_for_a_group_by_name')}
                 onChange={this.handleSearch}
             />
           </div>
@@ -82,9 +91,9 @@ class GroupComponent extends Component {
               <thead>
 
               <tr className="table-head table-head--groups">
-                <td>Nazwa</td>
-                <td>Opis</td>
-                <td>Akcje</td>
+                <td>{t('name')}</td>
+                <td>{t('description')}</td>
+                <td>{t('actions')}</td>
               </tr>
               </thead>
               <tbody className="body table-body">
@@ -98,7 +107,7 @@ class GroupComponent extends Component {
                           onClick={() => this.deleteGroup(group.id)}
                           className="btn btn-danger"
                       >
-                        Usuń
+                      {t('delete')}
                       </button>
                     </td>
                   </tr>
@@ -112,4 +121,4 @@ class GroupComponent extends Component {
 
 }
 
-export default GroupComponent;
+export default withTranslation()(GroupComponent);

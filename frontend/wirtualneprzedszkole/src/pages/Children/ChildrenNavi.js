@@ -5,8 +5,10 @@ import Navbar from "../../components/navbar/navbar";
 import "./ChildrenComponent";
 import ChildrenComponent from "./ChildrenComponent";
 import {useNavigate} from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ChildrenNavi = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <div data-testid="children-navi" className="users">
@@ -21,7 +23,7 @@ const ChildrenNavi = () => {
           className="button"
           onClick={() => navigate("/add-child")}
         >
-          Dodaj Dziecko
+          {t('add_child')}
         </button>
       </div>
     </div>

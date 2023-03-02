@@ -7,8 +7,11 @@ import Popup from '../GroupDisplay/Popup';
 import FolderService from '../Folders/FolderService';
 import FileService from './FileService';
 import saveAs from 'file-saver'
+import { useTranslation } from "react-i18next";
 
 const ViewGallery = () => {
+    const {t} = useTranslation();
+
     const [photos, setPhotos] = useState([]);
 
     const [allPhotos, setAllPhotos] = useState([]);
@@ -149,24 +152,24 @@ const ViewGallery = () => {
 
             <div className="delete_photo_popup">
                 <Popup trigger={deletePhotoPopup.isPop} setTrigger={setDeletePhotoPopup}>
-                    <h3 className='text-center mb-2'>Usuń Obraz</h3>
-                    <p className='text-center py-3'>Czy na pewno chcesz usunąć ten obraz?</p>
+                    <h3 className='text-center mb-2'>{t('delete_image')}</h3>
+                    <p className='text-center py-3'>{t('are_you_sure_you_want_to_delete_image')}</p>
                     <div className='d-flex justify-content-between'>
-                        <button className='btn btn-primary' onClick={() => setDeletePhotoPopup({isPop: false, img: {}})}>Anuluj</button>
-                        <button className='btn btn-danger' onClick={() => deleteFile(deletePhotoPopup.img)}>Usuń</button>
+                        <button className='btn btn-primary' onClick={() => setDeletePhotoPopup({isPop: false, img: {}})}>{t('cancel')}</button>
+                        <button className='btn btn-danger' onClick={() => deleteFile(deletePhotoPopup.img)}>{t('delete')}</button>
                     </div>
                 </Popup>
             </div>
 
             <div className="add_photo_popup">
                 <Popup trigger={addPhotoPopup} setTrigger={setAddPhotoPopup}>
-                    <h3 className='text-center mb-2'>Dodaj zdjęcie</h3>
+                    <h3 className='text-center mb-2'>{t('add_photos')}</h3>
                     <form onSubmit={addFiles} encType='multipart/form-data'>
                             <div className="uploadDiv2">
                                     <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                             </div>
                             <div className="form-but">
-                                    <button className="button">Zapisz</button>
+                                    <button className="button">{t('save')}</button>
                             </div>
                     </form>
                 </Popup>
@@ -177,7 +180,7 @@ const ViewGallery = () => {
                 <Popup trigger={openPhotoPopup.isPop} setTrigger={setOpenPhotoPopup}>
                 <img src={openPhotoPopup.img} alt={openPhotoPopup.name}/>
                 <div className='d-flex justify-content-between'>
-                    <button className='btn btn-primary' onClick={() => downloadPhoto(openPhotoPopup.img, openPhotoPopup.name)}>Pobierz</button>
+                    <button className='btn btn-primary' onClick={() => downloadPhoto(openPhotoPopup.img, openPhotoPopup.name)}>{t('download')}</button>
                 </div>
                 </Popup>
             </div>            
@@ -188,7 +191,7 @@ const ViewGallery = () => {
                     onClick={() => setAddPhotoPopup(true)}
                     className="btn btn-info"
                 >
-                    Dodaj zdjęcie
+                    {t('add_photos')}
                 </button>
             </div>
             <div className='d-flex align-items-center justify-content-end'>
@@ -196,7 +199,7 @@ const ViewGallery = () => {
                     onClick={() => downloadFolder(folderName)}
                     className="btn btn-info"
                 >
-                    Pobierz wszystkie
+                    {t('download_all')}
                 </button>
             </div>
         </div>

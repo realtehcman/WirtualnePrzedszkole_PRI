@@ -3,16 +3,20 @@ import GalleryService from "../gallery/GalleryService";
 import "../GroupDisplay/Popup.css"
 import "../User/Table.scss";
 import {useNavigate} from "react-router-dom";
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
+import { useTranslation } from "react-i18next";
 
 
 const Navi = (props) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     return (
         <button
             onClick={() => navigate("/ViewGallery/" + props.value)}
             className="btn btn-info"
         >
-            Wyświetl
+            {t('view')}
         </button>
 
     );
@@ -82,4 +86,4 @@ class Galeria extends React.Component {
         );
     }
 }
-export default Galeria
+export default withTranslation()(Galeria);
