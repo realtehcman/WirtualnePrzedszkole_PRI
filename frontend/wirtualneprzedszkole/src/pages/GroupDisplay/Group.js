@@ -150,7 +150,7 @@ const Group = () => {
                 </tbody>
             </table>
             <div className="div-buttons">
-                <div className="class-folders">
+                <div className="class-folders buttons">
                     <button type="button" className="btn btn-success" onClick={() =>  NaviToFolder("Galeria")}>{t('galleries')}</button>
                     <button type="button" className="btn btn-warning" onClick={() => NaviToFolder("Inne")}>{t('other_files')}</button>
                 </div>

@@ -233,14 +233,14 @@ class SendMessage extends Component {
                     </div>
                     <div className="form-but">
 
-                        <button className="button">{t('send')}</button>
-                        <button className="button" onClick={(e) =>{
+                        <button className="group-buttons">{t('send')}</button>
+                        <button className="group-buttons" onClick={(e) =>{
                             this.saveMessage2(e);
                         } }>{t('send_to_all_users')}</button>
 
 
                         <div className="form-but">
-                            <button className="button" onClick={(e) =>{
+                            <button className="group-buttons" onClick={(e) =>{
                                 this.saveMessage3(e);
                             }}>{t('send_to_group')}</button>
                             <select value={this.state.className} onChange={this.changeClassNameHandler}>

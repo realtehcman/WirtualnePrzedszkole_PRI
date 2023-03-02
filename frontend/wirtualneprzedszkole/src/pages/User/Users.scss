@@ -13,10 +13,12 @@
     border-radius: 5px 5px 5px 5px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: 3em;
 
     @media (max-width: $phoneMaxWidth) {
       position: relative;
-      bottom: 5%;
+      margin-top: 2em;
+      margin-left: 1em;
     }
   }
 }
