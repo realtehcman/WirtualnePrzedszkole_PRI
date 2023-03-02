@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
+import UserContext from "../../components/sidebar/UserContext";
 const { t } = i18next;
 
 const Navi = (props) => {
@@ -23,6 +24,7 @@ const Navi = (props) => {
 };
 
 class GroupComponent extends Component {
+  static contextType = UserContext;
   constructor(props) {
     super(props);
     this.state = {
