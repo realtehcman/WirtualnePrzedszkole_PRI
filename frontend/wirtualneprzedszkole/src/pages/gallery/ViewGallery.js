@@ -7,8 +7,12 @@ import FolderService from '../Folders/FolderService';
 import FileService from './FileService';
 import saveAs from 'file-saver'
 import { useTranslation } from "react-i18next";
+import {useContext} from "react";
+import UserContext from "../../components/sidebar/UserContext";
+
 
 const ViewGallery = () => {
+    const current_user = useContext(UserContext);
     const {t} = useTranslation();
     const [photos, setPhotos] = useState([]);
     const [allPhotos, setAllPhotos] = useState([]);
@@ -153,9 +157,9 @@ const ViewGallery = () => {
                 <div className="gallery_container">
                     {getCurrentPagePhotos().map((photo) => (
                             <div className='gallery_img'  key={photo[1].id}>
-                                <button type="button" className='btn btn-info del_gallery_img' onClick={() => setDeletePhotoPopup({isPop: true, img: photo[1]})}>
+                                {(current_user.role === "ADMIN" ||  current_user.role === "TEACHER")  &&<button type="button" className='btn btn-info del_gallery_img' onClick={() => setDeletePhotoPopup({isPop: true, img: photo[1]})}>
                                     <ClearIcon className="icon" />
-                                </button>
+                                </button>}
 
                                 <img src={photo[0]} alt={photo[1].name} onClick={() => setOpenPhotoPopup({isPop: true, img: photo[0], name: photo[1].name})}/>
                             </div>
@@ -200,7 +204,7 @@ const ViewGallery = () => {
                 </Popup>
             </div>
 
-
+            {(current_user.role === "ADMIN" ||  current_user.role === "TEACHER")  &&
             <div className='d-flex align-items-center justify-content-end'>
                 <button
                     onClick={() => setAddPhotoPopup(true)}
@@ -208,7 +212,9 @@ const ViewGallery = () => {
                 >
                     {t('add_photos')}
                 </button>
-            </div>
+            </div>}
+
+
             <div className='d-flex align-items-center justify-content-end'>
                 <button
                     onClick={() => downloadFolder(folderName)}
