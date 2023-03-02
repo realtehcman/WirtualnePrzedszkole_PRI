@@ -8,9 +8,13 @@ import FolderService from "./FolderService";
 import { ToastContainer, toast } from "react-toastify";
 import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
-const { t } = i18next;
+import UserContext from "../../components/sidebar/UserContext";
+import {useContext} from "react";
 
+
+const { t } = i18next;
 const FolderOther = (props) => {
+
   const { t } = i18next;
 
     const [filesInfo, setFilesInfo] = useState([
@@ -104,7 +108,7 @@ const FolderOther = (props) => {
         fileId: "",
         description: ""
     });
- 
+    const currentUser = useContext(UserContext);
     return (
         <div data-testid = 'folder-other' className="scrollable-div">
             <table className="content-table">
@@ -122,25 +126,25 @@ const FolderOther = (props) => {
                         <tr key = {file.id}>
                             <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
-                            <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>{t('edit')}</button></td>
+                            {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&   <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>{t('edit')}</button></td>}
                             <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>{t('download')}</button></td>
-                            <td><button onClick={() => deleteFile(file)} className="btn btn-danger">{t('delete')}</button></td>
+                            {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&    <td><button onClick={() => deleteFile(file)} className="btn btn-danger">{t('delete')}</button></td>}
                         </tr>
                     ))}
                     <Popup trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup>
                 </tbody>
             </table>
             <br />
-            <div className="uploadDiv">
+            {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&    <div className="uploadDiv">
                 <form onSubmit={handleSubmit} encType='multipart/form-data'>
                  <div className="input23">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                     <p></p>
                     <button type="submit" className="btn btn-primary"> {t('send')}</button>
                 </form>
-            </div>
+            </div>}
 
             <div className="deleteAll">
-                <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">{t('delete_all_files')}</button>
+                {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&  <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">{t('delete_all_files')}</button>}
             </div>
 
         </div>

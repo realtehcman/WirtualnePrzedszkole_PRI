@@ -8,9 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import FolderService from "../Folders/FolderService"
 import { withTranslation } from "react-i18next";
 import i18next from 'i18next';
+import UserContext from "../../components/sidebar/UserContext";
+
+
+
+
 const { t } = i18next;
-
-
 const Navi = (props) => {
 
     const navigate = useNavigate();
@@ -28,6 +31,7 @@ const Navi = (props) => {
 
 
 class Gallery extends React.Component {
+    static contextType = UserContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -74,7 +78,7 @@ class Gallery extends React.Component {
             ));
             return pathMatch && nameMatch;
         });
-
+        const current_user = this.context;
         return (
             <div data-testid="gallery" className="scrollable-div">
                 <div className="abc">
@@ -98,7 +102,7 @@ class Gallery extends React.Component {
                             <td id="td--gallery">{folder.path.split("Photos/")[1]}</td>
                             <td id="td--gallery" className="foobar">
                                 <Navi value={folder.id} />
-                                <button
+                                {(current_user.role === "ADMIN" || current_user.role === "TEACHER")  &&   <button
                                     onClick={() => {
                                         if (window.confirm(t("confirm_gallery_deletion"))) {
                                             this.deleteFolder(folder.id);
@@ -107,7 +111,7 @@ class Gallery extends React.Component {
                                     className="btn button2 btn-danger"
                                 >
                                     {t('delete')}
-                                </button>
+                                </button>}
                             </td>
                         </tr>
                     ))}

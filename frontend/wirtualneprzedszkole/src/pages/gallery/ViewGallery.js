@@ -23,21 +23,19 @@ const ViewGallery = () => {
     const [addPhotoPopup, setAddPhotoPopup] = useState(false);
     const [selectPhotos, setSelectedPhotos] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [photosPerPage] = useState(12); // number of photos to display per page
+    const [photosPerPage] = useState(12);
 
-    // Calculate the total number of pages based on the number of images and the number of images per page
     const totalPages = Math.ceil(photos.length / photosPerPage);
 
-    // Get the index of the last photo on the current page
+
     const indexOfLastPhoto = currentPage * photosPerPage;
 
-    // Get the index of the first photo on the current page
+
     const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
 
-    // Get the photos to display on the current page
     const currentPhotos = photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
-    // Change the current page number
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const [newFile, setNewFile] = useState(
         {
@@ -95,7 +93,9 @@ const ViewGallery = () => {
 
         const files = event.currentTarget;
         for (let i = 1; i < files.length; i++) {
-            formData.append('file', files[i]);
+            if (files[i].type === "image/jpeg") {
+                formData.append('file', files[i]);
+            }
         }
 
         FileService.addFiles(id, formData).then((res) => {
@@ -136,14 +136,14 @@ const ViewGallery = () => {
         FileService.downloadFolder(id).then(response => {
             const href = URL.createObjectURL(response.data);
 
-            // create "a" HTML element with href to file & click
+
             const link = document.createElement('a');
             link.href = href;
             link.setAttribute('download', folderName + '.zip'); //or any other extension
             document.body.appendChild(link);
             link.click();
 
-            // clean up "a" element & remove ObjectURL
+
             document.body.removeChild(link);
             URL.revokeObjectURL(href);
         })
@@ -157,7 +157,7 @@ const ViewGallery = () => {
                 <div className="gallery_container">
                     {getCurrentPagePhotos().map((photo) => (
                             <div className='gallery_img'  key={photo[1].id}>
-                                {(current_user.role === "ADMIN" ||  current_user.role === "TEACHER")  &&<button type="button" className='btn btn-info del_gallery_img' onClick={() => setDeletePhotoPopup({isPop: true, img: photo[1]})}>
+                                {(current_user.role === "ADMIN" ||  current_user.role === "TEACHER")  && <button type="button" onClick={() => setDeletePhotoPopup({isPop: true, img: photo[1]})}>
                                     <ClearIcon className="icon" />
                                 </button>}
 
@@ -205,14 +205,14 @@ const ViewGallery = () => {
             </div>
 
             {(current_user.role === "ADMIN" ||  current_user.role === "TEACHER")  &&
-            <div className='d-flex align-items-center justify-content-end'>
-                <button
-                    onClick={() => setAddPhotoPopup(true)}
-                    className="btn btn-info"
-                >
-                    {t('add_photos')}
-                </button>
-            </div>}
+                <div className='d-flex align-items-center justify-content-end'>
+                    <button
+                        onClick={() => setAddPhotoPopup(true)}
+                        className="btn btn-info"
+                    >
+                        {t('add_photos')}
+                    </button>
+                </div>}
 
 
             <div className='d-flex align-items-center justify-content-end'>
@@ -222,17 +222,17 @@ const ViewGallery = () => {
                 >
                     {t('download_all')}
                 </button>
-            </div><div className='d-flex justify-content-center'>Strony: {totalPages}</div>
+            </div><div className='d-flex justify-content-center'>Strony: {currentPage}/{totalPages}</div>
             <div className='d-flex justify-content-center'>
                 <button
-                    className='btn btn-info mr-2'
+                    className='btn btn-info'
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage(currentPage - 1)}
                 >
                     Poprzednia strona
                 </button>
                 <button
-                    className='btn btn-info ml-2'
+                    className='btn btn-info'
                     disabled={currentPage === totalPages}
                     onClick={() => setCurrentPage(currentPage + 1)}
                 >
