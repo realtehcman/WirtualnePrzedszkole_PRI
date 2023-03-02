@@ -73,6 +73,7 @@ class GroupComponent extends Component {
     let filteredGroups = this.state.groups.filter((group) =>
         group.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
     );
+    const current_user = this.context;
     return (
 
         <div className="scrollable-div1">

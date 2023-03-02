@@ -4,7 +4,7 @@ import axios from 'axios'
 const CHILDREN_REST_API_URL = 'http://localhost:8080/api/child'
 
 class ChildrenService {
-    
+
     getChildren(){
         return axios.get(CHILDREN_REST_API_URL)
     }
