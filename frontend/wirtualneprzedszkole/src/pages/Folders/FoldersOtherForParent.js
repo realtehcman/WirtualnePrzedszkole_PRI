@@ -62,7 +62,7 @@ class FoldersOtherForParent extends React.Component {
         return (
             <div data-testid="gallery" className="scrollable-div">
                 <div className="abc">
-                    <input type="text" placeholder={t('search_galleries')} onChange={this.handleSearch} />
+                    <input type="text" placeholder={t('serachFolder')} onChange={this.handleSearch} />
 
                 </div>
                 <ToastContainer />

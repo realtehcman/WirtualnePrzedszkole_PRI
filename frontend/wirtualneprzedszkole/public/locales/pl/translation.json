@@ -140,6 +140,7 @@
     "general_got_removed" : "został usunięty",
     "save_and_add_another_child" : "Zapisz i dodaj następne dziecko",
     "update_profile_picture": "Zaktualizuj zdjęcie profilowe",
-    "are_you_sure_you_want_to_delete_image" : "Czy na pewno chcesz usunąć ten obraz?"
+    "are_you_sure_you_want_to_delete_image" : "Czy na pewno chcesz usunąć ten obraz?",
+    "serachFolder": "Wyszukaj folder"
 }
     
