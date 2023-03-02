@@ -70,6 +70,24 @@ input, select {
       cursor: pointer;
   }
 }
+
+.form-but-add-folder{
+  color: #fff!important;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin-top: 2em;
+  margin-left: -3em;
+
+  @media (max-width: $phoneMaxWidth) {
+      // background: #4424bb!important;
+      color: #fff!important;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+  }
+}
 .group-buttons {
   background: #4424bb!important;
   color: #fff!important;
