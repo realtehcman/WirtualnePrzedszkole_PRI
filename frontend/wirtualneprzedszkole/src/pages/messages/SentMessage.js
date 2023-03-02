@@ -135,7 +135,7 @@ class SentMessage extends React.Component {
                   <Navi value={sent_messages.id} />
                   <Navi2 value={sent_messages.id} />
                 </td>
-                <td className="foobar">
+                <td className="foobar" id="td--message">
                   <button
                     onClick={() => this.deleteSentMessages(sent_messages.id)}
                     className="btn btn-danger"
