@@ -1,5 +1,27 @@
 @import "/src/utilities/_variables.scss";
+
 .users {
+$en: false;
+$pl: false;
+$currentLanguage: "string";
+
+@mixin language($lang) {
+  @if $lang == 'en' {
+    $en: true;
+  } @else if $lang == 'pl' {
+    $pl: true;
+  }
+}
+
+@include language(currentLanguage);
+
+$selectedColor: #000;
+
+body {
+  background: var(--selectedColor, $selectedColor);
+}
+
+
   display: flex;
 
   .usersContainer {
@@ -100,6 +122,9 @@
 
     white-space: nowrap;
   }
+
+html[lang="pl"] {
+  //your styles
 
   /*
 	Label the data
@@ -221,4 +246,259 @@
   #td--children_user:nth-of-type(3)::before {
     content: "Nazwa Klasy" !important;
   }
+}
+
+
+  html[lang="en"] {
+    //your styles
+
+    /*
+    Label the data
+    */
+    #td--users:nth-of-type(1):before {
+      content: "Role";
+    }
+    #td--users:nth-of-type(2):before {
+      content: "Name";
+    }
+    #td--users:nth-of-type(3):before {
+      content: "Last name";
+    }
+    #td--users:nth-of-type(4):before {
+      content: "Email";
+    }
+    #td--users:nth-of-type(5):before {
+      content: "Actions";
+    }
+
+    #td--groups:nth-of-type(1):before {
+      content: "Name" !important;
+    }
+    #td--groups:nth-of-type(2):before {
+      content: "Description" !important;
+    }
+    #td--groups:nth-of-type(3):before {
+      content: "Actions" !important;
+    }
+
+    #td--children:nth-of-type(1)::before {
+      content: "Name" !important;
+    }  #td--children:nth-of-type(2)::before {
+        content: "Last name" !important;
+      }  #td--children:nth-of-type(3)::before {
+            content: "Group" !important;
+          }  #td--children:nth-of-type(4)::before {
+              content: "Akcje" !important;
+            }
+
+    #td--message:nth-of-type(1)::before {
+      content: "Date" !important;
+    }
+    #td--message:nth-of-type(2)::before {
+      content: "From" !important;
+    }
+    #td--message:nth-of-type(3)::before {
+      content: "Topic" !important;
+    }
+    #td--message:nth-of-type(4)::before {
+      content: "Content" !important;
+    }
+    #td--message:nth-of-type(5)::before {
+      content: "Actions" !important;
+    }
+
+    #td--gallery:nth-of-type(1)::before {
+      content: "Group" !important;
+    }
+    #td--gallery:nth-of-type(2)::before {
+      content: "Name" !important;
+    }
+    #td--gallery:nth-of-type(3)::before {
+      content: "Actions" !important;
+    }
+
+
+    #td--group:nth-of-type(1)::before {
+      content: "Role" !important;
+    }
+    #td--group:nth-of-type(2)::before {
+      content: "Name" !important;
+    }
+    #td--group:nth-of-type(3)::before {
+      content: "Last name" !important;
+    }
+    #td--group:nth-of-type(4)::before {
+      content: "Actions" !important;
+    }
+
+
+    #td--addchildren:nth-of-type(1)::before {
+      content: "Name" !important;
+    }
+    #td--addchildren:nth-of-type(2)::before {
+      content: "Last name" !important;
+    }
+    #td--addchildren:nth-of-type(3)::before {
+      content: "Actions" !important;
+    }
+
+
+    #td--currentuser:nth-of-type(1)::before {
+      content: "Name" !important;
+    }
+    #td--currentuser:nth-of-type(2)::before {
+      content: "Class name" !important;
+    }
+
+    #td--child:nth-of-type(1):before {
+      content: "Name";
+    }
+    #td--child:nth-of-type(2):before {
+      content: "Class name";
+    }
+    #td--child:nth-of-type(3):before {
+      content: "Email";
+    }
+    #td--child:nth-of-type(4):before {
+      content: "Actions";
+    }
+
+    #td--children_user:nth-of-type(1)::before {
+      content: "Name" !important;
+    }
+    #td--children_user:nth-of-type(2)::before {
+      content: "Last name" !important;
+    }
+    #td--children_user:nth-of-type(3)::before {
+      content: "Class name" !important;
+    }
+  }
+
+
+
+  html[lang="ua"] {
+    //your styles
+
+    /*
+    Label the data
+    */
+    #td--users:nth-of-type(1):before {
+      content: "Роль";
+    }
+    #td--users:nth-of-type(2):before {
+      content: "Ім'я";
+    }
+    #td--users:nth-of-type(3):before {
+      content: "Прізвище";
+    }
+    #td--users:nth-of-type(4):before {
+      content: "Емейл";
+    }
+    #td--users:nth-of-type(5):before {
+      content: "Дії";
+    }
+
+    #td--groups:nth-of-type(1):before {
+      content: "Ім'я" !important;
+    }
+    #td--groups:nth-of-type(2):before {
+      content: "Опис" !important;
+    }
+    #td--groups:nth-of-type(3):before {
+      content: "Дії" !important;
+    }
+
+    #td--children:nth-of-type(1)::before {
+      content: "Ім'я" !important;
+    }  #td--children:nth-of-type(2)::before {
+        content: "Прізвище" !important;
+      }  #td--children:nth-of-type(3)::before {
+            content: "Група" !important;
+          }  #td--children:nth-of-type(4)::before {
+              content: "Дії" !important;
+            }
+
+    #td--message:nth-of-type(1)::before {
+      content: "Дата" !important;
+    }
+    #td--message:nth-of-type(2)::before {
+      content: "Від" !important;
+    }
+    #td--message:nth-of-type(3)::before {
+      content: "Тема" !important;
+    }
+    #td--message:nth-of-type(4)::before {
+      content: "Вміст" !important;
+    }
+    #td--message:nth-of-type(5)::before {
+      content: "Дії" !important;
+    }
+
+    #td--gallery:nth-of-type(1)::before {
+      content: "Груп" !important;
+    }
+    #td--gallery:nth-of-type(2)::before {
+      content: "Ім'я" !important;
+    }
+    #td--gallery:nth-of-type(3)::before {
+      content: "Дії" !important;
+    }
+
+
+    #td--group:nth-of-type(1)::before {
+      content: "Роль" !important;
+    }
+    #td--group:nth-of-type(2)::before {
+      content: "Ім'я" !important;
+    }
+    #td--group:nth-of-type(3)::before {
+      content: "Прізвище" !important;
+    }
+    #td--group:nth-of-type(4)::before {
+      content: "Дії" !important;
+    }
+
+
+    #td--addchildren:nth-of-type(1)::before {
+      content: "Ім'я" !important;
+    }
+    #td--addchildren:nth-of-type(2)::before {
+      content: "Прізвище" !important;
+    }
+    #td--addchildren:nth-of-type(3)::before {
+      content: "Дії" !important;
+    }
+
+
+    #td--currentuser:nth-of-type(1)::before {
+      content: "Ім'я" !important;
+    }
+    #td--currentuser:nth-of-type(2)::before {
+      content: "Назва класу" !important;
+    }
+
+    #td--child:nth-of-type(1):before {
+      content: "Ім'я";
+    }
+    #td--child:nth-of-type(2):before {
+      content: "Назва класу";
+    }
+    #td--child:nth-of-type(3):before {
+      content: "Емейл";
+    }
+    #td--child:nth-of-type(4):before {
+      content: "Дії";
+    }
+
+    #td--children_user:nth-of-type(1)::before {
+      content: "Ім'я" !important;
+    }
+    #td--children_user:nth-of-type(2)::before {
+      content: "Прізвище" !important;
+    }
+    #td--children_user:nth-of-type(3)::before {
+      content: "Назва класу" !important;
+    }
+  }
+
 }

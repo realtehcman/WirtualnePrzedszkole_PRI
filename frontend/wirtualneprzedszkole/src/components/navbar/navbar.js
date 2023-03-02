@@ -21,6 +21,7 @@ const Navbar = () => {
     const onchangeLanguage = (e) => {
         setCurrentLanguage(e.target.value);
         i18next.changeLanguage(e.target.value);
+        document.documentElement.setAttribute('lang', e.target.value);
     }
 
     return (
