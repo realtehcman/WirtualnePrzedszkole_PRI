@@ -95,7 +95,7 @@ class Message extends React.Component {
                         {" "}
                         <Navi value={received_messages.id} />
                       </td>
-                      <td className="foobar">
+                      <td className="foobar" id="td--message">
                         <button
                             onClick={() =>
                                 this.deleteReceivedMessages(received_messages.id)

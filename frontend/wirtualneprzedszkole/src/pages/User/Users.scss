@@ -143,12 +143,15 @@
     content: "Data" !important;
   }
   #td--message:nth-of-type(2)::before {
-    content: "Autor" !important;
+    content: "Od" !important;
   }
   #td--message:nth-of-type(3)::before {
     content: "Temat" !important;
   }
   #td--message:nth-of-type(4)::before {
+    content: "Treść" !important;
+  }
+  #td--message:nth-of-type(5)::before {
     content: "Akcje" !important;
   }
 
