@@ -59,7 +59,7 @@ const AddFolder = (props) => {
                             <div className="uploadDiv2">
                                     <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                             </div>
-                            <div className="form-but">
+                            <div className="form-but ">
                                     <button className="button">{t('save')}</button>
                             </div>
                         </form>

@@ -1,3 +1,5 @@
+@import "/src/utilities/_variables.scss";
+
 .content-table {
   border-collapse: collapse;
   font-size: 20px;
@@ -36,8 +38,10 @@
 
 .btn-info {
   margin-right: 15px;
+        @media (max-width: $phoneMaxWidth) {
+         margin-right: 0.3em;
+    }
 }
-
 .table-body {
   //makes table wider
   min-width: max-content;

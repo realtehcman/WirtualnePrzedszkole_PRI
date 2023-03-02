@@ -1,3 +1,5 @@
+@import "/src/utilities/_variables.scss";
+
 .content-table {
   border-collapse: collapse;
   font-size: 20px;
@@ -33,6 +35,9 @@
 
 .btn-info {
   margin-right: 15px;
+        @media (max-width: $phoneMaxWidth) {
+         margin-right: 0.3em;
+    }
 }
 
 .table-body {
@@ -107,14 +112,24 @@
 
 .uploadDiv {
   margin-left: 5%;
+    @media (max-width: $phoneMaxWidth) {
+        margin-left: 5%;
+        width: 95em;
+    }
 }
+
 
 .deleteAll {
   float:  right;
   max-width: 16%;
-  margin-right: 0.5%;
-  margin-top: -5%
+  margin-right: 4em;
+  margin-top: -5%;
+    @media (max-width: $phoneMaxWidth) {
+      margin-right: 5em;
+    }
 }
+
+
 
 #hiddenText {
   visibility: hidden;
