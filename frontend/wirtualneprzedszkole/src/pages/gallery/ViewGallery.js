@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import Masonry from 'react-masonry-css'
 import ClearIcon from '@mui/icons-material/Clear';
 import '../../../src/Styles.scss';
 import Popup from '../GroupDisplay/Popup';
@@ -11,18 +10,31 @@ import { useTranslation } from "react-i18next";
 
 const ViewGallery = () => {
     const {t} = useTranslation();
-
     const [photos, setPhotos] = useState([]);
-
     const [allPhotos, setAllPhotos] = useState([]);
-
     const [deletePhotoPopup, setDeletePhotoPopup] = useState({
         isPop: false,
         img: {}
     });
     const [addPhotoPopup, setAddPhotoPopup] = useState(false);
     const [selectPhotos, setSelectedPhotos] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [photosPerPage] = useState(12); // number of photos to display per page
 
+    // Calculate the total number of pages based on the number of images and the number of images per page
+    const totalPages = Math.ceil(photos.length / photosPerPage);
+
+    // Get the index of the last photo on the current page
+    const indexOfLastPhoto = currentPage * photosPerPage;
+
+    // Get the index of the first photo on the current page
+    const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
+
+    // Get the photos to display on the current page
+    const currentPhotos = photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
+
+    // Change the current page number
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const [newFile, setNewFile] = useState(
         {
             name: "",
@@ -37,26 +49,33 @@ const ViewGallery = () => {
         img: {},
         name: ""
     })
+    const calculateTotalPages = (photos) => {
+        return Math.ceil(photos.length / 12);
+    };
 
     let { id } = useParams();
 
     useEffect(() => {
         const getData = async () => {
             FolderService.getFolder(id).then((response) => {
-                // let galleryData = response.data;
-                setFolderName(response.data.name)
+                setFolderName(response.data.name);
                 let galleryData = response.data.fileDataList;
-
                 setAllPhotos(galleryData);
-                Promise.all(galleryData.map(el => getPhoto(el))).then(result => {
-                    setPhotos(result)
-                })
-               
+                Promise.all(galleryData.map((el) => getPhoto(el))).then((result) => {
+                    setPhotos(result);
+                });
             });
         };
-        getData().then(r => console.log(r));
+        getData().then((r) => console.log(r));
         // eslint-disable-next-line
     }, []);
+
+    const getCurrentPagePhotos = () => {
+        const startIndex = (currentPage - 1) * 12;
+        const endIndex = startIndex + 12;
+        return photos.slice(startIndex, endIndex);
+    };
+
 
     const getPhoto = async (element) => {
         let x = await FileService.getFile(id, element.hash).then(res => {
@@ -84,7 +103,7 @@ const ViewGallery = () => {
                     console.log(result)
                     setPhotos(photos => [...photos, ...result])
                 })
-                
+
             }
         })
         setAddPhotoPopup(false);
@@ -93,14 +112,14 @@ const ViewGallery = () => {
     const deleteFile = (e) => {
         console.log(e)
         FileService.deleteFile(id, e.hash)
-        .then((res) => {
-            if (res.status !== 200){
-                console.log(res + "Unsuccessfully delete");
-            }
-            else {
-                setPhotos(photos.filter((refreshFile) => e.id !== refreshFile[1].id));     
-            }
-        })
+            .then((res) => {
+                if (res.status !== 200){
+                    console.log(res + "Unsuccessfully delete");
+                }
+                else {
+                    setPhotos(photos.filter((refreshFile) => e.id !== refreshFile[1].id));
+                }
+            })
         setDeletePhotoPopup({isPop: false, img: {}});
     }
 
@@ -130,24 +149,20 @@ const ViewGallery = () => {
         <div>
             {/* {photos} */}
             <h1>{folderName}</h1>
-            <div className='gallery_container px-4 py-4'>
-                <Masonry
-                    breakpointCols={{
-                    }}
+            <div className='gallery_container'>
+                <div className="gallery_container">
+                    {getCurrentPagePhotos().map((photo) => (
+                            <div className='gallery_img'  key={photo[1].id}>
+                                <button type="button" className='btn btn-info del_gallery_img' onClick={() => setDeletePhotoPopup({isPop: true, img: photo[1]})}>
+                                    <ClearIcon className="icon" />
+                                </button>
 
-                >
-                    {photos.map((photo) => (
-                        <div className='gallery_img position-relative'  key={photo[1].id}>
-                            <button type="button" className='btn btn-info del_gallery_img mx-1 my-1 px-0 py-0' onClick={() => setDeletePhotoPopup({isPop: true, img: photo[1]})}>
-                                <ClearIcon className="icon mx-0" />
-                            </button>
-                        
-                            <img src={photo[0]} alt={photo[1].name} onClick={() => setOpenPhotoPopup({isPop: true, img: photo[0], name: photo[1].name})}/>
-                        </div>
-                        
-                    )
+                                <img src={photo[0]} alt={photo[1].name} onClick={() => setOpenPhotoPopup({isPop: true, img: photo[0], name: photo[1].name})}/>
+                            </div>
+
+                        )
                     )}
-                </Masonry>
+                </div>
             </div>
 
             <div className="delete_photo_popup">
@@ -155,8 +170,8 @@ const ViewGallery = () => {
                     <h3 className='text-center mb-2'>{t('delete_image')}</h3>
                     <p className='text-center py-3'>{t('are_you_sure_you_want_to_delete_image')}</p>
                     <div className='d-flex justify-content-between'>
-                        <button className='btn btn-primary' onClick={() => setDeletePhotoPopup({isPop: false, img: {}})}>{t('cancel')}</button>
-                        <button className='btn btn-danger' onClick={() => deleteFile(deletePhotoPopup.img)}>{t('delete')}</button>
+                        <button className='btn btn-primary' onClick={() => setDeletePhotoPopup({isPop: false, img: {}})}>Anuluj</button>
+                        <button className='btn btn-danger' onClick={() => deleteFile(deletePhotoPopup.img)}>Usuń</button>
                     </div>
                 </Popup>
             </div>
@@ -165,12 +180,12 @@ const ViewGallery = () => {
                 <Popup trigger={addPhotoPopup} setTrigger={setAddPhotoPopup}>
                     <h3 className='text-center mb-2'>{t('add_photos')}</h3>
                     <form onSubmit={addFiles} encType='multipart/form-data'>
-                            <div className="uploadDiv2">
-                                    <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
-                            </div>
-                            <div className="form-but">
-                                    <button className="button">{t('save')}</button>
-                            </div>
+                        <div className="uploadDiv2">
+                            <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
+                        </div>
+                        <div className="form-but">
+                            <button className="button">{t('save')}</button>
+                        </div>
                     </form>
                 </Popup>
             </div>
@@ -178,12 +193,12 @@ const ViewGallery = () => {
 
             <div className="open_photo_popup">
                 <Popup trigger={openPhotoPopup.isPop} setTrigger={setOpenPhotoPopup}>
-                <img src={openPhotoPopup.img} alt={openPhotoPopup.name}/>
-                <div className='d-flex justify-content-between'>
-                    <button className='btn btn-primary' onClick={() => downloadPhoto(openPhotoPopup.img, openPhotoPopup.name)}>{t('download')}</button>
-                </div>
+                    <img src={openPhotoPopup.img} alt={openPhotoPopup.name}/>
+                    <div>
+                        <button className='btn btn-primary' onClick={() => downloadPhoto(openPhotoPopup.img, openPhotoPopup.name)}>{t('download')}</button>
+                    </div>
                 </Popup>
-            </div>            
+            </div>
 
 
             <div className='d-flex align-items-center justify-content-end'>
@@ -201,9 +216,27 @@ const ViewGallery = () => {
                 >
                     {t('download_all')}
                 </button>
+            </div><div className='d-flex justify-content-center'>Strony: {totalPages}</div>
+            <div className='d-flex justify-content-center'>
+                <button
+                    className='btn btn-info mr-2'
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                    Poprzednia strona
+                </button>
+                <button
+                    className='btn btn-info ml-2'
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                    Następna strona
+                </button>
             </div>
         </div>
     );
 
 }
 export default ViewGallery
+
+
