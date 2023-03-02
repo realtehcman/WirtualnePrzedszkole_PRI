@@ -24,6 +24,8 @@ const User = () => {
       {
         id: "",
         name: "",
+        lastName: "",
+        className: "",
         classId: "",
       },
     ],
@@ -41,7 +43,7 @@ const User = () => {
       let userData = response.data;
       let children;
       if (userData.children !== undefined)
-          children = userData.children.map(it => {return {id: it.id, name: it.name, classId: it.classId, className: it.className}})
+          children = userData.children.map(it => {return {id: it.id, name: it.name, lastName: it.lastName, classId: it.classId, className: it.className}})
       else {
           children = []
       }
@@ -170,7 +172,7 @@ const User = () => {
                       >
                         <td>{child.name}</td>
                         <td>{child.lastName}</td>
-                        <td>{child.classId}</td>
+                        <td>{child.className}</td>
 
                       </tr>
                       //<div className="col-md-12"><label className="labels">dzieci: </label>  <label className="labels">{child.name}</label></div>
