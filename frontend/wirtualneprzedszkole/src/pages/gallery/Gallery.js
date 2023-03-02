@@ -11,20 +11,6 @@ import i18next from 'i18next';
 const { t } = i18next;
 
 
-const Navi2 = (props) => {
-
-    const navigate = useNavigate();
-    return (
-        <button
-            onClick={() => navigate("/home/" + props.value)}
-            className="btn btn-info"
-        >
-            {t('add_photos')}
-        </button>
-
-    );
-};
-
 const Navi = (props) => {
 
     const navigate = useNavigate();
@@ -112,7 +98,6 @@ class Gallery extends React.Component {
                             <td id="td--gallery">{folder.path.split("Photos/")[1]}</td>
                             <td id="td--gallery" className="foobar">
                                 <Navi value={folder.id} />
-                                <Navi2 value={folder.id} />
                                 <button
                                     onClick={() => {
                                         if (window.confirm(t("confirm_gallery_deletion"))) {
