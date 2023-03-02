@@ -7,9 +7,12 @@ import UserService from '../User/UserService';
 import ChildrenService from '../Children/ChildrenService';
 import { ToastContainer, toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import {useContext} from "react";
+import UserContext from "../../components/sidebar/UserContext";
 
 const Group = () => {
-    const { t } = useTranslation();
+
+        const { t } = useTranslation();
 
     const navigate = useNavigate()
     const [group, setGroup] = useState({
@@ -110,6 +113,7 @@ const Group = () => {
             })
         }
     }
+    const currentUser = useContext(UserContext);
 
     return (
         <div data-testid="group">
@@ -155,7 +159,7 @@ const Group = () => {
                     <button type="button" className="btn btn-warning" onClick={() => NaviToFolder("Inne")}>{t('other_files')}</button>
                 </div>
                 <div className="add-teacher">
-                    <button type="button" className="btn btn-primary" onClick={() => navigate("/Assign-teacher/" + id)}>{t('assign_a_tutor')}</button>
+                    {currentUser.role === "ADMIN" &&  <button type="button" className="btn btn-primary" onClick={() => navigate("/Assign-teacher/" + id)}>{t('assign_a_tutor')}</button>}
                 </div>
             </div>
         </div>
