@@ -159,6 +159,7 @@ class SendMessage extends Component {
                     to: "",
                     subject: "",
                     content: "",
+                    className: "",
                 });
             }else {
                 toast.error(t("error_sending_message"), {
