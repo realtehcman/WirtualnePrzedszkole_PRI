@@ -54,42 +54,68 @@ const FolderOther = (props) => {
             saveAs(response.data, file.name)
       })
     }
-      
+
     const handleSubmit = async(event) => {
         event.preventDefault()
-    
+
         const formData = new FormData(event.currentTarget);
-    
+
         const files = event.currentTarget;
         for (let i = 0; i < files.length; i++) {
-        formData.append('file', files[i]);
+            formData.append('file', files[i]);
         }
-        FileService.addFiles(folderId, formData).then((response) => {
-            if (response.status !== 200) throw new Error(response.status);
-            else {
-                let responseFiles = response.data
-                 // eslint-disable-next-line
-                responseFiles.map((file) => {
-                    if (file.dateAdded != null) 
-                        file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
-                })
+        FileService.addFiles(folderId, formData)
+            .then((response) => {
+                if (response.status !== 200) throw new Error(response.status);
+                else {
+                    let responseFiles = response.data;
+                    responseFiles.map((file) => {
+                        if (file.dateAdded != null)
+                            file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
+                    });
 
-                setFilesInfo(filesInfo => [...filesInfo, ...responseFiles])
-            }
-        })
+                    setFilesInfo(filesInfo => [...filesInfo, ...responseFiles]);
+
+                    toast.success(t('success_file_addition'));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     const deleteFile = async (file) => {
-        FileService.deleteFile(folderId, file.hash).then((response) => {
-            setFilesInfo(filesInfo.filter((refreshFile) => file.id !== refreshFile.id))
-        })
-    }
+        const confirmed = window.confirm(t('confirm_deletion') +" " + file.name + "?");
+        if (confirmed) {
+            FileService.deleteFile(folderId, file.hash)
+                .then((response) => {
+                    setFilesInfo(filesInfo.filter((refreshFile) => file.id !== refreshFile.id));
+                    toast.success (toast.success(t('success_file_deletion')));
+                })
+                .catch((error) => {
+                    console.log(error);
+                    toast.error(t('error_file_deletion'));
+                });
+        }
+    };
+
 
     const deleteAllFiles = async () => {
-        FileService.deleteAllFiles(folderId).then((response) => {
-            setFilesInfo([])
-        })
-    }
+        const confirmed = window.confirm(t('confirm_all_files_deletion'));
+        if (confirmed) {
+            FileService.deleteAllFiles(folderId)
+                .then((response) => {
+                    setFilesInfo([]);
+                    toast.success(t('success_multiple_files_deletion'));
+                })
+                .catch((error) => {
+                    console.log(error);
+                    toast.error(t('error_multiple_files_deletion'));
+                });
+        }
+    };
+
+
 
     const checkDataIsNull = (fileDate) => {
         if (fileDate === null) {
@@ -116,6 +142,7 @@ const FolderOther = (props) => {
     const currentUser = useContext(UserContext);
     return (
         <div data-testid = 'folder-other' className="scrollable-div">
+            <ToastContainer />
             <table className="content-table">
                 <thead>
                     <tr className="table-head">

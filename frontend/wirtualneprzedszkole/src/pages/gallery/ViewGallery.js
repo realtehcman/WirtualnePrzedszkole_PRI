@@ -9,7 +9,8 @@ import saveAs from 'file-saver'
 import { useTranslation } from "react-i18next";
 import {useContext} from "react";
 import UserContext from "../../components/sidebar/UserContext";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ViewGallery = () => {
     const current_user = useContext(UserContext);
@@ -98,59 +99,77 @@ const ViewGallery = () => {
             }
         }
 
-        FileService.addFiles(id, formData).then((res) => {
-            if (res.status !== 200){
-                console.log(res + "Unsuccessfully uploaded");
-            }
-            else {
-                Promise.all(res.data.map(el => getPhoto(el))).then(result => {
-                    console.log(result)
-                    setPhotos(photos => [...photos, ...result])
-                })
-
-            }
-        })
-        setAddPhotoPopup(false);
-    }
-
-    const deleteFile = (e) => {
-        console.log(e)
-        FileService.deleteFile(id, e.hash)
+        FileService.addFiles(id, formData)
             .then((res) => {
-                if (res.status !== 200){
-                    console.log(res + "Unsuccessfully delete");
-                }
-                else {
-                    setPhotos(photos.filter((refreshFile) => e.id !== refreshFile[1].id));
+                if (res.status !== 200) {
+                    console.log(res + 'Unsuccessfully uploaded');
+                    toast.error(t('Failed_to_upload_photos'));
+                } else {
+                    Promise.all(res.data.map((el) => getPhoto(el))).then((result) => {
+                        console.log(result);
+                        setPhotos((photos) => [...photos, ...result]);
+                        toast.success(t('Photos_uploaded_successfully'));
+                    });
                 }
             })
-        setDeletePhotoPopup({isPop: false, img: {}});
-    }
+            .catch((error) => {
+                console.log(error);
+                toast.error(t('Failed_to_upload_photos'));
+            });
+        setAddPhotoPopup(false);
+    };
+
+    const deleteFile = (e) => {
+        console.log(e);
+        FileService.deleteFile(id, e.hash)
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log(res + 'Unsuccessfully delete');
+                    toast.error(t('Failed_to_delete_photos'));
+                } else {
+                    setPhotos(
+                        photos.filter((refreshFile) => e.id !== refreshFile[1].id)
+                    );
+                    toast.success(t('success_file_deletion'));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error(t('Failed_to_delete_photos'));
+            });
+        setDeletePhotoPopup({ isPop: false, img: {} });
+    };
 
     const downloadPhoto = (photo, name) => {
-        saveAs(photo, name)
-        setOpenPhotoPopup({isPop: false, img: {}, name: ""})
-    }
+        saveAs(photo, name);
+        setOpenPhotoPopup({ isPop: false, img: {}, name: '' });
+        toast.success(t('Photos_downloaded_successfully'));
+    };
 
     const downloadFolder = (folderName) => {
-        FileService.downloadFolder(id).then(response => {
-            const href = URL.createObjectURL(response.data);
+        FileService.downloadFolder(id)
+            .then((response) => {
+                const href = URL.createObjectURL(response.data);
 
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', folderName + '.zip'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
 
-            const link = document.createElement('a');
-            link.href = href;
-            link.setAttribute('download', folderName + '.zip'); //or any other extension
-            document.body.appendChild(link);
-            link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+                toast.success(t('Folder_downloaded_successfully'));
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error(t('Folder_downloaded_failed'));
+            });
+    };
 
-
-            document.body.removeChild(link);
-            URL.revokeObjectURL(href);
-        })
-    }
 
     return (
-        <div>
+        <div> <ToastContainer />
             {/* {photos} */}
             <h1>{folderName}</h1>
             <div className='gallery_container'>

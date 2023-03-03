@@ -5,6 +5,8 @@ import '../CreateUser/CreateUser.scss'
 import './AddFolder.scss'
 import { useTranslation } from "react-i18next";
 import FileService from "../gallery/FileService"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddFolder = (props) => {
     const { t } = useTranslation();
@@ -37,17 +39,23 @@ const AddFolder = (props) => {
             else {
                 if (temp > 0)
                     FileService.addFiles(response.data.id, formData).then((res) => {
-                    if (res.status !== 200) throw new Error(res.status);
-
-                })
-                navigate(-1)
+                        if (res.status !== 200) throw new Error(res.status);
+                        toast.success(t('success_file_addition'));
+                    })
+                else {
+                    toast.success(t('success_file_addition'));
+                }
+                navigate(-1);
             }
+        }).catch(error => {
+            toast.error(t('general_error'));
+            console.error(error);
         })
-
     }
 
     return (
         <div data-testid="add-folder" className='formContainer'>
+            <ToastContainer />
             <div className='row'>
                 <div className='card col-md-6 offset-md-3 offset-md-3'>
                     <div className='form-body'>

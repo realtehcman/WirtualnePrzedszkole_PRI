@@ -110,6 +110,11 @@ html{
 }
 
 .gallery_img {
+    min-width: 420px;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     cursor: pointer;
     width: 100%;
