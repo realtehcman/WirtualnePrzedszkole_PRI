@@ -63,10 +63,10 @@ const AssignTeacher = (props) => {
             <tbody className="body table-body">
               {filteredteacher.map((teacher) => (
                 <tr key={teacher.id}>
-                  <td>{teacher.name}</td>
-                  <td>{teacher.lastName}</td>
-                  <td>{teacher.email}</td>
-                  <td>
+                  <td id="td--assignteacher">{teacher.name}</td>
+                  <td id="td--assignteacher">{teacher.lastName}</td>
+                  <td id="td--assignteacher">{teacher.email}</td>
+                  <td id="td--assignteacher">
                       <button
                       onClick={() => assignToClass(teacher)}
                       className="btn btn-danger"
