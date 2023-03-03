@@ -14,11 +14,12 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import FileService from "../gallery/FileService";
 import { useTranslation } from 'react-i18next';
+import nophoto from "../../images/nophoto.jpg"
 
 
 
 const CurrentUser = () => {
-    const [userAvatar, setUserAvatar] = useState("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg");
+    const [userAvatar, setUserAvatar] = useState(nophoto);
     const [file, setFile] = useState();
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -63,7 +64,7 @@ const CurrentUser = () => {
                         setUserAvatar(urlCreator.createObjectURL(response.data))
                     })
                 } else {
-                    setUserAvatar("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg")
+                    setUserAvatar(nophoto)
                 }
             });
         }
@@ -91,7 +92,7 @@ const CurrentUser = () => {
         CurrentUserService.deleteAvatar().then(response => {
             if (response.status !== 200) throw new Error(response.status);
             else {
-                setUserAvatar("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg")
+                setUserAvatar(nophoto)
             }
         })
     }

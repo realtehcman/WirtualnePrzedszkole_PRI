@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import FileService from "../gallery/FileService";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import nophoto from "../../images/nophoto.jpg"
 
 function Kadra() {
     const { t } = useTranslation();
@@ -59,7 +60,7 @@ function Kadra() {
             let urlCreator = window.URL || window.webkitURL;
             return urlCreator.createObjectURL(response.data);
         } else {
-            return "https://www.christchurchandstmarys.co.uk/images/nophoto.jpg";
+            return nophoto;
         }
     };
 

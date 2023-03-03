@@ -6,6 +6,7 @@ import FileService from "../gallery/FileService"
 import { useTranslation } from "react-i18next";
 import {useContext} from "react";
 import UserContext from "../../components/sidebar/UserContext";
+import nophoto from "../../images/nophoto.jpg"
 
 const User = () => {
   const {t} = useTranslation();
@@ -30,7 +31,7 @@ const User = () => {
       },
     ],
   });
-  const [userAvatar, setUserAvatar] = useState()
+  const [userAvatar, setUserAvatar] = useState(nophoto)
 
   let { id } = useParams();
 
@@ -66,7 +67,7 @@ const User = () => {
           setUserAvatar(urlCreator.createObjectURL(response.data))
         })
       } else {
-          setUserAvatar("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg")
+          setUserAvatar(nophoto)
       }
     });
     
@@ -80,7 +81,7 @@ const User = () => {
     UserService.deleteAvatar(deletePictureUser).then(response => {
         if (response.status !== 200) throw new Error(response.status);
         else {
-            setUserAvatar("https://www.christchurchandstmarys.co.uk/images/nophoto.jpg")
+            setUserAvatar(nophoto)
         }
     })
   }
