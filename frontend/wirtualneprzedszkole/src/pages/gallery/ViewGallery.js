@@ -205,7 +205,7 @@ const ViewGallery = () => {
             </div>
 
             {(current_user.role === "ADMIN" ||  current_user.role === "TEACHER")  &&
-                <div className='d-flex align-items-center justify-content-end'>
+                <div className='d-flex align-items-center justify-content-end custom_postion'>
                     <button
                         onClick={() => setAddPhotoPopup(true)}
                         className="btn btn-info"
@@ -215,7 +215,7 @@ const ViewGallery = () => {
                 </div>}
 
 
-            <div className='d-flex align-items-center justify-content-end'>
+            <div className='d-flex align-items-center justify-content-end custom_postion'>
                 <button
                     onClick={() => downloadFolder(folderName)}
                     className="btn btn-info"

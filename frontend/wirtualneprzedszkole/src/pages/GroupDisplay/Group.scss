@@ -64,4 +64,12 @@
 
 .div-buttons {
   width: 100%;
+    @media (max-width: $phoneMaxWidth) {
+    margin-top: 1em;
+
+    button{
+      size: 20em;
+      margin-top: 0.5em;
+    }
+  }
 }
