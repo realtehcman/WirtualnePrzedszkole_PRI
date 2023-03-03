@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import "./CurrentUser.scss"
 import Sidebar from "../../components/sidebar/sidebar";
 import Navbar from "../../components/navbar/navbar"
-import Popup from "../GroupDisplay/Popup";
+import Popup_user from "./Popup_user";
 import "../GroupDisplay/abc.css"
 import { useNavigate, useParams } from "react-router-dom";
 import CurrentUserService from "./CurrentUserService";
@@ -71,7 +71,7 @@ const CurrentUser = () => {
 
     }, [id])
 
-    const[buttonPopup, setButtonPopup] = useState(false);
+    const[buttonPopup_user, setButtonPopup_user] = useState(false);
 
     const addAvatar = async(formData) => {
         CurrentUserService.addAvatar(formData).then(response => {
@@ -209,7 +209,7 @@ const CurrentUser = () => {
                                 </div>
 
                                 <div className='mt-5 d-flex'>
-                                    <button type="button" className='btn btn_global me-3' onClick={() => setButtonPopup(true)}>{t('edit_data')}</button>
+                                    <button type="button" className='btn btn_global me-3' onClick={() => setButtonPopup_user(true)}>{t('edit_data')}</button>
                                     <button type="button" className='btn btn-info' onClick={() => navigate("restart-password")}>{t('change_password')}</button>
                                 </div>
                             </div>
@@ -218,11 +218,11 @@ const CurrentUser = () => {
 
 
 
-                    <div className="v"> <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                    <div className="v"> <Popup_user trigger={buttonPopup_user} setTrigger={setButtonPopup_user}>
 
                         <EditCurrentUser  {...current_user} />
 
-                    </Popup></div>
+                    </Popup_user></div>
 
 
 

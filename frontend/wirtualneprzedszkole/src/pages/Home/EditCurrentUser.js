@@ -59,8 +59,14 @@ const EditCurrentUser = (props) => {
                 <label>{t('telephone')}:</label><br></br>
                 <input placeholder={current_user.phoneNumber} onChange={(e) => setUserEdit({...userEdit,phoneNumber : e.target.value})}/><br></br>
                 <label>{t('description')}:</label><br></br>
-                <input placeholder={current_user.opis} onChange={(e) => setUserEdit({...userEdit,opis : e.target.value})}/><br></br>
-                <button onClick={updateData} className='btn btn-danger'>{t('save')}</button>
+                <textarea
+                    placeholder={current_user.opis}
+                    className="form-control"
+                    rows="3"
+                    onChange={(e) => setUserEdit({ ...userEdit, opis: e.target.value })}
+                />
+                <div style={{ marginTop: '15px' }}>
+                <button onClick={updateData} className='btn btn-danger'>{t('save')}</button></div>
             </form>
         </div>
     )
