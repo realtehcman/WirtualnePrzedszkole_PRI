@@ -120,13 +120,13 @@
 
 
 .deleteAll {
-  float:  right;
+  margin-right: 5%;
+  right:0;
+  position: absolute;
   max-width: 16%;
-  margin-right: 4em;
-  margin-top: -5%;
-    @media (max-width: $phoneMaxWidth) {
-      margin-right: 5em;
-    }
+  @media (max-width: $phoneMaxWidth) {
+    margin-right: 5em;
+  }
 }
 
 
