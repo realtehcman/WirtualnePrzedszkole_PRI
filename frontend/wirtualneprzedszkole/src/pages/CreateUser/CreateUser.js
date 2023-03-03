@@ -303,10 +303,10 @@ class CreateUser extends Component {
                     <div className="Form_btns">
                       <button className="button btn me-3" name="save-user">{t('save')}</button>
                     </div>
-                    <div className="next-parent-class">
+                    <div className="Form_btns2">
                       <button className="button btn me-3" name="next-parent">{t('save_and_add_another_guardian')}</button>
-                    </div> 
-                    <div className="add-child-class">
+                    </div>
+                    <div className="Form_btns2">
                       <button className="button btn me-3" name="add-child">{t('save_and_add_a_child')}</button>
                     </div>
                   </form>

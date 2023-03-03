@@ -1,6 +1,6 @@
 import FileService from "../gallery/FileService"
 import "../gallery/Knowledge.scss"
-import Popup from "../GroupDisplay/Popup";
+import Popup_user from "../Home/Popup_user";
 import React, {useEffect, useState} from 'react'
 import saveAs from 'file-saver'
 import EditFile from "../gallery/EditFile";
@@ -54,42 +54,68 @@ const FolderOther = (props) => {
             saveAs(response.data, file.name)
       })
     }
-      
+
     const handleSubmit = async(event) => {
         event.preventDefault()
-    
+
         const formData = new FormData(event.currentTarget);
-    
+
         const files = event.currentTarget;
         for (let i = 0; i < files.length; i++) {
-        formData.append('file', files[i]);
+            formData.append('file', files[i]);
         }
-        FileService.addFiles(folderId, formData).then((response) => {
-            if (response.status !== 200) throw new Error(response.status);
-            else {
-                let responseFiles = response.data
-                 // eslint-disable-next-line
-                responseFiles.map((file) => {
-                    if (file.dateAdded != null) 
-                        file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
-                })
+        FileService.addFiles(folderId, formData)
+            .then((response) => {
+                if (response.status !== 200) throw new Error(response.status);
+                else {
+                    let responseFiles = response.data;
+                    responseFiles.map((file) => {
+                        if (file.dateAdded != null)
+                            file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
+                    });
 
-                setFilesInfo(filesInfo => [...filesInfo, ...responseFiles])
-            }
-        })
+                    setFilesInfo(filesInfo => [...filesInfo, ...responseFiles]);
+
+                    toast.success(t('success_file_addition'));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     const deleteFile = async (file) => {
-        FileService.deleteFile(folderId, file.hash).then((response) => {
-            setFilesInfo(filesInfo.filter((refreshFile) => file.id !== refreshFile.id))
-        })
-    }
+        const confirmed = window.confirm(t('confirm_deletion') +" " + file.name + "?");
+        if (confirmed) {
+            FileService.deleteFile(folderId, file.hash)
+                .then((response) => {
+                    setFilesInfo(filesInfo.filter((refreshFile) => file.id !== refreshFile.id));
+                    toast.success (toast.success(t('success_file_deletion')));
+                })
+                .catch((error) => {
+                    console.log(error);
+                    toast.error(t('error_file_deletion'));
+                });
+        }
+    };
+
 
     const deleteAllFiles = async () => {
-        FileService.deleteAllFiles(folderId).then((response) => {
-            setFilesInfo([])
-        })
-    }
+        const confirmed = window.confirm(t('confirm_all_files_deletion'));
+        if (confirmed) {
+            FileService.deleteAllFiles(folderId)
+                .then((response) => {
+                    setFilesInfo([]);
+                    toast.success(t('success_multiple_files_deletion'));
+                })
+                .catch((error) => {
+                    console.log(error);
+                    toast.error(t('error_multiple_files_deletion'));
+                });
+        }
+    };
+
+
 
     const checkDataIsNull = (fileDate) => {
         if (fileDate === null) {
@@ -102,7 +128,12 @@ const FolderOther = (props) => {
     const displayHiddentText = (text) => {
         return text;
     }
-
+    const truncateName = (name) => {
+        if (name.length > 50) {
+            return name.substr(0, 45) + "...";
+        }
+        return name;
+    }
     const[buttonPopup, setButtonPopup] = useState({
         isPop: false,
         fileId: "",
@@ -111,27 +142,28 @@ const FolderOther = (props) => {
     const currentUser = useContext(UserContext);
     return (
         <div data-testid = 'folder-other' className="scrollable-div">
+            <ToastContainer />
             <table className="content-table">
                 <thead>
                     <tr className="table-head">
                         <td>{t('file')}</td>
                         <td>{t('date')}</td>
                         <td>{t('description')}</td>
-                        <td>{t('download')}</td>
-                        <td>{t('delete')}</td>
+                        {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") && <td>{t('download')}</td>}
+                        {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&   <td>{t('delete')}</td>}
                     </tr>
                 </thead>
                 <tbody className="body table-body">
                     {filesInfo.map((file) => (
                         <tr key = {file.id}>
-                            <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
+                            <td id="tooltip">{truncateName(file.name)}<div id="hiddenText">{displayHiddentText(file.description)}</div></td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
                             {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&   <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>{t('edit')}</button></td>}
                             <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>{t('download')}</button></td>
                             {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&    <td><button onClick={() => deleteFile(file)} className="btn btn-danger">{t('delete')}</button></td>}
                         </tr>
                     ))}
-                    <Popup trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup>
+                    <Popup_user trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup_user>
                 </tbody>
             </table>
             <br />

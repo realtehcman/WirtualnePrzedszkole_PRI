@@ -3,7 +3,7 @@ import "../gallery/Knowledge.scss";
 import React, {useEffect, useState} from 'react'
 import saveAs from 'file-saver'
 import EditFile from "./EditFile";
-import Popup from "../GroupDisplay/Popup";
+import Popup_user from "../Home/Popup_user";
 import SortIcon from '@mui/icons-material/Sort';
 import HeightIcon from '@mui/icons-material/Height';
 import { ToastContainer, toast } from "react-toastify";
@@ -12,6 +12,10 @@ import currentUserService from "../Home/CurrentUserService";
 import i18next from 'i18next';
 import { withTranslation } from "react-i18next";
 import { useTranslation } from "react-i18next";
+import {useContext} from "react";
+import UserContext from "../../components/sidebar/UserContext";
+import {useParams} from "react-router-dom";
+
 
 const Knowledge = () => {
     const { t } = useTranslation();
@@ -28,25 +32,7 @@ const Knowledge = () => {
 
     const KNOWLEDGE_ID = 0
 
-
-
-
-    const [currentUser, setCurrentUser] = useState({
-        role: '',
-    });
-
-    useEffect(() => {
-        getData().then(r => console.log(r))
-    // eslint-disable-next-line
-    },[])
-
-
-    const getData = async () => {
-        currentUserService.getCurrentUsers().then(response => {
-            let currentUserData = response.data;
-            setCurrentUser({id: currentUserData.id, role: currentUserData.role})
-        });
-    }
+    const currentUser = useContext(UserContext);
 
     const [sortBy, setSortBy] = useState("id");
 
@@ -103,6 +89,12 @@ const Knowledge = () => {
         FileService.getFile(KNOWLEDGE_ID, file.hash).then((response) => {
             saveAs(response.data, file.name)
       })
+    }
+    const truncateName = (name) => {
+        if (name.length > 50) {
+            return name.substr(0, 45) + "...";
+        }
+        return name;
     }
 
     const handleSubmit = async(event) => {
@@ -224,7 +216,9 @@ const Knowledge = () => {
                 {filteredFiles.map((file) => (
 
                     <tr key = {file.id}>
-                            <td id="tooltip">{file.name}</td><td id="hiddenText">{displayHiddentText(file.description)}</td>
+                        <td id="tooltip">{truncateName(file.name)}<div id="hiddenText">{displayHiddentText(file.description)}</div></td>
+
+
                             <td>{checkDataIsNull(file.dateAdded)}</td>
                         {currentUser.role === "ADMIN" &&    <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>{t('edit')}</button></td>}
                             <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>{t('download')}</button></td>
@@ -232,7 +226,7 @@ const Knowledge = () => {
 
                         </tr>
                     ))}
-                    <Popup trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup>
+                    <Popup_user trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup_user>
                 </tbody>
             </table>
             <br />

@@ -141,5 +141,13 @@
     "save_and_add_another_child" : "Save and add another child",
     "update_profile_picture": "Update profile picture",
     "are_you_sure_you_want_to_delete_image" : "Are you sure you want to delete an image?",
-    "serachFolder": "Search folder"
+    "serachFolder": "Search folder",
+    "Failed_to_upload_photos": "Failed to upload photos",
+    "Failed_to_delete_photos": "Failed to delete photo",
+    "Photos_uploaded_successfully": "Photos uploaded successfully",
+    "Photos_downloaded_successfully": "Photos downloaded successfully",
+    "Folder_downloaded_successfully": "Folder downloaded successfully",
+    "Folder_downloaded_failed": "Failed to download folder"
+
+
 }

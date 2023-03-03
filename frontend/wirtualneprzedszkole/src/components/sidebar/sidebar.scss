@@ -3,8 +3,8 @@
 .sidebar__list {
   z-index: 0;
   overflow-y: scroll;
-  height: 100vh;
-  scrollbar-width: none; /* Firefox */
+  height: 90%;
+  scrollbar-width: none;
   width: 300px;
   transition: width 0.3s, transform 0.3s;
 
@@ -30,6 +30,7 @@
     left: 0;
     background-color: #ffffff;
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.6);
+
   }
 }
 

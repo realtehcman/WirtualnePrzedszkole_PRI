@@ -37,10 +37,14 @@ const Folders = (props) => {
 
 
     const deleteFolder = async(folderId) => {
-        FolderService.deleteFolder(folderId).then((response) => {
-            setFolder({childrenFolder: folder.childrenFolder.filter((refreshFolder) => folderId !== refreshFolder.id)})
-        })
+        const confirmed = window.confirm(t('confirm_file_deletion') +" " + "?");
+        if (confirmed) {
+            FolderService.deleteFolder(folderId).then((response) => {
+                setFolder({childrenFolder: folder.childrenFolder.filter((refreshFolder) => folderId !== refreshFolder.id)})
+            })
+        }
     }
+
 
     const showFolderContent = async(folderId) => {
         FolderService.getFolder(folderId).then((response) => {

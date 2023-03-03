@@ -62,12 +62,13 @@ const UserChild = () => {
         return <div><h1>Error 403: You don't have permission to access this page.</h1></div>;
     }
     return (
-        <div data-testid="user-child">
+
+        <div data-testid="user-child" className="scrollable-div">
             <div className="abc">
             <form>
                 <input type="text" placeholder="szukaj" onChange={handleSearch} />
             </form>
-        </div>
+        </div><div className="table-container">
             <table className="content-table">
 
                 <thead>
@@ -94,6 +95,7 @@ const UserChild = () => {
                 ))}
                 </tbody>
             </table>
+        </div>
         </div>
     );
 };

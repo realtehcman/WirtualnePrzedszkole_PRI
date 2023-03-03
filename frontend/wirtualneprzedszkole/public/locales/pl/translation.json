@@ -141,6 +141,12 @@
     "save_and_add_another_child" : "Zapisz i dodaj następne dziecko",
     "update_profile_picture": "Zaktualizuj zdjęcie profilowe",
     "are_you_sure_you_want_to_delete_image" : "Czy na pewno chcesz usunąć ten obraz?",
-    "serachFolder": "Wyszukaj folder"
+    "serachFolder": "Wyszukaj folder",
+    "Failed_to_upload_photos": "Dodanie zdjęć się nie powiodło",
+    "Failed_to_delete_photos": "Wystąpił błąd podczas usuwania",
+    "Photos_uploaded_successfully": "Zdjęcia zostały dodane pomyślnie",
+    "Photos_downloaded_successfully": "Zdjęcia zostały pobrane pomyślnie",
+    "Folder_downloaded_successfully": "Folder został pobrany pomyślnie",
+    "Folder_downloaded_failed": "Wystąpił błąd podczas pobierania folderu"
 }
     
