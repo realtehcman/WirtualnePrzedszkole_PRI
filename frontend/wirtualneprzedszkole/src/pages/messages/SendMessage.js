@@ -87,6 +87,11 @@ class SendMessage extends Component {
                 toast.success(t('success_sending_message'), {
                     position: toast.POSITION.TOP_CENTER,
                 });
+                this.setState({
+                    to: "",
+                    subject: "",
+                    content: "",
+                });
             }else {
                 toast.error(t("error_sending_message"), {
                     position: toast.POSITION.TOP_CENTER,
@@ -121,6 +126,11 @@ class SendMessage extends Component {
                 toast.success(t('success_sending_message_to_all'), {
                     position: toast.POSITION.TOP_CENTER,
                 });
+                this.setState({
+                    to: "",
+                    subject: "",
+                    content: "",
+                });
             }else {
                 toast.error(t("error_sending_message"), {
                     position: toast.POSITION.TOP_CENTER,
@@ -144,6 +154,11 @@ class SendMessage extends Component {
             if (response.data != null) {
                 toast.success(t('success_sending_message'), {
                     position: toast.POSITION.TOP_CENTER,
+                });
+                this.setState({
+                    to: "",
+                    subject: "",
+                    content: "",
                 });
             }else {
                 toast.error(t("error_sending_message"), {
