@@ -18,7 +18,6 @@ import org.springframework.web.util.NestedServletException;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -53,25 +52,23 @@ class FolderControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void getAllFolders_ShouldReturnListOfFolderDto_WhenFoldersExist() throws Exception {
-//        Folder folder1 = new Folder();
-//        folder1.setName("folder1");
-//        folder1.setPath("path1");
-//        Folder folder2 = new Folder();
-//        folder2.setName("folder2");
-//        folder2.setPath("path2");
-//        List<Folder> folders = Arrays.asList(folder1, folder2);
-//
-//        when(folderService.getAllFolders()).thenReturn(folders);
-//
-//        mockMvc.perform(get("/api/folder/all")
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$[0].name").value("folder1"))
-//                .andExpect(jsonPath("$[1].path").value("path2"));
-//
-//        verify(folderService, times(1)).getAllFolders();
-        assertEquals(true, true);
+        Folder folder1 = new Folder();
+        folder1.setName("folder1");
+        folder1.setPath("path1");
+        Folder folder2 = new Folder();
+        folder2.setName("folder2");
+        folder2.setPath("path2");
+        List<Folder> folders = Arrays.asList(folder1, folder2);
 
+        when(folderService.getAllFolders()).thenReturn(folders);
+
+        mockMvc.perform(get("/api/folder/all")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name").value("folder1"))
+                .andExpect(jsonPath("$[1].path").value("path2"));
+
+        verify(folderService, times(1)).getAllFolders();
     }
 
     @Test

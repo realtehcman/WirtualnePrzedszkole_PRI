@@ -21,7 +21,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -43,45 +42,39 @@ class UserManagementControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN", "TEACHER"})
     void getUserByLastName_ShouldReturnListOfUsers_WhenLastNameIsValid() throws Exception {
-//        //given
-//        String lastName = "Smith";
-//        List<UserDto> usersDto = List.of(new UserDto(), new UserDto());
-//        when(userManagementService.getUserByLastName(lastName)).thenReturn(usersDto.stream().map(UserMapper::mapToDao).collect(Collectors.toList()));
-//
-//        //when
-//        mockMvc.perform(get("/api/users/search/{lastName}", lastName)
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(2)));
-//
-//        //then
-//        verify(userManagementService, times(1)).getUserByLastName(lastName);
+        //given
+        String lastName = "Smith";
+        List<UserDto> usersDto = List.of(new UserDto(), new UserDto());
+        when(userManagementService.getUserByLastName(lastName)).thenReturn(usersDto.stream().map(UserMapper::mapToDao).collect(Collectors.toList()));
 
-        assertEquals(true, true);
+        //when
+        mockMvc.perform(get("/api/users/search/{lastName}", lastName)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
 
+        //then
+        verify(userManagementService, times(1)).getUserByLastName(lastName);
     }
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     void getAllUser_ShouldReturnListOfUsers_WhenPageIsValid() throws Exception {
-//        //given
-//        int page = 0;
-//        UserDto usersDto = new UserDto();
-//
-//        when(userManagementService.getAllUser()).thenReturn(List.of(UserMapper.mapToDao(usersDto)));
-//
-//        //when
-//        mockMvc.perform(get("/api/users")
-//                        .param("page", String.valueOf(page))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(1)));
-//
-//        //then
-//        verify(userManagementService, times(1)).getAllUser();
+        //given
+        int page = 0;
+        UserDto usersDto = new UserDto();
 
-        assertEquals(true, true);
+        when(userManagementService.getAllUser()).thenReturn(List.of(UserMapper.mapToDao(usersDto)));
 
+        //when
+        mockMvc.perform(get("/api/users")
+                        .param("page", String.valueOf(page))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+
+        //then
+        verify(userManagementService, times(1)).getAllUser();
     }
 
     @Test

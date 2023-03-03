@@ -90,7 +90,7 @@ class GroupComponent extends Component {
               <thead>
 
               <tr className="table-head table-head--groups">
-                <td>{t('group')}</td>
+                <td>{t('name')}</td>
                 <td>{t('description')}</td>
                 <td>{t('actions')}</td>
               </tr>

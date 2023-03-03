@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -105,34 +104,32 @@ class MessageControllerTest {
 
     @Test
     public void testSendMessageToClass() throws Exception {
-//        Long classId = 1L;
-//        User user = User.builder().id(1L).email("test@email.com").build();
-//        Authentication authentication = mock(Authentication.class);
-//        Message message = Message.builder()
-//                .id(1L)
-//                .subject("Test subject")
-//                .content("Test message")
-//                .author(user)
-//                .build();
-//
-//        SendMessageDto sendMessageDto = SendMessageDto.builder()
-//                .author(user)
-//                .to(List.of("Test User"))
-//                .content("Test Content")
-//                .build();
-//        when(authentication.getName()).thenReturn(user.getEmail());
-//        when(userService.getCurrentUser(any())).thenReturn(user);
-//        when(childService.getChildByClassIn(any())).thenReturn(List.of(1L, 2L));
-//        when(userManagementService.getAllParentsFromClass(any())).thenReturn(Set.of(user));
-//        when(messageService.sendMessage(any(), any())).thenReturn(message);
-//
-//        mockMvc.perform(post("/api/message/to_class/1")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(new ObjectMapper().writeValueAsString(sendMessageDto))
-//                        .with(user("admin").roles("ADMIN")))
-//                .andExpect(status().isOk());
-        assertEquals(true, true);
+        Long classId = 1L;
+        User user = User.builder().id(1L).email("test@email.com").build();
+        Authentication authentication = mock(Authentication.class);
+        Message message = Message.builder()
+                .id(1L)
+                .subject("Test subject")
+                .content("Test message")
+                .author(user)
+                .build();
 
+        SendMessageDto sendMessageDto = SendMessageDto.builder()
+                .author(user)
+                .to(List.of("Test User"))
+                .content("Test Content")
+                .build();
+        when(authentication.getName()).thenReturn(user.getEmail());
+        when(userService.getCurrentUser(any())).thenReturn(user);
+        when(childService.getChildByClassIn(any())).thenReturn(List.of(1L, 2L));
+        when(userManagementService.getAllParentsFromClass(any())).thenReturn(Set.of(user));
+        when(messageService.sendMessage(any(), any())).thenReturn(message);
+
+        mockMvc.perform(post("/api/message/to_class/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(sendMessageDto))
+                        .with(user("admin").roles("ADMIN")))
+                .andExpect(status().isOk());
 
     }
 
