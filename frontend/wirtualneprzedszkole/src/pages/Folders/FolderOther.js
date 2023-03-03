@@ -102,7 +102,12 @@ const FolderOther = (props) => {
     const displayHiddentText = (text) => {
         return text;
     }
-
+    const truncateName = (name) => {
+        if (name.length > 50) {
+            return name.substr(0, 45) + "...";
+        }
+        return name;
+    }
     const[buttonPopup, setButtonPopup] = useState({
         isPop: false,
         fileId: "",
@@ -124,7 +129,7 @@ const FolderOther = (props) => {
                 <tbody className="body table-body">
                     {filesInfo.map((file) => (
                         <tr key = {file.id}>
-                            <td id="tooltip">{file.name}<td id="hiddenText">{displayHiddentText(file.description)}</td></td>
+                            <td id="tooltip">{truncateName(file.name)}<div id="hiddenText">{displayHiddentText(file.description)}</div></td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
                             {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&   <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>{t('edit')}</button></td>}
                             <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>{t('download')}</button></td>

@@ -90,6 +90,12 @@ const Knowledge = () => {
             saveAs(response.data, file.name)
       })
     }
+    const truncateName = (name) => {
+        if (name.length > 50) {
+            return name.substr(0, 45) + "...";
+        }
+        return name;
+    }
 
     const handleSubmit = async(event) => {
         event.preventDefault()
@@ -210,7 +216,9 @@ const Knowledge = () => {
                 {filteredFiles.map((file) => (
 
                     <tr key = {file.id}>
-                        <td id="tooltip">{file.name}<div id="hiddenText">{displayHiddentText(file.description)}</div></td>
+                        <td id="tooltip">{truncateName(file.name)}<div id="hiddenText">{displayHiddentText(file.description)}</div></td>
+
+
                             <td>{checkDataIsNull(file.dateAdded)}</td>
                         {currentUser.role === "ADMIN" &&    <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>{t('edit')}</button></td>}
                             <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>{t('download')}</button></td>
