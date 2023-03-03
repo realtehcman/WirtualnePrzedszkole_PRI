@@ -41,7 +41,6 @@ deploy_job:
   stage: deploy
   script:
     - make deploy
-  when: manual
 
 deploy:
   stage: deploy
