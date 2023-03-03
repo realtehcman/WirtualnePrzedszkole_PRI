@@ -149,8 +149,8 @@ const FolderOther = (props) => {
                         <td>{t('file')}</td>
                         <td>{t('date')}</td>
                         <td>{t('description')}</td>
-                        <td>{t('download')}</td>
-                        <td>{t('delete')}</td>
+                        {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") && <td>{t('download')}</td>}
+                        {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&   <td>{t('delete')}</td>}
                     </tr>
                 </thead>
                 <tbody className="body table-body">
