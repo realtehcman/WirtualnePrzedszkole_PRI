@@ -121,12 +121,12 @@ html{
     border-radius: 5px;
     overflow: hidden;
     object-fit: cover;
-    max-height: 300px; /* Decreased max-height value */
+    max-height: 300px; /* Decreased max-height value /
     padding: 0;
     margin: 0;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
-    flex-basis: calc(33.33% - 15px);
+    flex-basis: calc(100vw / 3 - 15px); / added CSS rule to make the flex-basis dependent on the viewport */
     margin-bottom: 15px;
 
     &:hover {
@@ -138,7 +138,7 @@ html{
         display: block;
         width: 100%;
         object-fit: cover;
-        max-height: 300px; /* Decreased max-height value */
+        max-height: 300px;
     }
 
     button {
@@ -158,31 +158,31 @@ html{
     .icon {
         color: #fff;
         font-size: 24px;
-    }
-}
+    }}
 
 @media screen and (min-width: 768px) {
     .gallery_img {
-        flex-basis: calc(50% - 15px);
+        flex-basis: calc(100vw / 2 - 15px);
     }
 
     .gallery_img img {
-        max-height: 300px; /* Decreased max-height value */
+        max-height: 300px;
     }
 }
 
 @media screen and (min-width: 992px) {
     .gallery_img {
-        flex-basis: calc(33.33% - 15px);
+        flex-basis: calc(100vw / 4 - 15px);
     }
 
     .gallery_img img {
-        max-height: 400px; /* Adjusted max-height value */
+        max-height: 400px;
     }
+
 }
 
 @media screen and (min-width: 1200px) {
     .gallery_img {
-        flex-basis: calc(25% - 15px);
+        flex-basis: calc(100vw / 5 - 15px);
     }
 }

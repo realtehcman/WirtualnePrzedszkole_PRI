@@ -27,15 +27,9 @@ const ViewGallery = () => {
     const [photosPerPage] = useState(12);
 
     const totalPages = Math.ceil(photos.length / photosPerPage);
-
-
     const indexOfLastPhoto = currentPage * photosPerPage;
-
-
     const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
-
     const currentPhotos = photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
-
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const [newFile, setNewFile] = useState(
@@ -171,7 +165,21 @@ const ViewGallery = () => {
     return (
         <div> <ToastContainer />
             {/* {photos} */}
-            <h1>{folderName}</h1>
+            <h1>{folderName}</h1>    {(current_user.role === "ADMIN" ||  current_user.role === "TEACHER")  &&
+                <div className='d-flex align-items-center justify-content-end custom_postion'>
+                    <button
+                        onClick={() => setAddPhotoPopup(true)}
+                        className="btn btn-info"
+                    >
+                        {t('add_photos')}
+                    </button>
+                    <button
+                        onClick={() => downloadFolder(folderName)}
+                        className="btn btn-info"
+                    >
+                        {t('download_all')}
+                    </button>
+                </div>}
             <div className='gallery_container'>
                 <div className="gallery_container">
                     {getCurrentPagePhotos().map((photo) => (
@@ -187,6 +195,8 @@ const ViewGallery = () => {
                     )}
                 </div>
             </div>
+
+
 
             <div className="delete_photo_popup">
                 <Popup trigger={deletePhotoPopup.isPop} setTrigger={setDeletePhotoPopup}>
@@ -223,25 +233,11 @@ const ViewGallery = () => {
                 </Popup>
             </div>
 
-            {(current_user.role === "ADMIN" ||  current_user.role === "TEACHER")  &&
-                <div className='d-flex align-items-center justify-content-end custom_postion'>
-                    <button
-                        onClick={() => setAddPhotoPopup(true)}
-                        className="btn btn-info"
-                    >
-                        {t('add_photos')}
-                    </button>
-                </div>}
 
 
-            <div className='d-flex align-items-center justify-content-end custom_postion'>
-                <button
-                    onClick={() => downloadFolder(folderName)}
-                    className="btn btn-info"
-                >
-                    {t('download_all')}
-                </button>
-            </div><div className='d-flex justify-content-center'>Strony: {currentPage}/{totalPages}</div>
+
+            <div className='d-flex justify-content-center'>Strony: {currentPage}/{totalPages}</div>
+
             <div className='d-flex justify-content-center'>
                 <button
                     className='btn btn-info'
@@ -259,6 +255,7 @@ const ViewGallery = () => {
                 </button>
             </div>
         </div>
+
     );
 
 }

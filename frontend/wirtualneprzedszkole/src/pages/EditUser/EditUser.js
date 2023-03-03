@@ -2,6 +2,10 @@ import UserService from "../User/UserService";
 import {useParams} from "react-router-dom";
 import React, { useEffect, useState }from 'react'
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 
 const EditUser = () => {
@@ -28,7 +32,7 @@ const EditUser = () => {
     });
 
     let {id} = useParams()
-    
+
     useEffect(() => {
         const getData = async () => {
         // const response = UserService.getUser(id)
@@ -55,12 +59,21 @@ const EditUser = () => {
         if (userEdit.address === "") userEdit.address = user.address
         if (userEdit.opis === "") userEdit.opis = user.opis
         console.log(userEdit)
-        UserService.editUser(userEdit)
+        UserService.editUser(userEdit).then(() => {
+            toast.success(t('success_data_edition'));
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }).catch((error) => {
+            console.log(error);
+        });
     }
+
 
 
     return (
         <div data-testid="edit-user">
+            <ToastContainer />
             <form>
                 <div className="row">
                     <div className="col-md-6 col-12 mb-3">
