@@ -132,7 +132,7 @@ class UserComponent extends React.Component {
               
             </tr>
             </thead>
-            <tbody className="body table-body">
+            <tbody className="body">
             {filteredusers.map((user) =>(
                 <tr key={user.id}>
                   <td id="td--users">
