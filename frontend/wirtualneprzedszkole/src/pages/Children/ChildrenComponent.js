@@ -1,37 +1,46 @@
-//TODO add localiztion to this component
 import React from "react";
 import ChildrenService from "./ChildrenService";
 import "../User/Table.scss";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
+import {useContext} from "react";
+import UserContext from "../../components/sidebar/UserContext";
 
+const { t } = i18next;
 
 const Navi = (props) => {
+  const { t } = i18next;
+
   const navigate = useNavigate();
   return (
       <button
           onClick={() => navigate("/child/" + props.value)}
           className="btn btn-info"
       >
-        Zobacz
+        {t('look')}
       </button>
   );
 };
 
 const Navi2 = (props) => {
+  const { t } = i18next;
+
   const navigate = useNavigate();
   return (
       <button
           onClick={() => navigate("/EditChild/" + props.value)}
           className="btn btn-info"
       >
-        edytuj
+        {t('edit_data')}
       </button>
   );
 };
 
 class ChildrenComponent extends React.Component {
+    static contextType = UserContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -54,14 +63,14 @@ class ChildrenComponent extends React.Component {
   deleteChild(id) {
     let childName = this.state.children.find(child => child.id === id).name;
     let childlastName = this.state.children.find(child => child.id === id).lastName;
-    if(window.confirm(`Czy na pewno chcesz usunąć użytkownika: ${childName} ${childlastName}  ?`)) {
+      if (window.confirm(t("confirm_user_deletion") +" " + childName + " " + childlastName + " ?")) {
       ChildrenService.deleteChild(id).then((response) => {
         this.setState({
           children: this.state.children.filter((child) => child.id !== id),
         });
-        toast.success("Pomyślnie usunięto dziecko " + childName + " " + childlastName);
+        toast.success(t("success_child_deletion") + " " + childName + " " + childlastName);
       }).catch(() => {
-        toast.error("Wystąpił błąd podczas usuwania dziecka " + childName + " " + childlastName);
+        toast.error(t("error_child_deletion") + " " + childName + " " + childlastName);
       });
     }
   }
@@ -76,6 +85,8 @@ class ChildrenComponent extends React.Component {
   }
 
   render() {
+    const { t } = i18next;
+
     let filteredchildren = this.state.children.filter((child) =>
         child.name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
         child.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
@@ -83,14 +94,14 @@ class ChildrenComponent extends React.Component {
         (child.name.toLowerCase() + " " + child.lastName.toLowerCase()).includes(this.state.searchTerm.toLowerCase())
     );
 
-
+      const current_user = this.context;
     return (
         <div data-testid="children-component" className="scrollable-div1">
 
           <div className="abc">
             <input
                 type="text"
-                placeholder="Wyszukaj.."
+                placeholder={t('search')}
                 onChange={this.handleSearch}
             />
 
@@ -102,10 +113,10 @@ class ChildrenComponent extends React.Component {
             <thead>
             <tr className="table-head">
 
-              <td>Imię</td>
-              <td>Nazwisko</td>
-              <td>Grupa</td>
-              <td>Akcje</td>
+                <td>{t('name')}</td>
+                <td>{t('last_name')}</td>
+                <td>{t('group')}</td>
+                <td>{t('actions')}</td>
             </tr>
             </thead>
             <tbody className="body">
@@ -119,15 +130,17 @@ class ChildrenComponent extends React.Component {
                     <Navi value={child.id} />
 
 
+                      {current_user.role === "ADMIN" &&
 
-                    <Navi2 value={child.id} />
+                    <Navi2 value={child.id} />}
 
-                    <button
+                      {current_user.role === "ADMIN" &&    <button
                         onClick={() => this.deleteChild(child.id)}
                         className="btn btn-danger"
                     >
-                      Usuń
-                    </button>
+                      {i18next.t('delete')}
+
+                    </button>}
 
 
 
@@ -142,4 +155,4 @@ class ChildrenComponent extends React.Component {
   }
 }
 
-export default ChildrenComponent;
+export default withTranslation()(ChildrenComponent);

@@ -19,7 +19,6 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class UserManagementService {
-    public static final int PAGE_SIZE = 15;
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
     private final RandomPasswordGenerator randomPasswordGenerator;
@@ -33,12 +32,12 @@ public class UserManagementService {
         return userRepo.findById(id).orElseThrow();
     }
 
-    public List<User> getUserByLastName(String lastName, int page) {
-        return userRepo.findAllByLastName(lastName, PageRequest.of(page, PAGE_SIZE));
+    public List<User> getUserByLastName(String lastName) {
+        return userRepo.findAllByLastName(lastName);
     }
 
-    public List<User> getAllUser(int page) {
-        return userRepo.findAllUsers(PageRequest.of(page, PAGE_SIZE));
+    public List<User> getAllUser() {
+        return userRepo.findAllUsers();
     }
 
     public User addUser(User user) {
@@ -113,8 +112,8 @@ public class UserManagementService {
         return userRepo.findUsersByChildrenIdIn(childrenIds);
     }
 
-    public List<User> getAllTeachers(int pageNumber) {
-        return userRepo.findAllTeachers(PageRequest.of(pageNumber, PAGE_SIZE));
+    public List<User> getAllTeachers() {
+        return userRepo.findAllTeachers();
     }
 
     @Transactional

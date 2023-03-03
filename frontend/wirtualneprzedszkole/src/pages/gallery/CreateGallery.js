@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import GalleryService from "../gallery/GalleryService";
 import "../CreateUser/CreateUser.scss";
+import i18next from 'i18next';
+import { withTranslation } from "react-i18next";
+const { t } = i18next;
 
 class CreateGallery extends Component {
 
@@ -42,6 +45,8 @@ class CreateGallery extends Component {
 
 
     render() {
+      const { t } = i18next;
+
         return (
             <div className="formContainer">
                 <div className="row">
@@ -52,8 +57,8 @@ class CreateGallery extends Component {
                             } }>
                                 <div className="form-group">
                                     <input
-                                        placeholder="Grupa"
-                                        name="Opis"
+                                        placeholder={t('group')}
+                                        name={t('description')}
                                         required
                                         type="text"
                                         value={this.state.folder}
@@ -72,7 +77,7 @@ class CreateGallery extends Component {
 
                                 </div>
                                 <div className="form-but">
-                                    <button className="button2">Zapisz</button>
+                                    <button className="button2">{t('save')}</button>
                                 </div>
                             </form>
                         </div>
@@ -83,4 +88,4 @@ class CreateGallery extends Component {
     }
 }
 
-export default CreateGallery;
+export default withTranslation()(CreateGallery);

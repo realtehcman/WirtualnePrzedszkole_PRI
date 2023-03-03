@@ -10,6 +10,7 @@ import {useNavigate, Link} from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import RateReviewIcon from "@mui/icons-material/RateReview";
+import FolderIcon from '@mui/icons-material/Folder';
 import "./sidebar.scss";
 import * as FaIcons from "react-icons/fa";
 // import MediaQuery from "react-responsive";
@@ -153,7 +154,13 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/Galeria"}>
+                        <Link to={"/ClassFolders"}>
+                            <FolderIcon className="icon" />
+                            <span>{t('otherFiles')}</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={"/Gallery"}>
                             <CollectionsIcon className="icon" />
                             <span>{t('gallery')}</span>
                         </Link>

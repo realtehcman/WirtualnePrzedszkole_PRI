@@ -3,9 +3,11 @@ import {useNavigate} from "react-router-dom";
 import FolderService from './FolderService'
 import '../CreateUser/CreateUser.scss'
 import './AddFolder.scss'
+import { useTranslation } from "react-i18next";
 import FileService from "../gallery/FileService"
 
 const AddFolder = (props) => {
+    const { t } = useTranslation();
     const navigate = useNavigate()
     const [newFolder, setNewFolder] = useState(
         {
@@ -51,14 +53,14 @@ const AddFolder = (props) => {
                     <div className='form-body'>
                         <form onSubmit={addFolder} encType='multipart/form-data'>
                             <div className='form-group'>
-                                <input placeholder='Nazwa Folderu' name="Nazwa Folderu" className='"form-control' 
+                                <input placeholder={t('folder_name')} name="Nazwa Folderu" className='"form-control' 
                                 onChange={e => setNewFolder({name: e.target.value})}/>
                             </div>
                             <div className="uploadDiv2">
                                     <div className="input25">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                             </div>
-                            <div className="form-but">
-                                    <button className="button">Zapisz</button>
+                            <div className="form-but-add-folder">
+                                    <button className="button add-folder">{t('save')}</button>
                             </div>
                         </form>
                     </div>

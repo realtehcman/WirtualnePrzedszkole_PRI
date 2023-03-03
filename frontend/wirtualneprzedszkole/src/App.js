@@ -37,6 +37,7 @@ import FolderOtherNavi from './pages/Folders/FolderOtherNavi';
 import AssignTeacherNavi from './pages/GroupDisplay/AssignTeacherNavi';
 import {useEffect} from "react";
 import CurrentUserService from "./pages/Home/CurrentUserService";
+import ClassFolderNavi from './pages/Folders/ClassFolderNavi';
 
 function App() {
   const [navVisible] = useState(false);
@@ -139,6 +140,9 @@ function App() {
           </Route>
           <Route path='/Gallery' element={<PrivateOutlet />}>
             <Route index element={<GalleryNavi/>}></Route>
+          </Route>
+          <Route path='/ClassFolders' element={<PrivateOutlet />}>
+            <Route index element={<ClassFolderNavi/>}></Route>
           </Route>
           <Route path="/StatusMessage/:id" element={<PrivateOutlet />}>
             <Route index element={<StatusMessageNavi />}></Route>

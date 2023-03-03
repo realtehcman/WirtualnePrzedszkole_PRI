@@ -9,8 +9,12 @@ import HeightIcon from '@mui/icons-material/Height';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import currentUserService from "../Home/CurrentUserService";
+import i18next from 'i18next';
+import { withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const Knowledge = () => {
+    const { t } = useTranslation();
 
     const [filesInfo, setFilesInfo] = useState([
         {
@@ -121,37 +125,37 @@ const Knowledge = () => {
                         file.dateAdded = (new Date(file.dateAdded)).toISOString().split('T')[0]
                 })
                 setFilesInfo(filesInfo => [...filesInfo, ...responseFiles])
-                toast.success("Pliki zostały pomyślnie dodane");
+                toast.success(t("success_file_addition"));
             }
         } catch (error) {
-            toast.error("Wystąpił błąd podczas dodawania plików");
+            toast.error(t("Wystąpił błąd podczas dodawania plików"));
         }
     }
 
     const deleteFile = async (file) => {
-        const confirm = window.confirm("Czy na pewno chcesz usunąć plik: " + file.name);
+        const confirm = window.confirm(t("confirm_file_deletion") + " " + file.name);
         if (confirm) {
             FileService.deleteFile(KNOWLEDGE_ID, file.hash)
                 .then((response) => {
                     setFilesInfo(filesInfo.filter((refreshFile) => file.id !== refreshFile.id));
-                    toast.success("Plik " + file.name + " został pomyślnie usunięty!");
+                    toast.success(t("file") + " " + file.name + " " + t("success_file_deletion"));
                 })
                 .catch(error => {
-                    toast.error("Wystąpił błąd podczas usuwania pliku!");
+                    toast.error(t("error_file_deletion"));
                 });
         }
     }
 
     const deleteAllFiles = async () => {
-        const confirm = window.confirm("Czy na pewno chcesz usunąć wszystkie pliki?");
+        const confirm = window.confirm(t("confirm_all_files_deletion"));
         if (confirm) {
             FileService.deleteAllFiles(KNOWLEDGE_ID)
                 .then((response) => {
                     setFilesInfo([]);
-                    toast.success("Pliki zostały pomyślnie usunięte!");
+                    toast.success(t('success_multiple_files_deletion'));
                 })
                 .catch(error => {
-                    toast.error("Wystąpił błąd podczas usuwania plików!");
+                    toast.error(t('error_multiple_files_deletion'));
                 });
         }
     }
@@ -187,6 +191,7 @@ const Knowledge = () => {
 
 
     return (
+
         <div data-testid="knowledge"
              className="scrollable-div">
             <ToastContainer />
@@ -202,17 +207,17 @@ const Knowledge = () => {
                     <tr className="table-head">
                         <td>
                             <SortIcon className="icon" onClick={handleSortByName}/>
-                            <span className="text">Plik</span>
+                            <span className="text">{t('file')}</span>
                         </td>
 
                         <td className="icon-text">
                             <HeightIcon className="icon" onClick={handleSortByDate}/>
-                            <span className="text">Data</span>
+                            <span className="text">{t('date')}</span>
                         </td>
 
-                        {currentUser.role === "ADMIN" && <td>Opis</td>}
-                        <td>Pobierz</td>
-                        {currentUser.role === "ADMIN" && <td>Usuń</td>}
+                        {currentUser.role === "ADMIN" && <td>{t('description')}</td>}
+                        <td>{t('download')}</td>
+                        {currentUser.role === "ADMIN" && <td>{i18next.t('delete')}</td>}
                     </tr>
                 </thead>
                 <tbody className="body table-body">
@@ -221,9 +226,9 @@ const Knowledge = () => {
                     <tr key = {file.id}>
                             <td id="tooltip">{file.name}</td><td id="hiddenText">{displayHiddentText(file.description)}</td>
                             <td>{checkDataIsNull(file.dateAdded)}</td>
-                        {currentUser.role === "ADMIN" &&    <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>Edytuj</button></td>}
-                            <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>Pobierz</button></td>
-                        {currentUser.role === "ADMIN" && <td><button onClick={() => deleteFile(file)} className="btn btn-danger">Usuń</button></td>}
+                        {currentUser.role === "ADMIN" &&    <td><button type="button" className='btn btn-info' onClick={() => setButtonPopup({isPop: true, fileId: file.id, description: file.description})}>{t('edit')}</button></td>}
+                            <td><button size="lg" className="btn btn-primary" onClick={() => printFiles(file)}>{t('download')}</button></td>
+                        {currentUser.role === "ADMIN" && <td><button onClick={() => deleteFile(file)} className="btn btn-danger">{i18next.t('delete')}</button></td>}
 
                         </tr>
                     ))}
@@ -235,12 +240,12 @@ const Knowledge = () => {
                 <form onSubmit={handleSubmit} encType='multipart/form-data'>
                  <div className="input23">   <input type="file" className="form-control" id="customFile" name='file' multiple/></div>
                     <p></p>
-                    <button type="submit" className="btn btn-primary"> Wyślij</button>
+                    <button type="submit" className="btn btn-primary"> {t('send')}</button>
                 </form>
             </div>}
 
             <div className="deleteAll">
-                {currentUser.role === "ADMIN" && <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">Usuń wszystkie pliki</button>}
+                {currentUser.role === "ADMIN" && <button onClick={() => deleteAllFiles()} className="btn btn-danger btn-lg">{i18next.t('delete_all_files')}</button>}
             </div>
 
         </div>

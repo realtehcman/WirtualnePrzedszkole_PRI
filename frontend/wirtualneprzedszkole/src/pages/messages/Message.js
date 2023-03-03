@@ -6,15 +6,21 @@ import "../User/Table.scss";
 import SentMessageService from "./SentMessageService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { withTranslation } from "react-i18next";
+import i18next from 'i18next';
+const { t } = i18next;
 
 const Navi = (props) => {
+  const { t } = i18next;
+
   const navigate = useNavigate();
   return (
     <button
       onClick={() => navigate("/ReadMessage/" + props.value)}
       className="btn btn-info"
     >
-      Zobacz
+            {t('look')}
+
     </button>
   );
 };
@@ -31,18 +37,18 @@ class Message extends React.Component {
 
   deleteReceivedMessages(id) {
     let groupName = this.state.received_messages.find(sent_messages => sent_messages.id === id);
-    if(window.confirm("Czy na pewno chcesz usunąć tą wiadomość ?")) {
+    if(window.confirm(t("confirm_msg_deletion?"))) {
       MessageService.deleteReceivedMessages(id)
           .then((response) => {
             this.setState({
               received_messages: this.state.received_messages.filter((received_messages) => received_messages.id !== id),
             });
-            toast.success("Wiadomość została usunięta", {
+            toast.success(t("success_message_deletion"), {
               position: toast.POSITION.TOP_RIGHT
             });
           })
           .catch(error => {
-            toast.error("Wystąpił błąd podczas usuwania grupy" + groupName + ".", {
+            toast.error(t("error_group_deletion") + " " + groupName + ".", {
               position: toast.POSITION.TOP_RIGHT
             });
           });
@@ -61,17 +67,19 @@ class Message extends React.Component {
   }
 
   render() {
+    const { t } = i18next;
+
     return (
       <div data-testid="message" className="scrollable-div">
         <ToastContainer />
         <table className="content-table">
           <thead>
             <tr className="table-head">
-              <td>Data</td>
-              <td>Od:</td>
-              <td>Temat:</td>
-              <td>Treść</td>
-              <td>Akcje</td>
+              <td>{t('date')}</td>
+              <td>{t('from')}</td>
+              <td>{t('topic')}</td>
+              <td>{t('contents')}</td>
+              <td>{t('actions')}</td>
             </tr>
           </thead>
           <tbody>
@@ -87,14 +95,15 @@ class Message extends React.Component {
                         {" "}
                         <Navi value={received_messages.id} />
                       </td>
-                      <td className="foobar">
+                      <td className="foobar" id="td--message">
                         <button
                             onClick={() =>
                                 this.deleteReceivedMessages(received_messages.id)
                             }
                             className="btn btn-danger"
                         >
-                          Usuń
+                          {i18next.t('delete')}
+
                         </button>
                       </td>
                     </tr>
@@ -106,4 +115,4 @@ class Message extends React.Component {
     );
   }
 }
-export default Message;
+export default withTranslation()(Message);

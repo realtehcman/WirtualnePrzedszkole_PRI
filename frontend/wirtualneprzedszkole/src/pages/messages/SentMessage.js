@@ -5,8 +5,12 @@ import "../User/Table.scss";
 import SentMessageService from "./SentMessageService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import i18next from 'i18next';
+import { withTranslation } from "react-i18next";
+const { t } = i18next;
 
 const Navi2 = (props) => {
+  const { t } = i18next;
   const navigate = useNavigate();
   return (
       <button
@@ -15,19 +19,21 @@ const Navi2 = (props) => {
           }
           className="btn btn-info"
       >
-        Status
+        {t('status')}
+
       </button>
   );
 };
 
 const Navi = (props) => {
+  const { t } = i18next;
   const navigate = useNavigate();
   return (
       <button
           onClick={() => navigate("/ViewMessage/" + props.value)}
           className="btn btn-info"
       >
-        Wyświetl
+            {t('view')}
       </button>
   );
 };
@@ -62,18 +68,18 @@ class SentMessage extends React.Component {
 
   deleteSentMessages(id) {
     let groupName = this.state.sent_messages.find(sent_messages => sent_messages.id === id);
-    if(window.confirm("Czy na pewno chcesz usunąć tą wiadomość ?")) {
+    if(window.confirm(t("confirm_msg_deletion"))) {
       SentMessageService.deleteSentMessages(id)
           .then((response) => {
             this.setState({
               sent_messages: this.state.sent_messages.filter((sent_messages) => sent_messages.id !== id),
             });
-            toast.success("Wiadomość została usunięta", {
+              toast.success(t('success_message_deletion'), {
               position: toast.POSITION.TOP_RIGHT
             });
           })
           .catch(error => {
-            toast.error("Wystąpił błąd podczas usuwania grupy" + groupName + ".", {
+            toast.error(t("error_group_deletion") + " " + groupName + ".", {
               position: toast.POSITION.TOP_RIGHT
             });
           });
@@ -99,6 +105,8 @@ class SentMessage extends React.Component {
   }
 
   render() {
+    const { t } = i18next;
+
     if (this.state.error) {
 
       return <h1>403 - Nie masz uprawnień, aby uzyskać dostęp do tej strony</h1>;
@@ -110,11 +118,11 @@ class SentMessage extends React.Component {
         <table className="content-table">
           <thead>
             <tr className="table-head">
-              <td>Data</td>
-              <td>Autor</td>
-              <td>Temat</td>
-              <td>Treść</td>
-              <td>Akcje</td>
+              <td>{t('date')}</td>
+              <td>{t('author')}</td>
+              <td>{t('topic')}</td>
+              <td>{t('contents')}</td>
+              <td>{t('actions')}</td>
             </tr>
           </thead>
           <tbody>
@@ -127,12 +135,12 @@ class SentMessage extends React.Component {
                   <Navi value={sent_messages.id} />
                   <Navi2 value={sent_messages.id} />
                 </td>
-                <td className="foobar">
+                <td className="foobar" id="td--message">
                   <button
                     onClick={() => this.deleteSentMessages(sent_messages.id)}
                     className="btn btn-danger"
                   >
-                    Usuń
+                  {t('delete')}
                   </button>
                 </td>
               </tr>
@@ -143,4 +151,4 @@ class SentMessage extends React.Component {
     );
   }
 }
-export default SentMessage;
+export default withTranslation()(SentMessage);

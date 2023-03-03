@@ -36,17 +36,18 @@ const EditCurrentUser = (props) => {
         CurrentUserService.editCurrentUser(userEdit)
             .then((response) => {
                 if (response.status === 200) {
-                    toast.success("Dane zostały zmienione poprawnie");
+                    toast.success(t("success_data_modification"));
                     setTimeout(() => {
+                        console.log('window reload from updateData')
                         window.location.reload();
-                    }, 10700);
+                    }, 1700);
 
                 } else {
-                    toast.error("Wystąpił błąd podczas edycji, upewnij się że dane zostały wprowadzone poprawnie");
+                    toast.error(t("general_error"));
                 }
             })
             .catch(error => {
-                toast.error("Wystąpił błąd podczas edycji, upewnij się że dane zostały wprowadzone poprawnie");
+                    toast.error(t("general_error"));
             });
     }
     return (
@@ -59,7 +60,7 @@ const EditCurrentUser = (props) => {
                 <input placeholder={current_user.phoneNumber} onChange={(e) => setUserEdit({...userEdit,phoneNumber : e.target.value})}/><br></br>
                 <label>{t('description')}:</label><br></br>
                 <input placeholder={current_user.opis} onChange={(e) => setUserEdit({...userEdit,opis : e.target.value})}/><br></br>
-                <button onClick={updateData} className='btn btn-danger'>Zapisz</button>
+                <button onClick={updateData} className='btn btn-danger'>{t('save')}</button>
             </form>
         </div>
     )

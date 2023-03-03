@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import messageService from "./MessageService";
 import "../User/Table.scss";
+import { useTranslation } from "react-i18next";
 
 const ViewMessage = () => {
+    const { t } = useTranslation();
     const [message, setMessage] = useState({
         id: "",
         author: "",
@@ -44,7 +46,7 @@ const ViewMessage = () => {
             <table className="table table-responsive">
                 <thead>
                 <tr className="table-head">
-                    <td className="text-center">Treść</td>
+                    <td className="text-center">{t('contents')}</td>
                 </tr>
                 </thead>
                 <tbody className="body">

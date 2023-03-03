@@ -68,7 +68,7 @@ const CurrentUser = () => {
             });
         }
         getData()
-        // eslint-disable-next-line
+
     }, [id])
 
     const[buttonPopup, setButtonPopup] = useState(false);
@@ -135,7 +135,7 @@ const CurrentUser = () => {
                                             };
                                             input.click();
                                         }}
-                                        title="Zmień zdjęcie"
+                                        title={t('update_profile_picture')}
                                     />
                                 </div>
                                 <div className="button-container">
@@ -191,14 +191,14 @@ const CurrentUser = () => {
                                         <p className="labels mb-0">{current_user.address}</p>
                                     </div>
                                 </div>
-                                <div className='row mb-2'>
+                                {(current_user.role === "ADMIN" || current_user.role === "TEACHER")  &&   <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
                                         <label className="fw-bold">{t('role')}:</label>
                                     </div>
                                     <div className='col-md-9 col-12'>
                                         <p className="labels mb-0">{current_user.role}</p>
                                     </div>
-                                </div>
+                                </div>}
                                 <div className='row mb-2'>
                                     <div className='col-md-3 col-12'>
                                         <label className="fw-bold">{t('description')}</label>
@@ -249,10 +249,8 @@ const CurrentUser = () => {
                                     {current_user.children.map((child) => (
                                         <tr key={child.id}>
 
-                                            <td id="td--currentuser" className="clickable"
-                                                onClick={() => navigate("/child/" + child.id)}>{child.name}</td>
-                                            <td id="td--currentuser" className="clickable"
-                                                onClick={() => navigate("/child/" + child.id)}>{child.className}</td>
+                                            <td id="td--currentuser">{child.name}</td>
+                                            <td id="td--currentuser">{child.className}</td>
                                         </tr>
                                     ))}
                                     </tbody>

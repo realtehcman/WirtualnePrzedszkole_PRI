@@ -14,8 +14,8 @@ import java.util.Set;
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
     @Query("Select u From User u")
-    List<User> findAllUsers(Pageable page);
-    List<User> findAllByLastName(String lastName, Pageable page);
+    List<User> findAllUsers();
+    List<User> findAllByLastName(String lastName);
     Boolean existsByEmail(String email);
     Optional<User> findByEmail(String email);
 
@@ -26,7 +26,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     Set<User> findUsersByChildrenIdIn(List<Long> childrenIds);
 
     @Query("select t from User t where t.role = 'TEACHER' ")
-    List<User> findAllTeachers(Pageable page);
+    List<User> findAllTeachers();
 
     @Query("select u from User u where u.role = :userRole")
     List<User> findAllByRole(UserRole userRole);

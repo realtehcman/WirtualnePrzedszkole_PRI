@@ -1,3 +1,5 @@
+@import "/src/utilities/_variables.scss";
+
 .show-table {
   border-collapse: collapse;
   font-size: 20px;
@@ -54,8 +56,20 @@
   float: right;
   max-width: 16%;
   margin-right: 5%;
+
+  @media (max-width: $phoneMaxWidth) {
+    margin-right: 4em;
+  }
 }
 
 .div-buttons {
   width: 100%;
+    @media (max-width: $phoneMaxWidth) {
+    margin-top: 1em;
+
+    button{
+      size: 20em;
+      margin-top: 0.5em;
+    }
+  }
 }

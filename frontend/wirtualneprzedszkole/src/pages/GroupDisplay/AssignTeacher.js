@@ -7,11 +7,11 @@ import { useTranslation } from "react-i18next";
 const AssignTeacher = (props) => {
   const {t} = useTranslation();
 
-    const [teachers, setTeachers] = useState([
-        {
+    const [teachers, setTeachers] = useState([]);
 
-        }
-    ])
+    useEffect(() => {
+        getTeachers().then(r => console.log(r));
+    },[]);
 
     let {id} = props.value
 
@@ -19,6 +19,15 @@ const AssignTeacher = (props) => {
         getTeachers().then(r => console.log(r));
     },[])
 
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    }
+
+    const filteredteacher = teachers.filter(teacher =>
+        (teacher.name.toLowerCase() + ' ' + teacher.lastName.toLowerCase()).includes(searchTerm.toLowerCase())
+    );
 
     const getTeachers = async() => {
         UserService.getTeachers().then((response) => {
@@ -37,6 +46,11 @@ const AssignTeacher = (props) => {
 
     return (
         <div className="scrollable-div">
+            <div className="abc">
+                <form>
+                    <input type="text" placeholder="szukaj" onChange={handleSearch} />
+                </form>
+            </div>
           <table className="content-table">
             <thead>
               <tr className="table-head">
@@ -47,12 +61,12 @@ const AssignTeacher = (props) => {
               </tr>
             </thead>
             <tbody className="body table-body">
-              {teachers.map((teacher) => (
+              {filteredteacher.map((teacher) => (
                 <tr key={teacher.id}>
-                  <td>{teacher.name}</td>
-                  <td>{teacher.lastName}</td>
-                  <td>{teacher.email}</td>
-                  <td>
+                  <td id="td--assignteacher">{teacher.name}</td>
+                  <td id="td--assignteacher">{teacher.lastName}</td>
+                  <td id="td--assignteacher">{teacher.email}</td>
+                  <td id="td--assignteacher">
                       <button
                       onClick={() => assignToClass(teacher)}
                       className="btn btn-danger"
