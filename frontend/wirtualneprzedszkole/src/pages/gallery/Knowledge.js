@@ -3,7 +3,7 @@ import "../gallery/Knowledge.scss";
 import React, {useEffect, useState} from 'react'
 import saveAs from 'file-saver'
 import EditFile from "./EditFile";
-import Popup from "../GroupDisplay/Popup";
+import Popup_user from "../Home/Popup_user";
 import SortIcon from '@mui/icons-material/Sort';
 import HeightIcon from '@mui/icons-material/Height';
 import { ToastContainer, toast } from "react-toastify";
@@ -226,7 +226,7 @@ const Knowledge = () => {
 
                         </tr>
                     ))}
-                    <Popup trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup>
+                    <Popup_user trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup_user>
                 </tbody>
             </table>
             <br />

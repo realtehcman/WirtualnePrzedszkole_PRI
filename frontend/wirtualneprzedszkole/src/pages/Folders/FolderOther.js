@@ -1,6 +1,6 @@
 import FileService from "../gallery/FileService"
 import "../gallery/Knowledge.scss"
-import Popup from "../GroupDisplay/Popup";
+import Popup_user from "../Home/Popup_user";
 import React, {useEffect, useState} from 'react'
 import saveAs from 'file-saver'
 import EditFile from "../gallery/EditFile";
@@ -136,7 +136,7 @@ const FolderOther = (props) => {
                             {(currentUser.role === "ADMIN" || currentUser.role === "TEACHER") &&    <td><button onClick={() => deleteFile(file)} className="btn btn-danger">{t('delete')}</button></td>}
                         </tr>
                     ))}
-                    <Popup trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup>
+                    <Popup_user trigger={buttonPopup.isPop} setTrigger={setButtonPopup}><EditFile  {...buttonPopup}/></Popup_user>
                 </tbody>
             </table>
             <br />
