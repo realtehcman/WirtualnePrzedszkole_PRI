@@ -13,4 +13,6 @@ a.	npm install -f
 b.	npm start
 4.	open localhost:4200
 
-*live application is available at https://przedszkole.projektstudencki.pl/*
+*live application is available at https://przedszkole.projektstudencki.pl/*  
+![alt text](https://github.com/realtehcman/WirtualnePrzedszkole_PRI/blob/master/dokumenty/Zrzut%20ekranu%202023-03-05%20211053.png)  
+![alt text](https://github.com/realtehcman/WirtualnePrzedszkole_PRI/blob/master/dokumenty/Zrzut%20ekranu%202023-03-05%20211136.png)
